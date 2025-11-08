@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali - Games, Cartoons, Movies & More</title>
+
+<!-- SEO meta tags -->
+<meta name="description" content="Explore Eyad Nintendo Ali website with games, cartoons, movies, and more!">
+<meta name="keywords" content="Eyad Nintendo Ali, games, cartoons, movies, play online, YouTube">
+<meta name="author" content="Eyad Nintendo Ali">
+
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+
 <style>
 body {
   margin: 0;
@@ -13,7 +20,7 @@ body {
   overflow: hidden;
 }
 
-/* Intro Stage */
+/* Intro (Mario + Luigi + Welcome) */
 #intro {
   position: fixed;
   top: 0; left: 0;
@@ -26,19 +33,25 @@ body {
   gap: 50px;
   z-index: 9999;
 }
+
 #intro img {
   width: 200px;
   transition: opacity 1s ease;
 }
+
 #intro h1 {
   font-size: 32px;
   color: #e60012;
   text-align: center;
   animation: fadeInOut 2s ease infinite alternate;
 }
-@keyframes fadeInOut { 0% {opacity: 1;} 100% {opacity: 0.3;} }
 
-/* Loading Video Stage */
+@keyframes fadeInOut {
+  0% {opacity: 1;}
+  100% {opacity: 0.3;}
+}
+
+/* Loading video */
 #loadingVideo {
   position: fixed;
   top: 0; left: 0;
@@ -50,20 +63,27 @@ body {
   flex-direction: column;
   z-index: 9998;
 }
+
 #loadingVideo video {
   width: 60%;
   border-radius: 10px;
 }
+
 #loadingVideo h2 {
   color: white;
   margin-top: 20px;
   font-size: 24px;
   animation: blink 1.2s infinite;
 }
-@keyframes blink { 50% {opacity: 0.5;} }
+
+@keyframes blink {
+  50% {opacity: 0.5;}
+}
 
 /* Website hidden at start */
-#site { display: none; }
+#site {
+  display: none;
+}
 
 /* Main site styles */
 header {
@@ -75,9 +95,20 @@ header {
   color: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
-.logo a { color: white; text-decoration: none; }
-nav { display: flex; align-items: center; gap: 15px; }
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 button {
   background-color: white;
   color: #e60012;
@@ -91,8 +122,13 @@ button {
   align-items: center;
   gap: 6px;
 }
-button:hover { background-color: #ffe5e5; }
-.dropdown { position: relative; display: inline-block; }
+button:hover {
+  background-color: #ffe5e5;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 .dropdown-content {
   display: none;
   position: absolute;
@@ -109,19 +145,22 @@ button:hover { background-color: #ffe5e5; }
   text-decoration: none;
   font-weight: bold;
 }
-.dropdown-content a:hover { background-color: #ffe5e5; }
-.dropdown:hover .dropdown-content { display: block; }
-.youtube-btn { display: flex; align-items: center; gap: 6px; }
-
-/* Game/Cartoon thumbnails */
-.wrap { max-width: 1000px; margin: 40px auto; padding: 0 16px; display: flex; gap: 24px; flex-wrap: wrap; }
-.wrap div { flex: 1 1 300px; border: 1px solid #ccc; padding: 10px; text-align: center; border-radius: 8px; }
-.wrap img { width: 100%; border-radius: 6px; }
+.dropdown-content a:hover {
+  background-color: #ffe5e5;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.youtube-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 </style>
 </head>
 <body>
 
-<!-- Intro -->
+<!-- Intro (Mario + Luigi + Welcome) -->
 <div id="intro">
   <img src="mario.png" alt="Mario">
   <h1>Welcome to Eyad Nintendo Ali /</h1>
@@ -154,44 +193,31 @@ button:hover { background-color: #ffe5e5; }
   </nav>
 </header>
 
-<div class="wrap">
-  <div>
-    <img src="game1.png" alt="Game 1">
-    <p>Game 1</p>
-  </div>
-  <div>
-    <img src="cartoon1.png" alt="Cartoon 1">
-    <p>Cartoon 1</p>
-  </div>
-  <div>
-    <img src="game2.png" alt="Game 2">
-    <p>Game 2</p>
-  </div>
-  <div>
-    <img src="cartoon2.png" alt="Cartoon 2">
-    <p>Cartoon 2</p>
-  </div>
+<div style="max-width:1000px; margin:40px auto; padding:0 16px;">
+  <h1>Welcome to Eyad Nintendo Ali</h1>
+  <p>Use the menu above to navigate to Games, Cartoons, Movies, and more.</p>
 </div>
 </div>
 
 <script>
-// Check if site was already loaded before
+// If site already loaded before, skip intro/loading
 if(localStorage.getItem('siteLoaded')) {
   document.getElementById('site').style.display = 'block';
   document.body.style.overflow = 'auto';
 } else {
-  // Show intro for 10 seconds
+  // 10-second welcome screen
   setTimeout(() => {
     document.getElementById('intro').style.display = 'none';
-    
+
     // Show loading video
     const loading = document.getElementById('loadingVideo');
     loading.style.display = 'flex';
 
     const vid = document.getElementById('loadVid');
     vid.src = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
+    vid.play();
 
-    // Wait until all images/videos in the site are fully loaded
+    // Wait until all images in the site are loaded
     const site = document.getElementById('site');
     const images = site.querySelectorAll('img');
     let loadedCount = 0;
@@ -199,7 +225,6 @@ if(localStorage.getItem('siteLoaded')) {
     function checkAllLoaded() {
       loadedCount++;
       if(loadedCount >= images.length) {
-        // Hide loading video and show site
         vid.pause();
         loading.style.display = 'none';
         site.style.display = 'block';
@@ -208,14 +233,12 @@ if(localStorage.getItem('siteLoaded')) {
       }
     }
 
-    if(images.length === 0) {
-      checkAllLoaded();
-    } else {
-      images.forEach(img => {
-        if(img.complete) checkAllLoaded();
-        else img.addEventListener('load', checkAllLoaded);
-      });
-    }
+    if(images.length === 0) checkAllLoaded();
+    else images.forEach(img => {
+      if(img.complete) checkAllLoaded();
+      else img.addEventListener('load', checkAllLoaded);
+    });
+
   }, 10000); // 10s intro
 }
 </script>
