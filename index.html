@@ -13,7 +13,7 @@ body {
   overflow: hidden;
 }
 
-/* Intro with Mario/Luigi */
+/* Intro Stage */
 #intro {
   position: fixed;
   top: 0; left: 0;
@@ -38,7 +38,7 @@ body {
 }
 @keyframes fadeInOut { 0% {opacity: 1;} 100% {opacity: 0.3;} }
 
-/* Loading video */
+/* Loading Video Stage */
 #loadingVideo {
   position: fixed;
   top: 0; left: 0;
@@ -113,7 +113,7 @@ button:hover { background-color: #ffe5e5; }
 .dropdown:hover .dropdown-content { display: block; }
 .youtube-btn { display: flex; align-items: center; gap: 6px; }
 
-/* Game/Cartoon thumbnails for example */
+/* Game/Cartoon thumbnails */
 .wrap { max-width: 1000px; margin: 40px auto; padding: 0 16px; display: flex; gap: 24px; flex-wrap: wrap; }
 .wrap div { flex: 1 1 300px; border: 1px solid #ccc; padding: 10px; text-align: center; border-radius: 8px; }
 .wrap img { width: 100%; border-radius: 6px; }
@@ -175,18 +175,19 @@ button:hover { background-color: #ffe5e5; }
 </div>
 
 <script>
-// Check if the site was already loaded before
+// Check if site was already loaded before
 if(localStorage.getItem('siteLoaded')) {
   document.getElementById('site').style.display = 'block';
   document.body.style.overflow = 'auto';
 } else {
-  // Show intro
+  // Show intro for 10 seconds
   setTimeout(() => {
     document.getElementById('intro').style.display = 'none';
+    
+    // Show loading video
     const loading = document.getElementById('loadingVideo');
     loading.style.display = 'flex';
 
-    // Random video
     const vid = document.getElementById('loadVid');
     vid.src = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
 
@@ -198,6 +199,7 @@ if(localStorage.getItem('siteLoaded')) {
     function checkAllLoaded() {
       loadedCount++;
       if(loadedCount >= images.length) {
+        // Hide loading video and show site
         vid.pause();
         loading.style.display = 'none';
         site.style.display = 'block';
