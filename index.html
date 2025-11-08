@@ -4,14 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali - Games, Cartoons, Movies & More</title>
-
-<!-- SEO meta tags -->
-<meta name="description" content="Explore Eyad Nintendo Ali website with games, cartoons, movies, and more!">
-<meta name="keywords" content="Eyad Nintendo Ali, games, cartoons, movies, play online, YouTube">
-<meta name="author" content="Eyad Nintendo Ali">
-
 <link rel="icon" type="image/x-icon" href="favicon.ico">
-
 <style>
 body {
   margin: 0;
@@ -43,10 +36,7 @@ body {
   text-align: center;
   animation: fadeInOut 2s ease infinite alternate;
 }
-@keyframes fadeInOut {
-  0% {opacity: 1;}
-  100% {opacity: 0.3;}
-}
+@keyframes fadeInOut { 0% {opacity: 1;} 100% {opacity: 0.3;} }
 
 /* Loading video */
 #loadingVideo {
@@ -70,14 +60,10 @@ body {
   font-size: 24px;
   animation: blink 1.2s infinite;
 }
-@keyframes blink {
-  50% {opacity: 0.5;}
-}
+@keyframes blink { 50% {opacity: 0.5;} }
 
 /* Website hidden at start */
-#site {
-  display: none;
-}
+#site { display: none; }
 
 /* Main site styles */
 header {
@@ -126,9 +112,13 @@ button:hover { background-color: #ffe5e5; }
 .dropdown-content a:hover { background-color: #ffe5e5; }
 .dropdown:hover .dropdown-content { display: block; }
 .youtube-btn { display: flex; align-items: center; gap: 6px; }
+
+/* Game/Cartoon thumbnails for example */
+.wrap { max-width: 1000px; margin: 40px auto; padding: 0 16px; display: flex; gap: 24px; flex-wrap: wrap; }
+.wrap div { flex: 1 1 300px; border: 1px solid #ccc; padding: 10px; text-align: center; border-radius: 8px; }
+.wrap img { width: 100%; border-radius: 6px; }
 </style>
 </head>
-
 <body>
 
 <!-- Intro -->
@@ -164,9 +154,23 @@ button:hover { background-color: #ffe5e5; }
   </nav>
 </header>
 
-<div style="max-width:1000px; margin:40px auto; padding:0 16px;">
-  <h1>Welcome to Eyad Nintendo Ali</h1>
-  <p>Use the menu above to navigate to Games, Cartoons, Movies, and more.</p>
+<div class="wrap">
+  <div>
+    <img src="game1.png" alt="Game 1">
+    <p>Game 1</p>
+  </div>
+  <div>
+    <img src="cartoon1.png" alt="Cartoon 1">
+    <p>Cartoon 1</p>
+  </div>
+  <div>
+    <img src="game2.png" alt="Game 2">
+    <p>Game 2</p>
+  </div>
+  <div>
+    <img src="cartoon2.png" alt="Cartoon 2">
+    <p>Cartoon 2</p>
+  </div>
 </div>
 </div>
 
@@ -176,7 +180,7 @@ if(localStorage.getItem('siteLoaded')) {
   document.getElementById('site').style.display = 'block';
   document.body.style.overflow = 'auto';
 } else {
-  // Show intro for 10s
+  // Show intro
   setTimeout(() => {
     document.getElementById('intro').style.display = 'none';
     const loading = document.getElementById('loadingVideo');
@@ -184,16 +188,32 @@ if(localStorage.getItem('siteLoaded')) {
 
     // Random video
     const vid = document.getElementById('loadVid');
-    const randomVideo = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
-    vid.src = randomVideo;
+    vid.src = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
 
-    // When video ends, show site
-    vid.onended = () => {
-      loading.style.display = 'none';
-      document.body.style.overflow = 'auto';
-      document.getElementById('site').style.display = 'block';
-      localStorage.setItem('siteLoaded', 'true'); // Save that site was loaded
-    };
+    // Wait until all images/videos in the site are fully loaded
+    const site = document.getElementById('site');
+    const images = site.querySelectorAll('img');
+    let loadedCount = 0;
+
+    function checkAllLoaded() {
+      loadedCount++;
+      if(loadedCount >= images.length) {
+        vid.pause();
+        loading.style.display = 'none';
+        site.style.display = 'block';
+        document.body.style.overflow = 'auto';
+        localStorage.setItem('siteLoaded', 'true');
+      }
+    }
+
+    if(images.length === 0) {
+      checkAllLoaded();
+    } else {
+      images.forEach(img => {
+        if(img.complete) checkAllLoaded();
+        else img.addEventListener('load', checkAllLoaded);
+      });
+    }
   }, 10000); // 10s intro
 }
 </script>
