@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Haven domdom - Eyad Nintendo Ali</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #222;
+}
+header {
+  background-color: #e60012;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 25px;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+button {
+  background-color: white;
+  color: #e60012;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+button:hover {
+  background-color: #ffe5e5;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #e60012;
+  padding: 8px 12px;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+}
+.dropdown-content a:hover {
+  background-color: #ffe5e5;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.youtube-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mute-btn {
+  background: #fff;
+  color: #e60012;
+  border-radius: 50%;
+  padding: 6px 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
+}
+.mute-btn:hover {
+  background: #ffe5e5;
+}
+
+/* Game section */
+.wrap {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 16px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.game-thumb {
+  flex: 1 1 400px;
+  max-width: 400px;
+}
+.game-thumb img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.game-info {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: flex-start;
+}
+.game-info h1 {
+  margin: 0;
+  color: #e60012;
+  font-size: 32px;
+}
+.download-btn {
+  background-color: #e60012;
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: 0.3s;
+}
+.download-btn:hover {
+  background-color: #c40010;
+}
+@media (max-width: 768px) {
+  .wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .game-info {
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Background music -->
+<audio id="bgMusic" src="Game Haven domdom.mp3" loop></audio>
+
+<header>
+  <div class="logo"><a href="home.html">Eyad Nintendo Ali</a></div>
+  <nav>
+    <div class="dropdown">
+      <button>🎮 Types ▾</button>
+      <div class="dropdown-content">
+        <a href="games.html">Games</a>
+        <a href="cartoons.html">Cartoons</a>
+        <a href="#">Movies</a>
+        <a href="#">News</a>
+      </div>
+    </div>
+    <button>🔍 Search</button>
+    <button>📤 Share</button>
+    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+    <button class="mute-btn" id="muteBtn">🔊</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="game-thumb">
+    <img src="Game Haven domdom.png" alt="Game Haven domdom">
+  </div>
+  <div class="game-info">
+    <h1>Game Haven domdom</h1>
+    <p>Welcome to the Game Haven domdom page! Click below to download or play the game.</p>
+    <a href="https://www.mediafire.com/folder/fm37vn04gt1ui/Game_Haven_domdom" target="_blank" class="download-btn">Download / Play</a>
+  </div>
+</div>
+
+<script>
+// Wait for user interaction (needed by browsers)
+const music = document.getElementById('bgMusic');
+const btn = document.getElementById('muteBtn');
+
+function tryPlay() {
+  music.play().catch(() => {
+    console.log("Music autoplay blocked — will play after click");
+  });
+}
+
+window.addEventListener('load', tryPlay);
+document.body.addEventListener('click', tryPlay, { once: true });
+
+// Mute/unmute toggle
+btn.addEventListener('click', () => {
+  music.muted = !music.muted;
+  btn.textContent = music.muted ? '🔇' : '🔊';
+});
+</script>
+
+</body>
+</html>

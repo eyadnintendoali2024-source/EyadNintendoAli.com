@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartoons - Eyad Nintendo Ali</title>
+<style>
+:root {--red:#e60012;--dark:#c40010;}
+* {box-sizing:border-box;}
+body {margin:0;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#222;}
+
+/* Top Menu */
+header {
+  background-color:var(--red);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 25px;
+  color:white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+header .logo {font-size:24px;font-weight:bold;letter-spacing:1px;}
+header .logo a {color:white;text-decoration:none;}
+nav {display:flex;align-items:center;gap:15px;}
+button {
+  background-color:white;color:var(--red);border:none;border-radius:6px;padding:8px 14px;font-weight:bold;cursor:pointer;transition:.3s;display:flex;align-items:center;gap:6px;
+}
+button:hover {background-color:#ffe5e5;}
+.dropdown {position:relative;display:inline-block;}
+.dropdown-content {display:none;position:absolute;background-color:white;min-width:120px;box-shadow:0 8px 16px rgba(0,0,0,0.2);border-radius:6px;z-index:1;}
+.dropdown-content a {color:var(--red);padding:8px 12px;display:block;text-decoration:none;font-weight:bold;}
+.dropdown-content a:hover {background-color:#ffe5e5;}
+.dropdown:hover .dropdown-content {display:block;}
+.youtube-btn {display:flex;align-items:center;gap:6px;}
+
+/* Cartoons Player */
+.wrap {max-width:1000px;margin:22px auto;padding:0 16px;}
+.player {background:#000;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.15);}
+.player iframe {width:100%;height:540px;border:0;display:block;}
+.list {margin-top:18px;display:flex;flex-direction:column;gap:14px;}
+.item {display:flex;gap:12px;align-items:center;background:#f6f6f6;padding:10px;border-radius:10px;cursor:pointer;transition:background .2s;}
+.item:hover {background:#ffeaea;}
+.number-badge {width:40px;height:40px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;flex-shrink:0;}
+.thumb {width:200px;height:120px;flex:0 0 200px;border-radius:8px;overflow:hidden;background:#ddd;display:flex;align-items:center;justify-content:center;position:relative;}
+.thumb img {width:100%;height:100%;object-fit:cover;display:block;}
+.play-overlay::after {content:'▶';position:absolute;left:12px;top:8px;font-size:28px;color:rgba(255,255,255,0.95);text-shadow:0 2px 6px rgba(0,0,0,0.6);}
+@media (max-width:720px) {.player iframe{height:260px}.thumb{width:140px;height:88px;flex:0 0 140px;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="home.html">Eyad Nintendo Ali</a>
+  </div>
+  <nav>
+    <div class="dropdown">
+      <button>🎮 Types ▾</button>
+      <div class="dropdown-content">
+        <a href="games.html">Games</a>
+        <a href="cartoons.html">Cartoons</a>
+        <a href="movies.html">Movies</a>
+        <a href="news.html">News</a>
+      </div>
+    </div>
+    <button>🔍 Search</button>
+    <button>📤 Share</button>
+    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="player" id="playerWrap">
+    <iframe id="player"
+      src="https://www.youtube.com/embed/wNGg4iQ5NjU?list=PL9zzIDvnJ117FxJRL7Kb_I2XK0aizp-Xr&autoplay=0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen title="Cartoons Playlist">
+    </iframe>
+  </div>
+
+  <div class="list" id="videoList">
+    <div class="item" data-video-id="wNGg4iQ5NjU"><div class="number-badge">1</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/wNGg4iQ5NjU/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="dT2TQ8MQ6lY"><div class="number-badge">2</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/dT2TQ8MQ6lY/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="_hHvTQsUZeE"><div class="number-badge">3</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/_hHvTQsUZeE/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="dpiCuVw-iJk"><div class="number-badge">4</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/dpiCuVw-iJk/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="ssiPByu8vxI"><div class="number-badge">5</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/ssiPByu8vxI/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="DRHb4lrpYm0"><div class="number-badge">6</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/DRHb4lrpYm0/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="LbjMRXaov4Q"><div class="number-badge">7</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/LbjMRXaov4Q/hqdefault.jpg" alt=""></div></div>
+    <div class="item" data-video-id="VUbtZ22nf-E"><div class="number-badge">8</div><div class="thumb play-overlay"><img src="https://img.youtube.com/vi/VUbtZ22nf-E/hqdefault.jpg" alt=""></div></div>
+  </div>
+</div>
+
+<script>
+const listEl = document.getElementById('videoList');
+const player = document.getElementById('player');
+
+listEl.addEventListener('click', e => {
+  let el = e.target;
+  while(el && !el.classList.contains('item')) el = el.parentElement;
+  if(!el) return;
+  const vid = el.getAttribute('data-video-id');
+  player.src = `https://www.youtube.com/embed/${vid}?list=PL9zzIDvnJ117FxJRL7Kb_I2XK0aizp-Xr&autoplay=1`;
+  player.scrollIntoView({behavior:'smooth', block:'center'});
+});
+</script>
+</body>
+</html>
