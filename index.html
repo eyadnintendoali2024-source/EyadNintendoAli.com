@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali - Games</title>
+<title>Eyad Nintendo Ali - Games & More</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
@@ -93,12 +93,11 @@ button:hover { background-color:#ffe5e5; }
 .dropdown:hover .dropdown-content { display:block; }
 .youtube-btn { display:flex; align-items:center; gap:6px; }
 
-/* Games section */
+/* Sections for Games */
 .section { max-width:1000px; margin:40px auto; padding:0 16px; }
 .section h2 { color:#e60012; margin-bottom:15px; }
 .cards { display:flex; flex-wrap:wrap; gap:20px; }
-
-.game-item {
+.card {
   background-color:#f8f8f8;
   border:1px solid #ddd;
   border-radius:10px;
@@ -108,20 +107,8 @@ button:hover { background-color:#ffe5e5; }
   cursor:pointer;
   transition:0.3s;
 }
-.game-item:hover { transform:scale(1.05); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
-
-.game-thumb {
-  width: 180px;
-  height: 110px;
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 0 auto 10px auto;
-  background: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.game-thumb img { width:100%; height:100%; object-fit:cover; }
+.card:hover { transform:scale(1.05); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
+.card img { width:100%; border-radius:6px; }
 </style>
 </head>
 
@@ -148,6 +135,7 @@ button:hover { background-color:#ffe5e5; }
       <button>🎮 Types ▾</button>
       <div class="dropdown-content">
         <a href="#gamesSection">Games</a>
+        <a href="cartoons.html">Cartoons</a>
         <a href="#moviesSection">Movies</a>
         <a href="#newsSection">News</a>
       </div>
@@ -158,38 +146,30 @@ button:hover { background-color:#ffe5e5; }
   </nav>
 </header>
 
+<!-- Welcome Section -->
 <div class="section" id="welcomeSection">
   <h1>Welcome to Eyad Nintendo Ali</h1>
-  <p>Use the menu above to navigate to Games, Movies, and more.</p>
+  <p>Use the menu above to navigate to Games, Cartoons, Movies, and more.</p>
 </div>
 
 <!-- Games Section -->
 <div class="section" id="gamesSection">
   <h2>Games</h2>
   <div class="cards">
-    <div class="game-item" onclick="window.location.href='Boy&jelly.html'">
-      <div class="game-thumb">
-        <img src="Boy&jelly.png" alt="Boy & Jelly">
-      </div>
-      <div class="game-info">
-        <h3>Boy & Jelly</h3>
-      </div>
+    <div class="card" onclick="window.location.href='Boy&jelly.html'">
+      <img src="Boy&jelly.png" alt="Boy & Jelly">
+      <p>Boy & Jelly</p>
     </div>
-
-    <div class="game-item" onclick="window.location.href='Game Haven domdom.html'">
-      <div class="game-thumb">
-        <img src="Game Haven domdom.png" alt="Game Haven domdom">
-      </div>
-      <div class="game-info">
-        <h3>Game Haven domdom</h3>
-      </div>
+    <div class="card" onclick="window.location.href='Game Haven domdom.html'">
+      <img src="Game Haven domdom.png" alt="Game Haven domdom">
+      <p>Game Haven domdom</p>
     </div>
   </div>
 </div>
 </div>
 
 <script>
-// Show intro/loading only once per tab session
+// Show welcome and loading only on first visit (per browser session)
 if(sessionStorage.getItem('visitedHome')) {
   document.getElementById('intro').style.display = 'none';
   document.getElementById('loadingVideo').style.display = 'none';
@@ -209,9 +189,9 @@ if(sessionStorage.getItem('visitedHome')) {
       loading.style.display = 'none';
       document.getElementById('site').style.display = 'block';
       document.body.style.overflow = 'auto';
-      sessionStorage.setItem('visitedHome', 'true');
+      sessionStorage.setItem('visitedHome', 'true'); // Only skip until browser tab closes
     };
-  }, 10000);
+  }, 10000); // 10 sec welcome
 }
 </script>
 </body>
