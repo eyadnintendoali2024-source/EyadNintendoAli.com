@@ -20,7 +20,7 @@ body {
   overflow: hidden;
 }
 
-/* Loading Intro */
+/* Intro with Mario/Luigi */
 #intro {
   position: fixed;
   top: 0; left: 0;
@@ -33,19 +33,16 @@ body {
   gap: 50px;
   z-index: 9999;
 }
-
 #intro img {
   width: 200px;
   transition: opacity 1s ease;
 }
-
 #intro h1 {
   font-size: 32px;
   color: #e60012;
   text-align: center;
   animation: fadeInOut 2s ease infinite alternate;
 }
-
 @keyframes fadeInOut {
   0% {opacity: 1;}
   100% {opacity: 0.3;}
@@ -63,19 +60,16 @@ body {
   flex-direction: column;
   z-index: 9998;
 }
-
 #loadingVideo video {
   width: 60%;
   border-radius: 10px;
 }
-
 #loadingVideo h2 {
   color: white;
   margin-top: 20px;
   font-size: 24px;
   animation: blink 1.2s infinite;
 }
-
 @keyframes blink {
   50% {opacity: 0.5;}
 }
@@ -95,20 +89,9 @@ header {
   color: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-.logo a {
-  color: white;
-  text-decoration: none;
-}
-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+.logo a { color: white; text-decoration: none; }
+nav { display: flex; align-items: center; gap: 15px; }
 button {
   background-color: white;
   color: #e60012;
@@ -122,13 +105,8 @@ button {
   align-items: center;
   gap: 6px;
 }
-button:hover {
-  background-color: #ffe5e5;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+button:hover { background-color: #ffe5e5; }
+.dropdown { position: relative; display: inline-block; }
 .dropdown-content {
   display: none;
   position: absolute;
@@ -145,22 +123,15 @@ button:hover {
   text-decoration: none;
   font-weight: bold;
 }
-.dropdown-content a:hover {
-  background-color: #ffe5e5;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.youtube-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.dropdown-content a:hover { background-color: #ffe5e5; }
+.dropdown:hover .dropdown-content { display: block; }
+.youtube-btn { display: flex; align-items: center; gap: 6px; }
 </style>
 </head>
 
 <body>
-<!-- Intro (Mario, Luigi, Text) -->
+
+<!-- Intro -->
 <div id="intro">
   <img src="mario.png" alt="Mario">
   <h1>Welcome to Eyad Nintendo Ali /</h1>
@@ -200,24 +171,32 @@ button:hover {
 </div>
 
 <script>
-// Step 1: After 10s, hide intro and show random video
-setTimeout(() => {
-  document.getElementById('intro').style.display = 'none';
-  const loading = document.getElementById('loadingVideo');
-  loading.style.display = 'flex';
+// Check if the site was already loaded before
+if(localStorage.getItem('siteLoaded')) {
+  document.getElementById('site').style.display = 'block';
+  document.body.style.overflow = 'auto';
+} else {
+  // Show intro for 10s
+  setTimeout(() => {
+    document.getElementById('intro').style.display = 'none';
+    const loading = document.getElementById('loadingVideo');
+    loading.style.display = 'flex';
 
-  // Random video (1 or 2)
-  const vid = document.getElementById('loadVid');
-  const randomVideo = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
-  vid.src = randomVideo;
+    // Random video
+    const vid = document.getElementById('loadVid');
+    const randomVideo = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
+    vid.src = randomVideo;
 
-  // Step 2: when video ends, show site
-  vid.onended = () => {
-    loading.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    document.getElementById('site').style.display = 'block';
-  };
-}, 10000);
+    // When video ends, show site
+    vid.onended = () => {
+      loading.style.display = 'none';
+      document.body.style.overflow = 'auto';
+      document.getElementById('site').style.display = 'block';
+      localStorage.setItem('siteLoaded', 'true'); // Save that site was loaded
+    };
+  }, 10000); // 10s intro
+}
 </script>
+
 </body>
 </html>
