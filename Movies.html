@@ -1,67 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movies - Eyad Nintendo Ali</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movies - Eyad Nintendo Ali</title>
 
-  <!-- ✅ Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<!-- ✅ Favicon -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ff4d4d;
-      color: white;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ff4d4d;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
 
-    header {
-      background-color: #cc0000;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+  header {
+    background-color: #cc0000;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
 
-    header h1 {
-      margin: 0;
-      cursor: pointer;
-    }
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-    }
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
 
-    nav a:hover {
-      text-decoration: underline;
-    }
+  nav a:hover {
+    text-decoration: underline;
+  }
 
-    .coming-soon {
-      font-size: 2em;
-      margin-top: 150px;
-      font-weight: bold;
-    }
-  </style>
+  .coming-soon {
+    font-size: 2em;
+    margin-top: 150px;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1 onclick="location.href='index.html'">Eyad Nintendo Ali</h1>
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="cartoons.html">Cartoons</a>
-      <a href="games.html">Games</a>
-      <a href="movies.html">Movies</a>
-    </nav>
-  </header>
 
-  <div class="coming-soon">
-    🎬 Coming Soon...
-  </div>
+<header>
+  <div class="logo" onclick="location.href='index.html'">Eyad Nintendo Ali</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cartoons.html">Cartoons</a>
+    <a href="games.html">Games</a>
+    <a href="movies.html">Movies</a>
+  </nav>
+</header>
+
+<div class="coming-soon">
+  🎬 Coming Soon...
+</div>
+
 </body>
 </html>
