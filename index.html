@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali - Games, Cartoons, Movies & More</title>
+
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+
 <style>
 body {
   margin: 0;
@@ -13,7 +15,7 @@ body {
   overflow: hidden;
 }
 
-/* Intro (Mario + Luigi + Welcome) */
+/* Intro screen (Mario + Luigi + Text) */
 #intro {
   position: fixed;
   top: 0; left: 0;
@@ -22,87 +24,80 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
   gap: 50px;
   z-index: 9999;
 }
-
-#intro img {
-  width: 200px;
-}
-
+#intro img { width: 200px; }
 #intro h1 {
   font-size: 32px;
   color: #e60012;
   text-align: center;
   animation: fadeInOut 2s ease infinite alternate;
 }
+@keyframes fadeInOut { 0% {opacity:1;} 100% {opacity:0.3;} }
 
-@keyframes fadeInOut {
-  0% {opacity: 1;}
-  100% {opacity: 0.3;}
-}
-
-/* Loading video */
+/* Loading video screen */
 #loadingVideo {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: none;
-  background-color: black;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 9998;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:none;
+  background-color:black;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9998;
 }
-
-#loadingVideo video {
-  width: 60%;
-  border-radius: 10px;
-}
-
+#loadingVideo video { width: 60%; border-radius: 10px; }
 #loadingVideo h2 {
-  color: white;
-  margin-top: 20px;
-  font-size: 24px;
+  color:white;
+  margin-top:20px;
+  font-size:24px;
   animation: blink 1.2s infinite;
 }
+@keyframes blink { 50% {opacity:0.5;} }
 
-@keyframes blink {
-  50% {opacity: 0.5;}
-}
+/* Main site hidden initially */
+#site { display:none; overflow:auto; }
 
-/* Website hidden at start */
-#site {
-  display: none;
-}
-
-/* Main site styles */
+/* Header and nav */
 header {
-  background-color: #e60012;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 25px;
-  color: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  background-color:#e60012;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 25px;
+  color:white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
 }
-.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
-.logo a { color: white; text-decoration: none; }
-nav { display: flex; align-items: center; gap: 15px; }
-button { background-color: white; color: #e60012; border: none; border-radius: 6px; padding: 8px 14px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 6px; }
-button:hover { background-color: #ffe5e5; }
-.dropdown { position: relative; display: inline-block; }
-.dropdown-content { display: none; position: absolute; background-color: white; min-width: 120px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); border-radius: 6px; z-index: 1; }
-.dropdown-content a { color: #e60012; padding: 8px 12px; display: block; text-decoration: none; font-weight: bold; }
-.dropdown-content a:hover { background-color: #ffe5e5; }
-.dropdown:hover .dropdown-content { display: block; }
-.youtube-btn { display: flex; align-items: center; gap: 6px; }
+.logo { font-size:24px; font-weight:bold; letter-spacing:1px; }
+.logo a { color:white; text-decoration:none; }
+nav { display:flex; align-items:center; gap:15px; }
+button {
+  background-color:white;
+  color:#e60012;
+  border:none;
+  border-radius:6px;
+  padding:8px 14px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+button:hover { background-color:#ffe5e5; }
+.dropdown { position:relative; display:inline-block; }
+.dropdown-content { display:none; position:absolute; background-color:white; min-width:120px; box-shadow:0px 8px 16px rgba(0,0,0,0.2); border-radius:6px; z-index:1; }
+.dropdown-content a { color:#e60012; padding:8px 12px; display:block; text-decoration:none; font-weight:bold; }
+.dropdown-content a:hover { background-color:#ffe5e5; }
+.dropdown:hover .dropdown-content { display:block; }
+.youtube-btn { display:flex; align-items:center; gap:6px; }
 </style>
 </head>
-<body>
 
-<!-- Intro (Mario + Luigi + Welcome) -->
+<body>
+<!-- Intro -->
 <div id="intro">
   <img src="mario.png" alt="Mario">
   <h1>Welcome to Eyad Nintendo Ali /</h1>
@@ -115,7 +110,7 @@ button:hover { background-color: #ffe5e5; }
   <h2>Loading...</h2>
 </div>
 
-<!-- Website -->
+<!-- Main site -->
 <div id="site">
 <header>
   <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
@@ -142,47 +137,33 @@ button:hover { background-color: #ffe5e5; }
 </div>
 
 <script>
-// Skip intro if site already loaded
-if(localStorage.getItem('siteLoaded')) {
+// Check if user already saw loading
+if(localStorage.getItem('loadedBefore')) {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('loadingVideo').style.display = 'none';
   document.getElementById('site').style.display = 'block';
   document.body.style.overflow = 'auto';
 } else {
   // Step 1: Show welcome screen for 10s
   setTimeout(() => {
     document.getElementById('intro').style.display = 'none';
-
-    // Step 2: Show random loading video
     const loading = document.getElementById('loadingVideo');
     loading.style.display = 'flex';
+
+    // Random video
     const vid = document.getElementById('loadVid');
     vid.src = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
-    vid.play();
+    vid.load();
 
-    // Step 3: Wait for site content (images) to load
-    const site = document.getElementById('site');
-    const images = site.querySelectorAll('img');
-    let loadedCount = 0;
-
-    function checkAllLoaded() {
-      loadedCount++;
-      if(loadedCount >= images.length) {
-        vid.pause();
-        loading.style.display = 'none';
-        site.style.display = 'block';
-        document.body.style.overflow = 'auto';
-        localStorage.setItem('siteLoaded', 'true');
-      }
-    }
-
-    if(images.length === 0) checkAllLoaded();
-    else images.forEach(img => {
-      if(img.complete) checkAllLoaded();
-      else img.addEventListener('load', checkAllLoaded);
-    });
-
+    // Step 2: When video ends, show site
+    vid.onended = () => {
+      loading.style.display = 'none';
+      document.getElementById('site').style.display = 'block';
+      document.body.style.overflow = 'auto';
+      localStorage.setItem('loadedBefore', 'true'); // skip next time
+    };
   }, 10000); // 10 seconds intro
 }
 </script>
-
 </body>
 </html>
