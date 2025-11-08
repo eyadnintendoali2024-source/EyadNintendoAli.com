@@ -4,14 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali - Games, Cartoons, Movies & More</title>
-
-<!-- SEO meta tags -->
-<meta name="description" content="Explore Eyad Nintendo Ali website with games, cartoons, movies, and more!">
-<meta name="keywords" content="Eyad Nintendo Ali, games, cartoons, movies, play online, YouTube">
-<meta name="author" content="Eyad Nintendo Ali">
-
 <link rel="icon" type="image/x-icon" href="favicon.ico">
-
 <style>
 body {
   margin: 0;
@@ -36,7 +29,6 @@ body {
 
 #intro img {
   width: 200px;
-  transition: opacity 1s ease;
 }
 
 #intro h1 {
@@ -95,67 +87,17 @@ header {
   color: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-.logo a {
-  color: white;
-  text-decoration: none;
-}
-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-button {
-  background-color: white;
-  color: #e60012;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-button:hover {
-  background-color: #ffe5e5;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 120px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  border-radius: 6px;
-  z-index: 1;
-}
-.dropdown-content a {
-  color: #e60012;
-  padding: 8px 12px;
-  display: block;
-  text-decoration: none;
-  font-weight: bold;
-}
-.dropdown-content a:hover {
-  background-color: #ffe5e5;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.youtube-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+.logo a { color: white; text-decoration: none; }
+nav { display: flex; align-items: center; gap: 15px; }
+button { background-color: white; color: #e60012; border: none; border-radius: 6px; padding: 8px 14px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 6px; }
+button:hover { background-color: #ffe5e5; }
+.dropdown { position: relative; display: inline-block; }
+.dropdown-content { display: none; position: absolute; background-color: white; min-width: 120px; box-shadow: 0px 8px 16px rgba(0,0,0,0.2); border-radius: 6px; z-index: 1; }
+.dropdown-content a { color: #e60012; padding: 8px 12px; display: block; text-decoration: none; font-weight: bold; }
+.dropdown-content a:hover { background-color: #ffe5e5; }
+.dropdown:hover .dropdown-content { display: block; }
+.youtube-btn { display: flex; align-items: center; gap: 6px; }
 </style>
 </head>
 <body>
@@ -200,24 +142,23 @@ button:hover {
 </div>
 
 <script>
-// If site already loaded before, skip intro/loading
+// Skip intro if site already loaded
 if(localStorage.getItem('siteLoaded')) {
   document.getElementById('site').style.display = 'block';
   document.body.style.overflow = 'auto';
 } else {
-  // 10-second welcome screen
+  // Step 1: Show welcome screen for 10s
   setTimeout(() => {
     document.getElementById('intro').style.display = 'none';
 
-    // Show loading video
+    // Step 2: Show random loading video
     const loading = document.getElementById('loadingVideo');
     loading.style.display = 'flex';
-
     const vid = document.getElementById('loadVid');
     vid.src = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
     vid.play();
 
-    // Wait until all images in the site are loaded
+    // Step 3: Wait for site content (images) to load
     const site = document.getElementById('site');
     const images = site.querySelectorAll('img');
     let loadedCount = 0;
@@ -239,7 +180,7 @@ if(localStorage.getItem('siteLoaded')) {
       else img.addEventListener('load', checkAllLoaded);
     });
 
-  }, 10000); // 10s intro
+  }, 10000); // 10 seconds intro
 }
 </script>
 
