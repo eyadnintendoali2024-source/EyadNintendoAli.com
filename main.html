@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eyad Nintendo Ali - Home</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+header {
+  background-color: #e60012;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 25px;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+button {
+  background-color: white;
+  color: #e60012;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+button:hover {
+  background-color: #ffe5e5;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 6px;
+  z-index: 1;
+}
+.dropdown-content a {
+  color: #e60012;
+  padding: 8px 12px;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+}
+.dropdown-content a:hover {
+  background-color: #ffe5e5;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.youtube-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <a href="home.html">Eyad Nintendo Ali</a>
+  </div>
+  <nav>
+    <div class="dropdown">
+      <button>🎮 Types ▾</button>
+      <div class="dropdown-content">
+        <a href="games.html">Games</a>
+        <a href="cartoons.html">Cartoons</a>
+        <a href="movies.html">Movies</a>
+        <a href="news.html">News</a>
+      </div>
+    </div>
+    <button>🔍 Search</button>
+    <button>📤 Share</button>
+    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+  </nav>
+</header>
+
+<!-- Home Page Content -->
+<div style="max-width:1000px; margin:40px auto; padding:0 16px;">
+  <h1>Welcome to Eyad Nintendo Ali</h1>
+  <p>Use the menu above to navigate to Games, Cartoons, and more.</p>
+</div>
+</body>
+</html>
