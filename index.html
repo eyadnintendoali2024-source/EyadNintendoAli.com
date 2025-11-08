@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali - Games, Cartoons, Movies & More</title>
-
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
@@ -15,7 +14,7 @@ body {
   overflow: hidden;
 }
 
-/* Intro screen */
+/* Intro screen (Mario + Luigi + Text) */
 #intro {
   position: fixed;
   top: 0; left: 0;
@@ -94,7 +93,7 @@ button:hover { background-color:#ffe5e5; }
 .dropdown:hover .dropdown-content { display:block; }
 .youtube-btn { display:flex; align-items:center; gap:6px; }
 
-/* Sections */
+/* Sections for Games & Cartoons */
 .section { max-width:1000px; margin:40px auto; padding:0 16px; }
 .section h2 { color:#e60012; margin-bottom:15px; }
 .cards { display:flex; flex-wrap:wrap; gap:20px; }
@@ -110,9 +109,6 @@ button:hover { background-color:#ffe5e5; }
 }
 .card:hover { transform:scale(1.05); box-shadow:0 4px 8px rgba(0,0,0,0.2); }
 .card img { width:100%; border-radius:6px; }
-
-/* History Section */
-#historySection { display:none; }
 </style>
 </head>
 
@@ -140,7 +136,8 @@ button:hover { background-color:#ffe5e5; }
       <div class="dropdown-content">
         <a href="#gamesSection">Games</a>
         <a href="#cartoonsSection">Cartoons</a>
-        <a href="#historySection">History</a>
+        <a href="#moviesSection">Movies</a>
+        <a href="#newsSection">News</a>
       </div>
     </div>
     <button>🔍 Search</button>
@@ -158,11 +155,11 @@ button:hover { background-color:#ffe5e5; }
 <div class="section" id="gamesSection">
   <h2>Games</h2>
   <div class="cards">
-    <div class="card" onclick="openGame('Boy Game')">
+    <div class="card">
       <img src="boy.png" alt="Boy Game">
       <p>Boy Game</p>
     </div>
-    <div class="card" onclick="openGame('Jelly Game')">
+    <div class="card">
       <img src="jelly.png" alt="Jelly Game">
       <p>Jelly Game</p>
     </div>
@@ -173,83 +170,43 @@ button:hover { background-color:#ffe5e5; }
 <div class="section" id="cartoonsSection">
   <h2>Cartoons</h2>
   <div class="cards">
-    <div class="card" onclick="watchCartoon('Cartoon 1')">
+    <div class="card">
       <img src="cartoon1.png" alt="Cartoon 1">
       <p>Cartoon 1</p>
     </div>
-    <div class="card" onclick="watchCartoon('Cartoon 2')">
+    <div class="card">
       <img src="cartoon2.png" alt="Cartoon 2">
       <p>Cartoon 2</p>
     </div>
   </div>
 </div>
-
-<!-- History Section -->
-<div class="section" id="historySection">
-  <h2>History</h2>
-  <div id="historyCards" class="cards"></div>
-</div>
 </div>
 
 <script>
-// Loading screen logic
-if(localStorage.getItem('loadedBefore')) {
+// Use sessionStorage so intro/loading shows only once per tab session
+if(sessionStorage.getItem('visitedHome')) {
   document.getElementById('intro').style.display = 'none';
   document.getElementById('loadingVideo').style.display = 'none';
   document.getElementById('site').style.display = 'block';
   document.body.style.overflow = 'auto';
 } else {
+  // First visit in this tab session: show intro + loading
   setTimeout(() => {
     document.getElementById('intro').style.display = 'none';
     const loading = document.getElementById('loadingVideo');
     loading.style.display = 'flex';
+
     const vid = document.getElementById('loadVid');
     vid.src = Math.random() < 0.5 ? 'loading.mp4' : 'loading2.mp4';
     vid.load();
+
     vid.onended = () => {
       loading.style.display = 'none';
       document.getElementById('site').style.display = 'block';
       document.body.style.overflow = 'auto';
-      localStorage.setItem('loadedBefore','true');
-      loadHistory(); // load history after first visit
+      sessionStorage.setItem('visitedHome', 'true'); // mark session as visited
     };
-  }, 10000);
-}
-
-// History logic
-function saveHistory(item) {
-  let history = JSON.parse(localStorage.getItem('history') || '[]');
-  if(!history.includes(item)) history.push(item);
-  localStorage.setItem('history', JSON.stringify(history));
-  loadHistory();
-}
-
-function loadHistory() {
-  const history = JSON.parse(localStorage.getItem('history') || '[]');
-  const container = document.getElementById('historyCards');
-  container.innerHTML = '';
-  if(history.length > 0) {
-    document.getElementById('historySection').style.display = 'block';
-    history.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'card';
-      div.textContent = item;
-      container.appendChild(div);
-    });
-  } else {
-    document.getElementById('historySection').style.display = 'none';
-  }
-}
-
-// Game and cartoon actions
-function openGame(name) { 
-  alert('Opening ' + name); 
-  saveHistory(name); 
-}
-
-function watchCartoon(name) { 
-  alert('Watching ' + name); 
-  saveHistory(name); 
+  }, 10000); // 10 seconds intro
 }
 </script>
 </body>
