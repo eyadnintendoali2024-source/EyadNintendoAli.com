@@ -4,19 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boy & Jelly - Eyad Nintendo Ali</title>
-
-<!-- ✅ Favicon -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff;
+  background-color: #e6f2ff;
   color: #222;
+  overflow-x: hidden;
 }
+
+/* ❄ SNOW BACKGROUND */
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: white;
+  font-size: 20px;
+  user-select: none;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(110vh); }
+}
+
+/* Header */
 header {
-  background-color: #e60012;
+  background-color: #0066ff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,24 +42,37 @@ header {
   color: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
+
+/* 🎄 Christmas Logo (blue glow) */
+.xmas-logo {
+  width: 55px;
+  height: auto;
+  margin-right: 12px;
+  user-select: none;
+  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px #00ffff);
+  animation: glowPulse 2s ease-in-out infinite;
 }
-.logo a {
-  color: white;
-  text-decoration: none;
+
+@keyframes glowPulse {
+  0% {
+    filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px #00ffff);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px #ffffff) drop-shadow(0 0 22px #00ffff);
+  }
+  100% {
+    filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px #00ffff);
+  }
 }
-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  position: relative;
-}
+
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+.logo a { color: white; text-decoration: none; }
+
+nav { display: flex; align-items: center; gap: 15px; }
+
 button {
   background-color: white;
-  color: #e60012;
+  color: #0066ff;
   border: none;
   border-radius: 6px;
   padding: 8px 14px;
@@ -52,13 +83,9 @@ button {
   align-items: center;
   gap: 6px;
 }
-button:hover {
-  background-color: #ffe5e5;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+button:hover { background-color: #cce0ff; }
+
+.dropdown { position: relative; display: inline-block; }
 .dropdown-content {
   display: none;
   position: absolute;
@@ -69,36 +96,14 @@ button:hover {
   z-index: 1;
 }
 .dropdown-content a {
-  color: #e60012;
+  color: #0066ff;
   padding: 8px 12px;
   display: block;
   text-decoration: none;
   font-weight: bold;
 }
-.dropdown-content a:hover {
-  background-color: #ffe5e5;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.youtube-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.mute-btn {
-  background: #fff;
-  color: #e60012;
-  border-radius: 50%;
-  padding: 6px 10px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  transition: .3s;
-}
-.mute-btn:hover {
-  background: #ffe5e5;
-}
+.dropdown-content a:hover { background-color: #cce0ff; }
+.dropdown:hover .dropdown-content { display: block; }
 
 /* Game section */
 .wrap {
@@ -110,16 +115,19 @@ button:hover {
   flex-wrap: wrap;
   align-items: flex-start;
 }
+
 .game-thumb {
   flex: 1 1 400px;
   max-width: 400px;
 }
+
 .game-thumb img {
   width: 100%;
   height: auto;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
+
 .game-info {
   flex: 1 1 400px;
   display: flex;
@@ -127,13 +135,16 @@ button:hover {
   gap: 16px;
   justify-content: flex-start;
 }
+
 .game-info h1 {
   margin: 0;
-  color: #e60012;
+  color: #0066ff;
   font-size: 32px;
+  text-shadow: 0 0 6px #00ffff;
 }
+
 .download-btn {
-  background-color: #e60012;
+  background-color: #0066ff;
   color: white;
   padding: 12px 20px;
   font-size: 18px;
@@ -146,8 +157,9 @@ button:hover {
   transition: 0.3s;
 }
 .download-btn:hover {
-  background-color: #c40010;
+  background-color: #0047b3;
 }
+
 iframe {
   margin-top: 40px;
   width: 80%;
@@ -156,6 +168,7 @@ iframe {
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
+
 @media (max-width: 768px) {
   .wrap {
     flex-direction: column;
@@ -172,7 +185,22 @@ iframe {
 <!-- Background music -->
 <audio id="bgMusic" src="Boy&jelly.mp3" loop></audio>
 
+<!-- ❄ SNOW SCRIPT -->
+<script>
+for (let i = 0; i < 50; i++) {
+  let snow = document.createElement("div");
+  snow.className = "snowflake";
+  snow.innerHTML = "❄";
+  snow.style.left = Math.random() * 100 + "vw";
+  snow.style.animationDuration = (5 + Math.random() * 5) + "s";
+  snow.style.opacity = Math.random();
+  snow.style.fontSize = Math.random() * 10 + 10 + "px";
+  document.body.appendChild(snow);
+}
+</script>
+
 <header>
+  <img src="christmas.png" class="xmas-logo" alt="Christmas">
   <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
   <nav>
     <div class="dropdown">
@@ -205,20 +233,17 @@ iframe {
 <iframe src="https://player.vimeo.com/video/987442202?fl=pl&fe=sh" allowfullscreen></iframe>
 
 <script>
-// Wait for user interaction (needed by browsers)
+// Music autoplay
 const music = document.getElementById('bgMusic');
 const btn = document.getElementById('muteBtn');
 
 function tryPlay() {
-  music.play().catch(() => {
-    console.log("Music autoplay blocked — will play after click");
-  });
+  music.play().catch(() => console.log("Autoplay blocked"));
 }
 
 window.addEventListener('load', tryPlay);
 document.body.addEventListener('click', tryPlay, { once: true });
 
-// Mute/unmute toggle
 btn.addEventListener('click', () => {
   music.muted = !music.muted;
   btn.textContent = music.muted ? '🔇' : '🔊';
