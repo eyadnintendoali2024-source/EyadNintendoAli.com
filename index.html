@@ -86,9 +86,34 @@ header {
   color:white;
   box-shadow:0 2px 6px rgba(0,0,0,0.2);
 }
+
+/* 🎄 Christmas Logo (with glow) */
+.xmas-logo {
+  width: 55px;
+  height: auto;
+  margin-right: 12px;
+  user-select: none;
+  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px #ff0000);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px red);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px #ffffff) drop-shadow(0 0 22px red);
+  }
+  100% {
+    filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px red);
+  }
+}
+
 .logo { font-size:24px; font-weight:bold; letter-spacing:1px; }
 .logo a { color:white; text-decoration:none; }
+
 nav { display:flex; align-items:center; gap:15px; }
+
 button {
   background-color:white;
   color:#0066ff;
@@ -103,7 +128,9 @@ button {
   gap:6px;
 }
 button:hover { background-color:#e6f0ff; }
+
 .dropdown { position:relative; display:inline-block; }
+
 .dropdown-content {
   display:none;
   position:absolute;
@@ -126,7 +153,9 @@ button:hover { background-color:#e6f0ff; }
 /* Sections */
 .section { max-width:1000px; margin:40px auto; padding:0 16px; }
 .section h2 { color:#0066ff; margin-bottom:15px; }
+
 .cards { display:flex; flex-wrap:wrap; gap:20px; }
+
 .card {
   background-color:#f8f8f8;
   border:1px solid #ddd;
@@ -137,10 +166,12 @@ button:hover { background-color:#e6f0ff; }
   cursor:pointer;
   transition:0.3s;
 }
+
 .card:hover {
   transform:scale(1.05);
   box-shadow:0 4px 8px rgba(0,0,0,0.2);
 }
+
 .card img { width:100%; border-radius:6px; }
 </style>
 </head>
@@ -176,8 +207,13 @@ for (let i = 0; i < 50; i++) {
 
 <!-- Main site -->
 <div id="site">
+
 <header>
+  <!-- 🎄 Christmas Glow Logo -->
+  <img src="christmas.png" class="xmas-logo" alt="Christmas">
+
   <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
+
   <nav>
     <div class="dropdown">
       <button>🎮 Types ▾</button>
@@ -212,6 +248,7 @@ for (let i = 0; i < 50; i++) {
     </div>
   </div>
 </div>
+
 </div>
 
 <script>
