@@ -3,185 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali AI – 2026 Party</title>
-
+<title>Eyad Nintendo Ali AI</title>
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff00cc, #3333ff);
-  color: white;
-  overflow-x: hidden;
+  margin:0; font-family: Arial; background:#0f0f0f; color:white;
 }
-
-/* 🎉 Confetti */
-.confetti {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear infinite;
-}
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
-}
-
-/* Header */
-header {
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
-  padding: 15px;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
-
-/* Chat box */
-#chatBox {
-  max-width: 900px;
-  margin: 30px auto;
-  background: rgba(0,0,0,0.35);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.5);
-}
-
-#messages {
-  height: 400px;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-/* Messages */
-.msg {
-  margin: 10px 0;
-  padding: 10px 14px;
-  border-radius: 12px;
-  max-width: 70%;
-  animation: pop 0.3s ease;
-}
-@keyframes pop {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.user {
-  background: #ffffff;
-  color: black;
-  margin-left: auto;
-}
-
-.ai {
-  background: #ff00cc;
-}
-
-/* Input area */
-#inputArea {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
-}
-
-button {
-  background: white;
-  color: #ff00cc;
-  border: none;
-  border-radius: 10px;
-  padding: 12px 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  transform: scale(1.1);
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  margin: 20px;
-  opacity: 0.8;
-}
+header { text-align:center; padding:15px; font-size:24px; font-weight:bold; background:#222; }
+#chat { max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px; }
+#messages { height:400px; overflow-y:auto; }
+.msg { margin:10px 0; padding:12px; border-radius:12px; max-width:80%; line-height:1.5; }
+.user { background:white; color:black; margin-left:auto; }
+.ai { background:#222; }
+pre { background:#111; padding:12px; border-radius:10px; overflow-x:auto; color:#00ffcc; }
+#inputBox { display:flex; gap:10px; margin-top:15px; }
+input { flex:1; padding:12px; border-radius:10px; border:none; font-size:16px; }
+button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; }
 </style>
 </head>
-
 <body>
 
-<header>
-🤖 Eyad Nintendo Ali AI 🎉 | 2026 PARTY
-</header>
+<header>🤖 Eyad Nintendo Ali AI</header>
 
-<div id="chatBox">
+<div id="chat">
   <div id="messages">
-    <div class="msg ai">
-      Hello 👋 I am <b>Eyad Nintendo Ali AI</b> 🤖<br>
-      Ready for the 2026 party! 🎉🔥
-    </div>
+    <div class="msg ai">Hello 👋 I am Eyad Nintendo Ali AI!<br>Ask me for Unity code, Minecraft commands, or say "open games".</div>
   </div>
 
-  <div id="inputArea">
-    <input id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter')send()">
-    <button onclick="send()">Send 🚀</button>
+  <div id="inputBox">
+    <input id="input" placeholder="Message AI..." onkeydown="if(event.key==='Enter')send()">
+    <button onclick="send()">Send</button>
   </div>
 </div>
 
-<footer>
-Powered by AI • Eyad Nintendo Ali © 2026
-</footer>
-
-<!-- 🎉 Confetti Script -->
 <script>
-for (let i = 0; i < 70; i++) {
-  let c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.animationDuration = (3 + Math.random() * 4) + "s";
-  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-  document.body.appendChild(c);
-}
+const messages = document.getElementById("messages");
 
-/* Fake AI logic */
-function aiReply(text) {
-  const replies = [
-    "🔥 2026 is going to be crazy!",
-    "🎮 I love games! Tell me more.",
-    "🤖 I'm Eyad Nintendo Ali AI!",
-    "🚀 Ready for the future!",
-    "😄 Nice to talk with you!"
-  ];
-  return replies[Math.floor(Math.random() * replies.length)];
-}
-
-function send() {
-  let input = document.getElementById("userInput");
-  let msg = input.value.trim();
-  if (!msg) return;
-
-  let messages = document.getElementById("messages");
-
-  let userMsg = document.createElement("div");
-  userMsg.className = "msg user";
-  userMsg.innerText = msg;
-  messages.appendChild(userMsg);
-
-  input.value = "";
+function addMessage(text, cls){
+  const div = document.createElement("div");
+  div.className = "msg " + cls;
+  div.innerHTML = text.replace(/```([\s\S]*?)```/g,"<pre><code>$1</code></pre>");
+  messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
+}
 
-  setTimeout(() => {
-    let aiMsg = document.createElement("div");
-    aiMsg.className = "msg ai";
-    aiMsg.innerText = aiReply(msg);
-    messages.appendChild(aiMsg);
-    messages.scrollTop = messages.scrollHeight;
-  }, 700);
+function send(){
+  const input = document.getElementById("input");
+  const text = input.value.trim();
+  if(!text) return;
+  addMessage(text,"user");
+  input.value="";
+  addMessage("Typing...","ai");
+
+  setTimeout(()=>{
+    const reply = generateReply(text);
+    messages.lastChild.remove();
+    addMessage(reply,"ai");
+  }, 800);
+}
+
+// Simple keyword-based AI
+function generateReply(msg){
+  msg = msg.toLowerCase();
+
+  // Unity code requests
+  if(msg.includes("unity") || msg.includes("c# script") || msg.includes("player movement")){
+    return "Sure! Here's a Unity C# example for player movement:\n```csharp\nusing UnityEngine;\n\npublic class PlayerMovement : MonoBehaviour {\n    public float speed = 5f;\n\n    void Update() {\n        float h = Input.GetAxis(\"Horizontal\");\n        float v = Input.GetAxis(\"Vertical\");\n        transform.Translate(new Vector3(h,0,v) * speed * Time.deltaTime);\n    }\n}\n```";
+  }
+
+  // Minecraft commands
+  if(msg.includes("minecraft") || msg.includes("summon")){
+    return "Here's a Minecraft command example to summon a baby zombie:\n```minecraft\n/summon zombie ~ ~ ~ {IsBaby:1b}\n```";
+  }
+
+  // Open pages
+  if(msg.includes("open games") || msg.includes("games page")){
+    window.location.href="index.html#gamesSection";
+    return "Opening Games page...";
+  }
+  if(msg.includes("open cartoons") || msg.includes("cartoons page")){
+    window.location.href="cartoons.html";
+    return "Opening Cartoons page...";
+  }
+
+  // Greetings
+  if(msg.includes("hello") || msg.includes("hi")){
+    return "Hello! How can I help you today?";
+  }
+
+  // Default reply
+  return "I’m not sure about that 🤔, but you can ask me for Unity code, Minecraft commands, or say 'open games'.";
 }
 </script>
 
