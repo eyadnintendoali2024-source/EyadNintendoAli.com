@@ -20,7 +20,6 @@ body {
   position: fixed;
   width: 8px;
   height: 8px;
-  background: red;
   top: -10px;
   animation: fall linear infinite;
   opacity: 0.8;
@@ -44,7 +43,6 @@ body {
 #intro img { width: 180px; }
 #intro h1 {
   font-size: 36px;
-  color: #fff;
   text-shadow: 0 0 15px #ff00cc;
   animation: pulse 1.5s infinite alternate;
 }
@@ -90,7 +88,6 @@ header {
 .logo {
   font-size: 26px;
   font-weight: bold;
-  letter-spacing: 1px;
   text-shadow: 0 0 10px #fff;
 }
 .logo a {
@@ -115,6 +112,16 @@ button {
 }
 button:hover {
   transform: scale(1.1);
+}
+
+/* 🤖 AI Button */
+.ai-btn {
+  background: linear-gradient(90deg, #00ffcc, #00ccff);
+  color: black;
+  box-shadow: 0 0 12px #00ffff;
+}
+.ai-btn:hover {
+  box-shadow: 0 0 22px #00ffff;
 }
 
 /* Dropdown */
@@ -212,6 +219,10 @@ for (let i = 0; i < 80; i++) {
         <a href="#newsSection">News</a>
       </div>
     </div>
+
+    <!-- 🤖 AI BUTTON -->
+    <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
+
     <button>🔍 Search</button>
     <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
   </nav>
