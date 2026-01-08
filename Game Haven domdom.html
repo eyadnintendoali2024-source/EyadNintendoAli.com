@@ -4,17 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Game Haven domdom - Eyad Nintendo Ali</title>
-
-<!-- ✅ Favicon -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff;
-  color: #222;
+  background-color: #0f0f0f;
+  color: white;
+  overflow-x: hidden;
 }
+
+/* 🎉 CONFETTI PARTY */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear infinite;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
 header {
   background-color: #e60012;
   display: flex;
@@ -24,21 +38,10 @@ header {
   color: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-.logo a {
-  color: white;
-  text-decoration: none;
-}
-nav {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  position: relative;
-}
+.logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+.logo a { color: white; text-decoration: none; }
+nav { display: flex; align-items: center; gap: 15px; position: relative; }
+
 button {
   background-color: white;
   color: #e60012;
@@ -52,13 +55,9 @@ button {
   align-items: center;
   gap: 6px;
 }
-button:hover {
-  background-color: #ffe5e5;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+button:hover { background-color: #ffe5e5; }
+
+.dropdown { position: relative; display: inline-block; }
 .dropdown-content {
   display: none;
   position: absolute;
@@ -75,17 +74,9 @@ button:hover {
   text-decoration: none;
   font-weight: bold;
 }
-.dropdown-content a:hover {
-  background-color: #ffe5e5;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.youtube-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+.dropdown-content a:hover { background-color: #ffe5e5; }
+.dropdown:hover .dropdown-content { display: block; }
+
 .mute-btn {
   background: #fff;
   color: #e60012;
@@ -96,9 +87,7 @@ button:hover {
   cursor: pointer;
   transition: .3s;
 }
-.mute-btn:hover {
-  background: #ffe5e5;
-}
+.mute-btn:hover { background: #ffe5e5; }
 
 /* Game section */
 .wrap {
@@ -118,7 +107,7 @@ button:hover {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 .game-info {
   flex: 1 1 400px;
@@ -129,12 +118,12 @@ button:hover {
 }
 .game-info h1 {
   margin: 0;
-  color: #e60012;
+  color: #00ffcc;
   font-size: 32px;
 }
 .download-btn {
-  background-color: #e60012;
-  color: white;
+  background-color: #00ffcc;
+  color: #0f0f0f;
   padding: 12px 20px;
   font-size: 18px;
   border: none;
@@ -145,21 +134,28 @@ button:hover {
   text-align: center;
   transition: 0.3s;
 }
-.download-btn:hover {
-  background-color: #c40010;
-}
+.download-btn:hover { background-color: #00cccc; }
+
 @media (max-width: 768px) {
-  .wrap {
-    flex-direction: column;
-    align-items: center;
-  }
-  .game-info {
-    text-align: center;
-  }
+  .wrap { flex-direction: column; align-items: center; }
+  .game-info { text-align: center; }
 }
 </style>
 </head>
 <body>
+
+<!-- 🎉 CONFETTI SCRIPT -->
+<script>
+for (let i = 0; i < 100; i++) {
+  let c = document.createElement("div");
+  c.className = "confetti";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
+  c.style.animationDuration = (3 + Math.random() * 5) + "s";
+  document.body.appendChild(c);
+}
+</script>
 
 <!-- Background music -->
 <audio id="bgMusic" src="Game Haven domdom.mp3" loop></audio>
@@ -168,52 +164,4 @@ button:hover {
   <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
   <nav>
     <div class="dropdown">
-      <button>🎮 Types ▾</button>
-      <div class="dropdown-content">
-        <a href="games.html">Games</a>
-        <a href="cartoons.html">Cartoons</a>
-        <a href="#">Movies</a>
-        <a href="#">News</a>
-      </div>
-    </div>
-    <button>🔍 Search</button>
-    <button>📤 Share</button>
-    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
-    <button class="mute-btn" id="muteBtn">🔊</button>
-  </nav>
-</header>
-
-<div class="wrap">
-  <div class="game-thumb">
-    <img src="Game Haven domdom.png" alt="Game Haven domdom">
-  </div>
-  <div class="game-info">
-    <h1>Game Haven domdom</h1>
-    <p>Welcome to the Game Haven domdom page! Click below to download or play the game.</p>
-    <a href="https://www.mediafire.com/folder/fm37vn04gt1ui/Game_Haven_domdom" target="_blank" class="download-btn">Download / Play</a>
-  </div>
-</div>
-
-<script>
-// Wait for user interaction (needed by browsers)
-const music = document.getElementById('bgMusic');
-const btn = document.getElementById('muteBtn');
-
-function tryPlay() {
-  music.play().catch(() => {
-    console.log("Music autoplay blocked — will play after click");
-  });
-}
-
-window.addEventListener('load', tryPlay);
-document.body.addEventListener('click', tryPlay, { once: true });
-
-// Mute/unmute toggle
-btn.addEventListener('click', () => {
-  music.muted = !music.muted;
-  btn.textContent = music.muted ? '🔇' : '🔊';
-});
-</script>
-
-</body>
-</html>
+      <butto
