@@ -4,20 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali AI</title>
+
+<!-- Chat Widget CSS -->
+<link rel="stylesheet" href="/lib/chat-widget.min.css">
+
 <style>
 body {
   margin:0; font-family: Arial; background:#0f0f0f; color:white;
 }
 header { text-align:center; padding:15px; font-size:24px; font-weight:bold; background:#222; }
-#chat { max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px; }
+
+#chat {
+  max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px;
+}
 #messages { height:400px; overflow-y:auto; }
 .msg { margin:10px 0; padding:12px; border-radius:12px; max-width:80%; line-height:1.5; }
 .user { background:white; color:black; margin-left:auto; }
 .ai { background:#222; }
 pre { background:#111; padding:12px; border-radius:10px; overflow-x:auto; color:#00ffcc; }
+
 #inputBox { display:flex; gap:10px; margin-top:15px; }
 input { flex:1; padding:12px; border-radius:10px; border:none; font-size:16px; }
 button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; }
+
 </style>
 </head>
 <body>
@@ -35,6 +44,7 @@ button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; fon
   </div>
 </div>
 
+<!-- Your old AI script -->
 <script>
 const messages = document.getElementById("messages");
 
@@ -65,34 +75,62 @@ function send(){
 function generateReply(msg){
   msg = msg.toLowerCase();
 
-  // Unity code requests
   if(msg.includes("unity") || msg.includes("c# script") || msg.includes("player movement")){
-    return "Sure! Here's a Unity C# example for player movement:\n```csharp\nusing UnityEngine;\n\npublic class PlayerMovement : MonoBehaviour {\n    public float speed = 5f;\n\n    void Update() {\n        float h = Input.GetAxis(\"Horizontal\");\n        float v = Input.GetAxis(\"Vertical\");\n        transform.Translate(new Vector3(h,0,v) * speed * Time.deltaTime);\n    }\n}\n```";
+    return "Unity C# example:\n```csharp\nusing UnityEngine;\npublic class PlayerMovement : MonoBehaviour {\n public float speed = 5f;\n void Update() {\n  float h = Input.GetAxis(\"Horizontal\");\n  float v = Input.GetAxis(\"Vertical\");\n  transform.Translate(new Vector3(h,0,v) * speed * Time.deltaTime);\n }\n}\n```";
   }
 
-  // Minecraft commands
   if(msg.includes("minecraft") || msg.includes("summon")){
-    return "Here's a Minecraft command example to summon a baby zombie:\n```minecraft\n/summon zombie ~ ~ ~ {IsBaby:1b}\n```";
+    return "Minecraft command:\n```minecraft\n/summon zombie ~ ~ ~ {IsBaby:1b}\n```";
   }
 
-  // Open pages
   if(msg.includes("open games") || msg.includes("games page")){
     window.location.href="index.html#gamesSection";
     return "Opening Games page...";
   }
+
   if(msg.includes("open cartoons") || msg.includes("cartoons page")){
     window.location.href="cartoons.html";
     return "Opening Cartoons page...";
   }
 
-  // Greetings
   if(msg.includes("hello") || msg.includes("hi")){
     return "Hello! How can I help you today?";
   }
 
-  // Default reply
-  return "I’m not sure about that 🤔, but you can ask me for Unity code, Minecraft commands, or say 'open games'.";
+  return "I’m not sure 🤔, ask for Unity code, Minecraft commands, or say 'open games'.";
 }
+</script>
+
+<!-- Chat Widget JS -->
+<script src="/lib/chat-widget.min.js"></script>
+<script>
+const myWidget = new ChatWidget({
+  title: "🤖 Eyad Nintendo Ali AI",
+  welcomeMessage: "🎉 This is the AI Chat Widget! Ask me Unity code, Minecraft commands, or say 'open games'.",
+  placeholder: "Type a message...",
+  onSend: function(message, addResponse){
+    const m = message.toLowerCase();
+    let reply = "";
+
+    if(m.includes("unity") || m.includes("c#")){
+      reply = "Unity C# example:\n```csharp\nusing UnityEngine;\npublic class PlayerMovement : MonoBehaviour {\n public float speed=5f;\n void Update(){\n  float h=Input.GetAxis('Horizontal');\n  float v=Input.GetAxis('Vertical');\n  transform.Translate(new Vector3(h,0,v)*speed*Time.deltaTime);\n }\n}\n```";
+    } else if(m.includes("minecraft") || m.includes("summon")){
+      reply = "Minecraft command for baby zombie:\n```minecraft\n/summon zombie ~ ~ ~ {IsBaby:1b}\n```";
+    } else if(m.includes("open games")){
+      window.location.href="index.html#gamesSection";
+      reply = "Opening Games page...";
+    } else if(m.includes("hello") || m.includes("hi")){
+      reply = "Hello! Welcome to the AI party 🎉";
+    } else {
+      reply = "I’m not sure 🤔. Ask me for Unity code, Minecraft commands, or say 'open games'.";
+    }
+
+    addResponse(reply);
+  }
+});
+
+// Open widget automatically
+myWidget.open();
 </script>
 
 </body>
