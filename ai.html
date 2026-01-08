@@ -3,39 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali AI</title>
-
-<!-- Chat Widget CSS -->
-<link rel="stylesheet" href="/lib/chat-widget.min.css">
+<title>Eyad Nintendo Ali AI - 2026 Party</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body {
-  margin:0; font-family: Arial; background:#0f0f0f; color:white;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff00cc, #3333ff);
+  color: white;
+  overflow-x: hidden;
 }
-header { text-align:center; padding:15px; font-size:24px; font-weight:bold; background:#222; }
 
+/* 🎉 CONFETTI */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear infinite;
+  opacity: 0.8;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+
+/* Header */
+header {
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  text-align:center;
+  padding:15px;
+  font-size:24px;
+  font-weight:bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+/* Chat container */
 #chat {
-  max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px;
+  max-width:900px;
+  margin:30px auto;
+  padding:20px;
+  background: rgba(0,0,0,0.35);
+  border-radius:16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 #messages { height:400px; overflow-y:auto; }
 .msg { margin:10px 0; padding:12px; border-radius:12px; max-width:80%; line-height:1.5; }
 .user { background:white; color:black; margin-left:auto; }
 .ai { background:#222; }
 pre { background:#111; padding:12px; border-radius:10px; overflow-x:auto; color:#00ffcc; }
-
 #inputBox { display:flex; gap:10px; margin-top:15px; }
 input { flex:1; padding:12px; border-radius:10px; border:none; font-size:16px; }
-button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; }
-
+button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; background:#00ffcc; color:black; }
+button:hover { box-shadow: 0 0 12px #00ffff; }
 </style>
 </head>
 <body>
+
+<!-- 🎉 CONFETTI SCRIPT -->
+<script>
+for (let i = 0; i < 80; i++) {
+  let c = document.createElement("div");
+  c.className = "confetti";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.animationDuration = (3 + Math.random() * 4) + "s";
+  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+  document.body.appendChild(c);
+}
+</script>
 
 <header>🤖 Eyad Nintendo Ali AI</header>
 
 <div id="chat">
   <div id="messages">
-    <div class="msg ai">Hello 👋 I am Eyad Nintendo Ali AI!<br>Ask me for Unity code, Minecraft commands, or say "open games".</div>
+    <div class="msg ai">Hello 👋 I am GPT AI! Ask me for Unity code, Minecraft commands, or say "open games".</div>
   </div>
 
   <div id="inputBox">
@@ -44,7 +85,6 @@ button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; fon
   </div>
 </div>
 
-<!-- Your old AI script -->
 <script>
 const messages = document.getElementById("messages");
 
@@ -56,7 +96,8 @@ function addMessage(text, cls){
   messages.scrollTop = messages.scrollHeight;
 }
 
-function send(){
+// Send message to GPT backend
+async function send(){
   const input = document.getElementById("input");
   const text = input.value.trim();
   if(!text) return;
@@ -64,73 +105,21 @@ function send(){
   input.value="";
   addMessage("Typing...","ai");
 
-  setTimeout(()=>{
-    const reply = generateReply(text);
+  try {
+    const response = await fetch("https://YOUR_BACKEND_URL/gpt", {
+      method:"POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({message: text})
+    });
+    const data = await response.json();
     messages.lastChild.remove();
-    addMessage(reply,"ai");
-  }, 800);
+    addMessage(data.reply,"ai");
+  } catch(e){
+    messages.lastChild.remove();
+    addMessage("Error contacting GPT API.","ai");
+    console.error(e);
+  }
 }
-
-// Simple keyword-based AI
-function generateReply(msg){
-  msg = msg.toLowerCase();
-
-  if(msg.includes("unity") || msg.includes("c# script") || msg.includes("player movement")){
-    return "Unity C# example:\n```csharp\nusing UnityEngine;\npublic class PlayerMovement : MonoBehaviour {\n public float speed = 5f;\n void Update() {\n  float h = Input.GetAxis(\"Horizontal\");\n  float v = Input.GetAxis(\"Vertical\");\n  transform.Translate(new Vector3(h,0,v) * speed * Time.deltaTime);\n }\n}\n```";
-  }
-
-  if(msg.includes("minecraft") || msg.includes("summon")){
-    return "Minecraft command:\n```minecraft\n/summon zombie ~ ~ ~ {IsBaby:1b}\n```";
-  }
-
-  if(msg.includes("open games") || msg.includes("games page")){
-    window.location.href="index.html#gamesSection";
-    return "Opening Games page...";
-  }
-
-  if(msg.includes("open cartoons") || msg.includes("cartoons page")){
-    window.location.href="cartoons.html";
-    return "Opening Cartoons page...";
-  }
-
-  if(msg.includes("hello") || msg.includes("hi")){
-    return "Hello! How can I help you today?";
-  }
-
-  return "I’m not sure 🤔, ask for Unity code, Minecraft commands, or say 'open games'.";
-}
-</script>
-
-<!-- Chat Widget JS -->
-<script src="/lib/chat-widget.min.js"></script>
-<script>
-const myWidget = new ChatWidget({
-  title: "🤖 Eyad Nintendo Ali AI",
-  welcomeMessage: "🎉 This is the AI Chat Widget! Ask me Unity code, Minecraft commands, or say 'open games'.",
-  placeholder: "Type a message...",
-  onSend: function(message, addResponse){
-    const m = message.toLowerCase();
-    let reply = "";
-
-    if(m.includes("unity") || m.includes("c#")){
-      reply = "Unity C# example:\n```csharp\nusing UnityEngine;\npublic class PlayerMovement : MonoBehaviour {\n public float speed=5f;\n void Update(){\n  float h=Input.GetAxis('Horizontal');\n  float v=Input.GetAxis('Vertical');\n  transform.Translate(new Vector3(h,0,v)*speed*Time.deltaTime);\n }\n}\n```";
-    } else if(m.includes("minecraft") || m.includes("summon")){
-      reply = "Minecraft command for baby zombie:\n```minecraft\n/summon zombie ~ ~ ~ {IsBaby:1b}\n```";
-    } else if(m.includes("open games")){
-      window.location.href="index.html#gamesSection";
-      reply = "Opening Games page...";
-    } else if(m.includes("hello") || m.includes("hi")){
-      reply = "Hello! Welcome to the AI party 🎉";
-    } else {
-      reply = "I’m not sure 🤔. Ask me for Unity code, Minecraft commands, or say 'open games'.";
-    }
-
-    addResponse(reply);
-  }
-});
-
-// Open widget automatically
-myWidget.open();
 </script>
 
 </body>
