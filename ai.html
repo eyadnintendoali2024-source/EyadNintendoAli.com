@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Helper - Eyad Nintendo Ali</title>
+
+<!-- ✅ Favicon -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+
 <style>
-body {
-  margin:0; font-family: Arial; background: linear-gradient(135deg, #ff00cc, #3333ff); color:white; overflow-x:hidden;
-}
-/* 🎉 CONFETTI */
+:root {--red:#e60012;--dark:#c40010;}
+* {box-sizing:border-box;}
+body {margin:0;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#222;overflow-x:hidden;}
+
+/* 🎉 CONFETTI PARTY */
 .confetti {
   position: fixed;
   width: 8px;
@@ -17,103 +21,140 @@ body {
   top: -10px;
   animation: fall linear infinite;
   opacity: 0.8;
+  border-radius: 50%;
 }
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
 
 /* Header */
-header { text-align:center; padding:15px; font-size:24px; font-weight:bold; background:#222; text-shadow:0 0 10px #fff; }
+header {
+  background-color:var(--red);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 25px;
+  color:white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+header .logo {font-size:24px;font-weight:bold;letter-spacing:1px;}
+header .logo a {color:white;text-decoration:none;}
+nav {display:flex;align-items:center;gap:15px;}
+button {background-color:white;color:var(--red);border:none;border-radius:6px;padding:8px 14px;font-weight:bold;cursor:pointer;transition:.3s;display:flex;align-items:center;gap:6px;}
+button:hover {background-color:#ffe5e5;}
+.dropdown {position:relative;display:inline-block;}
+.dropdown-content {display:none;position:absolute;background-color:white;min-width:120px;box-shadow:0 8px 16px rgba(0,0,0,0.2);border-radius:6px;z-index:1;}
+.dropdown-content a {color:var(--red);padding:8px 12px;display:block;text-decoration:none;font-weight:bold;}
+.dropdown-content a:hover {background-color:#ffe5e5;}
+.dropdown:hover .dropdown-content {display:block;}
+.youtube-btn {display:flex;align-items:center;gap:6px;}
 
-/* Chat UI */
-#chat { max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px; }
-#messages { height:400px; overflow-y:auto; }
-.msg { margin:10px 0; padding:12px; border-radius:12px; max-width:80%; line-height:1.5; word-wrap: break-word; }
-.user { background:white; color:black; margin-left:auto; }
-.ai { background:#222; color:white; }
-pre { background:#111; padding:12px; border-radius:10px; overflow-x:auto; color:#00ffcc; }
-#inputBox { display:flex; gap:10px; margin-top:15px; }
-input { flex:1; padding:12px; border-radius:10px; border:none; font-size:16px; }
-button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; background: linear-gradient(90deg,#00ffcc,#00ccff); color:black; box-shadow:0 0 12px #00ffff; transition:0.3s; }
-button:hover { box-shadow:0 0 22px #00ffff; transform: scale(1.05); }
+/* AI Helper Area */
+.helper-wrap {
+  max-width:600px;
+  margin:40px auto;
+  padding:16px;
+  background:#f6f6f6;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.helper-wrap input {
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:16px;
+  width:100%;
+}
+.helper-wrap button {
+  background-color:var(--red);
+  color:white;
+  font-size:16px;
+  border-radius:8px;
+  padding:10px;
+  cursor:pointer;
+  transition:.3s;
+}
+.helper-wrap button:hover {background-color:var(--dark);}
+#response {
+  margin-top:10px;
+  font-size:16px;
+  color:#222;
+  min-height:40px;
+  padding:8px;
+  background:white;
+  border-radius:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 <body>
 
 <!-- 🎉 CONFETTI SCRIPT -->
 <script>
-for(let i=0;i<80;i++){
-  let c=document.createElement("div");
-  c.className="confetti";
-  c.style.left=Math.random()*100+"vw";
-  c.style.animationDuration=(3+Math.random()*4)+"s";
-  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+for (let i = 0; i < 100; i++) {
+  let c = document.createElement("div");
+  c.className = "confetti";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
+  c.style.animationDuration = (3 + Math.random() * 5) + "s";
   document.body.appendChild(c);
 }
 </script>
 
-<header>🤖 Eyad Nintendo Ali AI</header>
+<header>
+  <div class="logo">
+    <a href="index.html">Eyad Nintendo Ali</a>
+  </div>
+  <nav>
+    <div class="dropdown">
+      <button>🎮 Types ▾</button>
+      <div class="dropdown-content">
+        <a href="games.html">Games</a>
+        <a href="cartoons.html">Cartoons</a>
+        <a href="Movies.html">Movies</a>
+        <a href="news.html">News</a>
+      </div>
+    </div>
+    <button>🔍 Search</button>
+    <button>📤 Share</button>
+    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+  </nav>
+</header>
 
-<div id="chat">
-  <div id="messages">
-    <div class="msg ai">Hello 👋 I am Eyad Nintendo Ali AI!<br>Ask me for Unity code, Minecraft commands, or say "open games".</div>
-  </div>
-  <div id="inputBox">
-    <input id="input" placeholder="Message AI..." onkeydown="if(event.key==='Enter')send()">
-    <button onclick="send()">Send</button>
-  </div>
+<div class="helper-wrap">
+  <input type="text" id="userInput" placeholder="Ask me anything...">
+  <button id="askBtn">Ask AI</button>
+  <div id="response"></div>
 </div>
 
 <script>
-const messages = document.getElementById("messages");
+const input = document.getElementById('userInput');
+const btn = document.getElementById('askBtn');
+const response = document.getElementById('response');
 
-// Add message to chat
-function addMessage(text, cls){
-  const div=document.createElement("div");
-  div.className="msg "+cls;
-  div.innerHTML=text.replace(/```([\s\S]*?)```/g,"<pre><code>$1</code></pre>");
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-// Send function
-async function send(){
-  const input = document.getElementById("input");
+btn.addEventListener('click', () => {
   const text = input.value.trim();
-  if(!text) return;
-  addMessage(text,"user");
-  input.value = "";
-  addMessage("Typing...","ai");
-
-  try{
-    // Special new game response
-    if(text.toLowerCase().includes("new game") || text.toLowerCase().includes("coming soon")){
-      messages.lastChild.remove();
-      addMessage("🎮 Game Haven domdom 2","ai");
-
-      const videoDiv = document.createElement("div");
-      videoDiv.className="msg ai";
-      videoDiv.innerHTML = `
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/_159DMDqFSM" 
-        title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-      messages.appendChild(videoDiv);
-      messages.scrollTop = messages.scrollHeight;
-      return;
-    }
-
-    // GPT-5 / GPT-4 API
-    const response = await fetch("http://localhost:3000/chat", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({message:text})
-    });
-    const data = await response.json();
-    messages.lastChild.remove();
-    addMessage(data.choices[0].message.content,"ai");
-
-  }catch(err){
-    messages.lastChild.innerText="Error contacting GPT API. Check server or internet.";
-    console.error(err);
+  if(!text) {
+    response.textContent = "Please type something!";
+    return;
   }
-}
+
+  // Simple gibberish detection
+  if (/^[a-z]{5,}$/i.test(text)) {
+    response.textContent = "🎉 The party is very cool!";
+  } else {
+    response.textContent = "🤖 Connecting to ChatGPT helper...";
+    setTimeout(() => {
+      response.textContent = `AI Response: I understood your question: "${text}" (pretend answer here)`;
+    }, 1000);
+  }
+
+  input.value = "";
+});
 </script>
 
 </body>
