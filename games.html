@@ -14,6 +14,21 @@
       font-family: Arial, sans-serif;
       background-color: #fff;
       color: #222;
+      overflow-x: hidden;
+    }
+
+    /* 🎉 CONFETTI PARTY */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      top: -10px;
+      animation: fall linear infinite;
+      opacity: 0.8;
+      border-radius: 50%;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); }
     }
 
     header {
@@ -160,42 +175,57 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo"><a href="index.html">Games - Eyad Nintendo Ali</a></div>
-    <nav>
-      <div class="dropdown">
-        <button>🎮 Types ▾</button>
-        <div class="dropdown-content">
-          <a href="games.html">Games</a>
-          <a href="cartoons.html">Cartoons</a>
-          <a href="Movies.html">Movies</a>
-          <a href="news.html">News</a>
-        </div>
-      </div>
-      <button>🔍 Search</button>
-      <button>📤 Share</button>
-      <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
-    </nav>
-  </header>
 
-  <div class="wrap">
-    <div class="game-item" onclick="window.location.href='Boy&jelly.html'">
-      <div class="game-thumb">
-        <img src="Boy&jelly.png" alt="Boy & Jelly">
-      </div>
-      <div class="game-info">
-        <h3>Boy & Jelly</h3>
+<!-- 🎉 CONFETTI SCRIPT -->
+<script>
+for (let i = 0; i < 100; i++) {
+  let c = document.createElement("div");
+  c.className = "confetti";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
+  c.style.animationDuration = (3 + Math.random() * 5) + "s";
+  document.body.appendChild(c);
+}
+</script>
+
+<header>
+  <div class="logo"><a href="index.html">Games - Eyad Nintendo Ali</a></div>
+  <nav>
+    <div class="dropdown">
+      <button>🎮 Types ▾</button>
+      <div class="dropdown-content">
+        <a href="games.html">Games</a>
+        <a href="cartoons.html">Cartoons</a>
+        <a href="Movies.html">Movies</a>
+        <a href="news.html">News</a>
       </div>
     </div>
+    <button>🔍 Search</button>
+    <button>📤 Share</button>
+    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+  </nav>
+</header>
 
-    <div class="game-item" onclick="window.location.href='Game Haven domdom.html'">
-      <div class="game-thumb">
-        <img src="Game Haven domdom.png" alt="Game Haven domdom">
-      </div>
-      <div class="game-info">
-        <h3>Game Haven domdom</h3>
-      </div>
+<div class="wrap">
+  <div class="game-item" onclick="window.location.href='Boy&jelly.html'">
+    <div class="game-thumb">
+      <img src="Boy&jelly.png" alt="Boy & Jelly">
+    </div>
+    <div class="game-info">
+      <h3>Boy & Jelly</h3>
     </div>
   </div>
+
+  <div class="game-item" onclick="window.location.href='Game Haven domdom.html'">
+    <div class="game-thumb">
+      <img src="Game Haven domdom.png" alt="Game Haven domdom">
+    </div>
+    <div class="game-info">
+      <h3>Game Haven domdom</h3>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
