@@ -10,8 +10,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #0f0f0f;
-  color: white;
+  background-color: #f4f4f4; /* light background */
+  color: #222;
   overflow-x: hidden;
 }
 
@@ -29,6 +29,7 @@ body {
   to { transform: translateY(110vh) rotate(360deg); }
 }
 
+/* Header */
 header {
   background-color: #e60012;
   display: flex;
@@ -40,8 +41,9 @@ header {
 }
 .logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
 .logo a { color: white; text-decoration: none; }
-nav { display: flex; align-items: center; gap: 15px; position: relative; }
+nav { display: flex; align-items: center; gap: 15px; }
 
+/* Buttons */
 button {
   background-color: white;
   color: #e60012;
@@ -107,7 +109,7 @@ button:hover { background-color: #ffe5e5; }
   width: 100%;
   height: auto;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 .game-info {
   flex: 1 1 400px;
@@ -118,12 +120,12 @@ button:hover { background-color: #ffe5e5; }
 }
 .game-info h1 {
   margin: 0;
-  color: #00ffcc;
+  color: #e60012;
   font-size: 32px;
 }
 .download-btn {
-  background-color: #00ffcc;
-  color: #0f0f0f;
+  background-color: #e60012;
+  color: white;
   padding: 12px 20px;
   font-size: 18px;
   border: none;
@@ -134,7 +136,17 @@ button:hover { background-color: #ffe5e5; }
   text-align: center;
   transition: 0.3s;
 }
-.download-btn:hover { background-color: #00cccc; }
+.download-btn:hover { background-color: #c40010; }
+
+/* Video */
+iframe {
+  margin-top: 40px;
+  width: 80%;
+  height: 400px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
 
 @media (max-width: 768px) {
   .wrap { flex-direction: column; align-items: center; }
@@ -164,4 +176,48 @@ for (let i = 0; i < 100; i++) {
   <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
   <nav>
     <div class="dropdown">
-      <butto
+      <button>🎮 Types ▾</button>
+      <div class="dropdown-content">
+        <a href="games.html">Games</a>
+        <a href="cartoons.html">Cartoons</a>
+        <a href="#">Movies</a>
+        <a href="#">News</a>
+      </div>
+    </div>
+    <button class="mute-btn" id="muteBtn">🔊</button>
+    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="game-thumb">
+    <img src="Game Haven domdom.png" alt="Game Haven domdom">
+  </div>
+  <div class="game-info">
+    <h1>Game Haven domdom</h1>
+    <p>Welcome to the Game Haven domdom page! Click below to download or play the game.</p>
+    <a href="https://www.mediafire.com/folder/fm37vn04gt1ui/Game_Haven_domdom" target="_blank" class="download-btn">Download / Play</a>
+  </div>
+</div>
+
+<!-- Video -->
+<iframe src="https://player.vimeo.com/video/987442202?fl=pl&fe=sh" allowfullscreen></iframe>
+
+<script>
+// Play/pause background music
+const music = document.getElementById('bgMusic');
+const btn = document.getElementById('muteBtn');
+
+btn.addEventListener('click', () => {
+  if (music.paused) {
+    music.play();
+    btn.textContent = '🔊';
+  } else {
+    music.pause();
+    btn.textContent = '🔇';
+  }
+});
+</script>
+
+</body>
+</html>
