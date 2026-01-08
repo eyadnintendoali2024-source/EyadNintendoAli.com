@@ -1,0 +1,92 @@
+/* chat-widget.min.css - for Eyad Nintendo Ali AI widget */
+
+/* Container */
+.chat-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  max-width: 90vw;
+  height: 500px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+
+/* Header */
+.chat-widget-header {
+  background-color: #0066ff;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+}
+
+/* Messages area */
+.chat-widget-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f0f0f0;
+}
+
+/* Message bubbles */
+.chat-widget-message {
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 80%;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+.chat-widget-message.user {
+  background-color: #0066ff;
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-widget-message.bot {
+  background-color: #e0e0e0;
+  color: #333;
+  align-self: flex-start;
+}
+
+/* Input area */
+.chat-widget-input-area {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.chat-widget-input-area input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  border-radius: 0 0 0 12px;
+}
+
+.chat-widget-input-area button {
+  padding: 0 20px;
+  border: none;
+  background-color: #0066ff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0 0 12px 0;
+  transition: 0.3s;
+}
+
+.chat-widget-input-area button:hover {
+  background-color: #0052cc;
+}
