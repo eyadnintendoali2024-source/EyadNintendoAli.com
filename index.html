@@ -8,7 +8,7 @@
 <style>
 body {
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: linear-gradient(135deg, #ff00cc, #3333ff);
   color:white;
   overflow-x:hidden;
@@ -36,42 +36,16 @@ header {
 }
 
 /* Chat UI */
-#chat { 
-  max-width:900px; 
-  margin:20px auto; 
-  padding:20px; 
-  background:rgba(0,0,0,0.35); 
-  border-radius:16px; 
-}
-#messages { 
-  height:400px; 
-  overflow-y:auto; 
-}
-.msg { 
-  margin:10px 0; 
-  padding:12px; 
-  border-radius:12px; 
-  max-width:80%; 
-  line-height:1.5; 
-  word-wrap: break-word; 
-}
+#chat { max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px; }
+#messages { height:400px; overflow-y:auto; }
+.msg { margin:10px 0; padding:12px; border-radius:12px; max-width:80%; line-height:1.5; word-wrap: break-word; }
 .user { background:white; color:black; margin-left:auto; }
 .ai { background:#222; color:white; }
 pre { background:#111; padding:12px; border-radius:10px; overflow-x:auto; color:#00ffcc; }
 
 #inputBox { display:flex; gap:10px; margin-top:15px; }
 input { flex:1; padding:12px; border-radius:10px; border:none; font-size:16px; }
-button { 
-  padding:12px 18px; 
-  border-radius:10px; 
-  border:none; 
-  cursor:pointer; 
-  font-weight:bold; 
-  background: linear-gradient(90deg,#00ffcc,#00ccff); 
-  color:black; 
-  box-shadow:0 0 12px #00ffff; 
-  transition:0.3s; 
-}
+button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; background: linear-gradient(90deg,#00ffcc,#00ccff); color:black; box-shadow:0 0 12px #00ffff; transition:0.3s; }
 button:hover { box-shadow:0 0 22px #00ffff; transform: scale(1.05); }
 
 /* Responsive video */
@@ -97,7 +71,7 @@ for(let i=0;i<80;i++){
 
 <div id="chat">
   <div id="messages">
-    <div class="msg ai">Hello 👋 I am Eyad Nintendo Ali AI!<br>Ask me for Unity code, Minecraft commands, new games, or videos.</div>
+    <div class="msg ai">Hello 👋 I am Eyad Nintendo Ali AI!<br>Ask me for Unity code, Minecraft commands, or say "new game".</div>
   </div>
   <div id="inputBox">
     <input id="input" placeholder="Message AI..." onkeydown="if(event.key==='Enter')send()">
@@ -109,9 +83,9 @@ for(let i=0;i<80;i++){
 const messages = document.getElementById("messages");
 
 function addMessage(text, cls){
-  const div=document.createElement("div");
-  div.className="msg "+cls;
-  div.innerHTML=text.replace(/```([\s\S]*?)```/g,"<pre><code>$1</code></pre>");
+  const div = document.createElement("div");
+  div.className = "msg "+cls;
+  div.innerHTML = text.replace(/```([\s\S]*?)```/g,"<pre><code>$1</code></pre>");
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
 }
@@ -125,13 +99,13 @@ async function send(){
   addMessage("Typing...","ai");
 
   try{
-    // Special: New game / video
+    // New game response
     if(/new game|coming soon/i.test(text)){
       messages.lastChild.remove();
       addMessage("🎮 Game Haven domdom 2 is coming! Check the video below:","ai");
 
       const videoDiv = document.createElement("div");
-      videoDiv.className="msg ai";
+      videoDiv.className = "msg ai";
       videoDiv.innerHTML = `
         <iframe width="100%" height="315" 
         src="https://www.youtube.com/embed/_159DMDqFSM" 
@@ -142,25 +116,18 @@ async function send(){
       return;
     }
 
-    // Gibberish detection
-    if (/^[a-z]{5,}$/i.test(text)) {
-      messages.lastChild.remove();
-      addMessage("🎉 The party is very cool!","ai");
-      return;
-    }
-
-    // GPT-5 / GPT-4 API
+    // GPT-5 only API
     const response = await fetch("http://localhost:3000/chat", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({message:text})
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ message:text })
     });
     const data = await response.json();
     messages.lastChild.remove();
     addMessage(data.choices[0].message.content,"ai");
 
   }catch(err){
-    messages.lastChild.innerText="Error contacting GPT API. Check server or internet.";
+    messages.lastChild.innerText="Error contacting GPT-5 API. Check server or internet.";
     console.error(err);
   }
 }
