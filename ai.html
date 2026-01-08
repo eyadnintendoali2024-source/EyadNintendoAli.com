@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali AI</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body{
@@ -12,17 +11,15 @@ body{
   font-family:Arial, sans-serif;
   background:linear-gradient(135deg,#ff00cc,#3333ff);
   color:white;
-  overflow-x:hidden;
 }
 
-/* 🎉 CONFETTI */
+/* Confetti */
 .confetti{
   position:fixed;
   width:8px;
   height:8px;
   top:-10px;
   animation:fall linear infinite;
-  opacity:0.8;
 }
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg);}
@@ -33,7 +30,6 @@ header{
   text-align:center;
   padding:15px;
   font-size:24px;
-  font-weight:bold;
   background:#222;
   text-shadow:0 0 10px #fff;
 }
@@ -43,11 +39,11 @@ header{
   max-width:900px;
   margin:20px auto;
   padding:20px;
-  background:rgba(0,0,0,0.35);
+  background:rgba(0,0,0,.35);
   border-radius:16px;
 }
 #messages{
-  height:400px;
+  height:380px;
   overflow-y:auto;
 }
 .msg{
@@ -55,8 +51,6 @@ header{
   padding:12px;
   border-radius:12px;
   max-width:80%;
-  line-height:1.5;
-  word-wrap:break-word;
 }
 .user{
   background:white;
@@ -65,9 +59,16 @@ header{
 }
 .ai{
   background:#222;
-  color:white;
+}
+pre{
+  background:#111;
+  padding:10px;
+  border-radius:8px;
+  overflow-x:auto;
+  color:#00ffcc;
 }
 
+/* Input */
 #inputBox{
   display:flex;
   gap:10px;
@@ -78,36 +79,31 @@ input{
   padding:12px;
   border-radius:10px;
   border:none;
-  font-size:16px;
 }
 button{
-  padding:12px 18px;
+  padding:12px;
   border-radius:10px;
   border:none;
-  cursor:pointer;
   font-weight:bold;
+  cursor:pointer;
   background:linear-gradient(90deg,#00ffcc,#00ccff);
-  color:black;
-  box-shadow:0 0 12px #00ffff;
-  transition:0.3s;
 }
-button:hover{
-  box-shadow:0 0 22px #00ffff;
-  transform:scale(1.05);
+#quickBtn{
+  width:100%;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎉 CONFETTI -->
 <script>
-for(let i=0;i<80;i++){
-  const c=document.createElement("div");
+for(let i=0;i<70;i++){
+  let c=document.createElement("div");
   c.className="confetti";
   c.style.left=Math.random()*100+"vw";
-  c.style.animationDuration=(3+Math.random()*4)+"s";
   c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+  c.style.animationDuration=(3+Math.random()*4)+"s";
   document.body.appendChild(c);
 }
 </script>
@@ -118,16 +114,19 @@ for(let i=0;i<80;i++){
   <div id="messages">
     <div class="msg ai">
       Hello 👋<br>
-      I am Eyad Nintendo Ali AI (GPT-5).<br>
-      Say anything 😄
+      I can help with Unity & Minecraft like GPT-5 (simple mode).
     </div>
   </div>
 
   <div id="inputBox">
-    <input id="input" placeholder="Message AI..." 
-           onkeydown="if(event.key==='Enter')send()">
+    <input id="input" placeholder="Ask anything..."
+      onkeydown="if(event.key==='Enter')send()">
     <button onclick="send()">Send</button>
   </div>
+
+  <button id="quickBtn" onclick="askNewGame()">
+    🎮 What is the new game coming soon?
+  </button>
 </div>
 
 <script>
@@ -141,17 +140,66 @@ function addMessage(text,cls){
   messages.scrollTop=messages.scrollHeight;
 }
 
+function showNewGame(){
+  addMessage("<b>🎮 Game Haven domdom 2</b>","ai");
+  const v=document.createElement("div");
+  v.className="msg ai";
+  v.innerHTML=`
+  <iframe width="100%" height="315"
+  src="https://www.youtube.com/embed/_159DMDqFSM"
+  allowfullscreen></iframe>`;
+  messages.appendChild(v);
+}
+
+function unityReply(){
+  addMessage(`
+<b>Unity Example (C#)</b>
+<pre>
+void Update(){
+  if(Input.GetKeyDown(KeyCode.Space)){
+    Debug.Log("Jump!");
+  }
+}
+</pre>
+Tip: Use Rigidbody for movement.
+  `,"ai");
+}
+
+function minecraftReply(){
+  addMessage(`
+<b>Minecraft Command (Java)</b>
+<pre>
+/summon zombie ~ ~ ~ {IsBaby:1}
+</pre>
+Works on Java Edition.
+  `,"ai");
+}
+
 function send(){
   const input=document.getElementById("input");
-  const text=input.value.trim();
+  const text=input.value.trim().toLowerCase();
   if(!text) return;
 
-  addMessage(text,"user");
+  addMessage(input.value,"user");
   input.value="";
 
-  setTimeout(()=>{
+  if(text==="what is the new game coming soon?"){
+    showNewGame();
+  }
+  else if(text.includes("unity")){
+    unityReply();
+  }
+  else if(text.includes("minecraft")){
+    minecraftReply();
+  }
+  else{
     addMessage("🎉 The party is very good! 🎉","ai");
-  },600);
+  }
+}
+
+function askNewGame(){
+  addMessage("What is the new game coming soon?","user");
+  showNewGame();
 }
 </script>
 
