@@ -8,77 +8,46 @@
 
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff00cc, #3333ff);
-  color: white;
-  overflow-x: hidden;
+  margin:0; font-family: Arial, sans-serif; background: linear-gradient(135deg,#ff00cc,#3333ff); color:white; overflow-x:hidden;
 }
 
 /* 🎉 CONFETTI */
 .confetti {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear infinite;
-  opacity: 0.8;
+  position: fixed; width: 8px; height: 8px; top: -10px; animation: fall linear infinite; opacity:0.8;
 }
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
-}
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
 /* Header */
-header {
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
-  text-align:center;
-  padding:15px;
-  font-size:24px;
-  font-weight:bold;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-}
+header { text-align:center; padding:15px; font-size:24px; font-weight:bold; background:#222; text-shadow:0 0 10px #fff; }
 
-/* Chat container */
-#chat {
-  max-width:900px;
-  margin:30px auto;
-  padding:20px;
-  background: rgba(0,0,0,0.35);
-  border-radius:16px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-}
+/* Chat box */
+#chat { max-width:900px; margin:20px auto; padding:20px; background:rgba(0,0,0,0.35); border-radius:16px; }
 #messages { height:400px; overflow-y:auto; }
 .msg { margin:10px 0; padding:12px; border-radius:12px; max-width:80%; line-height:1.5; }
 .user { background:white; color:black; margin-left:auto; }
 .ai { background:#222; }
 pre { background:#111; padding:12px; border-radius:10px; overflow-x:auto; color:#00ffcc; }
+
+/* Input */
 #inputBox { display:flex; gap:10px; margin-top:15px; }
 input { flex:1; padding:12px; border-radius:10px; border:none; font-size:16px; }
 button { padding:12px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; background:#00ffcc; color:black; }
-button:hover { box-shadow: 0 0 12px #00ffff; }
+button:hover { background:#00ccff; }
 </style>
 </head>
 <body>
 
 <!-- 🎉 CONFETTI SCRIPT -->
 <script>
-for (let i = 0; i < 80; i++) {
-  let c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.animationDuration = (3 + Math.random() * 4) + "s";
-  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-  document.body.appendChild(c);
-}
+for(let i=0;i<80;i++){let c=document.createElement("div");c.className="confetti";c.style.left=Math.random()*100+"vw";c.style.animationDuration=(3+Math.random()*4)+"s";c.style.background=`hsl(${Math.random()*360},100%,50%)`;document.body.appendChild(c);}
 </script>
 
-<header>🤖 Eyad Nintendo Ali AI</header>
+<header>🤖 Eyad Nintendo Ali AI 🎉 2026 PARTY</header>
 
 <div id="chat">
   <div id="messages">
-    <div class="msg ai">Hello 👋 I am GPT AI! Ask me for Unity code, Minecraft commands, or say "open games".</div>
+    <div class="msg ai">Hello 👋 I am Eyad Nintendo Ali AI!<br>Ask me Unity code, Minecraft commands, or anything else.</div>
   </div>
-
   <div id="inputBox">
     <input id="input" placeholder="Message AI..." onkeydown="if(event.key==='Enter')send()">
     <button onclick="send()">Send</button>
@@ -86,17 +55,19 @@ for (let i = 0; i < 80; i++) {
 </div>
 
 <script>
-const messages = document.getElementById("messages");
+// --- OpenAI Setup ---
+const OPENAI_API_KEY = "YOUR_OPENAI_KEY_HERE"; // <--- Add your OpenAI API key here
+
+const messagesEl = document.getElementById("messages");
 
 function addMessage(text, cls){
   const div = document.createElement("div");
   div.className = "msg " + cls;
   div.innerHTML = text.replace(/```([\s\S]*?)```/g,"<pre><code>$1</code></pre>");
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
 }
 
-// Send message to GPT backend
 async function send(){
   const input = document.getElementById("input");
   const text = input.value.trim();
@@ -106,18 +77,26 @@ async function send(){
   addMessage("Typing...","ai");
 
   try {
-    const response = await fetch("https://YOUR_BACKEND_URL/gpt", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions",{
       method:"POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({message: text})
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":`Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model:"gpt-4",
+        messages:[{role:"user", content:text}],
+        max_tokens:500
+      })
     });
     const data = await response.json();
-    messages.lastChild.remove();
-    addMessage(data.reply,"ai");
-  } catch(e){
-    messages.lastChild.remove();
-    addMessage("Error contacting GPT API.","ai");
-    console.error(e);
+    messagesEl.lastChild.remove();
+    const reply = data.choices[0].message.content;
+    addMessage(reply,"ai");
+  } catch(err){
+    messagesEl.lastChild.remove();
+    addMessage("Error contacting GPT API. Check your key or internet connection.","ai");
+    console.error(err);
   }
 }
 </script>
