@@ -10,27 +10,23 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff;
+  background-color: #0f0f0f;
   overflow-x: hidden;
-  color: #222;
+  color: #fff;
 }
 
-/* ❄ SNOW BACKGROUND */
-.snowflake {
+/* 🎉 CONFETTI PARTY */
+.confetti {
   position: fixed;
+  width: 8px;
+  height: 8px;
   top: -10px;
-  color: #00ffff;
-  font-size: 20px;
-  user-select: none;
-  pointer-events: none;
-  animation-name: fall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
+  animation: fall linear infinite;
+  opacity: 0.8;
+  border-radius: 50%;
 }
 @keyframes fall {
-  0% { transform: translateY(-10px); }
-  100% { transform: translateY(110vh); }
+  to { transform: translateY(110vh) rotate(360deg); }
 }
 
 /* Header and nav */
@@ -43,22 +39,6 @@ header {
   color:white;
   box-shadow:0 2px 6px rgba(0,0,0,0.2);
 }
-
-/* 🎄 Christmas Logo (with glow) */
-.xmas-logo {
-  width: 55px;
-  height: auto;
-  margin-right: 12px;
-  user-select: none;
-  filter: drop-shadow(0 0 8px #ffffff) drop-shadow(0 0 14px #ff0000);
-  animation: glowPulse 2s ease-in-out infinite;
-}
-@keyframes glowPulse {
-  0% { filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px red); }
-  50% { filter: drop-shadow(0 0 14px #ffffff) drop-shadow(0 0 22px red); }
-  100% { filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 8px red); }
-}
-
 .logo { font-size:24px; font-weight:bold; letter-spacing:1px; }
 .logo a { color:white; text-decoration:none; }
 nav { display:flex; align-items:center; gap:15px; }
@@ -109,13 +89,13 @@ button:hover { background-color:#e6f0ff; }
   align-items: flex-start;
 }
 .game-thumb { flex: 1 1 400px; max-width: 400px; }
-.game-thumb img { width:100%; height:auto; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+.game-thumb img { width:100%; height:auto; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.4); }
 
 .game-info { flex:1 1 400px; display:flex; flex-direction:column; gap:16px; justify-content:flex-start; }
-.game-info h1 { margin:0; color:#0066ff; font-size:32px; }
+.game-info h1 { margin:0; color:#00ffcc; font-size:32px; }
 .download-btn {
-  background-color:#0066ff;
-  color:white;
+  background-color:#00ffcc;
+  color:#0f0f0f;
   padding:12px 20px;
   font-size:18px;
   border:none;
@@ -126,15 +106,16 @@ button:hover { background-color:#e6f0ff; }
   text-align:center;
   transition:0.3s;
 }
-.download-btn:hover { background-color:#0050cc; }
+.download-btn:hover { background-color:#00cccc; }
 
+/* Party video */
 iframe {
   margin-top:40px;
   width:80%;
   height:400px;
   border:none;
   border-radius:15px;
-  box-shadow:0 0 20px rgba(0,0,0,0.2);
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
 }
 
 @media (max-width: 768px) {
@@ -145,23 +126,20 @@ iframe {
 </head>
 <body>
 
-<!-- ❄ SNOW SCRIPT -->
+<!-- 🎉 CONFETTI SCRIPT -->
 <script>
-for (let i = 0; i < 50; i++) {
-  let snow = document.createElement("div");
-  snow.className = "snowflake";
-  snow.innerHTML = "❄";
-  snow.style.left = Math.random() * 100 + "vw";
-  snow.style.animationDuration = (5 + Math.random() * 5) + "s";
-  snow.style.opacity = Math.random();
-  snow.style.fontSize = Math.random() * 15 + 15 + "px";
-  document.body.appendChild(snow);
+for (let i = 0; i < 100; i++) {
+  let c = document.createElement("div");
+  c.className = "confetti";
+  c.style.left = Math.random() * 100 + "vw";
+  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
+  c.style.animationDuration = (3 + Math.random() * 5) + "s";
+  document.body.appendChild(c);
 }
 </script>
 
 <header>
-  <!-- 🎄 Christmas Glow Logo -->
-  <img src="christmas.png" class="xmas-logo" alt="Christmas">
   <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
   <nav>
     <div class="dropdown">
@@ -173,8 +151,7 @@ for (let i = 0; i < 50; i++) {
         <a href="news.html">News</a>
       </div>
     </div>
-    <button>🔍 Search</button>
-    <button>📤 Share</button>
+    <button onclick="playSound()">🔊 Sound</button>
     <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
   </nav>
 </header>
@@ -190,7 +167,19 @@ for (let i = 0; i < 50; i++) {
   </div>
 </div>
 
-<iframe src="https://player.vimeo.com/video/987442202?fl=pl&fe=sh" allowfullscreen></iframe>
+<!-- Party Video -->
+<iframe src="https://www.youtube.com/embed/_159DMDqFSM" allowfullscreen></iframe>
+
+<!-- Sound -->
+<audio id="partySound" src="party.mp3"></audio>
+
+<script>
+// Play sound when button clicked
+function playSound() {
+  const sound = document.getElementById("partySound");
+  sound.play();
+}
+</script>
 
 </body>
 </html>
