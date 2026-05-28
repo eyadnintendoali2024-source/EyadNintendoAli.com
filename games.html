@@ -1,230 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Games - Eyad Nintendo Ali</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games - Space Edition</title>
 
-  <!-- ✅ Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      color: #222;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0b1026, #000000);
+  color: white;
+  overflow-x: hidden;
+}
 
-    /* 🎉 CONFETTI PARTY */
-    .confetti {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      top: -10px;
-      animation: fall linear infinite;
-      opacity: 0.8;
-      border-radius: 50%;
-    }
-    @keyframes fall {
-      to { transform: translateY(110vh) rotate(360deg); }
-    }
+/* 🌌 STARS */
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
 
-    header {
-      background-color: #e60012;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 25px;
-      color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+/* HEADER */
+header {
+  background: rgba(0,0,40,0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 25px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
 
-    .logo a {
-      color: white;
-      text-decoration: none;
-    }
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #00ccff;
+}
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+.logo a {
+  color: white;
+  text-decoration: none;
+}
 
-    button {
-      background-color: white;
-      color: #e60012;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-    button:hover {
-      background-color: #ffe5e5;
-    }
+/* BUTTONS */
+button {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid #00ccff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+button:hover {
+  transform: scale(1.08);
+  background: #00ccff;
+  color: black;
+}
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: white;
-      min-width: 120px;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      border-radius: 6px;
-      z-index: 1;
-    }
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 
-    .dropdown-content a {
-      color: #e60012;
-      padding: 8px 12px;
-      display: block;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #111844;
+  min-width: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  z-index: 1;
+}
 
-    .dropdown-content a:hover {
-      background-color: #ffe5e5;
-    }
+.dropdown-content a {
+  color: white;
+  padding: 10px 12px;
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
+.dropdown-content a:hover {
+  background: #00ccff;
+  color: black;
+}
 
-    .youtube-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
-    .wrap {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+/* WRAP */
+.wrap {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
-    .game-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: #f6f6f6;
-      padding: 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+/* GAME ITEMS */
+.game-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: rgba(255,255,255,0.05);
+  padding: 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
 
-    .game-item:hover {
-      background: #ffe5e5;
-    }
+.game-item:hover {
+  transform: scale(1.02);
+  background: rgba(0,204,255,0.12);
+  box-shadow: 0 0 20px rgba(0,204,255,0.4);
+}
 
-    .game-thumb {
-      width: 180px;
-      height: 110px;
-      border-radius: 8px;
-      overflow: hidden;
-      flex-shrink: 0;
-      background: #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+/* THUMB */
+.game-thumb {
+  width: 220px;
+  height: 130px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(0,204,255,0.2);
+}
 
-    .game-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+.game-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-    .game-info h3 {
-      margin: 0;
-      font-size: 20px;
-      color: #e60012;
-    }
+/* INFO */
+.game-info h3 {
+  margin: 0;
+  font-size: 28px;
+  color: #00ccff;
+  text-shadow: 0 0 10px #00ccff;
+}
 
-    @media (max-width: 720px) {
-      .game-item {
-        flex-direction: column;
-        text-align: center;
-      }
-      .game-thumb {
-        width: 100%;
-        height: auto;
-      }
-    }
-  </style>
+.game-info p {
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* MOBILE */
+@media (max-width: 720px) {
+
+  .game-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .game-thumb {
+    width: 100%;
+    height: auto;
+  }
+
+}
+</style>
 </head>
+
 <body>
 
-<!-- 🎉 CONFETTI SCRIPT -->
+<!-- 🌌 STARS -->
 <script>
-for (let i = 0; i < 100; i++) {
-  let c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
-  c.style.animationDuration = (3 + Math.random() * 5) + "s";
-  document.body.appendChild(c);
+for (let i = 0; i < 180; i++) {
+
+  let s = document.createElement("div");
+
+  s.className = "star";
+
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+
+  let size = Math.random() * 3 + 1;
+
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+
+  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+
+  document.body.appendChild(s);
 }
 </script>
 
+<!-- HEADER -->
 <header>
-  <div class="logo"><a href="index.html">Games - Eyad Nintendo Ali</a></div>
+
+  <div class="logo">
+    <a href="index.html">Games - Eyad Nintendo Ali 🚀</a>
+  </div>
+
   <nav>
+
     <div class="dropdown">
-      <button>🎮 Types ▾</button>
+
+      <button>🌌 Types ▾</button>
+
       <div class="dropdown-content">
-        <a href="games.html">Games</a>
-        <a href="cartoons.html">Cartoons</a>
-        <a href="Movies.html">Movies</a>
-        <a href="news.html">News</a>
+
+        <a href="minecraft.html">⛏️ Minecraft</a>
+
+        <a href="games.html">🎮 Games</a>
+
+        <a href="cartoons.html">📺 Cartoons</a>
+
+        <a href="Movies.html">🎬 Movies</a>
+
+        <a href="news.html">📰 News</a>
+
       </div>
+
     </div>
+
     <button>🔍 Search</button>
+
     <button>📤 Share</button>
-    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+
+    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">
+      ▶️ YouTube
+    </button>
+
   </nav>
+
 </header>
 
+<!-- GAMES -->
 <div class="wrap">
-  <div class="game-item" onclick="window.location.href='Boy&jelly.html'">
+
+  <!-- BOY & JELLY -->
+  <div class="game-item"
+       onclick="window.location.href='Boy&jelly.html'">
+
     <div class="game-thumb">
+
       <img src="Boy&jelly.png" alt="Boy & Jelly">
+
     </div>
+
     <div class="game-info">
-      <h3>Boy & Jelly</h3>
+
+      <h3>🚀 Boy & Jelly</h3>
+
+      <p>
+        Explore the galaxy with Boy & Jelly in a fun
+        and exciting space adventure.
+      </p>
+
     </div>
+
   </div>
 
-  <div class="game-item" onclick="window.location.href='Game Haven domdom.html'">
+  <!-- GAME HAVEN -->
+  <div class="game-item"
+       onclick="window.location.href='Game Haven domdom.html'">
+
     <div class="game-thumb">
-      <img src="Game Haven domdom.png" alt="Game Haven domdom">
+
+      <img src="Game Haven domdom.png"
+           alt="Game Haven domdom">
+
     </div>
+
     <div class="game-info">
-      <h3>Game Haven domdom</h3>
+
+      <h3>🌌 Game Haven domdom</h3>
+
+      <p>
+        Enter the universe of Game Haven domdom
+        and enjoy cosmic gaming adventures.
+      </p>
+
     </div>
+
   </div>
+
 </div>
 
 </body>
