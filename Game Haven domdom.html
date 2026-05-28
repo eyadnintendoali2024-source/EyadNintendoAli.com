@@ -3,63 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Haven domdom - Eyad Nintendo Ali</title>
+<title>Game Haven domdom - Space Edition</title>
 
-<!-- ✅ Favicon -->
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #fff;
-  color: #222;
+  background: radial-gradient(circle at top, #0b1026, #000000);
+  color: white;
   overflow-x: hidden;
 }
 
-/* 🎉 CONFETTI PARTY */
-.confetti {
+/* 🌌 STARS */
+.star {
   position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear infinite;
-  opacity: 0.8;
+  background: white;
   border-radius: 50%;
-}
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
 }
 
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* HEADER */
 header {
-  background-color: #e60012;
+  background: rgba(0,0,40,0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 25px;
   color: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
+
 .logo {
   font-size: 24px;
   font-weight: bold;
   letter-spacing: 1px;
+  text-shadow: 0 0 10px #00ccff;
 }
+
 .logo a {
   color: white;
   text-decoration: none;
 }
+
 nav {
   display: flex;
   align-items: center;
   gap: 15px;
   position: relative;
 }
+
 button {
-  background-color: white;
-  color: #e60012;
-  border: none;
-  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid #00ccff;
+  border-radius: 8px;
   padding: 8px 14px;
   font-weight: bold;
   cursor: pointer;
@@ -68,179 +74,266 @@ button {
   align-items: center;
   gap: 6px;
 }
+
 button:hover {
-  background-color: #ffe5e5;
+  transform: scale(1.08);
+  background: #00ccff;
+  color: black;
 }
+
+/* DROPDOWN */
 .dropdown {
   position: relative;
   display: inline-block;
 }
+
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: white;
-  min-width: 120px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  border-radius: 6px;
+  background: #111844;
+  min-width: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
   z-index: 1;
 }
+
 .dropdown-content a {
-  color: #e60012;
-  padding: 8px 12px;
+  color: white;
+  padding: 10px 12px;
   display: block;
   text-decoration: none;
   font-weight: bold;
+  transition: 0.3s;
 }
+
 .dropdown-content a:hover {
-  background-color: #ffe5e5;
+  background: #00ccff;
+  color: black;
 }
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.youtube-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+
+/* MUTE BUTTON */
 .mute-btn {
-  background: #fff;
-  color: #e60012;
   border-radius: 50%;
-  padding: 6px 10px;
-  font-weight: bold;
+  padding: 8px 12px;
   font-size: 16px;
-  cursor: pointer;
-  transition: .3s;
-}
-.mute-btn:hover {
-  background: #ffe5e5;
 }
 
-/* Game section */
+/* GAME SECTION */
 .wrap {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 16px;
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 20px;
   display: flex;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
   align-items: flex-start;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
+
 .game-thumb {
   flex: 1 1 400px;
-  max-width: 400px;
+  max-width: 420px;
 }
+
 .game-thumb img {
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0,204,255,0.5);
 }
+
 .game-info {
   flex: 1 1 400px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  justify-content: flex-start;
+  gap: 18px;
 }
+
 .game-info h1 {
   margin: 0;
-  color: #e60012;
-  font-size: 32px;
+  color: #00ccff;
+  font-size: 38px;
+  text-shadow: 0 0 15px #00ccff;
 }
+
+.game-info p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* DOWNLOAD BUTTON */
 .download-btn {
-  background-color: #e60012;
+  background: linear-gradient(90deg, #00ccff, #0044ff);
   color: white;
-  padding: 12px 20px;
+  padding: 14px 22px;
   font-size: 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
   text-align: center;
   transition: 0.3s;
+  width: fit-content;
+  box-shadow: 0 0 15px #00ccff;
 }
+
 .download-btn:hover {
-  background-color: #c40010;
+  transform: scale(1.08);
+  box-shadow: 0 0 25px #00ccff;
 }
+
+/* MOBILE */
 @media (max-width: 768px) {
+
   .wrap {
     flex-direction: column;
     align-items: center;
   }
+
   .game-info {
     text-align: center;
+    align-items: center;
   }
+
 }
 </style>
 </head>
+
 <body>
 
-<!-- 🎉 CONFETTI SCRIPT -->
+<!-- 🌌 STAR SCRIPT -->
 <script>
-for (let i = 0; i < 100; i++) {
-  let c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
-  c.style.animationDuration = (3 + Math.random() * 5) + "s";
-  document.body.appendChild(c);
+for (let i = 0; i < 180; i++) {
+
+  let s = document.createElement("div");
+
+  s.className = "star";
+
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+
+  let size = Math.random() * 3 + 1;
+
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+
+  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+
+  document.body.appendChild(s);
 }
 </script>
 
-<!-- Background music -->
+<!-- BACKGROUND MUSIC -->
 <audio id="bgMusic" src="Game Haven domdom.mp3" loop></audio>
 
+<!-- HEADER -->
 <header>
-  <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
+
+  <div class="logo">
+    <a href="index.html">Eyad Nintendo Ali 🚀</a>
+  </div>
+
   <nav>
+
     <div class="dropdown">
-      <button>🎮 Types ▾</button>
+
+      <button>🌌 Types ▾</button>
+
       <div class="dropdown-content">
-        <a href="games.html">Games</a>
-        <a href="cartoons.html">Cartoons</a>
-        <a href="#">Movies</a>
-        <a href="#">News</a>
+
+        <a href="minecraft.html">⛏️ Minecraft</a>
+
+        <a href="games.html">🎮 Games</a>
+
+        <a href="cartoons.html">📺 Cartoons</a>
+
+        <a href="movies.html">🎬 Movies</a>
+
+        <a href="news.html">📰 News</a>
+
       </div>
+
     </div>
+
     <button>🔍 Search</button>
+
     <button>📤 Share</button>
-    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
-    <button class="mute-btn" id="muteBtn">🔊</button>
+
+    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">
+      ▶️ YouTube
+    </button>
+
+    <button class="mute-btn" id="muteBtn">
+      🔊
+    </button>
+
   </nav>
+
 </header>
 
+<!-- GAME -->
 <div class="wrap">
+
   <div class="game-thumb">
+
     <img src="Game Haven domdom.png" alt="Game Haven domdom">
+
   </div>
+
   <div class="game-info">
-    <h1>Game Haven domdom</h1>
-    <p>Welcome to the Game Haven domdom page! Click below to download or play the game.</p>
-    <a href="https://www.mediafire.com/folder/fm37vn04gt1ui/Game_Haven_domdom" target="_blank" class="download-btn">Download / Play</a>
+
+    <h1>🚀 Game Haven domdom</h1>
+
+    <p>
+      Welcome to the space edition of Game Haven domdom.
+      Explore the universe and enjoy fun gameplay adventures.
+    </p>
+
+    <a href="https://www.mediafire.com/folder/fm37vn04gt1ui/Game_Haven_domdom"
+       target="_blank"
+       class="download-btn">
+
+       🚀 Download / Play
+
+    </a>
+
   </div>
+
 </div>
 
 <script>
-// Wait for user interaction (needed by browsers)
+// MUSIC
 const music = document.getElementById('bgMusic');
 const btn = document.getElementById('muteBtn');
 
 function tryPlay() {
+
   music.play().catch(() => {
-    console.log("Music autoplay blocked — will play after click");
+    console.log("Autoplay blocked");
   });
+
 }
 
 window.addEventListener('load', tryPlay);
+
 document.body.addEventListener('click', tryPlay, { once: true });
 
-// Mute/unmute toggle
+// MUTE
 btn.addEventListener('click', () => {
+
   music.muted = !music.muted;
+
   btn.textContent = music.muted ? '🔇' : '🔊';
+
 });
 </script>
 
