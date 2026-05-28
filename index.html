@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali - Space</title>
+<title>Eyad Nintendo Ali - Space Minecraft</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
@@ -29,7 +29,7 @@ body {
   to { opacity: 1; }
 }
 
-/* Intro screen */
+/* INTRO */
 #intro {
   position: fixed;
   inset: 0;
@@ -53,11 +53,11 @@ body {
 }
 
 @keyframes pulse {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(1.08); opacity: 0.85; }
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
 }
 
-/* Loading */
+/* LOADING */
 #loadingVideo {
   position: fixed;
   inset: 0;
@@ -84,12 +84,12 @@ body {
   50% { opacity: 0.4; }
 }
 
-/* Main site */
+/* SITE */
 #site {
   display: none;
 }
 
-/* Header */
+/* HEADER */
 header {
   background: rgba(0,0,40,0.8);
   backdrop-filter: blur(8px);
@@ -133,7 +133,7 @@ button:hover {
   color: black;
 }
 
-/* 🤖 AI Button */
+/* AI BUTTON */
 .ai-btn {
   background: linear-gradient(90deg, #00ccff, #0044ff);
   color: white;
@@ -144,7 +144,7 @@ button:hover {
   box-shadow: 0 0 22px #00ccff;
 }
 
-/* Dropdown */
+/* DROPDOWN */
 .dropdown {
   position: relative;
 }
@@ -154,23 +154,30 @@ button:hover {
   position: absolute;
   background: #111844;
   border-radius: 8px;
-  min-width: 120px;
+  min-width: 150px;
+  overflow: hidden;
 }
 
 .dropdown-content a {
   display: block;
-  padding: 8px;
+  padding: 10px;
   text-decoration: none;
   color: white;
+  transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+  background: #00ccff;
+  color: black;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
-/* Sections */
+/* SECTIONS */
 .section {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 50px auto;
   padding: 20px;
   background: rgba(255,255,255,0.05);
@@ -179,6 +186,7 @@ button:hover {
   backdrop-filter: blur(5px);
 }
 
+/* CARDS */
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -186,7 +194,7 @@ button:hover {
 }
 
 .card {
-  width: 200px;
+  width: 220px;
   background: rgba(255,255,255,0.08);
   color: white;
   border-radius: 12px;
@@ -205,6 +213,17 @@ button:hover {
   width: 100%;
   border-radius: 8px;
 }
+
+.card p {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* MINECRAFT SECTION */
+.minecraft-title {
+  color: #55ff55;
+  text-shadow: 0 0 10px #55ff55;
+}
 </style>
 </head>
 
@@ -217,63 +236,126 @@ for (let i = 0; i < 150; i++) {
   s.className = "star";
   s.style.left = Math.random() * 100 + "vw";
   s.style.top = Math.random() * 100 + "vh";
+
   let size = Math.random() * 3 + 1;
   s.style.width = size + "px";
   s.style.height = size + "px";
+
   s.style.animationDuration = (1 + Math.random() * 3) + "s";
+
   document.body.appendChild(s);
 }
 </script>
 
-<!-- Intro -->
+<!-- INTRO -->
 <div id="intro">
   <img src="mario.png">
-  <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
+
+  <h1>
+    🌌 Welcome to Eyad Nintendo Ali 🌌
+    <br>
+    ⛏️ Minecraft Space World ⛏️
+  </h1>
+
   <img src="luigi.png">
 </div>
 
-<!-- Loading -->
+<!-- LOADING -->
 <div id="loadingVideo">
   <video id="loadVid" autoplay muted></video>
-  <h2>Loading Space...</h2>
+  <h2>Loading Space Minecraft...</h2>
 </div>
 
-<!-- Site -->
+<!-- SITE -->
 <div id="site">
 
 <header>
+
   <div class="logo">
     <a href="index.html">Eyad Nintendo Ali 🚀</a>
   </div>
 
   <nav>
+
     <div class="dropdown">
+
       <button>🌌 Types ▾</button>
+
       <div class="dropdown-content">
+        <a href="#minecraftSection">Minecraft</a>
         <a href="#gamesSection">Games</a>
         <a href="cartoons.html">Cartoons</a>
         <a href="#moviesSection">Movies</a>
         <a href="#newsSection">News</a>
       </div>
+
     </div>
 
-    <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
+    <button class="ai-btn" onclick="location.href='ai.html'">
+      🤖 AI
+    </button>
 
     <button>🔍 Search</button>
 
     <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">
       ▶️ YouTube
     </button>
+
   </nav>
+
 </header>
 
+<!-- HERO -->
 <div class="section">
   <h1>🌌 SPACE MODE 🌌</h1>
-  <p>Explore the universe of games, fun, and creativity.</p>
+  <p>Explore games, Minecraft, mods, maps, and creativity.</p>
 </div>
 
+<!-- MINECRAFT -->
+<div class="section" id="minecraftSection">
+
+  <h2 class="minecraft-title">⛏️ Minecraft</h2>
+
+  <div class="cards">
+
+    <div class="card" onclick="location.href='minecraftmods.html'">
+      <img src="minecraftmods.png">
+      <p>Minecraft Mods</p>
+    </div>
+
+    <div class="card" onclick="location.href='minecraftmaps.html'">
+      <img src="minecraftmaps.png">
+      <p>Minecraft Maps</p>
+    </div>
+
+    <div class="card" onclick="location.href='minecraftaddons.html'">
+      <img src="minecraftaddons.png">
+      <p>Minecraft Addons</p>
+    </div>
+
+    <div class="card" onclick="location.href='minecraftskins.html'">
+      <img src="minecraftskins.png">
+      <p>Minecraft Skins</p>
+    </div>
+
+    <div class="card" onclick="location.href='minecraftservers.html'">
+      <img src="minecraftservers.png">
+      <p>Minecraft Servers</p>
+    </div>
+
+    <div class="card" onclick="location.href='minecraftshaders.html'">
+      <img src="minecraftshaders.png">
+      <p>Minecraft Shaders</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- GAMES -->
 <div class="section" id="gamesSection">
-  <h2>Games</h2>
+
+  <h2>🎮 Games</h2>
 
   <div class="cards">
 
@@ -284,32 +366,41 @@ for (let i = 0; i < 150; i++) {
 
     <div class="card" onclick="location.href='Game Haven domdom.html'">
       <img src="Game Haven domdom.png">
-      <p>Game Haven domdom</p>
+      <p>Game Haven Domdom</p>
     </div>
 
   </div>
+
 </div>
 
 </div>
 
 <script>
 if (sessionStorage.getItem("visitedHome")) {
+
   intro.style.display = "none";
   site.style.display = "block";
+
 } else {
+
   setTimeout(() => {
+
     intro.style.display = "none";
     loadingVideo.style.display = "flex";
 
     loadVid.src = "loading.mp4";
 
     loadVid.onended = () => {
+
       loadingVideo.style.display = "none";
       site.style.display = "block";
+
       sessionStorage.setItem("visitedHome", "1");
+
     };
 
   }, 8000);
+
 }
 </script>
 
