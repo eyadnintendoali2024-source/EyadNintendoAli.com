@@ -3,36 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali - 2026 Party</title>
+<title>Eyad Nintendo Ali - Space</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff00cc, #3333ff);
+  background: radial-gradient(circle at top, #0b1026, #000000);
   overflow-x: hidden;
   color: white;
 }
 
-/* 🎉 CONFETTI */
-.confetti {
+/* 🌌 STARS */
+.star {
   position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear infinite;
+  background: white;
+  border-radius: 50%;
   opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
 }
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
 }
 
 /* Intro screen */
 #intro {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle, #ff00cc, #000);
+  background: radial-gradient(circle, #101a44, #000);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,12 +41,17 @@ body {
   z-index: 9999;
   text-align: center;
 }
-#intro img { width: 180px; }
+
+#intro img {
+  width: 180px;
+}
+
 #intro h1 {
   font-size: 36px;
-  text-shadow: 0 0 15px #ff00cc;
-  animation: pulse 1.5s infinite alternate;
+  text-shadow: 0 0 15px #00ccff;
+  animation: pulse 2s infinite alternate;
 }
+
 @keyframes pulse {
   from { transform: scale(1); opacity: 1; }
   to { transform: scale(1.08); opacity: 0.85; }
@@ -62,34 +68,44 @@ body {
   flex-direction: column;
   z-index: 9998;
 }
+
 #loadingVideo video {
   width: 60%;
   border-radius: 12px;
 }
+
 #loadingVideo h2 {
   margin-top: 20px;
+  color: #00ccff;
   animation: blink 1s infinite;
 }
-@keyframes blink { 50% { opacity: 0.4; } }
+
+@keyframes blink {
+  50% { opacity: 0.4; }
+}
 
 /* Main site */
-#site { display: none; }
+#site {
+  display: none;
+}
 
 /* Header */
 header {
-  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  background: rgba(0,0,40,0.8);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .logo {
   font-size: 26px;
   font-weight: bold;
-  text-shadow: 0 0 10px #fff;
+  text-shadow: 0 0 10px #00ccff;
 }
+
 .logo a {
   color: white;
   text-decoration: none;
@@ -101,54 +117,66 @@ nav {
 }
 
 button {
-  background: white;
-  color: #ff00cc;
-  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid #00ccff;
   border-radius: 8px;
   padding: 8px 14px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
+
 button:hover {
   transform: scale(1.1);
+  background: #00ccff;
+  color: black;
 }
 
 /* 🤖 AI Button */
 .ai-btn {
-  background: linear-gradient(90deg, #00ffcc, #00ccff);
-  color: black;
-  box-shadow: 0 0 12px #00ffff;
+  background: linear-gradient(90deg, #00ccff, #0044ff);
+  color: white;
+  box-shadow: 0 0 12px #00ccff;
 }
+
 .ai-btn:hover {
-  box-shadow: 0 0 22px #00ffff;
+  box-shadow: 0 0 22px #00ccff;
 }
 
 /* Dropdown */
-.dropdown { position: relative; }
+.dropdown {
+  position: relative;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
-  background: white;
+  background: #111844;
   border-radius: 8px;
   min-width: 120px;
 }
+
 .dropdown-content a {
   display: block;
   padding: 8px;
   text-decoration: none;
-  color: #ff00cc;
+  color: white;
 }
-.dropdown:hover .dropdown-content { display: block; }
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 /* Sections */
 .section {
   max-width: 1000px;
   margin: 50px auto;
   padding: 20px;
-  background: rgba(0,0,0,0.35);
+  background: rgba(255,255,255,0.05);
   border-radius: 14px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
 }
 
 .cards {
@@ -159,16 +187,20 @@ button:hover {
 
 .card {
   width: 200px;
-  background: white;
-  color: black;
+  background: rgba(255,255,255,0.08);
+  color: white;
   border-radius: 12px;
   padding: 10px;
   cursor: pointer;
   transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.15);
 }
+
 .card:hover {
   transform: scale(1.08);
+  box-shadow: 0 0 20px #00ccff;
 }
+
 .card img {
   width: 100%;
   border-radius: 8px;
@@ -178,40 +210,45 @@ button:hover {
 
 <body>
 
-<!-- 🎉 CONFETTI SCRIPT -->
+<!-- 🌌 STARS -->
 <script>
-for (let i = 0; i < 80; i++) {
-  let c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.animationDuration = (3 + Math.random() * 4) + "s";
-  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-  document.body.appendChild(c);
+for (let i = 0; i < 150; i++) {
+  let s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  let size = Math.random() * 3 + 1;
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+  document.body.appendChild(s);
 }
 </script>
 
 <!-- Intro -->
 <div id="intro">
   <img src="mario.png">
-  <h1>🎉 Welcome to Eyad Nintendo Ali 🎉<br>🔥 2026 PARTY 🔥</h1>
+  <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
   <img src="luigi.png">
 </div>
 
 <!-- Loading -->
 <div id="loadingVideo">
   <video id="loadVid" autoplay muted></video>
-  <h2>Loading the Party...</h2>
+  <h2>Loading Space...</h2>
 </div>
 
 <!-- Site -->
 <div id="site">
 
 <header>
-  <div class="logo"><a href="index.html">Eyad Nintendo Ali 🎮</a></div>
+  <div class="logo">
+    <a href="index.html">Eyad Nintendo Ali 🚀</a>
+  </div>
 
   <nav>
     <div class="dropdown">
-      <button>🎮 Types ▾</button>
+      <button>🌌 Types ▾</button>
       <div class="dropdown-content">
         <a href="#gamesSection">Games</a>
         <a href="cartoons.html">Cartoons</a>
@@ -220,30 +257,36 @@ for (let i = 0; i < 80; i++) {
       </div>
     </div>
 
-    <!-- 🤖 AI BUTTON -->
     <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
 
     <button>🔍 Search</button>
-    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
+
+    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">
+      ▶️ YouTube
+    </button>
   </nav>
 </header>
 
 <div class="section">
-  <h1>🎉 2026 PARTY MODE 🎉</h1>
-  <p>Welcome to the future of games, fun, and creativity.</p>
+  <h1>🌌 SPACE MODE 🌌</h1>
+  <p>Explore the universe of games, fun, and creativity.</p>
 </div>
 
 <div class="section" id="gamesSection">
   <h2>Games</h2>
+
   <div class="cards">
+
     <div class="card" onclick="location.href='Boy&jelly.html'">
       <img src="Boy&jelly.png">
       <p>Boy & Jelly</p>
     </div>
+
     <div class="card" onclick="location.href='Game Haven domdom.html'">
       <img src="Game Haven domdom.png">
       <p>Game Haven domdom</p>
     </div>
+
   </div>
 </div>
 
@@ -257,12 +300,15 @@ if (sessionStorage.getItem("visitedHome")) {
   setTimeout(() => {
     intro.style.display = "none";
     loadingVideo.style.display = "flex";
+
     loadVid.src = "loading.mp4";
+
     loadVid.onended = () => {
       loadingVideo.style.display = "none";
       site.style.display = "block";
-      sessionStorage.setItem("visitedHome","1");
+      sessionStorage.setItem("visitedHome", "1");
     };
+
   }, 8000);
 }
 </script>
