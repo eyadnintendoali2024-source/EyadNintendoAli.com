@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali - Space Minecraft</title>
+<title>Eyad Nintendo Ali - Space</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
@@ -154,7 +154,7 @@ button:hover {
   position: absolute;
   background: #111844;
   border-radius: 8px;
-  min-width: 150px;
+  min-width: 170px;
   overflow: hidden;
 }
 
@@ -177,7 +177,7 @@ button:hover {
 
 /* SECTIONS */
 .section {
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 50px auto;
   padding: 20px;
   background: rgba(255,255,255,0.05);
@@ -194,7 +194,7 @@ button:hover {
 }
 
 .card {
-  width: 220px;
+  width: 200px;
   background: rgba(255,255,255,0.08);
   color: white;
   border-radius: 12px;
@@ -213,17 +213,6 @@ button:hover {
   width: 100%;
   border-radius: 8px;
 }
-
-.card p {
-  text-align: center;
-  font-size: 18px;
-}
-
-/* MINECRAFT SECTION */
-.minecraft-title {
-  color: #55ff55;
-  text-shadow: 0 0 10px #55ff55;
-}
 </style>
 </head>
 
@@ -232,12 +221,16 @@ button:hover {
 <!-- 🌌 STARS -->
 <script>
 for (let i = 0; i < 150; i++) {
+
   let s = document.createElement("div");
+
   s.className = "star";
+
   s.style.left = Math.random() * 100 + "vw";
   s.style.top = Math.random() * 100 + "vh";
 
   let size = Math.random() * 3 + 1;
+
   s.style.width = size + "px";
   s.style.height = size + "px";
 
@@ -249,21 +242,26 @@ for (let i = 0; i < 150; i++) {
 
 <!-- INTRO -->
 <div id="intro">
+
   <img src="mario.png">
 
   <h1>
     🌌 Welcome to Eyad Nintendo Ali 🌌
     <br>
-    ⛏️ Minecraft Space World ⛏️
+    🚀 SPACE WORLD 🚀
   </h1>
 
   <img src="luigi.png">
+
 </div>
 
 <!-- LOADING -->
 <div id="loadingVideo">
+
   <video id="loadVid" autoplay muted></video>
-  <h2>Loading Space Minecraft...</h2>
+
+  <h2>Loading Space...</h2>
+
 </div>
 
 <!-- SITE -->
@@ -282,15 +280,23 @@ for (let i = 0; i < 150; i++) {
       <button>🌌 Types ▾</button>
 
       <div class="dropdown-content">
-        <a href="#minecraftSection">Minecraft</a>
-        <a href="#gamesSection">Games</a>
-        <a href="cartoons.html">Cartoons</a>
-        <a href="#moviesSection">Movies</a>
-        <a href="#newsSection">News</a>
+
+        <!-- NEW MINECRAFT BUTTON -->
+        <a href="minecraft.html">⛏️ Minecraft</a>
+
+        <a href="#gamesSection">🎮 Games</a>
+
+        <a href="cartoons.html">📺 Cartoons</a>
+
+        <a href="#moviesSection">🎬 Movies</a>
+
+        <a href="#newsSection">📰 News</a>
+
       </div>
 
     </div>
 
+    <!-- AI BUTTON -->
     <button class="ai-btn" onclick="location.href='ai.html'">
       🤖 AI
     </button>
@@ -305,50 +311,14 @@ for (let i = 0; i < 150; i++) {
 
 </header>
 
-<!-- HERO -->
+<!-- MAIN -->
 <div class="section">
+
   <h1>🌌 SPACE MODE 🌌</h1>
-  <p>Explore games, Minecraft, mods, maps, and creativity.</p>
-</div>
 
-<!-- MINECRAFT -->
-<div class="section" id="minecraftSection">
-
-  <h2 class="minecraft-title">⛏️ Minecraft</h2>
-
-  <div class="cards">
-
-    <div class="card" onclick="location.href='minecraftmods.html'">
-      <img src="minecraftmods.png">
-      <p>Minecraft Mods</p>
-    </div>
-
-    <div class="card" onclick="location.href='minecraftmaps.html'">
-      <img src="minecraftmaps.png">
-      <p>Minecraft Maps</p>
-    </div>
-
-    <div class="card" onclick="location.href='minecraftaddons.html'">
-      <img src="minecraftaddons.png">
-      <p>Minecraft Addons</p>
-    </div>
-
-    <div class="card" onclick="location.href='minecraftskins.html'">
-      <img src="minecraftskins.png">
-      <p>Minecraft Skins</p>
-    </div>
-
-    <div class="card" onclick="location.href='minecraftservers.html'">
-      <img src="minecraftservers.png">
-      <p>Minecraft Servers</p>
-    </div>
-
-    <div class="card" onclick="location.href='minecraftshaders.html'">
-      <img src="minecraftshaders.png">
-      <p>Minecraft Shaders</p>
-    </div>
-
-  </div>
+  <p>
+    Explore the universe of games, fun, and creativity.
+  </p>
 
 </div>
 
@@ -360,13 +330,19 @@ for (let i = 0; i < 150; i++) {
   <div class="cards">
 
     <div class="card" onclick="location.href='Boy&jelly.html'">
+
       <img src="Boy&jelly.png">
+
       <p>Boy & Jelly</p>
+
     </div>
 
     <div class="card" onclick="location.href='Game Haven domdom.html'">
+
       <img src="Game Haven domdom.png">
+
       <p>Game Haven Domdom</p>
+
     </div>
 
   </div>
@@ -386,6 +362,7 @@ if (sessionStorage.getItem("visitedHome")) {
   setTimeout(() => {
 
     intro.style.display = "none";
+
     loadingVideo.style.display = "flex";
 
     loadVid.src = "loading.mp4";
@@ -393,6 +370,7 @@ if (sessionStorage.getItem("visitedHome")) {
     loadVid.onended = () => {
 
       loadingVideo.style.display = "none";
+
       site.style.display = "block";
 
       sessionStorage.setItem("visitedHome", "1");
