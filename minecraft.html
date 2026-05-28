@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Space Minecraft Hub - Eyad Nintendo Ali</title>
+<title>Minecraft Hub - Eyad Nintendo Ali</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
 }
 
-/* STARS */
+/* 🌌 STARS */
 .star {
   position: fixed;
   width: 2px;
@@ -28,35 +28,49 @@ body {
 /* HEADER */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 12px 20px;
+  padding: 15px;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
 }
 
+/* LOGO */
 .logo {
-  font-weight: bold;
-  font-size: 20px;
+  position: absolute;
+  left: 20px;
+  font-size: 18px;
   color: #00ccff;
+  font-weight: bold;
 }
 
+/* NAV CENTER */
+nav {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BIG BUTTONS */
 nav button {
-  margin-left: 10px;
-  padding: 8px 12px;
+  padding: 14px 22px;
+  font-size: 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   background: #111;
   color: white;
   transition: 0.3s;
+  min-width: 140px;
 }
 
 nav button:hover {
   background: #00ccff;
   color: black;
+  transform: scale(1.1);
 }
 
 /* SECTIONS */
@@ -98,7 +112,7 @@ nav button:hover {
   border-radius: 8px;
 }
 
-/* MODS LIST */
+/* LIST ITEMS */
 .list-item {
   padding: 12px;
   background: rgba(255,255,255,0.05);
@@ -116,8 +130,8 @@ nav button:hover {
 
 <body>
 
+<!-- 🌌 STARS -->
 <script>
-/* STARS */
 for (let i = 0; i < 120; i++) {
   let s = document.createElement("div");
   s.className = "star";
@@ -129,7 +143,7 @@ for (let i = 0; i < 120; i++) {
 </script>
 
 <header>
-  <div class="logo">🚀 Space Minecraft Hub</div>
+  <div class="logo">⛏️ Minecraft Hub</div>
 
   <nav>
     <button onclick="showSection('space')">🌌 Space</button>
@@ -141,13 +155,13 @@ for (let i = 0; i < 120; i++) {
 
 <!-- SPACE -->
 <div id="space" class="section active">
-  <h1>🌌 Space World</h1>
-  <p>Welcome to the universe of games, Minecraft and creativity.</p>
+  <h1>🌌 Space Mode</h1>
+  <p>Welcome to your Minecraft + Space hub.</p>
 </div>
 
 <!-- MINECRAFT -->
 <div id="minecraft" class="section">
-  <h1>⛏️ Minecraft Zone</h1>
+  <h1>⛏️ Minecraft</h1>
 
   <div class="cards">
     <div class="card" onclick="location.href='Boy&jelly.html'">
@@ -177,15 +191,15 @@ for (let i = 0; i < 120; i++) {
   <h1>🎥 Videos</h1>
 
   <div class="list-item" onclick="window.open('https://www.youtube.com','_blank')">
-    ▶ Minecraft Gameplay Video
+    ▶ Minecraft Gameplay
   </div>
 
   <div class="list-item" onclick="window.open('https://www.youtube.com','_blank')">
-    ▶ Mod Showcase Video
+    ▶ Mod Showcase
   </div>
 
   <div class="list-item" onclick="window.open('https://www.youtube.com','_blank')">
-    ▶ Space Adventure Video
+    ▶ Space Adventure
   </div>
 </div>
 
