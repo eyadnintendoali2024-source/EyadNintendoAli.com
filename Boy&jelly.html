@@ -3,51 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boy & Jelly - Eyad Nintendo Ali</title>
+<title>Boy & Jelly - Space Edition</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #0f0f0f;
+  background: radial-gradient(circle at top, #0b1026, #000000);
   overflow-x: hidden;
-  color: #fff;
+  color: white;
 }
 
-/* 🎉 CONFETTI PARTY */
-.confetti {
+/* 🌌 STARS */
+.star {
   position: fixed;
-  width: 8px;
-  height: 8px;
-  top: -10px;
-  animation: fall linear infinite;
-  opacity: 0.8;
+  background: white;
   border-radius: 50%;
-}
-@keyframes fall {
-  to { transform: translateY(110vh) rotate(360deg); }
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
 }
 
-/* Header and nav */
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* HEADER */
 header {
-  background-color:#0066ff;
+  background: rgba(0,0,40,0.8);
+  backdrop-filter: blur(8px);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:10px 25px;
   color:white;
-  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  box-shadow:0 4px 15px rgba(0,0,0,0.5);
 }
-.logo { font-size:24px; font-weight:bold; letter-spacing:1px; }
-.logo a { color:white; text-decoration:none; }
-nav { display:flex; align-items:center; gap:15px; }
+
+.logo {
+  font-size:24px;
+  font-weight:bold;
+  letter-spacing:1px;
+  text-shadow: 0 0 10px #00ccff;
+}
+
+.logo a {
+  color:white;
+  text-decoration:none;
+}
+
+nav {
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
 
 button {
-  background-color:white;
-  color:#0066ff;
-  border:none;
-  border-radius:6px;
+  background: rgba(255,255,255,0.1);
+  color:white;
+  border:1px solid #00ccff;
+  border-radius:8px;
   padding:8px 14px;
   font-weight:bold;
   cursor:pointer;
@@ -56,128 +72,258 @@ button {
   align-items:center;
   gap:6px;
 }
-button:hover { background-color:#e6f0ff; }
 
-.dropdown { position:relative; display:inline-block; }
+button:hover {
+  transform: scale(1.08);
+  background:#00ccff;
+  color:black;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position:relative;
+  display:inline-block;
+}
+
 .dropdown-content {
   display:none;
   position:absolute;
-  background-color:white;
-  min-width:120px;
-  box-shadow:0px 8px 16px rgba(0,0,0,0.2);
-  border-radius:6px;
-  z-index:1;
+  background:#111844;
+  min-width:150px;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 0 15px rgba(0,0,0,0.5);
 }
+
 .dropdown-content a {
-  color:#0066ff;
-  padding:8px 12px;
+  color:white;
+  padding:10px 12px;
   display:block;
   text-decoration:none;
   font-weight:bold;
+  transition:0.3s;
 }
-.dropdown-content a:hover { background-color:#e6f0ff; }
-.dropdown:hover .dropdown-content { display:block; }
 
-/* Game section */
+.dropdown-content a:hover {
+  background:#00ccff;
+  color:black;
+}
+
+.dropdown:hover .dropdown-content {
+  display:block;
+}
+
+/* GAME SECTION */
 .wrap {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 0 16px;
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 20px;
   display: flex;
-  gap: 24px;
+  gap: 30px;
   flex-wrap: wrap;
   align-items: flex-start;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
-.game-thumb { flex: 1 1 400px; max-width: 400px; }
-.game-thumb img { width:100%; height:auto; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.4); }
 
-.game-info { flex:1 1 400px; display:flex; flex-direction:column; gap:16px; justify-content:flex-start; }
-.game-info h1 { margin:0; color:#00ffcc; font-size:32px; }
+.game-thumb {
+  flex: 1 1 400px;
+  max-width: 420px;
+}
+
+.game-thumb img {
+  width:100%;
+  height:auto;
+  border-radius:16px;
+  box-shadow:0 0 25px rgba(0,204,255,0.5);
+}
+
+.game-info {
+  flex:1 1 400px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.game-info h1 {
+  margin:0;
+  color:#00ccff;
+  font-size:38px;
+  text-shadow:0 0 15px #00ccff;
+}
+
+.game-info p {
+  font-size:18px;
+  line-height:1.6;
+}
+
+/* DOWNLOAD BUTTON */
 .download-btn {
-  background-color:#00ffcc;
-  color:#0f0f0f;
-  padding:12px 20px;
+  background: linear-gradient(90deg, #00ccff, #0044ff);
+  color:white;
+  padding:14px 22px;
   font-size:18px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   cursor:pointer;
   text-decoration:none;
   display:inline-block;
   text-align:center;
   transition:0.3s;
+  width:fit-content;
+  box-shadow:0 0 15px #00ccff;
 }
-.download-btn:hover { background-color:#00cccc; }
 
-/* Party video */
+.download-btn:hover {
+  transform: scale(1.08);
+  box-shadow:0 0 25px #00ccff;
+}
+
+/* VIDEO */
 iframe {
-  margin-top:40px;
-  width:80%;
-  height:400px;
+  margin: 40px auto;
+  width: 80%;
+  height: 420px;
+  display:block;
   border:none;
-  border-radius:15px;
-  box-shadow:0 0 20px rgba(0,0,0,0.4);
+  border-radius:18px;
+  box-shadow:0 0 25px rgba(0,204,255,0.4);
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
-  .wrap { flex-direction:column; align-items:center; }
-  .game-info { text-align:center; }
+
+  .wrap {
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .game-info {
+    text-align:center;
+    align-items:center;
+  }
+
+  iframe {
+    width:95%;
+    height:250px;
+  }
+
 }
 </style>
 </head>
+
 <body>
 
-<!-- 🎉 CONFETTI SCRIPT -->
+<!-- 🌌 STARS -->
 <script>
-for (let i = 0; i < 100; i++) {
-  let c = document.createElement("div");
-  c.className = "confetti";
-  c.style.left = Math.random() * 100 + "vw";
-  c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-  c.style.width = c.style.height = Math.random() * 10 + 5 + "px";
-  c.style.animationDuration = (3 + Math.random() * 5) + "s";
-  document.body.appendChild(c);
+for (let i = 0; i < 180; i++) {
+
+  let s = document.createElement("div");
+
+  s.className = "star";
+
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+
+  let size = Math.random() * 3 + 1;
+
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+
+  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+
+  document.body.appendChild(s);
 }
 </script>
 
+<!-- HEADER -->
 <header>
-  <div class="logo"><a href="index.html">Eyad Nintendo Ali</a></div>
+
+  <div class="logo">
+    <a href="index.html">Eyad Nintendo Ali 🚀</a>
+  </div>
+
   <nav>
+
     <div class="dropdown">
-      <button>🎮 Types ▾</button>
+
+      <button>🌌 Types ▾</button>
+
       <div class="dropdown-content">
-        <a href="games.html">Games</a>
-        <a href="cartoons.html">Cartoons</a>
-        <a href="movies.html">Movies</a>
-        <a href="news.html">News</a>
+
+        <a href="minecraft.html">⛏️ Minecraft</a>
+
+        <a href="games.html">🎮 Games</a>
+
+        <a href="cartoons.html">📺 Cartoons</a>
+
+        <a href="movies.html">🎬 Movies</a>
+
+        <a href="news.html">📰 News</a>
+
       </div>
+
     </div>
+
     <button onclick="playSound()">🔊 Sound</button>
-    <button class="youtube-btn" onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">▶️ YouTube</button>
+
+    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">
+      ▶️ YouTube
+    </button>
+
   </nav>
+
 </header>
 
+<!-- GAME -->
 <div class="wrap">
+
   <div class="game-thumb">
+
     <img src="Boy&jelly.png" alt="Boy & Jelly">
+
   </div>
+
   <div class="game-info">
-    <h1>Boy & Jelly</h1>
-    <p>Dive into the world of Boy & Jelly — an adventure full of surprises and fun!</p>
-    <a href="https://gamejolt.com/games/215649/948184" target="_blank" class="download-btn">Download / Play</a>
+
+    <h1>🚀 Boy & Jelly</h1>
+
+    <p>
+      Explore the universe of Boy & Jelly in this awesome space adventure full of fun,
+      surprises, and exciting gameplay.
+    </p>
+
+    <a href="https://gamejolt.com/games/215649/948184"
+       target="_blank"
+       class="download-btn">
+
+       🚀 Download / Play
+
+    </a>
+
   </div>
+
 </div>
 
-<!-- Party Video (original restored) -->
-<iframe src="https://player.vimeo.com/video/987442202?fl=pl&fe=sh" allowfullscreen></iframe>
+<!-- SPACE VIDEO -->
+<iframe
+src="https://player.vimeo.com/video/987442202?fl=pl&fe=sh"
+allowfullscreen>
+</iframe>
 
-<!-- Sound -->
-<audio id="partySound" src="party.mp3"></audio>
+<!-- SPACE SOUND -->
+<audio id="spaceSound" src="space.mp3"></audio>
 
 <script>
-// Play sound when button clicked
+// PLAY SOUND
 function playSound() {
-  const sound = document.getElementById("partySound");
+
+  const sound = document.getElementById("spaceSound");
+
   sound.play();
+
 }
 </script>
 
