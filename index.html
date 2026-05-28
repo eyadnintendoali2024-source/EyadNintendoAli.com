@@ -251,20 +251,27 @@ for (let i = 0; i < 150; i++) {
   </div>
 
   <nav>
+
     <div class="dropdown">
       <button>🌌 Types ▾</button>
       <div class="dropdown-content">
+
         <a href="minecraft.html">⛏️ Minecraft</a>
-        <a href="#gamesSection">🎮 Games</a>
+
+        <!-- FIXED LINKS -->
+        <a href="games.html">🎮 Games</a>
+        <a href="Movies.html">🎬 Movies</a>
+
         <a href="cartoons.html">📺 Cartoons</a>
-        <a href="#moviesSection">🎬 Movies</a>
-        <a href="#newsSection">📰 News</a>
+        <a href="news.html">📰 News</a>
+
       </div>
     </div>
 
     <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
     <button>🔍 Search</button>
     <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
+
   </nav>
 </header>
 
@@ -296,10 +303,7 @@ const site = document.getElementById("site");
 const loadingVideo = document.getElementById("loadingVideo");
 const loadVid = document.getElementById("loadVid");
 
-/* RANDOM LOADING VIDEOS */
 const loadingVideos = ["loading.mp4", "loading2.mp4"];
-
-/* PICK RANDOM VIDEO */
 const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
 
 if (sessionStorage.getItem("visitedHome")) {
