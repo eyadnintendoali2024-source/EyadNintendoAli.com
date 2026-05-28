@@ -42,9 +42,7 @@ body {
   text-align: center;
 }
 
-#intro img {
-  width: 180px;
-}
+#intro img { width: 180px; }
 
 #intro h1 {
   font-size: 36px;
@@ -85,9 +83,7 @@ body {
 }
 
 /* SITE */
-#site {
-  display: none;
-}
+#site { display: none; }
 
 /* HEADER */
 header {
@@ -221,137 +217,91 @@ button:hover {
 <!-- 🌌 STARS -->
 <script>
 for (let i = 0; i < 150; i++) {
-
   let s = document.createElement("div");
-
   s.className = "star";
-
   s.style.left = Math.random() * 100 + "vw";
   s.style.top = Math.random() * 100 + "vh";
-
   let size = Math.random() * 3 + 1;
-
   s.style.width = size + "px";
   s.style.height = size + "px";
-
   s.style.animationDuration = (1 + Math.random() * 3) + "s";
-
   document.body.appendChild(s);
 }
 </script>
 
 <!-- INTRO -->
 <div id="intro">
-
   <img src="mario.png">
-
-  <h1>
-    🌌 Welcome to Eyad Nintendo Ali 🌌
-    <br>
-    🚀 SPACE WORLD 🚀
-  </h1>
-
+  <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
   <img src="luigi.png">
-
 </div>
 
 <!-- LOADING -->
 <div id="loadingVideo">
-
   <video id="loadVid" autoplay muted></video>
-
   <h2>Loading Space...</h2>
-
 </div>
 
 <!-- SITE -->
 <div id="site">
 
 <header>
-
   <div class="logo">
     <a href="index.html">Eyad Nintendo Ali 🚀</a>
   </div>
 
   <nav>
-
     <div class="dropdown">
-
       <button>🌌 Types ▾</button>
-
       <div class="dropdown-content">
-
-        <!-- NEW MINECRAFT BUTTON -->
         <a href="minecraft.html">⛏️ Minecraft</a>
-
         <a href="#gamesSection">🎮 Games</a>
-
         <a href="cartoons.html">📺 Cartoons</a>
-
         <a href="#moviesSection">🎬 Movies</a>
-
         <a href="#newsSection">📰 News</a>
-
       </div>
-
     </div>
 
-    <!-- AI BUTTON -->
-    <button class="ai-btn" onclick="location.href='ai.html'">
-      🤖 AI
-    </button>
-
+    <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
     <button>🔍 Search</button>
-
-    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">
-      ▶️ YouTube
-    </button>
-
+    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
   </nav>
-
 </header>
 
-<!-- MAIN -->
 <div class="section">
-
   <h1>🌌 SPACE MODE 🌌</h1>
-
-  <p>
-    Explore the universe of games, fun, and creativity.
-  </p>
-
+  <p>Explore the universe of games, fun, and creativity.</p>
 </div>
 
-<!-- GAMES -->
 <div class="section" id="gamesSection">
-
   <h2>🎮 Games</h2>
-
   <div class="cards">
-
     <div class="card" onclick="location.href='Boy&jelly.html'">
-
       <img src="Boy&jelly.png">
-
       <p>Boy & Jelly</p>
-
     </div>
 
     <div class="card" onclick="location.href='Game Haven domdom.html'">
-
       <img src="Game Haven domdom.png">
-
       <p>Game Haven Domdom</p>
-
     </div>
-
   </div>
-
 </div>
 
 </div>
 
 <script>
+const intro = document.getElementById("intro");
+const site = document.getElementById("site");
+const loadingVideo = document.getElementById("loadingVideo");
+const loadVid = document.getElementById("loadVid");
+
+/* RANDOM LOADING VIDEOS */
+const loadingVideos = ["loading.mp4", "loading2.mp4"];
+
+/* PICK RANDOM VIDEO */
+const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
+
 if (sessionStorage.getItem("visitedHome")) {
 
   intro.style.display = "none";
@@ -362,22 +312,18 @@ if (sessionStorage.getItem("visitedHome")) {
   setTimeout(() => {
 
     intro.style.display = "none";
-
     loadingVideo.style.display = "flex";
 
-    loadVid.src = "loading.mp4";
+    loadVid.src = randomVideo;
+    loadVid.play();
 
     loadVid.onended = () => {
-
       loadingVideo.style.display = "none";
-
       site.style.display = "block";
-
       sessionStorage.setItem("visitedHome", "1");
-
     };
 
-  }, 8000);
+  }, 3000);
 
 }
 </script>
