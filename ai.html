@@ -11,6 +11,7 @@ body{
   font-family:Arial, sans-serif;
   background:linear-gradient(135deg,#ff00cc,#3333ff);
   color:white;
+  overflow:hidden; /* عشان يمنع السكرول الملوش لزمة */
 }
 
 /* Confetti */
@@ -28,90 +29,38 @@ body{
 /* Header */
 header{
   text-align:center;
-  padding:15px;
-  font-size:24px;
+  padding:20px;
+  font-size:28px;
   background:#222;
   text-shadow:0 0 10px #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 /* Top Button */
 #topBar{
   display:flex;
   justify-content:flex-start;
-  padding:10px;
+  padding:20px;
 }
 #backBtn{
-  padding:10px 16px;
+  padding:12px 20px;
   border:none;
   border-radius:10px;
   cursor:pointer;
   font-weight:bold;
+  font-size: 16px;
   background:linear-gradient(90deg,#ffcc00,#ffaa00);
+  transition: transform 0.2s;
 }
-
-/* Chat */
-#chat{
-  max-width:900px;
-  margin:10px auto;
-  padding:20px;
-  background:rgba(0,0,0,.35);
-  border-radius:16px;
-}
-#messages{
-  height:360px;
-  overflow-y:auto;
-}
-.msg{
-  margin:10px 0;
-  padding:12px;
-  border-radius:12px;
-  max-width:80%;
-}
-.user{
-  background:white;
-  color:black;
-  margin-left:auto;
-}
-.ai{
-  background:#222;
-}
-pre{
-  background:#111;
-  padding:10px;
-  border-radius:8px;
-  overflow-x:auto;
-  color:#00ffcc;
-}
-
-/* Input */
-#inputBox{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-input{
-  flex:1;
-  padding:12px;
-  border-radius:10px;
-  border:none;
-}
-button{
-  padding:12px;
-  border-radius:10px;
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
-  background:linear-gradient(90deg,#00ffcc,#00ccff);
-}
-#quickBtn{
-  width:100%;
-  margin-top:10px;
+#backBtn:hover {
+  transform: scale(1.05);
 }
 </style>
 </head>
 
 <body>
 
+<!-- تأثير الـ Confetti -->
 <script>
 for(let i=0;i<60;i++){
   let c=document.createElement("div");
@@ -129,101 +78,15 @@ for(let i=0;i<60;i++){
   <button id="backBtn" onclick="goBack()">⬅ Back to Index</button>
 </div>
 
-<div id="chat">
-  <div id="messages">
-    <div class="msg ai">
-      Hello 👋<br>
-      Ask about Unity or Minecraft like GPT-5 (simple).
-    </div>
-  </div>
-
-  <div id="inputBox">
-    <input id="input" placeholder="Ask anything..."
-      onkeydown="if(event.key==='Enter')send()">
-    <button onclick="send()">Send</button>
-  </div>
-
-  <button id="quickBtn" onclick="askNewGame()">
-    🎮 What is the new game coming soon?
-  </button>
-</div>
-
 <script>
-const messages=document.getElementById("messages");
-
-function addMessage(text,cls){
-  const div=document.createElement("div");
-  div.className="msg "+cls;
-  div.innerHTML=text;
-  messages.appendChild(div);
-  messages.scrollTop=messages.scrollHeight;
-}
-
-function showNewGame(){
-  addMessage("<b>🎮 Game Haven domdom 2</b>","ai");
-  const v=document.createElement("div");
-  v.className="msg ai";
-  v.innerHTML=`
-  <iframe width="100%" height="315"
-  src="https://www.youtube.com/embed/_159DMDqFSM"
-  allowfullscreen></iframe>`;
-  messages.appendChild(v);
-}
-
-function unityReply(){
-  addMessage(`
-<b>Unity Example</b>
-<pre>
-void Update(){
-  if(Input.GetKeyDown(KeyCode.Space)){
-    Debug.Log("Jump");
-  }
-}
-</pre>
-Use Rigidbody for movement.
-  `,"ai");
-}
-
-function minecraftReply(){
-  addMessage(`
-<b>Minecraft Command</b>
-<pre>
-/summon zombie ~ ~ ~ {IsBaby:1}
-</pre>
-Java Edition.
-  `,"ai");
-}
-
-function send(){
-  const input=document.getElementById("input");
-  const text=input.value.trim().toLowerCase();
-  if(!text) return;
-
-  addMessage(input.value,"user");
-  input.value="";
-
-  if(text==="what is the new game coming soon?"){
-    showNewGame();
-  }
-  else if(text.includes("unity")){
-    unityReply();
-  }
-  else if(text.includes("minecraft")){
-    minecraftReply();
-  }
-  else{
-    addMessage("🎉 The party is very good! 🎉","ai");
-  }
-}
-
-function askNewGame(){
-  addMessage("What is the new game coming soon?","user");
-  showNewGame();
-}
-
 function goBack(){
   window.location.href="index.html";
 }
+</script>
+
+<!-- كود الـ Chatbot الذكي الجديد (Chatbase) -->
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MEt-81lKfUqO49cDa_3Gk";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 
 </body>
