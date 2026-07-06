@@ -55,6 +55,23 @@ header{
 #backBtn:hover {
   transform: scale(1.05);
 }
+
+/* نص التوجيه الجديد */
+.instruction-text {
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 30px;
+  border-radius: 12px;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
 </style>
 </head>
 
@@ -76,6 +93,11 @@ for(let i=0;i<60;i++){
 
 <div id="topBar">
   <button id="backBtn" onclick="goBack()">⬅ Back to Index</button>
+</div>
+
+<!-- النص اللي طلبته في منتصف الصفحة -->
+<div class="instruction-text">
+  بتدوس على Black Icon 💬
 </div>
 
 <script>
