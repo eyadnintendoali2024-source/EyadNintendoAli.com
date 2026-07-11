@@ -132,17 +132,21 @@ for (let i = 0; i < 150; i++) {
 function showPrediction() {
   const winner = document.getElementById("winner").value;
   const loser = document.getElementById("loser").value;
+  const result = document.getElementById("result");
 
   if (winner === loser) {
-    document.getElementById("result").innerHTML =
-      "❌ Please choose different teams!";
+    result.innerHTML = "❌ Please choose different teams!";
     return;
   }
 
-  document.getElementById("result").innerHTML =
-    "🏆 You predicted <b>" + winner +
-    "</b> will WIN and <b>" + loser +
-    "</b> will LOSE!";
+  if (winner === "Argentina") {
+    result.innerHTML = "<h2 style='color:red;'>❌ YOU LOSE!</h2>";
+    return;
+  }
+
+  result.innerHTML =
+    "<h2 style='color:lime;'>🎉 YOU WIN!</h2>" +
+    "<p>🏆 You predicted <b>Egypt</b> will WIN and <b>Argentina</b> will LOSE!</p>";
 }
 </script>
 
