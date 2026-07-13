@@ -82,11 +82,32 @@ body {
   50% { opacity: 0.4; }
 }
 
+/* Skip button styles */
+#skipBtn{
+  margin-top:20px;
+  padding:12px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  background:#00ccff;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
+}
+
+#skipBtn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px #00ccff;
+}
+
 /* SITE */
 #site { display: none; }
 
 /* HEADER */
 header {
+  position: relative;
+  z-index: 9998;
   background: rgba(0,0,40,0.8);
   backdrop-filter: blur(8px);
   display: flex;
@@ -143,15 +164,20 @@ button:hover {
 /* DROPDOWN */
 .dropdown {
   position: relative;
+  z-index: 9999;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
+  top: 100%;
+  left: 0;
   background: #111844;
   border-radius: 8px;
   min-width: 170px;
   overflow: hidden;
+  z-index: 10000;
+  box-shadow: 0 8px 20px rgba(0,0,0,.6);
 }
 
 .dropdown-content a {
@@ -240,6 +266,7 @@ for (let i = 0; i < 150; i++) {
 <div id="loadingVideo">
   <video id="loadVid" autoplay muted></video>
   <h2>Loading Space...</h2>
+  <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
 </div>
 
 <!-- SITE -->
@@ -332,6 +359,13 @@ if (sessionStorage.getItem("visitedHome")) {
 
   }, 3000);
 
+}
+
+function skipLoading(){
+    loadVid.pause();
+    loadingVideo.style.display="none";
+    site.style.display="block";
+    sessionStorage.setItem("visitedHome","1");
 }
 </script>
 
