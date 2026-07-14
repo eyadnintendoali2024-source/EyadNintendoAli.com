@@ -71,11 +71,12 @@ header{
 /* Featured */
 .hero{
     height:420px;
-    background:url("Minecraft Movie.png") center/cover;
+    background:url("Minecraft Movie.png") center center/cover no-repeat;
     display:flex;
     align-items:flex-end;
     padding:40px;
     box-shadow:inset 0 -120px 120px rgba(0,0,0,.9);
+    transition:background-image 1s ease-in-out;
 }
 
 .hero h1{
@@ -177,10 +178,10 @@ for(let i=0;i<180;i++){
 
 <div class="hero">
     <div>
-        <h1>🎬 Minecraft Movie</h1>
+        <h1>🎬 Eyad Nintendo Ali Movies</h1>
         <p>
-            Welcome to the Movies section! Watch your favorite movies with
-            a Netflix and YouTube style interface.
+            Watch your favorite movies online. Enjoy Angry Birds, Minecraft,
+            Super Mario Galaxy and more in one place.
         </p>
     </div>
 </div>
@@ -234,6 +235,24 @@ function searchMovies(){
         }
     });
 }
+</script>
+
+<script>
+const hero=document.querySelector(".hero");
+
+const wallpapers=[
+"Minecraft Movie.png",
+"Angry Birds 2.png",
+"Angry Birds 3.png",
+"Super Mario Galaxy.png"
+];
+
+let current=0;
+
+setInterval(()=>{
+    current=(current+1)%wallpapers.length;
+    hero.style.backgroundImage=`url("${wallpapers[current]}")`;
+},15000);
 </script>
 
 </body>
