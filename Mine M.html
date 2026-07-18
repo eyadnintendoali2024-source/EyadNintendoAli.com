@@ -255,31 +255,48 @@ for(let i=0;i<60;i++){
     stars.appendChild(s);
 }
 
-// DrivePlyr Fallback Logic
+// DrivePlyr Fallback Logic - Only switch if DrivePlyr actually fails
 document.addEventListener('DOMContentLoaded', function() {
     const driveplyrContainer = document.getElementById('driveplyr-container');
     const gdriveContainer = document.getElementById('gdrive-fallback');
     const driveplyrFrame = document.getElementById('driveplyr');
     
-    let driveplyrLoaded = false;
-    let fallbackTimeout;
+    let fallbackTriggered = false;
     
-    driveplyrFrame.onload = function() {
-        driveplyrLoaded = true;
-        clearTimeout(fallbackTimeout);
-    };
-    
-    fallbackTimeout = setTimeout(function() {
-        if (!driveplyrLoaded) {
+    function switchToGDrive() {
+        if (!fallbackTriggered) {
+            fallbackTriggered = true;
             driveplyrContainer.classList.remove('active');
             gdriveContainer.classList.add('active');
         }
-    }, 5000);
+    }
     
+    // Only trigger fallback on actual errors
     driveplyrFrame.onerror = function() {
-        driveplyrContainer.classList.remove('active');
-        gdriveContainer.classList.add('active');
+        switchToGDrive();
     };
+    
+    // Listen for errors from DrivePlyr iframe via postMessage
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'driveplyr-error') {
+            switchToGDrive();
+        }
+    });
+    
+    // Only fallback if iframe is blocked or cannot load at all (check after 10 seconds)
+    setTimeout(function() {
+        if (!fallbackTriggered) {
+            try {
+                // Check if iframe has any content
+                const iframeDoc = driveplyrFrame.contentDocument || driveplyrFrame.contentWindow?.document;
+                if (!iframeDoc) {
+                    switchToGDrive();
+                }
+            } catch (e) {
+                // Cross-origin - iframe loaded, so it's working
+            }
+        }
+    }, 10000);
 });
 </script>
 
