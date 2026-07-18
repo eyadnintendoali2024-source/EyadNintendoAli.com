@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MediaElements.JS</title>
+        <!-- library -->
+        <link rel="icon" href="drive-logo.png">
+        <title>DrivePlyr - Google Drive Proxy Video Player with Many Powerful HTML5 Players</title>
+    
+        <!-- Meta Tags for SEO -->
+        <meta name="description" content="DrivePlyr is a Google Drive Proxy Video Player with Many Powerful HTML5 Players, Hidden ID, and Many Features. Play your videos from Google Drive with ease.">
+        <meta name="keywords" content="DrivePlyr, Google Drive, Proxy, Video Player, HTML5 Player, Hidden ID, Features">
+        <meta name="author" content="SH20RAJ">
+      
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://sh20raj.github.io/DrivePlyr/">
+        <meta property="og:title" content="DrivePlyr - Google Drive Proxy Video Player with Many Powerful HTML5 Players">
+        <meta property="og:description" content="DrivePlyr is a Google Drive Proxy Video Player with Many Powerful HTML5 Players, Hidden ID, and Many Features. Play your videos from Google Drive with ease.">
+        <meta property="og:image" content="https://sh20raj.github.io/DrivePlyr/drive-logo.png">
+      
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://sh20raj.github.io/DrivePlyr/">
+        <meta property="twitter:title" content="DrivePlyr - Google Drive Proxy Video Player with Many Powerful HTML5 Players">
+        <meta property="twitter:description" content="DrivePlyr is a Google Drive Proxy Video Player with Many Powerful HTML5 Players, Hidden ID, and Many Features. Play your videos from Google Drive with ease.">
+        <meta property="twitter:image" content="https://sh20raj.github.io/DrivePlyr/drive-logo.png">
+      
+        <!-- Other Meta Tags -->
+        <link rel="icon" href="https://raw.githubusercontent.com/SH20RAJ/DrivePlyr/main/drive-logo.png">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="robots" content="index, follow">
+      
+      
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelementplayer.css">
+</head>
+<body>
+        <div class="media-wrapper" >
+            <video  width="100%" height="100%" id="player1" controls poster="https://bit.ly/bbsampleposter">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/BigBuckBunny.mp4" type="video/mp4">
+            </video>
+        </div>
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelement-and-player.min.js"></script>
+            <script>
+
+                var
+                    sourcesSelector = document.body.querySelectorAll('select'),
+                    sourcesTotal = sourcesSelector.length
+                ;
+
+                for (var i = 0; i < sourcesTotal; i++) {
+                    sourcesSelector[i].addEventListener('change', function (e) {
+                        var
+                            media = e.target.closest('.media-container').querySelector('.mejs__container').id,
+                            player = mejs.players[media]
+                        ;
+
+                        player.setSrc(e.target.value.replace('&amp;', '&'));
+                        player.setPoster('');
+                        player.load();
+
+                    });
+
+                    // These media types cannot play at all on iOS, so disabling them
+                    if (mejs.Features.isiOS) {
+                        if (sourcesSelector[i].querySelector('option[value^="rtmp"]')) {
+                            sourcesSelector[i].querySelector('option[value^="rtmp"]').disabled = true;
+                        }
+                        if (sourcesSelector[i].querySelector('option[value$="webm"]')) {
+                            sourcesSelector[i].querySelector('option[value$="webm"]').disabled = true;
+                        }
+                        if (sourcesSelector[i].querySelector('option[value$=".mpd"]')) {
+                            sourcesSelector[i].querySelector('option[value$=".mpd"]').disabled = true;
+                        }
+                        if (sourcesSelector[i].querySelector('option[value$=".ogg"]')) {
+                            sourcesSelector[i].querySelector('option[value$=".ogg"]').disabled = true;
+                        }
+                        if (sourcesSelector[i].querySelector('option[value$=".flv"]')) {
+                            sourcesSelector[i].querySelector('option[value*=".flv"]').disabled = true;
+                        }
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+
+                    for (var i = 0; i < total; i++) {
+                        new MediaElementPlayer(mediaElements[i], {
+                            pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.16/build/',
+                            shimScriptAccess: 'always',
+                            success: function () {
+                                var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                                for (var j = 0; j < targetTotal; j++) {
+                                    target[j].style.visibility = 'visible';
+                                }
+                            }
+                        });
+                    }
+                });
+            </script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    video,.media-wrapper,body,.mejs__container{
+      height: 100%;
+    }
+    body {
+      height: 100vh;
+      overflow: hidden;
+    }
+  </style>
+<script>
+  var apikey = ['AIzaSyCt3DULzE2trDJhfFUosWZT-3GEObbMqVU', 'AIzaSyCsbx8BSyLwkw6XX6Lg5OF1U0HNtI9VmCY', 'AIzaSyBLMJAT6oqTZxAMsCsMjXzoo4lkJL4MmfM', 'AIzaSyCIY6fomcJxOt0XQ_naa1rzfd5wlOMGKDY'][Math.floor(Math.random() * 4)];
+ console.log(apikey);
+   //apikey = 'AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw';
+  function getparam(a,e){return e||(e=window.location.href),new URL(e).searchParams.get(a)}
+
+  let video = document.getElementById('player1');
+  if(getparam('id')){
+    let json = JSON.parse(atob(getparam('id'))) ;
+    let driveid = json.id;
+    video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
+    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
+  }
+</script>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6335ced4a8ebd2f2"></script>
+  <img style="display: none;" src="https://iplogger.com/VideoPlyr">
+  <script src="tracker.js"></script>
+</body>
+</html>

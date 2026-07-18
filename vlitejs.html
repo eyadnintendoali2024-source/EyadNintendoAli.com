@@ -1,0 +1,68 @@
+<link href="https://cdn.jsdelivr.net/npm/vlitejs@4/dist/vlite.css" rel="stylesheet" />
+<title>DrivePlyr - Google Drive Proxy Video Player with Many Powerful HTML5 Players</title>
+    
+<!-- Meta Tags for SEO -->
+<meta name="description" content="DrivePlyr is a Google Drive Proxy Video Player with Many Powerful HTML5 Players, Hidden ID, and Many Features. Play your videos from Google Drive with ease.">
+<meta name="keywords" content="DrivePlyr, Google Drive, Proxy, Video Player, HTML5 Player, Hidden ID, Features">
+<meta name="author" content="SH20RAJ">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sh20raj.github.io/DrivePlyr/">
+<meta property="og:title" content="DrivePlyr - Google Drive Proxy Video Player with Many Powerful HTML5 Players">
+<meta property="og:description" content="DrivePlyr is a Google Drive Proxy Video Player with Many Powerful HTML5 Players, Hidden ID, and Many Features. Play your videos from Google Drive with ease.">
+<meta property="og:image" content="https://sh20raj.github.io/DrivePlyr/drive-logo.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://sh20raj.github.io/DrivePlyr/">
+<meta property="twitter:title" content="DrivePlyr - Google Drive Proxy Video Player with Many Powerful HTML5 Players">
+<meta property="twitter:description" content="DrivePlyr is a Google Drive Proxy Video Player with Many Powerful HTML5 Players, Hidden ID, and Many Features. Play your videos from Google Drive with ease.">
+<meta property="twitter:image" content="https://sh20raj.github.io/DrivePlyr/drive-logo.png">
+
+<!-- Other Meta Tags -->
+<link rel="icon" href="https://raw.githubusercontent.com/SH20RAJ/DrivePlyr/main/drive-logo.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow">
+
+
+
+<style>
+  html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.v-vlite {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+
+<video poster="https://bit.ly/bbsampleposter" height="100%" width="100%" id="player" class="vlite-js" src="https://bit.ly/bbsamplevideo"></video>
+
+<script src="https://cdn.jsdelivr.net/npm/vlitejs@4" ></script>
+<script>
+  new Vlitejs('#player');
+</script>
+<script>
+  let apikey = 'AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw';
+  function getparam(a,e){return e||(e=window.location.href),new URL(e).searchParams.get(a)}
+
+  let video = document.getElementById('player');
+  if(getparam('id')){
+    let json = JSON.parse(atob(getparam('id'))) ;
+    let driveid = json.id;
+    video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
+    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
+  }
+</script>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6335ced4a8ebd2f2"></script>
+<img style="display: none;" src="https://iplogger.com/VideoPlyr">
+<script src="tracker.js"></script>

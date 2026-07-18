@@ -1,0 +1,79 @@
+<link rel="icon" href="drive-logo.png">
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+</style>
+
+<video class="afterglow" id="my-video" width="1280" height="720" data-skin="dark" poster="https://sh20raj.github.io/Sopplayer/sample.png">
+        <source type="video/mp4" src="https://bit.ly/bbsamplevideo" />
+    </video>
+
+<script type="text/javascript" src="./assets/afterglow.js"></script>
+<script>
+  var apikey = ['AIzaSyCt3DULzE2trDJhfFUosWZT-3GEObbMqVU', 'AIzaSyCsbx8BSyLwkw6XX6Lg5OF1U0HNtI9VmCY', 'AIzaSyBLMJAT6oqTZxAMsCsMjXzoo4lkJL4MmfM', 'AIzaSyCIY6fomcJxOt0XQ_naa1rzfd5wlOMGKDY'][Math.floor(Math.random() * 4)];
+ console.log(apikey);
+   //apikey = 'AIzaSyD739-eb6NzS_KbVJq1K8ZAxnrMfkIqPyw';
+  let json, video ;
+  function getparam(a,e){return e||(e=window.location.href),new URL(e).searchParams.get(a)}
+
+  video = document.getElementById('my-video');
+  if(getparam('id')){
+    json = JSON.parse(atob(getparam('id'))) ;
+    let driveid = json.id;
+    videolink = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
+    //video.src(videolink);
+    document.getElementById('my-video').src([
+			{type: "video/mp4", src: videolink},
+			{type: "rtmp/mp4", src: videolink}
+		]);
+    document.getElementById('my-video').poster_ = 'https://lh3.googleusercontent.com/d/'+driveid ;
+  }
+</script>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script src="tracke.js"></script>
+<img style="display: none;" src="https://iplogger.com/VideoPlyr">
+<style>
+html, body {
+  height: 100vh !important;
+  width: 100vw !important;
+  margin: 0;
+  padding: 0;
+}
+
+.afterglow  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+#my-video {
+  height: 100% !important;
+  padding: 0;
+}
+.afterglow video {
+  height: 100% !important;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.plyr  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*object-fit: cover;
+  z-index: -1;*/
+}
+</style>
+<script>
+  document.querySelector('video').style.paddingTop = "0px";
+</script>
