@@ -33,7 +33,7 @@
   }
 </style>
 <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
-<video poster="https://bit.ly/bbsampleposter" height="100%" width="100%" id="video-id"><source src="https://bit.ly/bbsamplevideo" type="video/mp4" />
+<video poster="LOGO.png" height="100%" width="100%" id="video-id"><source src="https://bit.ly/bbsamplevideo" type="video/mp4" />
 <script>
     var myFP = fluidPlayer(
         'video-id',	{
@@ -77,7 +77,7 @@
     let json = JSON.parse(atob(getparam('id'))) ;
     let driveid = json.id;
     video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
-    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
+    video.poster = 'LOGO.png';
   }
 </script>
 

@@ -37,7 +37,7 @@
 </head>
 <body>
         <div class="media-wrapper" >
-            <video  width="100%" height="100%" id="player1" controls poster="https://bit.ly/bbsampleposter">
+            <video  width="100%" height="100%" id="player1" controls poster="LOGO.png">
                 <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/CastVideos/mp4/BigBuckBunny.mp4" type="video/mp4">
             </video>
         </div>
@@ -59,7 +59,7 @@
                         ;
 
                         player.setSrc(e.target.value.replace('&amp;', '&'));
-                        player.setPoster('');
+                        player.setPoster('LOGO.png');
                         player.load();
 
                     });
@@ -125,7 +125,7 @@
     let json = JSON.parse(atob(getparam('id'))) ;
     let driveid = json.id;
     video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
-    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
+    video.poster = 'LOGO.png';
   }
 </script>
 

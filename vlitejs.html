@@ -44,7 +44,7 @@
 
 </style>
 
-<video poster="https://bit.ly/bbsampleposter" height="100%" width="100%" id="player" class="vlite-js" src="https://bit.ly/bbsamplevideo"></video>
+<video poster="LOGO.png" height="100%" width="100%" id="player" class="vlite-js" src="https://bit.ly/bbsamplevideo"></video>
 
 <script src="https://cdn.jsdelivr.net/npm/vlitejs@4" ></script>
 <script>
@@ -59,7 +59,7 @@
     let json = JSON.parse(atob(getparam('id'))) ;
     let driveid = json.id;
     video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
-    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
+    video.poster = 'LOGO.png';
   }
 </script>
 

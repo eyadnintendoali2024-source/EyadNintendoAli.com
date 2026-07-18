@@ -48,7 +48,7 @@ html, body {
 
 <!--Add a Simple HTML5 Video tag-->
 <div id="container">
-  <video controls poster="https://bit.ly/bbsampleposter" id="vid1">
+  <video controls poster="LOGO.png" id="vid1">
     <!-- Video files -->
     <source src="https://rebrand.ly/sample-video" type="video/mp4" size="576" />
 
@@ -100,7 +100,7 @@ html, body {
     let json = JSON.parse(atob(getparam('id'))) ;
     let driveid = json.id;
     video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
-    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
+    video.poster = 'LOGO.png';
   }
 </script>
 
