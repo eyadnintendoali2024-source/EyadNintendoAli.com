@@ -77,7 +77,7 @@
     let json = JSON.parse(atob(getparam('id'))) ;
     let driveid = json.id;
     video.src = `https://www.googleapis.com/drive/v3/files/${driveid }?alt=media&key=${apikey}`;
-    video.poster = 'LOGO.png';
+    video.poster = 'https://lh3.googleusercontent.com/d/'+driveid;
   }
 </script>
 
