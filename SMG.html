@@ -50,12 +50,33 @@ header{
     box-shadow:0 0 20px rgba(0,0,0,.6);
     position:relative;
     z-index:10;
+    min-height:400px;
 }
 
-.video iframe{
+.video-wrapper{
+    position:relative;
     width:100%;
     height:70vh;
     min-height:400px;
+}
+
+.video-player{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:none;
+    background:black;
+}
+
+.video-player.active{
+    display:block;
+}
+
+.video-fallback{
+    width:100%;
+    height:100%;
     border:none;
     background:black;
 }
@@ -134,7 +155,7 @@ header{
     grid-template-columns:1fr;
 }
 
-.video iframe{
+.video-wrapper{
     height:50vh;
 }
 }
@@ -151,20 +172,35 @@ header{
 
 <div class="video">
 
-<iframe
-src="https://drive.google.com/file/d/1KFscVYee44hBEWvilbAceXLB2UGVgfff/preview"
-title="Movie Player"
-loading="lazy"
-allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-allowfullscreen
-playsinline
-frameborder="0">
-Your browser does not support embedded videos.
-<br><br>
-<a href="https://drive.google.com/file/d/1KFscVYee44hBEWvilbAceXLB2UGVgfff/view" target="_blank" rel="noopener noreferrer">
-▶ Open in Google Drive
-</a>
-</iframe>
+<div class="video-wrapper">
+    <!-- DrivePlyr Player -->
+    <div id="driveplyr-container" class="video-player active">
+        <iframe 
+            id="driveplyr"
+            class="video-fallback"
+            src="plyr.html?id=eyJpZCI6IjFLRnNjVllhZTQ0aEJFV3ZpbGJBY2VYTEIyVUdWZ2ZmZiJ9"
+            title="Super Mario Galaxy Player"
+            loading="lazy"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen
+            playsinline
+            frameborder="0">
+        </iframe>
+    </div>
+
+    <!-- Google Drive Fallback -->
+    <div id="gdrive-fallback" class="video-player">
+        <iframe
+            class="video-fallback"
+            src="https://drive.google.com/file/d/1KFscVYee44hBEWvilbAceXLB2UGVgfff/preview"
+            loading="lazy"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen
+            playsinline
+            frameborder="0">
+        </iframe>
+    </div>
+</div>
 
 </div>
 
@@ -209,6 +245,33 @@ for(let i=0;i<60;i++){
     s.style.height=size+"px";
     stars.appendChild(s);
 }
+
+// DrivePlyr Fallback Logic
+document.addEventListener('DOMContentLoaded', function() {
+    const driveplyrContainer = document.getElementById('driveplyr-container');
+    const gdriveContainer = document.getElementById('gdrive-fallback');
+    const driveplyrFrame = document.getElementById('driveplyr');
+    
+    let driveplyrLoaded = false;
+    let fallbackTimeout;
+    
+    driveplyrFrame.onload = function() {
+        driveplyrLoaded = true;
+        clearTimeout(fallbackTimeout);
+    };
+    
+    fallbackTimeout = setTimeout(function() {
+        if (!driveplyrLoaded) {
+            driveplyrContainer.classList.remove('active');
+            gdriveContainer.classList.add('active');
+        }
+    }, 5000);
+    
+    driveplyrFrame.onerror = function() {
+        driveplyrContainer.classList.remove('active');
+        gdriveContainer.classList.add('active');
+    };
+});
 </script>
 
 </body>
