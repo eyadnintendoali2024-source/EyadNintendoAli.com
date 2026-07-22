@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movies</title>
+<title>Movies - Eyad Nintendo Ali</title>
 <link rel="icon" href="favicon.ico">
-
-<meta name="theme-color" content="#000000">
-<meta name="color-scheme" content="dark">
 
 <style>
 *{
@@ -18,249 +15,250 @@
 }
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
+    background:radial-gradient(circle at top,#0b1026,#000);
     color:white;
-    background:#000 url("space wallpaper.jpg") center center fixed;
-    background-size:cover;
+    overflow-x:hidden;
 }
 
-header{
-    background:#e60012;
-    color:white;
-    padding:18px 30px;
-    font-size:30px;
-    font-weight:bold;
-    position:relative;
-    z-index:20;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.header-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.back-btn{
-    color:white;
-    text-decoration:none;
-    font-size:18px;
-    background:rgba(0,0,0,0.3);
-    padding:8px 16px;
-    border-radius:8px;
-    transition:.3s;
-}
-
-.back-btn:hover{
-    background:rgba(0,0,0,0.6);
-}
-
-.container{
-    width:90%;
-    max-width:1400px;
-    margin:40px auto;
-    position:relative;
-    z-index:10;
-}
-
-.movies-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
-    gap:30px;
-}
-
-.movie-card{
-    background:rgba(0,0,0,0.6);
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 0 20px rgba(0,0,0,.6);
-    transition:transform .3s, box-shadow .3s;
-    text-decoration:none;
-    color:white;
-    display:flex;
-    flex-direction:column;
-}
-
-.movie-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 10px 25px rgba(230,0,18,0.4);
-}
-
-.poster-wrapper{
-    position:relative;
-    width:100%;
-    padding-top:140%;
-    overflow:hidden;
-    background:#111;
-}
-
-.poster-wrapper img{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:transform .5s;
-}
-
-.movie-card:hover .poster-wrapper img{
-    transform:scale(1.05);
-}
-
-.movie-details{
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-    flex-grow:1;
-}
-
-.movie-title{
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.movie-category{
-    font-size:14px;
-    color:#aaa;
-    margin-bottom:12px;
-}
-
-.movie-status{
-    display:inline-block;
-    background:#e60012;
-    color:white;
-    padding:4px 10px;
-    border-radius:6px;
-    font-size:12px;
-    font-weight:bold;
-    align-self:flex-start;
-    margin-top:auto;
-}
-
+/* Stars */
 .star{
     position:fixed;
     background:white;
     border-radius:50%;
     opacity:.8;
     animation:twinkle 2s infinite alternate;
-    z-index:-1;
-    pointer-events:none;
 }
 
 @keyframes twinkle{
-    from{
-        opacity:.4;
-        transform:scale(.9);
-    }
-    to{
-        opacity:1;
-        transform:scale(1.1);
-    }
+    from{opacity:.3;}
+    to{opacity:1;}
 }
 
-#stars{
-    position:fixed;
-    inset:0;
-    z-index:-1;
+/* Header */
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 25px;
+    background:rgba(0,0,40,.85);
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:#00ccff;
+    text-shadow:0 0 10px #00ccff;
+}
+
+.logo a{
+    color:white;
+    text-decoration:none;
+}
+
+.search{
+    width:300px;
+    padding:10px;
+    border:none;
+    border-radius:25px;
+    outline:none;
+    font-size:16px;
+}
+
+/* Featured */
+.hero{
+    height:420px;
+    background:url("Minecraft Movie.png") center center/cover no-repeat;
+    display:flex;
+    align-items:flex-end;
+    padding:40px;
+    box-shadow:inset 0 -120px 120px rgba(0,0,0,.9);
+    transition:background-image 1s ease-in-out;
+}
+
+.hero h1{
+    font-size:48px;
+    text-shadow:0 0 20px black;
+}
+
+.hero p{
+    font-size:18px;
+    max-width:600px;
+    margin-top:10px;
+}
+
+/* Movies */
+.section{
+    padding:30px;
+}
+
+.section h2{
+    margin-bottom:20px;
+    color:#00ccff;
+}
+
+.movies{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:240px;
+    background:#111;
+    border-radius:12px;
     overflow:hidden;
-    pointer-events:none;
+    transition:.3s;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(0,0,0,.5);
 }
 
-@media(max-width:600px){
-    .movies-grid{
-        grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
-        gap:20px;
-    }
+.card:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 20px #00ccff;
+}
+
+.card img{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    display:block;
+}
+
+.card h3{
+    padding:10px;
+}
+
+.card p{
+    padding:0 10px 15px;
+    color:#bbb;
+}
+
+.coming{
+    display:inline-block;
+    background:red;
+    padding:5px 10px;
+    border-radius:6px;
+    margin:10px;
+    font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
+<script>
+for(let i=0;i<180;i++){
+ let s=document.createElement("div");
+ s.className="star";
+ s.style.left=Math.random()*100+"vw";
+ s.style.top=Math.random()*100+"vh";
+ let size=Math.random()*3+1;
+ s.style.width=size+"px";
+ s.style.height=size+"px";
+ s.style.animationDuration=(1+Math.random()*3)+"s";
+ document.body.appendChild(s);
+}
+</script>
 <header>
-    <div class="header-title">
-        🎬 Movies
+    <div class="logo">
+        <a href="index.html">🚀 Eyad Nintendo Ali</a>
     </div>
-    <a href="index.html" class="back-btn">⬅ Home</a>
+
+    <input
+        type="text"
+        class="search"
+        id="search"
+        placeholder="🔍 Search movies..."
+        onkeyup="searchMovies()">
 </header>
 
-<div class="container">
-    <div class="movies-grid">
-
-        <!-- Angry Birds 2 -->
-        <a href="Angry Birds 2.html" class="movie-card">
-            <div class="poster-wrapper">
-                <img src="Angry Birds 2.png" alt="Angry Birds 2" loading="lazy">
-            </div>
-            <div class="movie-details">
-                <div class="movie-title">Angry Birds 2</div>
-                <div class="movie-category">Animation</div>
-                <div class="movie-status">Full Movie</div>
-            </div>
-        </a>
-
-        <!-- Minecraft Movie -->
-        <a href="Minecraft Movie.html" class="movie-card">
-            <div class="poster-wrapper">
-                <img src="Minecraft Movie.png" alt="Minecraft Movie" loading="lazy">
-            </div>
-            <div class="movie-details">
-                <div class="movie-title">Minecraft Movie</div>
-                <div class="movie-category">Action • Adventure</div>
-                <div class="movie-status">Full Movie</div>
-            </div>
-        </a>
-
-        <!-- Super Mario Bros. Movie -->
-        <a href="Super Mario Bros. Movie.html" class="movie-card">
-            <div class="poster-wrapper">
-                <img src="Super Mario Bros. Movie.png" alt="Super Mario Bros. Movie" loading="lazy">
-            </div>
-            <div class="movie-details">
-                <div class="movie-title">Super Mario Bros. Movie</div>
-                <div class="movie-category">Animation • Adventure</div>
-                <div class="movie-status">Full Movie</div>
-            </div>
-        </a>
-
-        <!-- Toy Story 5 -->
-        <a href="Toy 5.html" class="movie-card">
-            <div class="poster-wrapper">
-                <img src="Toy 5.png" alt="Toy Story 5" loading="lazy">
-            </div>
-            <div class="movie-details">
-                <div class="movie-title">Toy Story 5</div>
-                <div class="movie-category">Animation • Adventure • Family • Comedy</div>
-                <div class="movie-status">Full Movie</div>
-            </div>
-        </a>
-
+<div class="hero">
+    <div>
+        <h1>🎬 Eyad Nintendo Ali Movies</h1>
+        <p>
+            Watch your favorite movies online. Enjoy Angry Birds, Minecraft,
+            Super Mario Galaxy and more in one place.
+        </p>
     </div>
 </div>
 
+<div class="section">
+
+<h2>🍿 Movies</h2>
+
+<div class="movies" id="movieList">
+
+<div class="card" onclick="location.href='ABM2.html'">
+    <img src="Angry Birds 2.png" alt="Angry Birds 2">
+    <h3>Angry Birds 2</h3>
+    <p>Full Movie</p>
+</div>
+
+<div class="card" onclick="location.href='ABM3.html'">
+    <img src="Angry Birds 3.png" alt="Angry Birds 3">
+    <span class="coming">COMING SOON</span>
+    <h3>Angry Birds 3</h3>
+    <p>Coming Soon</p>
+</div>
+
+<div class="card" onclick="location.href='Mine M.html'">
+    <img src="Minecraft Movie.png" alt="Minecraft Movie">
+    <h3>Minecraft Movie</h3>
+    <p>Adventure Movie</p>
+</div>
+
+<div class="card" onclick="location.href='SMG.html'">
+    <img src="Super Mario Galaxy.png" alt="Super Mario Galaxy">
+    <h3>Super Mario Galaxy</h3>
+    <p>Animated Movie</p>
+</div>
+
+<div class="card" onclick="location.href='Toy 5.html'">
+    <img src="Toy 5.png" alt="Toy Story 5">
+    <h3>Toy Story 5</h3>
+    <p>Full Movie</p>
+</div>
+
+</div>
+</div>
+
 <script>
-const stars=document.createElement("div");
-stars.id="stars";
-document.body.prepend(stars);
+function searchMovies(){
+    let input=document.getElementById("search").value.toLowerCase();
+    let cards=document.querySelectorAll(".card");
 
-for(let i=0;i<60;i++){
-    let s=document.createElement("div");
-    s.className="star";
-    s.style.left=Math.random()*100+"vw";
-    s.style.top=Math.random()*100+"vh";
+    cards.forEach(card=>{
+        let title=card.querySelector("h3").textContent.toLowerCase();
 
-    let size=Math.random()*2+1;
-
-    s.style.width=size+"px";
-    s.style.height=size+"px";
-
-    stars.appendChild(s);
+        if(title.includes(input)){
+            card.style.display="block";
+        }else{
+            card.style.display="none";
+        }
+    });
 }
+</script>
+
+<script>
+const hero=document.querySelector(".hero");
+
+const wallpapers=[
+"Minecraft Movie.png",
+"Angry Birds 2.png",
+"Angry Birds 3.png",
+"Super Mario Galaxy.png"
+];
+
+let current=0;
+
+setInterval(()=>{
+    current=(current+1)%wallpapers.length;
+    hero.style.backgroundImage=`url("${wallpapers[current]}")`;
+},15000);
 </script>
 
 </body>
