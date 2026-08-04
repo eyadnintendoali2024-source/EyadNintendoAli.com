@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eyad Nintendo Ali AI</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff00cc,#3333ff);
+  color:white;
+  overflow:hidden; /* عشان يمنع السكرول الملوش لزمة */
+}
+
+/* Confetti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  top:-10px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* Header */
+header{
+  text-align:center;
+  padding:20px;
+  font-size:28px;
+  background:#222;
+  text-shadow:0 0 10px #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* Top Button */
+#topBar{
+  display:flex;
+  justify-content:flex-start;
+  padding:20px;
+}
+#backBtn{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size: 16px;
+  background:linear-gradient(90deg,#ffcc00,#ffaa00);
+  transition: transform 0.2s;
+}
+#backBtn:hover {
+  transform: scale(1.05);
+}
+
+/* نص التوجيه الجديد بالإنجليزية */
+.instruction-text {
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px 30px;
+  border-radius: 12px;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+</style>
+</head>
+
+<body>
+
+<!-- تأثير الـ Confetti -->
+<script>
+for(let i=0;i<60;i++){
+  let c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"vw";
+  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+  c.style.animationDuration=(3+Math.random()*4)+"s";
+  document.body.appendChild(c);
+}
+</script>
+
+<header>🤖 Eyad Nintendo Ali AI — GPT-5</header>
+
+<div id="topBar">
+  <button id="backBtn" onclick="goBack()">⬅ Back to Index</button>
+</div>
+
+<!-- النص المحدث باللغة الإنجليزية في منتصف الصفحة -->
+<div class="instruction-text">
+  Click on the Black Icon To start chat 💬
+</div>
+
+<script>
+function goBack(){
+  window.location.href="index.html";
+}
+</script>
+
+<!-- كود الـ Chatbot الذكي الجديد (Chatbase) -->
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MEt-81lKfUqO49cDa_3Gk";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+</body>
+</html>
