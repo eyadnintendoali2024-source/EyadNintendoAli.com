@@ -3,113 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Eyad Nintendo Ali AI</title>
 
+<link rel="icon" href="favicon.ico">
+
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#ff00cc,#3333ff);
-  color:white;
-  overflow:hidden; /* عشان يمنع السكرول الملوش لزمة */
+background:#000 url("space wallpaper.jpg") center center fixed;
+background-size:cover;
+color:white;
+height:100vh;
+display:flex;
+flex-direction:column;
 }
 
-/* Confetti */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  top:-10px;
-  animation:fall linear infinite;
-}
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
-}
-
-/* Header */
 header{
-  text-align:center;
-  padding:20px;
-  font-size:28px;
-  background:#222;
-  text-shadow:0 0 10px #fff;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+background:#e60012;
+padding:18px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
 }
 
-/* Top Button */
-#topBar{
-  display:flex;
-  justify-content:flex-start;
-  padding:20px;
-}
-#backBtn{
-  padding:12px 20px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-  font-size: 16px;
-  background:linear-gradient(90deg,#ffcc00,#ffaa00);
-  transition: transform 0.2s;
-}
-#backBtn:hover {
-  transform: scale(1.05);
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(10px);
 }
 
-/* نص التوجيه الجديد بالإنجليزية */
-.instruction-text {
-  text-align: center;
-  margin-top: 10vh;
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  background: rgba(0, 0, 0, 0.4);
-  padding: 15px 30px;
-  border-radius: 12px;
-  display: inline-block;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+select{
+padding:10px;
+border:none;
+border-radius:10px;
+font-size:16px;
+background:#222;
+color:white;
 }
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#e60012;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#c40010;
+}
+
+#chat{
+flex:1;
+overflow-y:auto;
+padding:20px;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.user{
+align-self:flex-end;
+background:#0066ff;
+padding:12px;
+border-radius:15px;
+max-width:70%;
+word-wrap:break-word;
+}
+
+.ai{
+align-self:flex-start;
+background:#222;
+padding:12px;
+border-radius:15px;
+max-width:70%;
+word-wrap:break-word;
+}
+
+.bottom{
+display:flex;
+padding:15px;
+gap:10px;
+background:rgba(0,0,0,.6);
+}
+
+#userInput{
+flex:1;
+padding:15px;
+border:none;
+border-radius:12px;
+font-size:16px;
+outline:none;
+}
+
+.send{
+background:#00aa44;
+}
+
+.send:hover{
+background:#008833;
+}
+
+.back{
+background:#666;
+}
+
+.back:hover{
+background:#555;
+}
+
+.star{
+position:fixed;
+background:white;
+border-radius:50%;
+opacity:.8;
+animation:twinkle 2s infinite alternate;
+z-index:-1;
+}
+
+@keyframes twinkle{
+from{
+opacity:.3;
+transform:scale(.8);
+}
+to{
+opacity:1;
+transform:scale(1.2);
+}
+}
+
 </style>
+
 </head>
 
 <body>
 
-<!-- تأثير الـ Confetti -->
-<script>
-for(let i=0;i<60;i++){
-  let c=document.createElement("div");
-  c.className="confetti";
-  c.style.left=Math.random()*100+"vw";
-  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-  c.style.animationDuration=(3+Math.random()*4)+"s";
-  document.body.appendChild(c);
-}
-</script>
+<header>
+🤖 Eyad Nintendo Ali AI
+</header>
 
-<header>🤖 Eyad Nintendo Ali AI — GPT-5</header>
+<div class="topbar">
 
-<div id="topBar">
-  <button id="backBtn" onclick="goBack()">⬅ Back to Index</button>
+<select id="provider">
+<option value="openai">ChatGPT</option>
+<option value="gemini">Gemini</option>
+</select>
+
+<button class="back" onclick="window.location='index.html'">
+⬅ Back
+</button>
+
 </div>
 
-<!-- النص المحدث باللغة الإنجليزية في منتصف الصفحة -->
-<div class="instruction-text">
-  Click on the Black Icon To start chat 💬
+<div id="chat">
+
+<div class="ai">
+👋 Hello!<br><br>
+
+I'm Eyad Nintendo Ali AI.<br><br>
+
+Choose ChatGPT or Gemini from the top and start chatting.
+</div>
+
+</div>
+
+<div class="bottom">
+
+<input
+type="text"
+id="userInput"
+placeholder="Type your message...">
+
+<button
+class="send"
+onclick="sendMessage()">
+Send
+</button>
+
 </div>
 
 <script>
-function goBack(){
-  window.location.href="index.html";
+
+const stars=document.createElement("div");
+document.body.appendChild(stars);
+
+for(let i=0;i<80;i++){
+
+let s=document.createElement("div");
+
+s.className="star";
+
+let size=Math.random()*3+1;
+
+s.style.width=size+"px";
+s.style.height=size+"px";
+
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+
+stars.appendChild(s);
+
 }
+
 </script>
 
-<!-- كود الـ Chatbot الذكي الجديد (Chatbase) -->
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MEt-81lKfUqO49cDa_3Gk";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+<script src="ai.js"></script>
 
 </body>
 </html>
