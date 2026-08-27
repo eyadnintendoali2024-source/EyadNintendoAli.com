@@ -553,7 +553,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
   const omarEnabled = localStorage.getItem("omarTheBabyEnabled") !== "false";
 
-  if (unlockedCodes.includes("20112026") && omarEnabled) {
+  if (unlockedCodes.includes("20152026") && omarEnabled) {
     showOmarOverlay(() => {
       startNormalIntroFlow();
     });
@@ -651,7 +651,7 @@ function renderSettings() {
   if (unlockedCodes.length === 0) {
     codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
   } else {
-    if (unlockedCodes.includes("20112026")) {
+    if (unlockedCodes.includes("20152026")) {
       const omarEnabled = localStorage.getItem("omarTheBabyEnabled") !== "false";
       
       const item = document.createElement("div");
@@ -707,10 +707,10 @@ function submitCode() {
   const val = codeInput.value.trim();
   const errorMsg = document.getElementById("codeError");
 
-  if (val === "20112026") {
+  if (val === "20152026") {
     let unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-    if (!unlockedCodes.includes("20112026")) {
-      unlockedCodes.push("20112026");
+    if (!unlockedCodes.includes("20152026")) {
+      unlockedCodes.push("20152026");
       localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
     }
     if (localStorage.getItem("omarTheBabyEnabled") === null) {
