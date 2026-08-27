@@ -15,6 +15,10 @@ body {
   color: white;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 /* 🌌 STARS */
 .star {
   position: fixed;
@@ -131,6 +135,7 @@ header {
 nav {
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 button {
@@ -235,12 +240,177 @@ button:hover {
   width: 100%;
   border-radius: 8px;
 }
+
+/* ⚙️ SETTINGS MODAL STYLES */
+#settingsModalOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#settingsModalOverlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.settings-modal {
+  background: radial-gradient(circle at top, #0b1026, #050814);
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 25px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.2);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-sizing: border-box;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+  color: white;
+}
+
+#settingsModalOverlay.active .settings-modal {
+  transform: scale(1);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 204, 255, 0.3);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.settings-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #00ccff;
+  text-shadow: 0 0 8px #00ccff;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #00ccff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: transparent;
+  color: #ff3366;
+  transform: scale(1.2);
+}
+
+.settings-section {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 18px;
+}
+
+.settings-section h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #00ccff;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.settings-input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #00ccff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.settings-input:focus {
+  box-shadow: 0 0 8px #00ccff;
+}
+
+.code-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
+}
+
+.code-status {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.code-status span.enabled {
+  color: #00ff66;
+  font-weight: bold;
+}
+
+.code-status span.disabled {
+  color: #ff3366;
+  font-weight: bold;
+}
+
+.error-msg {
+  color: #ff3366;
+  font-size: 13px;
+  margin-top: 8px;
+  display: none;
+}
+
+/* 👶 OMAR THE BABY OVERLAY */
+#omarOverlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  z-index: 100005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+#omarOverlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#omarOverlay img {
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🌌 STARS -->
 <script>
 for (let i = 0; i < 150; i++) {
   let s = document.createElement("div");
@@ -255,21 +425,22 @@ for (let i = 0; i < 150; i++) {
 }
 </script>
 
-<!-- INTRO -->
+<div id="omarOverlay">
+  <img src="OMAR THE BABY.png" alt="Omar the Baby">
+</div>
+
 <div id="intro">
   <img src="mario.png">
   <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
   <img src="luigi.png">
 </div>
 
-<!-- LOADING -->
 <div id="loadingVideo">
   <video id="loadVid" autoplay muted></video>
   <h2>Loading Space...</h2>
   <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
 </div>
 
-<!-- SITE -->
 <div id="site">
 
 <header>
@@ -285,7 +456,6 @@ for (let i = 0; i < 150; i++) {
 
         <a href="minecraft.html">⛏️ Minecraft</a>
 
-        <!-- FIXED LINKS -->
         <a href="games.html">🎮 Games</a>
         <a href="Movies.html">🎬 Movies</a>
 
@@ -301,6 +471,7 @@ for (let i = 0; i < 150; i++) {
 
     <button>🔍 Search</button>
     <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
+    <button onclick="openSettings()">⚙️ Settings</button>
 
   </nav>
 </header>
@@ -327,6 +498,45 @@ for (let i = 0; i < 150; i++) {
 
 </div>
 
+<div id="settingsModalOverlay" onclick="closeSettingsOnBackdrop(event)">
+  <div class="settings-modal">
+    <div class="settings-header">
+      <h2>⚙️ SETTINGS</h2>
+      <button class="close-btn" onclick="closeSettings()">✕</button>
+    </div>
+
+    <div class="settings-section">
+      <h3>👤 Username</h3>
+      <div id="usernameDisplayArea">
+        <span id="usernameText">Username: Not set</span>
+        <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
+      </div>
+      <div id="usernameInputArea" style="display: none;" class="input-group">
+        <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
+        <button onclick="saveUsername()">💾 Save</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>📋 Code List</h3>
+      <div id="codeListContent">
+        <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
+      <div id="codeInputArea" style="display: none; margin-top: 10px;">
+        <div class="input-group">
+          <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
+          <button onclick="submitCode()">Enter</button>
+        </div>
+        <div id="codeError" class="error-msg">❌ Invalid code</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const intro = document.getElementById("intro");
 const site = document.getElementById("site");
@@ -336,36 +546,188 @@ const loadVid = document.getElementById("loadVid");
 const loadingVideos = ["loading.mp4", "loading2.mp4"];
 const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
 
-if (sessionStorage.getItem("visitedHome")) {
+// Initialization sequence taking OMAR THE BABY overlay into account
+window.addEventListener("DOMContentLoaded", () => {
+  renderSettings();
+  
+  const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+  const omarEnabled = localStorage.getItem("omarTheBabyEnabled") !== "false";
 
-  intro.style.display = "none";
-  site.style.display = "block";
+  if (unlockedCodes.includes("20112026") && omarEnabled) {
+    showOmarOverlay(() => {
+      startNormalIntroFlow();
+    });
+  } else {
+    startNormalIntroFlow();
+  }
+});
 
-} else {
+function showOmarOverlay(callback) {
+  const omarOverlay = document.getElementById("omarOverlay");
+  omarOverlay.style.display = "flex";
+  // Small delay to trigger CSS fade-in
+  setTimeout(() => {
+    omarOverlay.classList.add("active");
+  }, 20);
 
   setTimeout(() => {
+    omarOverlay.classList.remove("active");
+    setTimeout(() => {
+      omarOverlay.style.display = "none";
+      if (callback) callback();
+    }, 800);
+  }, 8000);
+}
 
+function startNormalIntroFlow() {
+  if (sessionStorage.getItem("visitedHome")) {
     intro.style.display = "none";
-    loadingVideo.style.display = "flex";
+    site.style.display = "block";
+  } else {
+    setTimeout(() => {
+      intro.style.display = "none";
+      loadingVideo.style.display = "flex";
 
-    loadVid.src = randomVideo;
-    loadVid.play();
+      loadVid.src = randomVideo;
+      loadVid.play();
 
-    loadVid.onended = () => {
-      loadingVideo.style.display = "none";
-      site.style.display = "block";
-      sessionStorage.setItem("visitedHome", "1");
-    };
-
-  }, 3000);
-
+      loadVid.onended = () => {
+        loadingVideo.style.display = "none";
+        site.style.display = "block";
+        sessionStorage.setItem("visitedHome", "1");
+      };
+    }, 3000);
+  }
 }
 
 function skipLoading(){
-    loadVid.pause();
-    loadingVideo.style.display="none";
-    site.style.display="block";
-    sessionStorage.setItem("visitedHome","1");
+  loadVid.pause();
+  loadingVideo.style.display="none";
+  site.style.display="block";
+  sessionStorage.setItem("visitedHome","1");
+}
+
+/* ⚙️ SETTINGS SYSTEM JAVASCRIPT */
+function openSettings() {
+  document.getElementById("settingsModalOverlay").classList.add("active");
+  document.body.classList.add("modal-open");
+  renderSettings();
+}
+
+function closeSettings() {
+  document.getElementById("settingsModalOverlay").classList.remove("active");
+  document.body.classList.remove("modal-open");
+  document.getElementById("codeInputArea").style.display = "none";
+  document.getElementById("usernameInputArea").style.display = "none";
+  document.getElementById("usernameDisplayArea").style.display = "block";
+  document.getElementById("codeError").style.display = "none";
+}
+
+function closeSettingsOnBackdrop(e) {
+  if (e.target.id === "settingsModalOverlay") {
+    closeSettings();
+  }
+}
+
+function renderSettings() {
+  // Render Username
+  const savedUsername = localStorage.getItem("siteUsername");
+  const usernameText = document.getElementById("usernameText");
+  const usernameActionBtn = document.getElementById("usernameActionBtn");
+  
+  if (savedUsername) {
+    usernameText.textContent = "Username: " + savedUsername;
+    usernameActionBtn.textContent = "✏️ Rename";
+  } else {
+    usernameText.textContent = "Username: Not set";
+    usernameActionBtn.textContent = "Set Username";
+  }
+
+  // Render Code List
+  const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+  const codeListContent = document.getElementById("codeListContent");
+  codeListContent.innerHTML = "";
+
+  if (unlockedCodes.length === 0) {
+    codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
+  } else {
+    if (unlockedCodes.includes("20112026")) {
+      const omarEnabled = localStorage.getItem("omarTheBabyEnabled") !== "false";
+      
+      const item = document.createElement("div");
+      item.className = "code-item";
+      item.innerHTML = `
+        <div>
+          <div>👶 Omar the baby</div>
+          <div class="code-status">Status: <span class="${omarEnabled ? 'enabled' : 'disabled'}">${omarEnabled ? 'Enabled' : 'Disabled'}</span></div>
+        </div>
+        <button onclick="toggleOmarFeature()">${omarEnabled ? 'Disable' : 'Enable'}</button>
+      `;
+      codeListContent.appendChild(item);
+    }
+  }
+}
+
+function toggleUsernameInput() {
+  const displayArea = document.getElementById("usernameDisplayArea");
+  const inputArea = document.getElementById("usernameInputArea");
+  const usernameInput = document.getElementById("usernameInput");
+  const savedUsername = localStorage.getItem("siteUsername");
+
+  usernameInput.value = savedUsername || "";
+  displayArea.style.display = "none";
+  inputArea.style.display = "flex";
+  usernameInput.focus();
+}
+
+function saveUsername() {
+  const input = document.getElementById("usernameInput").value.trim();
+  if (input) {
+    localStorage.setItem("siteUsername", input);
+  }
+  document.getElementById("usernameInputArea").style.display = "none";
+  document.getElementById("usernameDisplayArea").style.display = "block";
+  renderSettings();
+}
+
+function toggleCodeInput() {
+  const inputArea = document.getElementById("codeInputArea");
+  const errorMsg = document.getElementById("codeError");
+  errorMsg.style.display = "none";
+  if (inputArea.style.display === "none" || inputArea.style.display === "") {
+    inputArea.style.display = "block";
+    document.getElementById("codeInput").focus();
+  } else {
+    inputArea.style.display = "none";
+  }
+}
+
+function submitCode() {
+  const codeInput = document.getElementById("codeInput");
+  const val = codeInput.value.trim();
+  const errorMsg = document.getElementById("codeError");
+
+  if (val === "20112026") {
+    let unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+    if (!unlockedCodes.includes("20112026")) {
+      unlockedCodes.push("20112026");
+      localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
+    }
+    if (localStorage.getItem("omarTheBabyEnabled") === null) {
+      localStorage.setItem("omarTheBabyEnabled", "true");
+    }
+    codeInput.value = "";
+    errorMsg.style.display = "none";
+    location.reload();
+  } else {
+    errorMsg.style.display = "block";
+  }
+}
+
+function toggleOmarFeature() {
+  const current = localStorage.getItem("omarTheBabyEnabled") !== "false";
+  localStorage.setItem("omarTheBabyEnabled", (!current).toString());
+  renderSettings();
 }
 </script>
 
