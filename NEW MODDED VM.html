@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,10 @@ body {
     overflow-x: hidden;
 }
 
-/* 🌌 STARS */
+/* =========================
+   STARS
+========================= */
+
 .star {
     position: fixed;
     background: white;
@@ -86,7 +90,9 @@ nav {
     align-items: center;
 }
 
-/* ALL BUTTONS */
+/* =========================
+   ALL BUTTONS
+========================= */
 
 button {
     background: rgba(255, 255, 255, 0.08);
@@ -96,6 +102,7 @@ button {
     padding: 8px 14px;
     font-weight: bold;
     cursor: pointer;
+
     transition:
         transform 0.3s ease,
         background 0.3s ease,
@@ -110,6 +117,125 @@ button:hover {
     box-shadow: 0 0 20px #00ccff;
 }
 
+.ai-btn {
+    background: linear-gradient(90deg, #00ccff, #0044ff);
+    color: white;
+    box-shadow: 0 0 12px #00ccff;
+}
+
+.ai-btn:hover {
+    box-shadow: 0 0 25px #00ccff;
+}
+
+/* =========================
+   SHARE BUTTON
+========================= */
+
+.share-btn {
+    position: relative;
+    background: linear-gradient(90deg, #00ccff, #0044ff);
+    color: white;
+    border: 1px solid #00ccff;
+    box-shadow: 0 0 12px rgba(0, 204, 255, 0.5);
+}
+
+/*
+   Tooltip shown when the user passes over
+   the Share button.
+*/
+
+.share-btn::after {
+    content: "Open browser share menu";
+    position: absolute;
+
+    left: 50%;
+    top: calc(100% + 10px);
+
+    transform: translateX(-50%) translateY(-5px);
+
+    background: #111844;
+    color: white;
+
+    border: 1px solid #00ccff;
+    border-radius: 7px;
+
+    padding: 7px 10px;
+
+    font-size: 12px;
+    font-weight: normal;
+
+    white-space: nowrap;
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.4);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
+
+    z-index: 100000;
+}
+
+.share-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.share-btn:hover {
+    box-shadow:
+        0 0 20px #00ccff,
+        0 0 35px rgba(0, 68, 255, 0.5);
+}
+
+/* =========================
+   SHARE STATUS
+========================= */
+
+.share-status {
+    position: fixed;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform: translateX(-50%) translateY(20px);
+
+    background: rgba(5, 10, 35, 0.95);
+    color: white;
+
+    border: 1px solid #00ccff;
+    border-radius: 10px;
+
+    padding: 11px 18px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    box-shadow:
+        0 0 15px rgba(0, 204, 255, 0.6);
+
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 999999;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.share-status.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
 /* =========================
    DROPDOWN
 ========================= */
@@ -121,23 +247,36 @@ button:hover {
 
 .dropdown-content {
     display: none;
+
     position: absolute;
     top: calc(100% + 5px);
     left: 0;
+
     background: #111844;
+
     border-radius: 8px;
+
     min-width: 180px;
+
     overflow: hidden;
+
     z-index: 10000;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.7);
+
     border: 1px solid rgba(0, 204, 255, 0.4);
 }
 
 .dropdown-content a {
     display: block;
+
     padding: 10px;
+
     text-decoration: none;
+
     color: white;
+
     transition: 0.3s;
 }
 
@@ -157,21 +296,34 @@ button:hover {
 .main-container {
     width: 100%;
     max-width: 1100px;
+
     margin: 0 auto;
+
     padding: 30px 20px 80px;
 }
 
-/* GLASS SECTIONS */
+/* =========================
+   GLASS SECTIONS
+========================= */
 
 .section {
     max-width: 1000px;
+
     margin: 40px auto;
+
     padding: 25px;
+
     background: rgba(255, 255, 255, 0.05);
+
     border-radius: 14px;
+
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+
+    box-shadow:
+        0 0 25px rgba(0, 0, 0, 0.5);
+
     backdrop-filter: blur(6px);
+
     transition: 0.3s;
 }
 
@@ -184,17 +336,12 @@ button:hover {
 h1,
 h2,
 h3 {
-    text-shadow: 0 0 10px rgba(0, 204, 255, 0.45);
+    text-shadow:
+        0 0 10px rgba(0, 204, 255, 0.45);
 }
 
-h1 {
-    color: #00ccff;
-}
-
-h2 {
-    color: #00ccff;
-}
-
+h1,
+h2,
 h3 {
     color: #00ccff;
 }
@@ -211,15 +358,23 @@ a:hover {
 
 hr {
     border: none;
-    border-top: 1px solid rgba(0, 204, 255, 0.25);
+
+    border-top:
+        1px solid rgba(0, 204, 255, 0.25);
+
     margin: 30px 0;
 }
 
 code {
     background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(0, 204, 255, 0.2);
+
+    border:
+        1px solid rgba(0, 204, 255, 0.2);
+
     padding: 3px 6px;
+
     border-radius: 5px;
+
     color: #00ccff;
 }
 
@@ -230,16 +385,25 @@ code {
 .content-image {
     max-width: 100%;
     height: auto;
+
     border-radius: 12px;
+
     margin: 10px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+        0 0 15px rgba(0, 0, 0, 0.5);
+
     transition: 0.4s ease;
 }
 
 .content-image:hover {
     transform: scale(1.02);
-    box-shadow: 0 0 25px rgba(0, 204, 255, 0.45);
+
+    box-shadow:
+        0 0 25px rgba(0, 204, 255, 0.45);
 }
 
 /* =========================
@@ -248,61 +412,97 @@ code {
 
 .download-wrapper {
     position: relative;
+
     display: inline-block;
+
     margin: 10px 0 25px;
+
     z-index: 5000;
 }
 
-/* MAIN DOWNLOAD BUTTON */
+/* =========================
+   MAIN DOWNLOAD BUTTON
+========================= */
 
 .download-button {
-    background: linear-gradient(90deg, #00ccff, #0044ff);
+    background:
+        linear-gradient(90deg, #00ccff, #0044ff);
+
     color: white;
-    border: 1px solid #00ccff;
+
+    border:
+        1px solid #00ccff;
+
     border-radius: 10px;
+
     padding: 12px 28px;
+
     font-size: 18px;
+
     font-weight: bold;
+
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 204, 255, 0.6);
+
+    box-shadow:
+        0 0 15px rgba(0, 204, 255, 0.6);
+
     transition: 0.3s ease;
 }
 
 .download-button:hover {
     transform: scale(1.1);
+
     box-shadow:
         0 0 20px #00ccff,
         0 0 40px rgba(0, 68, 255, 0.5);
 }
 
-/* DOWNLOAD MENU */
+/* =========================
+   DOWNLOAD MENU
+========================= */
 
 .download-menu {
     visibility: hidden;
+
     opacity: 0;
-    transform: translateY(-10px) scale(0.97);
+
+    transform:
+        translateY(-10px)
+        scale(0.97);
 
     position: absolute;
+
     top: calc(100% + 10px);
     left: 0;
 
     width: 540px;
-    max-width: calc(100vw - 30px);
+
+    max-width:
+        calc(100vw - 30px);
 
     max-height: 80vh;
+
     overflow-y: auto;
+    overflow-x: hidden;
 
     padding: 22px;
 
     background:
-        radial-gradient(circle at top, #0b1026, #050814);
+        radial-gradient(
+            circle at top,
+            #0b1026,
+            #050814
+        );
 
-    border: 2px solid #00ccff;
+    border:
+        2px solid #00ccff;
+
     border-radius: 16px;
 
     box-shadow:
         0 0 25px #00ccff,
-        inset 0 0 15px rgba(0, 204, 255, 0.12);
+        inset 0 0 15px
+        rgba(0, 204, 255, 0.12);
 
     backdrop-filter: blur(12px);
 
@@ -310,35 +510,39 @@ code {
         opacity 0.3s ease,
         transform 0.3s ease,
         visibility 0.3s ease;
+
+    z-index: 99999;
 }
 
-/* HOVER OPENS MENU */
-
-.download-wrapper:hover .download-menu {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0) scale(1);
-}
-
-/* CLICK OPENS MENU */
-
+.download-wrapper:hover .download-menu,
 .download-menu.open {
     visibility: visible;
+
     opacity: 1;
-    transform: translateY(0) scale(1);
+
+    transform:
+        translateY(0)
+        scale(1);
 }
 
-/* DOWNLOAD IMAGE */
+/* =========================
+   DOWNLOAD IMAGE
+========================= */
 
 .download-image {
     display: block;
+
     width: 180px;
     height: 180px;
+
     object-fit: contain;
+
     margin: 0 auto 15px;
+
     border-radius: 14px;
 
-    border: 1px solid rgba(0, 204, 255, 0.3);
+    border:
+        1px solid rgba(0, 204, 255, 0.3);
 
     box-shadow:
         0 0 20px rgba(0, 204, 255, 0.35);
@@ -347,57 +551,82 @@ code {
 }
 
 .download-image:hover {
-    transform: scale(1.06) rotate(1deg);
+    transform:
+        scale(1.06)
+        rotate(1deg);
+
     box-shadow:
         0 0 30px #00ccff;
 }
 
 .download-title {
     text-align: center;
+
     margin: 0;
+
     color: #00ccff;
+
     font-size: 26px;
 }
 
 .download-subtitle {
     text-align: center;
+
     color: #aaa;
+
     margin-top: 4px;
 }
 
-/* CURSEFORGE BUTTON */
+/* =========================
+   CURSEFORGE BUTTON
+========================= */
 
 .curseforge-button {
     display: block;
+
     text-align: center;
+
     text-decoration: none;
 
-    background: linear-gradient(90deg, #f08a24, #ffb347);
+    background:
+        linear-gradient(
+            90deg,
+            #f08a24,
+            #ffb347
+        );
 
     color: white;
 
     padding: 13px;
+
     border-radius: 9px;
 
     font-weight: bold;
 
     margin: 18px 0;
 
-    box-shadow: 0 0 12px rgba(240, 138, 36, 0.4);
+    box-shadow:
+        0 0 12px
+        rgba(240, 138, 36, 0.4);
 
     transition: 0.3s ease;
 }
 
 .curseforge-button:hover {
     transform: scale(1.04);
+
     color: white;
+
     text-shadow: none;
 
     box-shadow:
-        0 0 20px rgba(240, 138, 36, 0.8);
+        0 0 20px
+        rgba(240, 138, 36, 0.8);
 }
 
-/* FEATURES */
+/* =========================
+   FEATURES
+========================= */
 
 .feature-list {
     padding-left: 22px;
@@ -407,7 +636,9 @@ code {
     margin: 6px 0;
 }
 
-/* FILTER SECTIONS */
+/* =========================
+   FILTER SECTIONS
+========================= */
 
 .filter-section {
     margin-top: 18px;
@@ -415,8 +646,11 @@ code {
 
 .filter-section label {
     display: block;
+
     font-weight: bold;
+
     color: #00ccff;
+
     margin-bottom: 7px;
 }
 
@@ -425,12 +659,16 @@ code {
 
     padding: 11px;
 
-    border: 1px solid #00ccff;
+    border:
+        1px solid #00ccff;
+
     border-radius: 8px;
 
     font-size: 15px;
 
-    background: rgba(0, 0, 0, 0.65);
+    background:
+        rgba(0, 0, 0, 0.65);
+
     color: white;
 
     outline: none;
@@ -440,95 +678,228 @@ code {
 
 .filter-section select:hover,
 .filter-section select:focus {
-    box-shadow: 0 0 12px #00ccff;
+    box-shadow:
+        0 0 12px #00ccff;
 }
 
-/* FILE CARD */
+/* =========================
+   SELECTED FILE CARD
+   FIXED OVERFLOW
+========================= */
 
 .file-card {
+    position: relative;
+
+    width: 100%;
+
     margin-top: 20px;
 
-    padding: 17px;
+    /*
+       IMPORTANT:
+       Do not use a fixed height here.
+       The content and download button
+       determine the height automatically.
+    */
+    height: auto;
 
-    border: 1px solid rgba(0, 204, 255, 0.35);
+    min-height: 0;
+
+    max-height: none;
+
+    padding: 18px 18px 24px;
+
+    border:
+        1px solid rgba(0, 204, 255, 0.35);
+
     border-radius: 10px;
 
-    background: rgba(255, 255, 255, 0.05);
+    background:
+        rgba(255, 255, 255, 0.05);
 
     box-shadow:
-        inset 0 0 15px rgba(0, 204, 255, 0.04);
+        inset 0 0 15px
+        rgba(0, 204, 255, 0.04);
+
+    /*
+       Prevent the card from clipping
+       the content or glow.
+    */
+    overflow: visible;
+
+    z-index: 2;
+
+    /*
+       Make sure the box itself doesn't
+       collapse around children.
+    */
+    display: block;
 }
 
 .file-card h3 {
     margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .file-name {
     font-weight: bold;
+
     font-size: 17px;
+
     word-break: break-word;
+
+    overflow-wrap: anywhere;
+
     color: white;
+
+    line-height: 1.45;
 }
 
 .file-info {
     color: #aaa;
+
     font-size: 14px;
+
     margin-top: 7px;
+
+    line-height: 1.7;
 }
 
-/* STATUS */
+/* =========================
+   STATUS
+========================= */
 
 .selection-status {
     margin-top: 12px;
+
     font-size: 14px;
+
     color: #aaa;
 }
 
 .selection-status.ready {
     color: #00ff88;
+
+    text-shadow:
+        0 0 8px
+        rgba(0, 255, 136, 0.5);
 }
 
-/* FINAL DOWNLOAD */
+/* =========================
+   FINAL DOWNLOAD
+   FIXED BUTTON CLIPPING
+========================= */
 
 #finalDownload {
     display: none;
 
+    position: relative;
+
     width: 100%;
+
+    min-height: 48px;
+
     box-sizing: border-box;
 
     text-align: center;
 
-    background: linear-gradient(90deg, #00ccff, #0044ff);
+    background:
+        linear-gradient(
+            90deg,
+            #00ccff,
+            #0044ff
+        );
 
     color: white;
 
     text-decoration: none;
 
-    padding: 14px;
+    padding: 14px 16px;
 
     border-radius: 9px;
 
     font-weight: bold;
+
     font-size: 17px;
 
-    margin-top: 15px;
+    /*
+       Extra space from the file card
+       keeps the glow away from the edge.
+    */
+    margin-top: 18px;
 
-    border: 1px solid #00ccff;
+    margin-bottom: 4px;
+
+    border:
+        1px solid #00ccff;
 
     box-shadow:
-        0 0 15px rgba(0, 204, 255, 0.5);
+        0 0 15px
+        rgba(0, 204, 255, 0.5);
 
-    transition: 0.3s ease;
+    z-index: 20;
+
+    overflow: visible;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 #finalDownload:hover {
     transform: scale(1.04);
+
     color: white;
+
     text-shadow: none;
 
     box-shadow:
         0 0 25px #00ccff,
-        0 0 45px rgba(0, 68, 255, 0.5);
+        0 0 45px
+        rgba(0, 68, 255, 0.5);
+}
+
+/*
+   Make sure the Selected File area
+   can never cover the final button.
+*/
+
+.file-card + #finalDownload {
+    clear: both;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+details {
+    background:
+        rgba(0, 0, 0, 0.2);
+
+    border:
+        1px solid rgba(0, 204, 255, 0.15);
+
+    border-radius: 8px;
+
+    padding: 10px 12px;
+
+    transition: 0.3s;
+}
+
+details:hover {
+    border-color:
+        rgba(0, 204, 255, 0.5);
+
+    box-shadow:
+        0 0 15px
+        rgba(0, 204, 255, 0.15);
+}
+
+summary {
+    cursor: pointer;
+
+    color: #00ccff;
+
+    font-weight: bold;
 }
 
 /* =========================
@@ -539,8 +910,11 @@ code {
 
     header {
         position: relative;
+
         flex-direction: column;
+
         gap: 12px;
+
         text-align: center;
     }
 
@@ -549,27 +923,90 @@ code {
     }
 
     .main-container {
-        padding: 15px 10px 50px;
+        padding:
+            15px
+            10px
+            50px;
     }
 
     .section {
         padding: 18px;
-        margin: 25px auto;
+
+        margin:
+            25px auto;
     }
 
     .download-menu {
         left: 50%;
-        transform: translate(-50%, -10px) scale(0.97);
-        width: calc(100vw - 25px);
+
+        transform:
+            translate(-50%, -10px)
+            scale(0.97);
+
+        width:
+            calc(100vw - 25px);
+
+        max-height:
+            calc(100vh - 100px);
     }
 
     .download-wrapper:hover .download-menu,
     .download-menu.open {
-        transform: translate(-50%, 0) scale(1);
+        transform:
+            translate(-50%, 0)
+            scale(1);
     }
 
     .logo {
         font-size: 22px;
+    }
+
+    .share-btn::after {
+        display: none;
+    }
+
+    #finalDownload {
+        padding:
+            14px 12px;
+
+        font-size: 16px;
+    }
+
+    .file-card {
+        padding:
+            17px
+            15px
+            24px;
+    }
+}
+
+/* =========================
+   VERY SMALL SCREENS
+========================= */
+
+@media (max-width: 450px) {
+
+    nav {
+        gap: 8px;
+    }
+
+    nav button {
+        padding:
+            7px 10px;
+
+        font-size: 13px;
+    }
+
+    .download-menu {
+        width:
+            calc(100vw - 16px);
+
+        padding: 16px;
+    }
+
+    .download-image {
+        width: 140px;
+        height: 140px;
     }
 }
 </style>
@@ -577,20 +1014,32 @@ code {
 
 <body>
 
-<!-- 🌌 SPACE STARS -->
+<!-- =========================
+     SPACE STARS
+========================= -->
+
 <script>
 for (let i = 0; i < 150; i++) {
-    const star = document.createElement("div");
+
+    const star =
+        document.createElement("div");
 
     star.className = "star";
 
-    star.style.left = Math.random() * 100 + "vw";
-    star.style.top = Math.random() * 100 + "vh";
+    star.style.left =
+        Math.random() * 100 + "vw";
 
-    const size = Math.random() * 3 + 1;
+    star.style.top =
+        Math.random() * 100 + "vh";
 
-    star.style.width = size + "px";
-    star.style.height = size + "px";
+    const size =
+        Math.random() * 3 + 1;
+
+    star.style.width =
+        size + "px";
+
+    star.style.height =
+        size + "px";
 
     star.style.animationDuration =
         (1 + Math.random() * 3) + "s";
@@ -599,21 +1048,27 @@ for (let i = 0; i < 150; i++) {
 }
 </script>
 
-<!-- HEADER -->
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
     <div class="logo">
+
         <a href="index.html">
             Eyad Nintendo Ali 🚀
         </a>
+
     </div>
 
     <nav>
 
+        <!-- TYPES -->
+
         <div class="dropdown">
 
-            <button>
+            <button type="button">
                 🌌 Types ▾
             </button>
 
@@ -643,30 +1098,72 @@ for (let i = 0; i < 150; i++) {
 
         </div>
 
+        <!-- AI -->
+
         <button
+            type="button"
             class="ai-btn"
             onclick="location.href='ai.html'">
+
             🤖 AI
+
         </button>
 
+        <!-- SHARE -->
+
         <button
+            type="button"
+            class="share-btn"
+            id="shareButton"
+            aria-label="Share this page">
+
+            🔗 Share
+
+        </button>
+
+        <!-- FOOTBALL -->
+
+        <button
+            type="button"
             class="ai-btn"
             onclick="location.href='Football.html'">
+
             ⚽ Football
+
         </button>
 
-        <button>
-            🔍 Search
-        </button>
+        <!-- SEARCH -->
 
         <button
+            type="button"
+            onclick="alert('Search is coming soon!')">
+
+            🔍 Search
+
+        </button>
+
+        <!-- YOUTUBE -->
+
+        <button
+            type="button"
             onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">
+
             ▶️ YouTube
+
         </button>
 
     </nav>
 
 </header>
+
+<!-- SHARE STATUS -->
+
+<div
+    id="shareStatus"
+    class="share-status"
+    role="status"
+    aria-live="polite">
+</div>
 
 <div class="main-container">
 
@@ -686,15 +1183,23 @@ for (let i = 0; i < 150; i++) {
     </p>
 
     <p>
+
         <strong>CurseForge Page:</strong>
+
         <a
             href="https://www.curseforge.com/minecraft/mc-mods/new-modded-vm-computers"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
+
             New Modded VM Computers
+
         </a>
+
     </p>
 
-    <!-- DOWNLOAD -->
+    <!-- =========================
+         DOWNLOAD
+    ========================= -->
 
     <div class="download-wrapper">
 
@@ -702,14 +1207,16 @@ for (let i = 0; i < 150; i++) {
             type="button"
             class="download-button"
             id="downloadMenuButton">
+
             ⬇️ Download
+
         </button>
 
         <div
             class="download-menu"
             id="downloadMenu">
 
-            <!-- VM ICON FROM WEBSITE -->
+            <!-- VM ICON -->
 
             <img
                 src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Icon.png"
@@ -802,6 +1309,8 @@ for (let i = 0; i < 150; i++) {
 
             </div>
 
+            <!-- STATUS -->
+
             <p
                 class="selection-status"
                 id="selectionStatus">
@@ -814,7 +1323,9 @@ for (let i = 0; i < 150; i++) {
 
             </p>
 
-            <!-- SELECTED FILE -->
+            <!-- =========================
+                 SELECTED FILE
+            ========================= -->
 
             <div class="file-card">
 
@@ -849,7 +1360,9 @@ for (let i = 0; i < 150; i++) {
 
             </div>
 
-            <!-- FINAL DOWNLOAD -->
+            <!-- =========================
+                 FINAL DOWNLOAD
+            ========================= -->
 
             <a
                 id="finalDownload"
@@ -896,13 +1409,16 @@ for (let i = 0; i < 150; i++) {
     </p>
 
     <p>
+
         <a
             href="https://www.curseforge.com/minecraft/mc-mods/vm-computers"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             VM Computers on CurseForge
 
         </a>
+
     </p>
 
     <p>
@@ -913,26 +1429,35 @@ for (let i = 0; i < 150; i++) {
     <details>
 
         <summary>
+
             Donate to the original creator
             (
             <a
                 href="https://github.com/Delta2Force"
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
+
                 Delta2Force
+
             </a>
             )
+
             <br>
 
             <sub>
+
                 <i>
                     Note: Only accepts Bitcoin and BitcoinCash
                 </i>
+
             </sub>
+
         </summary>
 
         <p>
 
             <i>BTC:</i>
+
             <code>
                 3GubEkHV69gCkjWhRgRWYqWqyjcWW3gxFF
             </code>
@@ -940,6 +1465,7 @@ for (let i = 0; i < 150; i++) {
             <br>
 
             <i>BCH:</i>
+
             <code>
                 bitcoincash:qq6jttzlvgj68lvecnh75pt3znezj4vx6sysfvj3j5
             </code>
@@ -970,7 +1496,8 @@ for (let i = 0; i < 150; i++) {
 
             <a
                 href="https://www.virtualbox.org/wiki/Download_Old_Builds_6_1"
-                target="_blank">
+                target="_blank"
+                rel="noopener noreferrer">
 
                 VirtualBox 6.1
 
@@ -1542,33 +2069,42 @@ const finalDownload =
 const selectionStatus =
     document.getElementById("selectionStatus");
 
-/* Open / close download menu */
+/* =========================
+   DOWNLOAD MENU
+========================= */
 
-downloadButton.addEventListener("click", function(event) {
+downloadButton.addEventListener(
+    "click",
+    function(event) {
 
-    event.stopPropagation();
+        event.stopPropagation();
 
-    downloadMenu.classList.toggle("open");
+        downloadMenu.classList.toggle("open");
 
-});
+    }
+);
 
-/* Keep menu open when clicking inside it */
+downloadMenu.addEventListener(
+    "click",
+    function(event) {
 
-downloadMenu.addEventListener("click", function(event) {
+        event.stopPropagation();
 
-    event.stopPropagation();
+    }
+);
 
-});
+document.addEventListener(
+    "click",
+    function() {
 
-/* Close when clicking outside */
+        downloadMenu.classList.remove("open");
 
-document.addEventListener("click", function() {
+    }
+);
 
-    downloadMenu.classList.remove("open");
-
-});
-
-/* Update final download button */
+/* =========================
+   DOWNLOAD SELECTION
+========================= */
 
 function updateDownloadButton() {
 
@@ -1578,11 +2114,17 @@ function updateDownloadButton() {
     const loaderSelected =
         modLoader.value === "neoforge";
 
-    if (versionSelected && loaderSelected) {
+    if (
+        versionSelected &&
+        loaderSelected
+    ) {
 
-        finalDownload.style.display = "block";
+        finalDownload.style.display =
+            "block";
 
-        selectionStatus.classList.add("ready");
+        selectionStatus.classList.add(
+            "ready"
+        );
 
         selectionStatus.innerHTML =
             "✓ <strong>1.21.1</strong> and " +
@@ -1591,19 +2133,19 @@ function updateDownloadButton() {
 
     } else {
 
-        finalDownload.style.display = "none";
+        finalDownload.style.display =
+            "none";
 
-        selectionStatus.classList.remove("ready");
+        selectionStatus.classList.remove(
+            "ready"
+        );
 
         selectionStatus.innerHTML =
             "Select <strong>1.21.1</strong> and " +
             "<strong>NeoForge</strong> to download the file.";
 
     }
-
 }
-
-/* Detect selection */
 
 gameVersion.addEventListener(
     "change",
@@ -1615,11 +2157,193 @@ modLoader.addEventListener(
     updateDownloadButton
 );
 
-/* Initial state */
-
 updateDownloadButton();
+
+/* =========================
+   SHARE SYSTEM
+========================= */
+
+const shareButton =
+    document.getElementById("shareButton");
+
+const shareStatus =
+    document.getElementById("shareStatus");
+
+/*
+   Shows a small message at the bottom.
+*/
+
+function showShareStatus(message) {
+
+    shareStatus.textContent =
+        message;
+
+    shareStatus.classList.add("show");
+
+    clearTimeout(
+        window.shareStatusTimer
+    );
+
+    window.shareStatusTimer =
+        setTimeout(
+            function() {
+
+                shareStatus.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+}
+
+/*
+   Share the current page.
+
+   On supported browsers:
+   navigator.share() opens the browser/device's
+   native share menu.
+
+   The available options depend on the browser,
+   operating system and installed apps.
+*/
+
+shareButton.addEventListener(
+    "click",
+    async function() {
+
+        const shareData = {
+
+            title:
+                document.title,
+
+            text:
+                "Check out New Modded VM Computers by Eyad Nintendo Ali!",
+
+            url:
+                window.location.href
+
+        };
+
+        /*
+           Native browser share menu.
+        */
+
+        if (
+            navigator.share
+        ) {
+
+            try {
+
+                await navigator.share(
+                    shareData
+                );
+
+                showShareStatus(
+                    "✓ Share menu opened!"
+                );
+
+            } catch (error) {
+
+                /*
+                   AbortError normally means
+                   the user closed/cancelled
+                   the share menu.
+                */
+
+                if (
+                    error.name !== "AbortError"
+                ) {
+
+                    showShareStatus(
+                        "Share was cancelled."
+                    );
+
+                }
+
+            }
+
+            return;
+        }
+
+        /*
+           Fallback for browsers without
+           Web Share API.
+
+           Try Clipboard API first.
+        */
+
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    window.location.href
+                );
+
+                showShareStatus(
+                    "✓ Link copied to clipboard!"
+                );
+
+                return;
+
+            } catch (error) {
+
+                console.log(
+                    "Clipboard failed:",
+                    error
+                );
+
+            }
+        }
+
+        /*
+           Older browser fallback.
+        */
+
+        const temporaryInput =
+            document.createElement("input");
+
+        temporaryInput.value =
+            window.location.href;
+
+        document.body.appendChild(
+            temporaryInput
+        );
+
+        temporaryInput.select();
+
+        try {
+
+            document.execCommand(
+                "copy"
+            );
+
+            showShareStatus(
+                "✓ Link copied!"
+            );
+
+        } catch (error) {
+
+            showShareStatus(
+                "Copy failed. URL: " +
+                window.location.href
+            );
+
+        }
+
+        document.body.removeChild(
+            temporaryInput
+        );
+
+    }
+);
 
 </script>
 
 </body>
 </html>
+```
