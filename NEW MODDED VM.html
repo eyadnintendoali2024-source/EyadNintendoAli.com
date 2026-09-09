@@ -1,285 +1,719 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft Hub - Eyad Nintendo Ali</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Modded VM Computers</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #050816, #000);
-  color: white;
-  overflow-x: hidden;
-}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 30px;
+            background: #ffffff;
+            color: #222;
+        }
 
-/* 🌌 STARS */
-.star {
-  position: fixed;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-}
+        img {
+            max-width: 100%;
+        }
 
-/* HEADER */
-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+        /* Download button */
+        .download-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
 
-/* LOGO */
-.logo {
-  position: absolute;
-  left: 20px;
-  font-size: 18px;
-  color: #00ccff;
-  font-weight: bold;
-}
+        .download-button {
+            background: #6b35d9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-/* NAV CENTER */
-nav {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-}
+        .download-button:hover {
+            background: #5424b8;
+        }
 
-/* BIG BUTTONS */
-nav button {
-  padding: 14px 22px;
-  font-size: 18px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  background: #111;
-  color: white;
-  transition: 0.3s;
-  min-width: 140px;
-}
+        /* Download menu */
+        .download-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            z-index: 1000;
+            width: 520px;
+            max-width: calc(100vw - 40px);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
 
-nav button:hover {
-  background: #00ccff;
-  color: black;
-  transform: scale(1.1);
-}
+        /* Show menu when hovering or clicking */
+        .download-wrapper:hover .download-menu,
+        .download-wrapper:focus-within .download-menu,
+        .download-menu.open {
+            display: block;
+        }
 
-/* SECTIONS */
-.section {
-  display: none;
-  padding: 30px;
-  max-width: 1000px;
-  margin: auto;
-}
+        .download-image {
+            display: block;
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin: 0 auto 15px;
+            border-radius: 12px;
+        }
 
-.active {
-  display: block;
-}
+        .download-title {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
 
-/* CARDS */
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
+        .download-subtitle {
+            color: #666;
+            margin-top: 0;
+        }
 
-.card {
-  width: 200px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px;
-  padding: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+        .curseforge-button {
+            display: block;
+            text-align: center;
+            background: #f08a24;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 7px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #00ccff;
-}
+        .curseforge-button:hover {
+            background: #d97012;
+        }
 
-.card img {
-  width: 100%;
-  border-radius: 8px;
-}
+        .feature-list {
+            padding-left: 20px;
+        }
 
-/* MOD CARD */
-.mod-card {
-  width: 200px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px;
-  padding: 10px;
-  transition: 0.3s;
-}
+        .filter-section {
+            margin-top: 20px;
+        }
 
-.mod-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #00ccff;
-}
+        .filter-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
 
-.mod-card img {
-  width: 100%;
-  border-radius: 8px;
-}
+        .filter-section select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 15px;
+            background: white;
+        }
 
-.mod-card p {
-  margin: 10px 0;
-  font-size: 16px;
-  font-weight: bold;
-}
+        .file-card {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f7f7f7;
+        }
 
-/* MOD BUTTONS */
-.mod-button {
-  display: block;
-  text-align: center;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 8px;
-  text-decoration: none;
-  background: #111;
-  color: white;
-  transition: 0.3s;
-  font-weight: bold;
-}
+        .file-name {
+            font-weight: bold;
+            font-size: 17px;
+            word-break: break-word;
+        }
 
-.mod-button:hover {
-  background: #00ccff;
-  color: black;
-}
+        .file-info {
+            color: #555;
+            font-size: 14px;
+            margin-top: 5px;
+        }
 
-/* LIST ITEMS */
-.list-item {
-  padding: 12px;
-  background: rgba(255,255,255,0.05);
-  margin-bottom: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+        #finalDownload {
+            display: none;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            background: #35a853;
+            color: white;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 17px;
+            margin-top: 15px;
+        }
 
-.list-item:hover {
-  background: rgba(0,204,255,0.2);
-}
-</style>
+        #finalDownload:hover {
+            background: #27863f;
+        }
+
+        .selection-status {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        hr {
+            margin: 30px 0;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- 🌌 STARS -->
-<script>
-for (let i = 0; i < 120; i++) {
-  let s = document.createElement("div");
-  s.className = "star";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  s.style.animationDuration = (1 + Math.random() * 3) + "s";
-  document.body.appendChild(s);
-}
-</script>
+<h1>New Modded VM Computers</h1>
 
-<header>
-  <div class="logo">⛏️ Minecraft Hub</div>
+<p>
+    All additions and modifications in this project are made by
+    <strong>Eyad Nintendo Ali</strong>.
+</p>
 
-  <nav>
-    <button onclick="showSection('space')">🌌 Space</button>
-    <button onclick="showSection('minecraft')">⛏️ Minecraft</button>
-    <button onclick="showSection('mods')">📦 Mods</button>
-    <button onclick="showSection('videos')">🎥 Videos</button>
-  </nav>
-</header>
+<p>
+    <strong>CurseForge Page:</strong>
+    <a href="https://www.curseforge.com/minecraft/mc-mods/new-modded-vm-computers" target="_blank">
+        New Modded VM Computers
+    </a>
+</p>
 
-<!-- SPACE -->
-<div id="space" class="section active">
-  <h1>🌌 Space Mode</h1>
-  <p>Welcome to your Minecraft + Space hub.</p>
-</div>
+<!-- DOWNLOAD -->
+<div class="download-wrapper">
 
-<!-- MINECRAFT -->
-<div id="minecraft" class="section">
-  <h1>⛏️ Minecraft</h1>
+    <button
+        type="button"
+        class="download-button"
+        id="downloadMenuButton">
+        Download
+    </button>
 
-  <p>No games available yet.</p>
-</div>
+    <div class="download-menu" id="downloadMenu">
 
-<!-- MODS -->
-<div id="mods" class="section">
-  <h1>📦 Mods</h1>
+        <!-- VM ICON FROM THE WEBSITE -->
+        <img
+            src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Icon.png"
+            alt="New Modded VM Computers"
+            class="download-image">
 
-  <div class="cards">
+        <h2 class="download-title">Download</h2>
 
-    <!-- NEW MODDED VM COMPUTERS -->
-    <div class="mod-card">
+        <p class="download-subtitle">
+            New-Modded VM Computers
+        </p>
 
-      <img src="VM Icon.png" alt="New-Modded VM Computers">
+        <a
+            class="curseforge-button"
+            href="https://www.curseforge.com/minecraft/mc-mods/new-modded-vm-computers/install"
+            target="_blank">
+            Install with CurseForge app
+        </a>
 
-      <p>New-Modded VM Computers</p>
+        <ul class="feature-list">
+            <li>One-Click Install</li>
+            <li>Dependency Handling</li>
+            <li>Game Integration</li>
+        </ul>
 
-      <!-- Open Mod Page -->
-      <a
-        class="mod-button"
-        href="NEW MODDED VM.html">
-        💻 Mod Page
-      </a>
+        <hr>
 
-      <!-- CurseForge -->
-      <a
-        class="mod-button"
-        href="https://www.curseforge.com/minecraft/mc-mods/new-modded-vm-computers"
-        target="_blank"
-        rel="noopener noreferrer">
-        🔥 CurseForge
-      </a>
+        <h3>Download file manually</h3>
+
+        <!-- GAME VERSION -->
+        <div class="filter-section">
+            <label for="gameVersion">
+                Select Game Version
+            </label>
+
+            <select id="gameVersion">
+                <option value="">All Game Versions</option>
+                <option value="1.21.1">1.21.1</option>
+            </select>
+        </div>
+
+        <!-- MOD LOADER -->
+        <div class="filter-section">
+            <label for="modLoader">
+                Select Mod Loaders
+            </label>
+
+            <select id="modLoader">
+                <option value="">All Mod Loaders</option>
+                <option value="neoforge">NeoForge</option>
+            </select>
+        </div>
+
+        <p class="selection-status" id="selectionStatus">
+            Select <strong>1.21.1</strong> and <strong>NeoForge</strong>
+            to download the file.
+        </p>
+
+        <!-- SELECTED FILE -->
+        <div class="file-card">
+
+            <h3>Selected File</h3>
+
+            <div class="file-name">
+                new-modded-vmcomputers-1.21.1-neoforge.jar
+            </div>
+
+            <div class="file-info">
+                Latest release
+                <br>
+                R
+                <br>
+                1.21.1
+                <br>
+                NeoForge
+                <br>
+                6.17 MB
+                <br>
+                Sep 2, 2026
+            </div>
+
+        </div>
+
+        <!-- FINAL DOWNLOAD BUTTON -->
+        <a
+            id="finalDownload"
+            href="https://www.curseforge.com/api/v1/mods/1679298/files/8794371/download"
+            target="_blank"
+            rel="noopener noreferrer">
+            ⬇ Download 1.21.1 NeoForge
+        </a>
 
     </div>
-
-  </div>
 </div>
 
-<!-- VIDEOS -->
-<div id="videos" class="section">
-  <h1>🎥 Videos</h1>
+<hr>
 
-  <div
-    class="list-item"
-    onclick="window.open('https://www.youtube.com','_blank')">
-    ▶ Minecraft Gameplay
-  </div>
+<h2>Original Mod</h2>
 
-  <div
-    class="list-item"
-    onclick="window.open('https://www.youtube.com','_blank')">
-    ▶ Mod Showcase
-  </div>
+<p>
+    Check out the original <strong>VM Computers</strong> mod by Delta2Force:
+    <br>
+    <a href="https://www.curseforge.com/minecraft/mc-mods/vm-computers" target="_blank">
+        VM Computers on CurseForge
+    </a>
+</p>
 
-  <div
-    class="list-item"
-    onclick="window.open('https://www.youtube.com','_blank')">
-    ▶ Space Adventure
-  </div>
-</div>
+<p>If you have problems with this port, please submit them to my GitHub.</p>
+
+<p align="center">
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Icon.png"
+        height="320"
+        alt="New Modded VM Computers">
+</p>
+
+<details>
+    <summary>
+        Donate to the original creator
+        (<a href="https://github.com/Delta2Force" target="_blank">Delta2Force</a>)
+        <br>
+        <sub><i>Note: Only accepts Bitcoin and BitcoinCash</i></sub>
+    </summary>
+
+    <p>
+        <i>BTC:</i>
+        <code>3GubEkHV69gCkjWhRgRWYqWqyjcWW3gxFF</code>
+        <br>
+        <i>BCH:</i>
+        <code>bitcoincash:qq6jttzlvgj68lvecnh75pt3znezj4vx6sysfvj3j5</code>
+    </p>
+</details>
+
+<hr>
+
+<h3>Dependencies</h3>
+
+<ul>
+    <li>Minecraft 1.21.1 with NeoForge</li>
+    <li>
+        <a href="https://www.virtualbox.org/wiki/Download_Old_Builds_6_1" target="_blank">
+            VirtualBox 6.1
+        </a>
+    </li>
+</ul>
+
+<h2>New Computers, Screens, and Features</h2>
+
+<p>
+    This version includes new black and white laptops, new computer and screen
+    designs, Automatic RAM items, a hidden computer menu for troubleshooting
+    and additional operating systems, and the Ordering Tablet shop.
+</p>
+
+<h3>Laptops and new screens</h3>
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/Laptops%20VM.png"
+        alt="Laptops and new screens">
+</p>
+
+<h3>New white computer and screen colors</h3>
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/White%20VMS.png"
+        alt="White VM computers and screens">
+</p>
+
+<h3>Black Wall TV display issue</h3>
+<p>
+    The black Wall TV can sometimes lose its display.
+    The white Wall TV does not have this problem.
+</p>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/ERROR%20WALL%20VM.png"
+        alt="Black Wall TV display issue">
+</p>
+
+<h3>Automatic RAM and hidden menu</h3>
+
+<p>
+    Automatic RAM (Slot 1) and Automatic RAM (Slot 2) open the hidden computer
+    menu, which helps fix problems and provides additional operating-system options.
+</p>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/Auto%20Ram%201.png"
+        alt="Automatic RAM Slot 1">
+</p>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/Auto%20Ram%202.png"
+        alt="Automatic RAM Slot 2">
+</p>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/Hiden%20Menu%20VM.png"
+        alt="Hidden VM menu">
+</p>
+
+<h3>Ordering Tablet shop</h3>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Tablit%201.png"
+        alt="Ordering Tablet shop">
+</p>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Tablit%202.png"
+        alt="Ordering Tablet shop">
+</p>
+
+<p>
+    <img
+        src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Tablit%203.png"
+        alt="Ordering Tablet shop">
+</p>
+
+<h2>Future Plans</h2>
+
+<p>
+    We plan to keep updating this mod for newer Minecraft versions.
+</p>
+
+<ul>
+    <li>More computer, laptop, monitor, and TV designs</li>
+    <li>More operating-system options and VM improvements</li>
+    <li>Useful commands for managing computers and virtual machines</li>
+    <li>Additional components, menus, and troubleshooting tools</li>
+</ul>
+
+<p>
+    More features will be added in future updates. Please subscribe to my
+    YouTube channel, like the project, and enjoy the mod!
+</p>
+
+<h2>Laptop Controls</h2>
+
+<p>
+    Laptop screen sharing is currently in beta and may not work correctly
+    in every situation.
+</p>
+
+<ul>
+    <li>
+        Press <code>+</code> while targeting your laptop to control the Windows VM.
+    </li>
+    <li>
+        Press <code>-</code> while targeting your laptop to share its screen
+        with other screens (beta).
+    </li>
+    <li>
+        The <code>+</code> and <code>-</code> keys can be changed from the
+        startup/setup screen.
+    </li>
+</ul>
+
+<h2>How to use</h2>
+
+<h3>Ordering</h3>
+
+<ol>
+    <li>
+        Craft an ordering tablet (as seen below)
+        <br>
+        <img
+            src="https://i.imgur.com/GtyPntY.png"
+            alt="Ordering tablet">
+    </li>
+
+    <li>
+        Wait until it detects a satellite (they appear quite often)
+        <br>
+        <img
+            src="https://i.imgur.com/hWRK8wb.png"
+            alt="Satellite detection">
+    </li>
+
+    <li>
+        The rest is (hopefully) self-explanatory
+    </li>
+</ol>
+
+<hr>
+
+<h3>Creating a Hard Drive / Importing an ISO disk image</h3>
+
+<p>
+    Virtual Hard Drives are created by pressing the use button (right-click)
+    while holding an hard drive in your hand. It doesn't matter if it has
+    been assigned to a disk image or not as it will always open the menu.
+    You can either use an existing hard drive (located in
+    <code>.minecraft/vm_computers/vhds</code>) or create a new one.
+</p>
+
+<p>
+    ISO images are CDs / DVDs but as files. They are stored at
+    <code>.minecraft/vm_computers/isos</code>.
+    Once you place them in the folder, you can select them in the PC case menu.
+</p>
+
+<hr>
+
+<h3>Building the computer</h3>
+
+<p>
+    You will need the following items (which can be bought from the Ordering Tablet):
+</p>
+
+<ul>
+    <li>PC Case</li>
+    <li>Motherboard</li>
+    <li>RAM</li>
+    <li>GPU</li>
+    <li>Monitor</li>
+</ul>
+
+<p>
+    <sub>
+        Note: The keyboard and mouse are purely decorative (currently...)
+        and you can start the VM without a hard drive or ISO inserted.
+    </sub>
+</p>
+
+<p>
+    To insert a hard drive, you will need to create one by right-clicking
+    with a hard drive in your hand.
+    <br>
+    It doesn't matter if it is already assigned to a disk image or not.
+</p>
+
+<ol>
+    <li>
+        Place down the case
+        <br>
+        <img
+            src="https://i.imgur.com/8Wgqtcb.png"
+            alt="PC case">
+    </li>
+
+    <li>
+        Press the use button (right-click) on the case
+        <br>
+        <img
+            src="https://i.imgur.com/OPRi9xa.png"
+            alt="PC case menu">
+    </li>
+
+    <li>
+        (Optional) Select an ISO image from the list
+    </li>
+
+    <li>
+        Open the case
+        <br>
+        <img
+            src="https://i.imgur.com/sXYTRuc.png"
+            alt="Opening the PC case">
+        <br>
+        <sub>
+            Note: The buttons will be disabled if you do not have the item
+            in your inventory.
+        </sub>
+    </li>
+
+    <li>
+        The rest (hopefully) is self-explanatory
+    </li>
+</ol>
+
+<hr>
+
+<h3>Using the computer</h3>
+
+<p>
+    To turn on the computer, press the Power On button in the PC case menu.
+    To interact with the computer, press the use button (right-click) on
+    the monitor.
+</p>
+
+<p>
+    <sub>
+        Note: Pressing Alt+F4 will close the game, not the window you are
+        on in the virtual machine.
+    </sub>
+</p>
+
+<p>
+    To stop interacting with the computer, press the keys mentioned in the
+    top-right corner of the screen when interacting with the monitor.
+</p>
+
+<hr>
+
+<h2>Contributing</h2>
+
+<p>
+    If you'd like to contribute to this project, please fork the master branch,
+    make your changes and create a pull request to have the changes reviewed.
+    If you plan to contribute larger changes, please create a issue to discuss
+    the major changes that you were planning to make.
+</p>
+
+<p>
+    I don't like rules, but to keep consistency and readability of the code
+    please follow these guidelines:
+</p>
+
+<ol>
+    <li>
+        Use lambda expressions when appropriate
+        <ul>
+            <li>
+                You'll find that it is faster to write
+                <code>() -&gt; {}</code>, just saying :)
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        Try to follow the code style of the project
+        <ul>
+            <li>
+                Makes everyone's life so much easier when it comes to making
+                changes and understanding the code
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        Commit messages should describe the change well without being too short
+        <ul>
+            <li>
+                Where it says <i>'Update [insert file name here]'</i> should
+                be replaced with a short overview of what was changed.
+                Use the optional extended description to explain the specific
+                changes that were made.
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        When making a pull request, make sure that you have made all of the
+        changes you have wanted to before posting the pull request.
+        <ul>
+            <li>
+                It gets messy when you create a pull request and continue to
+                make changes after the fact.
+            </li>
+        </ul>
+    </li>
+</ol>
 
 <script>
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => {
-    s.classList.remove('active');
-  });
+    const downloadButton = document.getElementById("downloadMenuButton");
+    const downloadMenu = document.getElementById("downloadMenu");
 
-  document.getElementById(id).classList.add('active');
-}
+    const gameVersion = document.getElementById("gameVersion");
+    const modLoader = document.getElementById("modLoader");
+    const finalDownload = document.getElementById("finalDownload");
+    const selectionStatus = document.getElementById("selectionStatus");
+
+    /* Open/close the menu when clicking Download */
+    downloadButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        downloadMenu.classList.toggle("open");
+    });
+
+    /* Prevent clicking inside the menu from closing it */
+    downloadMenu.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+
+    /* Close menu when clicking elsewhere */
+    document.addEventListener("click", function () {
+        downloadMenu.classList.remove("open");
+    });
+
+    /* Check the selected version and loader */
+    function updateDownloadButton() {
+
+        const versionSelected = gameVersion.value === "1.21.1";
+        const loaderSelected = modLoader.value === "neoforge";
+
+        if (versionSelected && loaderSelected) {
+
+            finalDownload.style.display = "block";
+
+            selectionStatus.innerHTML =
+                "✓ <strong>1.21.1</strong> and <strong>NeoForge</strong> selected. You can download the mod.";
+
+        } else {
+
+            finalDownload.style.display = "none";
+
+            selectionStatus.innerHTML =
+                "Select <strong>1.21.1</strong> and <strong>NeoForge</strong> to download the file.";
+        }
+    }
+
+    gameVersion.addEventListener("change", updateDownloadButton);
+    modLoader.addEventListener("change", updateDownloadButton);
+
+    /* Initial state */
+    updateDownloadButton();
 </script>
 
 </body>
 </html>
-```
