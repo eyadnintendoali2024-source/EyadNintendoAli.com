@@ -35,6 +35,10 @@ body {
     overflow-x: hidden;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 /* =========================
    STARS
 ========================= */
@@ -240,7 +244,7 @@ button:hover {
 }
 
 /* =========================
-   DROPDOWN
+   HEADER DROPDOWN
 ========================= */
 
 .dropdown {
@@ -416,8 +420,7 @@ img {
 }
 
 /* =========================
-   DOWNLOAD SECTION
-   NORMAL PAGE FLOW
+   DOWNLOAD WRAPPER
 ========================= */
 
 .download-wrapper {
@@ -432,7 +435,7 @@ img {
 }
 
 /* =========================
-   MAIN DOWNLOAD BUTTON
+   DOWNLOAD BUTTON
 ========================= */
 
 .download-button {
@@ -456,7 +459,7 @@ img {
 
     font-weight: bold;
 
-    cursor: default;
+    cursor: pointer;
 
     box-shadow:
         0 0 15px rgba(0, 204, 255, 0.6);
@@ -465,7 +468,7 @@ img {
 }
 
 .download-button:hover {
-    transform: scale(1.04);
+    transform: scale(1.1);
 
     box-shadow:
         0 0 20px #00ccff,
@@ -473,26 +476,41 @@ img {
 }
 
 /* =========================
-   DOWNLOAD CONTENT
+   DOWNLOAD MODAL OVERLAY
+   SAME STYLE AS SETTINGS
 ========================= */
 
-.download-menu {
-    display: block;
+#downloadModalOverlay {
+    display: none;
 
-    position: static;
+    position: fixed;
+    inset: 0;
 
     width: 100%;
-    max-width: 100%;
+    height: 100%;
 
-    height: auto;
-    max-height: none;
+    background: rgba(0, 0, 0, 0.7);
 
-    overflow: visible;
+    backdrop-filter: blur(8px);
 
-    margin-top: 20px;
+    z-index: 100000;
 
-    padding: 22px;
+    justify-content: center;
+    align-items: center;
 
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+
+    padding: 15px;
+}
+
+#downloadModalOverlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.download-modal {
     background:
         radial-gradient(
             circle at top,
@@ -503,14 +521,106 @@ img {
     border:
         2px solid #00ccff;
 
-    border-radius: 16px;
-
     box-shadow:
         0 0 25px #00ccff,
-        inset 0 0 15px
-        rgba(0, 204, 255, 0.12);
+        inset 0 0 15px rgba(0, 204, 255, 0.12);
 
-    backdrop-filter: blur(12px);
+    border-radius: 16px;
+
+    width: 90%;
+    max-width: 540px;
+
+    max-height: 85vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    transform: scale(0.8);
+
+    transition:
+        transform 0.3s ease;
+
+    color: white;
+}
+
+#downloadModalOverlay.active .download-modal {
+    transform: scale(1);
+}
+
+/* =========================
+   DOWNLOAD HEADER
+========================= */
+
+.download-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(0, 204, 255, 0.3);
+
+    padding-bottom: 12px;
+
+    margin-bottom: 20px;
+
+    gap: 10px;
+}
+
+.download-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+
+    color: #00ccff;
+
+    text-shadow:
+        0 0 8px #00ccff;
+
+    overflow-wrap: anywhere;
+}
+
+.close-btn {
+    background: transparent;
+
+    border: none;
+
+    color: #00ccff;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    padding: 0 8px;
+
+    line-height: 1;
+
+    flex-shrink: 0;
+}
+
+.close-btn:hover {
+    background: transparent;
+
+    color: #ff3366;
+
+    transform: scale(1.2);
+
+    box-shadow: none;
+}
+
+/* =========================
+   DOWNLOAD CONTENT
+========================= */
+
+.download-content {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 /* =========================
@@ -522,6 +632,7 @@ img {
 
     width: 180px;
     max-width: 100%;
+
     height: 180px;
 
     object-fit: contain;
@@ -628,6 +739,7 @@ img {
 
 .feature-list {
     padding-left: 22px;
+
     overflow-wrap: anywhere;
 }
 
@@ -642,6 +754,7 @@ img {
 .filter-section {
     width: 100%;
     max-width: 100%;
+
     margin-top: 18px;
 }
 
@@ -900,6 +1013,7 @@ summary {
 
     nav {
         justify-content: center;
+
         width: 100%;
     }
 
@@ -921,13 +1035,20 @@ summary {
             25px auto;
     }
 
-    .download-menu {
-        width: 100%;
-        max-width: 100%;
+    #downloadModalOverlay {
+        align-items: center;
+
+        padding: 10px;
+    }
+
+    .download-modal {
+        width: 95%;
+
+        max-width: 540px;
+
+        max-height: 90vh;
 
         padding: 18px;
-
-        margin-top: 18px;
     }
 
     .logo {
@@ -954,6 +1075,7 @@ summary {
 
     .content-image {
         width: auto;
+
         max-width: 100%;
     }
 }
@@ -979,8 +1101,9 @@ summary {
         padding: 15px;
     }
 
-    .download-menu {
-        width: 100%;
+    .download-modal {
+        width: 96%;
+
         padding: 16px;
     }
 
@@ -991,6 +1114,7 @@ summary {
 
     .download-button {
         width: 100%;
+
         text-align: center;
     }
 
@@ -1027,10 +1151,11 @@ summary {
     nav button {
         padding-left: 8px;
         padding-right: 8px;
+
         font-size: 12px;
     }
 
-    .download-menu {
+    .download-modal {
         padding-left: 12px;
         padding-right: 12px;
     }
@@ -1212,175 +1337,19 @@ for (let i = 0; i < 150; i++) {
     </p>
 
     <!-- =========================
-         DOWNLOAD
-         NORMAL PAGE CONTENT
+         DOWNLOAD BUTTON
     ========================= -->
 
     <div class="download-wrapper">
 
-        <div class="download-button">
+        <button
+            type="button"
+            class="download-button"
+            onclick="openDownloadModal()">
+
             ⬇️ Download
-        </div>
 
-        <div
-            class="download-menu"
-            id="downloadMenu">
-
-            <!-- VM ICON -->
-
-            <img
-                src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Icon.png"
-                alt="New Modded VM Computers"
-                class="download-image">
-
-            <h2 class="download-title">
-                Download
-            </h2>
-
-            <p class="download-subtitle">
-                New-Modded VM Computers
-            </p>
-
-            <!-- CURSEFORGE -->
-
-            <a
-                class="curseforge-button"
-                href="https://www.curseforge.com/minecraft/mc-mods/new-modded-vm-computers/install"
-                target="_blank"
-                rel="noopener noreferrer">
-
-                Install with CurseForge app
-
-            </a>
-
-            <ul class="feature-list">
-
-                <li>
-                    One-Click Install
-                </li>
-
-                <li>
-                    Dependency Handling
-                </li>
-
-                <li>
-                    Game Integration
-                </li>
-
-            </ul>
-
-            <hr>
-
-            <h3>
-                Download file manually
-            </h3>
-
-            <!-- GAME VERSION -->
-
-            <div class="filter-section">
-
-                <label for="gameVersion">
-                    Select Game Version
-                </label>
-
-                <select id="gameVersion">
-
-                    <option value="">
-                        All Game Versions
-                    </option>
-
-                    <option value="1.21.1">
-                        1.21.1
-                    </option>
-
-                </select>
-
-            </div>
-
-            <!-- MOD LOADER -->
-
-            <div class="filter-section">
-
-                <label for="modLoader">
-                    Select Mod Loaders
-                </label>
-
-                <select id="modLoader">
-
-                    <option value="">
-                        All Mod Loaders
-                    </option>
-
-                    <option value="neoforge">
-                        NeoForge
-                    </option>
-
-                </select>
-
-            </div>
-
-            <!-- STATUS -->
-
-            <p
-                class="selection-status"
-                id="selectionStatus">
-
-                Select
-                <strong>1.21.1</strong>
-                and
-                <strong>NeoForge</strong>
-                to download the file.
-
-            </p>
-
-            <!-- SELECTED FILE -->
-
-            <div class="file-card">
-
-                <h3>
-                    Selected File
-                </h3>
-
-                <div class="file-name">
-                    new-modded-vmcomputers-1.21.1-neoforge.jar
-                </div>
-
-                <div class="file-info">
-
-                    Latest release
-                    <br>
-
-                    R
-                    <br>
-
-                    1.21.1
-                    <br>
-
-                    NeoForge
-                    <br>
-
-                    6.17 MB
-                    <br>
-
-                    Sep 2, 2026
-
-                </div>
-
-            </div>
-
-            <!-- FINAL DOWNLOAD -->
-
-            <a
-                id="finalDownload"
-                href="https://www.curseforge.com/api/v1/mods/1679298/files/8794371/download"
-                target="_blank"
-                rel="noopener noreferrer">
-
-                ⬇️ Download 1.21.1 NeoForge
-
-            </a>
-
-        </div>
+        </button>
 
     </div>
 
@@ -1766,7 +1735,7 @@ for (let i = 0; i < 150; i++) {
 
         You can either use an existing hard drive
         (located in
-        <code>.minecraft/vm_computers/vhds</code>)
+        <code>.minecraft/vm_computers/vhds/</code>)
         or create a new one.
 
     </p>
@@ -1775,7 +1744,7 @@ for (let i = 0; i < 150; i++) {
 
         ISO images are CDs / DVDs but as files.
         They are stored at
-        <code>.minecraft/vm_computers/isos</code>.
+        <code>.minecraft/vm_computers/isos/</code>.
 
         Once you place them in the folder,
         you can select them in the PC case menu.
@@ -2052,10 +2021,255 @@ for (let i = 0; i < 150; i++) {
 </div>
 
 <!-- =========================
+     DOWNLOAD MODAL
+     SAME BEHAVIOR AS SETTINGS
+========================= -->
+
+<div
+    id="downloadModalOverlay"
+    onclick="closeDownloadOnBackdrop(event)">
+
+    <div class="download-modal">
+
+        <div class="download-header">
+
+            <h2>
+                ⬇️ DOWNLOAD
+            </h2>
+
+            <button
+                class="close-btn"
+                type="button"
+                aria-label="Close download menu"
+                onclick="closeDownloadModal()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <div class="download-content">
+
+            <!-- VM ICON -->
+
+            <img
+                src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Icon.png"
+                alt="New Modded VM Computers"
+                class="download-image">
+
+            <h2 class="download-title">
+                Download
+            </h2>
+
+            <p class="download-subtitle">
+                New-Modded VM Computers
+            </p>
+
+            <!-- CURSEFORGE -->
+
+            <a
+                class="curseforge-button"
+                href="https://www.curseforge.com/minecraft/mc-mods/new-modded-vm-computers/install"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                Install with CurseForge app
+
+            </a>
+
+            <ul class="feature-list">
+
+                <li>
+                    One-Click Install
+                </li>
+
+                <li>
+                    Dependency Handling
+                </li>
+
+                <li>
+                    Game Integration
+                </li>
+
+            </ul>
+
+            <hr>
+
+            <h3>
+                Download file manually
+            </h3>
+
+            <!-- GAME VERSION -->
+
+            <div class="filter-section">
+
+                <label for="gameVersion">
+                    Select Game Version
+                </label>
+
+                <select id="gameVersion">
+
+                    <option value="">
+                        All Game Versions
+                    </option>
+
+                    <option value="1.21.1">
+                        1.21.1
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- MOD LOADER -->
+
+            <div class="filter-section">
+
+                <label for="modLoader">
+                    Select Mod Loaders
+                </label>
+
+                <select id="modLoader">
+
+                    <option value="">
+                        All Mod Loaders
+                    </option>
+
+                    <option value="neoforge">
+                        NeoForge
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <p
+                class="selection-status"
+                id="selectionStatus">
+
+                Select
+                <strong>1.21.1</strong>
+                and
+                <strong>NeoForge</strong>
+                to download the file.
+
+            </p>
+
+            <!-- SELECTED FILE -->
+
+            <div class="file-card">
+
+                <h3>
+                    Selected File
+                </h3>
+
+                <div class="file-name">
+                    new-modded-vmcomputers-1.21.1-neoforge.jar
+                </div>
+
+                <div class="file-info">
+
+                    Latest release
+                    <br>
+
+                    R
+                    <br>
+
+                    1.21.1
+                    <br>
+
+                    NeoForge
+                    <br>
+
+                    6.17 MB
+                    <br>
+
+                    Sep 2, 2026
+
+                </div>
+
+            </div>
+
+            <!-- FINAL DOWNLOAD -->
+
+            <a
+                id="finalDownload"
+                href="https://www.curseforge.com/api/v1/mods/1679298/files/8794371/download"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                ⬇️ Download 1.21.1 NeoForge
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
      JAVASCRIPT
 ========================= -->
 
 <script>
+
+/* =========================
+   DOWNLOAD MODAL
+   SAME AS SETTINGS MODAL
+========================= */
+
+function openDownloadModal() {
+
+    document
+        .getElementById("downloadModalOverlay")
+        .classList.add("active");
+
+    document.body.classList.add("modal-open");
+
+    updateDownloadButton();
+}
+
+function closeDownloadModal() {
+
+    document
+        .getElementById("downloadModalOverlay")
+        .classList.remove("active");
+
+    document.body.classList.remove("modal-open");
+}
+
+function closeDownloadOnBackdrop(event) {
+
+    if (
+        event.target.id ===
+        "downloadModalOverlay"
+    ) {
+
+        closeDownloadModal();
+
+    }
+}
+
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+
+            closeDownloadModal();
+
+        }
+
+    }
+);
 
 /* =========================
    DOWNLOAD SELECTION
