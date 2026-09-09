@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,19 +8,26 @@
 
 <style>
 /* =========================
-   SPACE WORLD
+   GLOBAL
 ========================= */
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
     margin: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background: radial-gradient(circle at top, #0b1026, #000000);
@@ -63,11 +69,14 @@ header {
     position: sticky;
     top: 0;
     z-index: 9998;
+    width: 100%;
+    max-width: 100%;
     background: rgba(0, 0, 40, 0.82);
     backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 15px;
     padding: 12px 25px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
@@ -76,6 +85,7 @@ header {
     font-size: 26px;
     font-weight: bold;
     text-shadow: 0 0 10px #00ccff;
+    min-width: 0;
 }
 
 .logo a {
@@ -88,6 +98,7 @@ nav {
     gap: 12px;
     flex-wrap: wrap;
     align-items: center;
+    min-width: 0;
 }
 
 /* =========================
@@ -95,6 +106,7 @@ nav {
 ========================= */
 
 button {
+    max-width: 100%;
     background: rgba(255, 255, 255, 0.08);
     color: white;
     border: 1px solid #00ccff;
@@ -139,15 +151,9 @@ button:hover {
     box-shadow: 0 0 12px rgba(0, 204, 255, 0.5);
 }
 
-/*
-   Tooltip shown when the user passes over
-   the Share button.
-*/
-
 .share-btn::after {
     content: "Open browser share menu";
     position: absolute;
-
     left: 50%;
     top: calc(100% + 10px);
 
@@ -155,20 +161,16 @@ button:hover {
 
     background: #111844;
     color: white;
-
     border: 1px solid #00ccff;
     border-radius: 7px;
-
     padding: 7px 10px;
 
     font-size: 12px;
     font-weight: normal;
-
     white-space: nowrap;
 
     opacity: 0;
     visibility: hidden;
-
     pointer-events: none;
 
     box-shadow: 0 0 15px rgba(0, 204, 255, 0.4);
@@ -199,11 +201,12 @@ button:hover {
 
 .share-status {
     position: fixed;
-
     left: 50%;
     bottom: 25px;
 
     transform: translateX(-50%) translateY(20px);
+
+    max-width: calc(100vw - 30px);
 
     background: rgba(5, 10, 35, 0.95);
     color: white;
@@ -253,10 +256,9 @@ button:hover {
     left: 0;
 
     background: #111844;
-
     border-radius: 8px;
-
     min-width: 180px;
+    max-width: calc(100vw - 20px);
 
     overflow: hidden;
 
@@ -270,13 +272,9 @@ button:hover {
 
 .dropdown-content a {
     display: block;
-
     padding: 10px;
-
     text-decoration: none;
-
     color: white;
-
     transition: 0.3s;
 }
 
@@ -296,6 +294,7 @@ button:hover {
 .main-container {
     width: 100%;
     max-width: 1100px;
+    min-width: 0;
 
     margin: 0 auto;
 
@@ -307,7 +306,9 @@ button:hover {
 ========================= */
 
 .section {
+    width: 100%;
     max-width: 1000px;
+    min-width: 0;
 
     margin: 40px auto;
 
@@ -331,6 +332,10 @@ button:hover {
     box-shadow:
         0 0 25px rgba(0, 204, 255, 0.12),
         0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.section * {
+    max-width: 100%;
 }
 
 h1,
@@ -358,10 +363,7 @@ a:hover {
 
 hr {
     border: none;
-
-    border-top:
-        1px solid rgba(0, 204, 255, 0.25);
-
+    border-top: 1px solid rgba(0, 204, 255, 0.25);
     margin: 30px 0;
 }
 
@@ -376,13 +378,20 @@ code {
     border-radius: 5px;
 
     color: #00ccff;
+
+    overflow-wrap: anywhere;
 }
 
 /* =========================
    IMAGES
 ========================= */
 
+img {
+    max-width: 100%;
+}
+
 .content-image {
+    display: block;
     max-width: 100%;
     height: auto;
 
@@ -407,17 +416,19 @@ code {
 }
 
 /* =========================
-   DOWNLOAD SYSTEM
+   DOWNLOAD SECTION
+   NORMAL PAGE FLOW
 ========================= */
 
 .download-wrapper {
-    position: relative;
+    width: 100%;
+    max-width: 100%;
 
-    display: inline-block;
+    display: block;
 
-    margin: 10px 0 25px;
+    margin: 20px 0 25px;
 
-    z-index: 5000;
+    position: static;
 }
 
 /* =========================
@@ -425,6 +436,10 @@ code {
 ========================= */
 
 .download-button {
+    display: inline-block;
+
+    max-width: 100%;
+
     background:
         linear-gradient(90deg, #00ccff, #0044ff);
 
@@ -441,7 +456,7 @@ code {
 
     font-weight: bold;
 
-    cursor: pointer;
+    cursor: default;
 
     box-shadow:
         0 0 15px rgba(0, 204, 255, 0.6);
@@ -450,7 +465,7 @@ code {
 }
 
 .download-button:hover {
-    transform: scale(1.1);
+    transform: scale(1.04);
 
     box-shadow:
         0 0 20px #00ccff,
@@ -458,32 +473,23 @@ code {
 }
 
 /* =========================
-   DOWNLOAD MENU
+   DOWNLOAD CONTENT
 ========================= */
 
 .download-menu {
-    visibility: hidden;
+    display: block;
 
-    opacity: 0;
+    position: static;
 
-    transform:
-        translateY(-10px)
-        scale(0.97);
+    width: 100%;
+    max-width: 100%;
 
-    position: absolute;
+    height: auto;
+    max-height: none;
 
-    top: calc(100% + 10px);
-    left: 0;
+    overflow: visible;
 
-    width: 540px;
-
-    max-width:
-        calc(100vw - 30px);
-
-    max-height: 80vh;
-
-    overflow-y: auto;
-    overflow-x: hidden;
+    margin-top: 20px;
 
     padding: 22px;
 
@@ -505,24 +511,6 @@ code {
         rgba(0, 204, 255, 0.12);
 
     backdrop-filter: blur(12px);
-
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease,
-        visibility 0.3s ease;
-
-    z-index: 99999;
-}
-
-.download-wrapper:hover .download-menu,
-.download-menu.open {
-    visibility: visible;
-
-    opacity: 1;
-
-    transform:
-        translateY(0)
-        scale(1);
 }
 
 /* =========================
@@ -533,6 +521,7 @@ code {
     display: block;
 
     width: 180px;
+    max-width: 100%;
     height: 180px;
 
     object-fit: contain;
@@ -567,6 +556,8 @@ code {
     color: #00ccff;
 
     font-size: 26px;
+
+    overflow-wrap: anywhere;
 }
 
 .download-subtitle {
@@ -575,6 +566,8 @@ code {
     color: #aaa;
 
     margin-top: 4px;
+
+    overflow-wrap: anywhere;
 }
 
 /* =========================
@@ -583,6 +576,9 @@ code {
 
 .curseforge-button {
     display: block;
+
+    width: 100%;
+    max-width: 100%;
 
     text-align: center;
 
@@ -610,10 +606,12 @@ code {
         rgba(240, 138, 36, 0.4);
 
     transition: 0.3s ease;
+
+    overflow-wrap: anywhere;
 }
 
 .curseforge-button:hover {
-    transform: scale(1.04);
+    transform: scale(1.02);
 
     color: white;
 
@@ -630,6 +628,7 @@ code {
 
 .feature-list {
     padding-left: 22px;
+    overflow-wrap: anywhere;
 }
 
 .feature-list li {
@@ -641,6 +640,8 @@ code {
 ========================= */
 
 .filter-section {
+    width: 100%;
+    max-width: 100%;
     margin-top: 18px;
 }
 
@@ -655,7 +656,11 @@ code {
 }
 
 .filter-section select {
+    display: block;
+
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
 
     padding: 11px;
 
@@ -684,29 +689,24 @@ code {
 
 /* =========================
    SELECTED FILE CARD
-   FIXED OVERFLOW
 ========================= */
 
 .file-card {
-    position: relative;
+    position: static;
+
+    display: block;
 
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
 
     margin-top: 20px;
 
-    /*
-       IMPORTANT:
-       Do not use a fixed height here.
-       The content and download button
-       determine the height automatically.
-    */
     height: auto;
-
     min-height: 0;
-
     max-height: none;
 
-    padding: 18px 18px 24px;
+    padding: 18px;
 
     border:
         1px solid rgba(0, 204, 255, 0.35);
@@ -720,19 +720,9 @@ code {
         inset 0 0 15px
         rgba(0, 204, 255, 0.04);
 
-    /*
-       Prevent the card from clipping
-       the content or glow.
-    */
     overflow: visible;
 
-    z-index: 2;
-
-    /*
-       Make sure the box itself doesn't
-       collapse around children.
-    */
-    display: block;
+    z-index: auto;
 }
 
 .file-card h3 {
@@ -746,7 +736,6 @@ code {
     font-size: 17px;
 
     word-break: break-word;
-
     overflow-wrap: anywhere;
 
     color: white;
@@ -762,6 +751,8 @@ code {
     margin-top: 7px;
 
     line-height: 1.7;
+
+    overflow-wrap: anywhere;
 }
 
 /* =========================
@@ -774,6 +765,8 @@ code {
     font-size: 14px;
 
     color: #aaa;
+
+    overflow-wrap: anywhere;
 }
 
 .selection-status.ready {
@@ -786,16 +779,15 @@ code {
 
 /* =========================
    FINAL DOWNLOAD
-   FIXED BUTTON CLIPPING
 ========================= */
 
 #finalDownload {
     display: none;
 
-    position: relative;
+    position: static;
 
     width: 100%;
-
+    max-width: 100%;
     min-height: 48px;
 
     box-sizing: border-box;
@@ -821,12 +813,7 @@ code {
 
     font-size: 17px;
 
-    /*
-       Extra space from the file card
-       keeps the glow away from the edge.
-    */
     margin-top: 18px;
-
     margin-bottom: 4px;
 
     border:
@@ -836,9 +823,7 @@ code {
         0 0 15px
         rgba(0, 204, 255, 0.5);
 
-    z-index: 20;
-
-    overflow: visible;
+    overflow-wrap: anywhere;
 
     transition:
         transform 0.3s ease,
@@ -846,7 +831,7 @@ code {
 }
 
 #finalDownload:hover {
-    transform: scale(1.04);
+    transform: scale(1.02);
 
     color: white;
 
@@ -856,15 +841,6 @@ code {
         0 0 25px #00ccff,
         0 0 45px
         rgba(0, 68, 255, 0.5);
-}
-
-/*
-   Make sure the Selected File area
-   can never cover the final button.
-*/
-
-.file-card + #finalDownload {
-    clear: both;
 }
 
 /* =========================
@@ -883,6 +859,8 @@ details {
     padding: 10px 12px;
 
     transition: 0.3s;
+
+    overflow-wrap: anywhere;
 }
 
 details:hover {
@@ -916,13 +894,18 @@ summary {
         gap: 12px;
 
         text-align: center;
+
+        padding: 12px 15px;
     }
 
     nav {
         justify-content: center;
+        width: 100%;
     }
 
     .main-container {
+        width: 100%;
+
         padding:
             15px
             10px
@@ -930,6 +913,8 @@ summary {
     }
 
     .section {
+        width: 100%;
+
         padding: 18px;
 
         margin:
@@ -937,24 +922,12 @@ summary {
     }
 
     .download-menu {
-        left: 50%;
+        width: 100%;
+        max-width: 100%;
 
-        transform:
-            translate(-50%, -10px)
-            scale(0.97);
+        padding: 18px;
 
-        width:
-            calc(100vw - 25px);
-
-        max-height:
-            calc(100vh - 100px);
-    }
-
-    .download-wrapper:hover .download-menu,
-    .download-menu.open {
-        transform:
-            translate(-50%, 0)
-            scale(1);
+        margin-top: 18px;
     }
 
     .logo {
@@ -973,10 +946,15 @@ summary {
     }
 
     .file-card {
+        width: 100%;
+
         padding:
-            17px
-            15px
-            24px;
+            17px 15px 20px;
+    }
+
+    .content-image {
+        width: auto;
+        max-width: 100%;
     }
 }
 
@@ -997,16 +975,64 @@ summary {
         font-size: 13px;
     }
 
-    .download-menu {
-        width:
-            calc(100vw - 16px);
+    .section {
+        padding: 15px;
+    }
 
+    .download-menu {
+        width: 100%;
         padding: 16px;
     }
 
     .download-image {
         width: 140px;
         height: 140px;
+    }
+
+    .download-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .file-name {
+        font-size: 15px;
+    }
+
+    .file-info {
+        font-size: 13px;
+    }
+}
+
+/* =========================
+   EXTRA MOBILE SAFETY
+========================= */
+
+@media (max-width: 360px) {
+
+    header {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .main-container {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+
+    .section {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    nav button {
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 12px;
+    }
+
+    .download-menu {
+        padding-left: 12px;
+        padding-right: 12px;
     }
 }
 </style>
@@ -1064,8 +1090,6 @@ for (let i = 0; i < 150; i++) {
 
     <nav>
 
-        <!-- TYPES -->
-
         <div class="dropdown">
 
             <button type="button">
@@ -1098,8 +1122,6 @@ for (let i = 0; i < 150; i++) {
 
         </div>
 
-        <!-- AI -->
-
         <button
             type="button"
             class="ai-btn"
@@ -1108,8 +1130,6 @@ for (let i = 0; i < 150; i++) {
             🤖 AI
 
         </button>
-
-        <!-- SHARE -->
 
         <button
             type="button"
@@ -1121,8 +1141,6 @@ for (let i = 0; i < 150; i++) {
 
         </button>
 
-        <!-- FOOTBALL -->
-
         <button
             type="button"
             class="ai-btn"
@@ -1132,8 +1150,6 @@ for (let i = 0; i < 150; i++) {
 
         </button>
 
-        <!-- SEARCH -->
-
         <button
             type="button"
             onclick="alert('Search is coming soon!')">
@@ -1141,8 +1157,6 @@ for (let i = 0; i < 150; i++) {
             🔍 Search
 
         </button>
-
-        <!-- YOUTUBE -->
 
         <button
             type="button"
@@ -1199,18 +1213,14 @@ for (let i = 0; i < 150; i++) {
 
     <!-- =========================
          DOWNLOAD
+         NORMAL PAGE CONTENT
     ========================= -->
 
     <div class="download-wrapper">
 
-        <button
-            type="button"
-            class="download-button"
-            id="downloadMenuButton">
-
+        <div class="download-button">
             ⬇️ Download
-
-        </button>
+        </div>
 
         <div
             class="download-menu"
@@ -1323,9 +1333,7 @@ for (let i = 0; i < 150; i++) {
 
             </p>
 
-            <!-- =========================
-                 SELECTED FILE
-            ========================= -->
+            <!-- SELECTED FILE -->
 
             <div class="file-card">
 
@@ -1360,9 +1368,7 @@ for (let i = 0; i < 150; i++) {
 
             </div>
 
-            <!-- =========================
-                 FINAL DOWNLOAD
-            ========================= -->
+            <!-- FINAL DOWNLOAD -->
 
             <a
                 id="finalDownload"
@@ -2046,16 +2052,14 @@ for (let i = 0; i < 150; i++) {
 </div>
 
 <!-- =========================
-     DOWNLOAD JAVASCRIPT
+     JAVASCRIPT
 ========================= -->
 
 <script>
 
-const downloadButton =
-    document.getElementById("downloadMenuButton");
-
-const downloadMenu =
-    document.getElementById("downloadMenu");
+/* =========================
+   DOWNLOAD SELECTION
+========================= */
 
 const gameVersion =
     document.getElementById("gameVersion");
@@ -2068,43 +2072,6 @@ const finalDownload =
 
 const selectionStatus =
     document.getElementById("selectionStatus");
-
-/* =========================
-   DOWNLOAD MENU
-========================= */
-
-downloadButton.addEventListener(
-    "click",
-    function(event) {
-
-        event.stopPropagation();
-
-        downloadMenu.classList.toggle("open");
-
-    }
-);
-
-downloadMenu.addEventListener(
-    "click",
-    function(event) {
-
-        event.stopPropagation();
-
-    }
-);
-
-document.addEventListener(
-    "click",
-    function() {
-
-        downloadMenu.classList.remove("open");
-
-    }
-);
-
-/* =========================
-   DOWNLOAD SELECTION
-========================= */
 
 function updateDownloadButton() {
 
@@ -2169,10 +2136,6 @@ const shareButton =
 const shareStatus =
     document.getElementById("shareStatus");
 
-/*
-   Shows a small message at the bottom.
-*/
-
 function showShareStatus(message) {
 
     shareStatus.textContent =
@@ -2197,17 +2160,6 @@ function showShareStatus(message) {
         );
 }
 
-/*
-   Share the current page.
-
-   On supported browsers:
-   navigator.share() opens the browser/device's
-   native share menu.
-
-   The available options depend on the browser,
-   operating system and installed apps.
-*/
-
 shareButton.addEventListener(
     "click",
     async function() {
@@ -2225,9 +2177,7 @@ shareButton.addEventListener(
 
         };
 
-        /*
-           Native browser share menu.
-        */
+        /* Native browser share menu */
 
         if (
             navigator.share
@@ -2245,12 +2195,6 @@ shareButton.addEventListener(
 
             } catch (error) {
 
-                /*
-                   AbortError normally means
-                   the user closed/cancelled
-                   the share menu.
-                */
-
                 if (
                     error.name !== "AbortError"
                 ) {
@@ -2266,12 +2210,7 @@ shareButton.addEventListener(
             return;
         }
 
-        /*
-           Fallback for browsers without
-           Web Share API.
-
-           Try Clipboard API first.
-        */
+        /* Clipboard fallback */
 
         if (
             navigator.clipboard &&
@@ -2300,9 +2239,7 @@ shareButton.addEventListener(
             }
         }
 
-        /*
-           Older browser fallback.
-        */
+        /* Older browser fallback */
 
         const temporaryInput =
             document.createElement("input");
@@ -2346,4 +2283,3 @@ shareButton.addEventListener(
 
 </body>
 </html>
-```
