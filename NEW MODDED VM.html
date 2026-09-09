@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -476,8 +477,7 @@ img {
 }
 
 /* =========================
-   DOWNLOAD MODAL OVERLAY
-   SAME STYLE AS SETTINGS
+   DOWNLOAD MODAL
 ========================= */
 
 #downloadModalOverlay {
@@ -802,22 +802,19 @@ img {
 
 /* =========================
    SELECTED FILE CARD
+   HIDDEN UNTIL DOWNLOAD
 ========================= */
 
 .file-card {
-    position: static;
+    display: none;
 
-    display: block;
+    position: static;
 
     width: 100%;
     max-width: 100%;
     min-width: 0;
 
     margin-top: 20px;
-
-    height: auto;
-    min-height: 0;
-    max-height: none;
 
     padding: 18px;
 
@@ -834,8 +831,10 @@ img {
         rgba(0, 204, 255, 0.04);
 
     overflow: visible;
+}
 
-    z-index: auto;
+.file-card.show {
+    display: block;
 }
 
 .file-card h3 {
@@ -891,16 +890,15 @@ img {
 }
 
 /* =========================
-   FINAL DOWNLOAD
+   FINAL DOWNLOAD BUTTON
 ========================= */
 
 #finalDownload {
     display: none;
 
-    position: static;
-
     width: 100%;
     max-width: 100%;
+
     min-height: 48px;
 
     box-sizing: border-box;
@@ -941,6 +939,10 @@ img {
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
+}
+
+#finalDownload.show {
+    display: block;
 }
 
 #finalDownload:hover {
@@ -2022,7 +2024,6 @@ for (let i = 0; i < 150; i++) {
 
 <!-- =========================
      DOWNLOAD MODAL
-     SAME BEHAVIOR AS SETTINGS
 ========================= -->
 
 <div
@@ -2108,7 +2109,8 @@ for (let i = 0; i < 150; i++) {
                     Select Game Version
                 </label>
 
-                <select id="gameVersion">
+                <select
+                    id="gameVersion">
 
                     <option value="">
                         All Game Versions
@@ -2130,7 +2132,8 @@ for (let i = 0; i < 150; i++) {
                     Select Mod Loaders
                 </label>
 
-                <select id="modLoader">
+                <select
+                    id="modLoader">
 
                     <option value="">
                         All Mod Loaders
@@ -2158,9 +2161,12 @@ for (let i = 0; i < 150; i++) {
 
             </p>
 
-            <!-- SELECTED FILE -->
+            <!-- SELECTED FILE
+                 HIDDEN UNTIL USER CLICKS DOWNLOAD FILE -->
 
-            <div class="file-card">
+            <div
+                class="file-card"
+                id="selectedFile">
 
                 <h3>
                     Selected File
@@ -2193,15 +2199,16 @@ for (let i = 0; i < 150; i++) {
 
             </div>
 
-            <!-- FINAL DOWNLOAD -->
+            <!-- FINAL DOWNLOAD BUTTON
+                 HIDDEN UNTIL 1.21.1 + NEOFORGE ARE SELECTED -->
 
             <a
                 id="finalDownload"
                 href="https://www.curseforge.com/api/v1/mods/1679298/files/8794371/download"
-                target="_blank"
+                download="new-modded-vmcomputers-1.21.1-neoforge.jar"
                 rel="noopener noreferrer">
 
-                ⬇️ Download 1.21.1 NeoForge
+                ⬇️ Download File
 
             </a>
 
@@ -2219,7 +2226,6 @@ for (let i = 0; i < 150; i++) {
 
 /* =========================
    DOWNLOAD MODAL
-   SAME AS SETTINGS MODAL
 ========================= */
 
 function openDownloadModal() {
@@ -2229,6 +2235,17 @@ function openDownloadModal() {
         .classList.add("active");
 
     document.body.classList.add("modal-open");
+
+    /*
+     * Every time the modal opens,
+     * hide the Selected File card.
+     * It will only appear after the user
+     * actually clicks Download File.
+     */
+
+    document
+        .getElementById("selectedFile")
+        .classList.remove("show");
 
     updateDownloadButton();
 }
@@ -2284,6 +2301,9 @@ const modLoader =
 const finalDownload =
     document.getElementById("finalDownload");
 
+const selectedFile =
+    document.getElementById("selectedFile");
+
 const selectionStatus =
     document.getElementById("selectionStatus");
 
@@ -2295,13 +2315,21 @@ function updateDownloadButton() {
     const loaderSelected =
         modLoader.value === "neoforge";
 
-    if (
+    const ready =
         versionSelected &&
-        loaderSelected
-    ) {
+        loaderSelected;
 
-        finalDownload.style.display =
-            "block";
+    /*
+     * Selected File must NOT be shown
+     * just because the correct options
+     * were selected.
+     */
+
+    selectedFile.classList.remove("show");
+
+    if (ready) {
+
+        finalDownload.classList.add("show");
 
         selectionStatus.classList.add(
             "ready"
@@ -2310,12 +2338,11 @@ function updateDownloadButton() {
         selectionStatus.innerHTML =
             "✓ <strong>1.21.1</strong> and " +
             "<strong>NeoForge</strong> selected. " +
-            "You can download the mod.";
+            "Click <strong>Download File</strong> to download.";
 
     } else {
 
-        finalDownload.style.display =
-            "none";
+        finalDownload.classList.remove("show");
 
         selectionStatus.classList.remove(
             "ready"
@@ -2328,6 +2355,51 @@ function updateDownloadButton() {
     }
 }
 
+/*
+ * The important part:
+ * The file card appears ONLY when
+ * Download File is clicked.
+ */
+
+finalDownload.addEventListener(
+    "click",
+    function(event) {
+
+        const versionSelected =
+            gameVersion.value === "1.21.1";
+
+        const loaderSelected =
+            modLoader.value === "neoforge";
+
+        if (
+            !versionSelected ||
+            !loaderSelected
+        ) {
+
+            event.preventDefault();
+
+            return;
+
+        }
+
+        /*
+         * Show the Selected File information
+         * when the actual download is manually requested.
+         */
+
+        selectedFile.classList.add("show");
+
+        selectionStatus.classList.add(
+            "ready"
+        );
+
+        selectionStatus.innerHTML =
+            "✓ Download started: " +
+            "<strong>new-modded-vmcomputers-1.21.1-neoforge.jar</strong>";
+
+    }
+);
+
 gameVersion.addEventListener(
     "change",
     updateDownloadButton
@@ -2337,6 +2409,13 @@ modLoader.addEventListener(
     "change",
     updateDownloadButton
 );
+
+/*
+ * Start with everything hidden.
+ */
+
+selectedFile.classList.remove("show");
+finalDownload.classList.remove("show");
 
 updateDownloadButton();
 
@@ -2497,3 +2576,4 @@ shareButton.addEventListener(
 
 </body>
 </html>
+```
