@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +36,7 @@ header {
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 /* LOGO */
@@ -125,6 +127,33 @@ nav button:hover {
 .list-item:hover {
   background: rgba(0,204,255,0.2);
 }
+
+/* MOD CARD */
+.mod-card {
+  width: 200px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.mod-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00ccff;
+}
+
+.mod-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.mod-card p {
+  margin: 10px 0 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
 </style>
 </head>
 
@@ -163,27 +192,24 @@ for (let i = 0; i < 120; i++) {
 <div id="minecraft" class="section">
   <h1>⛏️ Minecraft</h1>
 
-  <div class="cards">
-    <div class="card" onclick="location.href='Boy&jelly.html'">
-      <img src="Boy&jelly.png">
-      <p>Boy & Jelly Mod</p>
-    </div>
+  <!-- The old Boy & Jelly and Game Haven cards have been removed -->
 
-    <div class="card" onclick="location.href='Game Haven domdom.html'">
-      <img src="Game Haven domdom.png">
-      <p>Game Haven Mod</p>
-    </div>
-  </div>
+  <p>No games available yet.</p>
 </div>
 
 <!-- MODS -->
 <div id="mods" class="section">
   <h1>📦 Mods</h1>
 
-  <div class="list-item">🔥 Realistic Shader Mod</div>
-  <div class="list-item">⚔️ Epic Weapons Mod</div>
-  <div class="list-item">🐉 Dragon Expansion Mod</div>
-  <div class="list-item">🌌 Space Dimension Mod</div>
+  <div class="cards">
+
+    <!-- NEW MODDED VM COMPUTERS -->
+    <div class="mod-card" onclick="location.href='NEW MODDED VM.html'">
+      <img src="VM Icon.png" alt="New-Modded VM Computers">
+      <p>New-Modded VM Computers</p>
+    </div>
+
+  </div>
 </div>
 
 <!-- VIDEOS -->
@@ -205,10 +231,14 @@ for (let i = 0; i < 120; i++) {
 
 <script>
 function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('active');
+  });
+
   document.getElementById(id).classList.add('active');
 }
 </script>
 
 </body>
 </html>
+```
