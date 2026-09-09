@@ -8,10 +8,6 @@
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 <style>
-/* =========================
-   GLOBAL
-========================= */
-
 *,
 *::before,
 *::after {
@@ -40,10 +36,6 @@ body.modal-open {
     overflow: hidden;
 }
 
-/* =========================
-   STARS
-========================= */
-
 .star {
     position: fixed;
     background: white;
@@ -65,10 +57,6 @@ body.modal-open {
         transform: scale(1.2);
     }
 }
-
-/* =========================
-   HEADER
-========================= */
 
 header {
     position: sticky;
@@ -106,10 +94,6 @@ nav {
     min-width: 0;
 }
 
-/* =========================
-   ALL BUTTONS
-========================= */
-
 button {
     max-width: 100%;
     background: rgba(255, 255, 255, 0.08);
@@ -119,7 +103,6 @@ button {
     padding: 8px 14px;
     font-weight: bold;
     cursor: pointer;
-
     transition:
         transform 0.3s ease,
         background 0.3s ease,
@@ -144,10 +127,6 @@ button:hover {
     box-shadow: 0 0 25px #00ccff;
 }
 
-/* =========================
-   SHARE BUTTON
-========================= */
-
 .share-btn {
     position: relative;
     background: linear-gradient(90deg, #00ccff, #0044ff);
@@ -161,30 +140,23 @@ button:hover {
     position: absolute;
     left: 50%;
     top: calc(100% + 10px);
-
     transform: translateX(-50%) translateY(-5px);
-
     background: #111844;
     color: white;
     border: 1px solid #00ccff;
     border-radius: 7px;
     padding: 7px 10px;
-
     font-size: 12px;
     font-weight: normal;
     white-space: nowrap;
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-
     box-shadow: 0 0 15px rgba(0, 204, 255, 0.4);
-
     transition:
         opacity 0.25s ease,
         transform 0.25s ease,
         visibility 0.25s ease;
-
     z-index: 100000;
 }
 
@@ -200,38 +172,23 @@ button:hover {
         0 0 35px rgba(0, 68, 255, 0.5);
 }
 
-/* =========================
-   SHARE STATUS
-========================= */
-
 .share-status {
     position: fixed;
     left: 50%;
     bottom: 25px;
-
     transform: translateX(-50%) translateY(20px);
-
     max-width: calc(100vw - 30px);
-
     background: rgba(5, 10, 35, 0.95);
     color: white;
-
     border: 1px solid #00ccff;
     border-radius: 10px;
-
     padding: 11px 18px;
-
     font-size: 14px;
     font-weight: bold;
-
-    box-shadow:
-        0 0 15px rgba(0, 204, 255, 0.6);
-
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.6);
     opacity: 0;
     visibility: hidden;
-
     z-index: 999999;
-
     transition:
         opacity 0.3s ease,
         transform 0.3s ease,
@@ -244,10 +201,6 @@ button:hover {
     transform: translateX(-50%) translateY(0);
 }
 
-/* =========================
-   HEADER DROPDOWN
-========================= */
-
 .dropdown {
     position: relative;
     z-index: 9999;
@@ -255,23 +208,16 @@ button:hover {
 
 .dropdown-content {
     display: none;
-
     position: absolute;
     top: calc(100% + 5px);
     left: 0;
-
     background: #111844;
     border-radius: 8px;
     min-width: 180px;
     max-width: calc(100vw - 20px);
-
     overflow: hidden;
-
     z-index: 10000;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.7);
-
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0, 204, 255, 0.4);
 }
 
@@ -292,44 +238,25 @@ button:hover {
     display: block;
 }
 
-/* =========================
-   MAIN CONTENT
-========================= */
-
 .main-container {
     width: 100%;
     max-width: 1100px;
     min-width: 0;
-
     margin: 0 auto;
-
     padding: 30px 20px 80px;
 }
-
-/* =========================
-   GLASS SECTIONS
-========================= */
 
 .section {
     width: 100%;
     max-width: 1000px;
     min-width: 0;
-
     margin: 40px auto;
-
     padding: 25px;
-
     background: rgba(255, 255, 255, 0.05);
-
     border-radius: 14px;
-
     border: 1px solid rgba(255, 255, 255, 0.08);
-
-    box-shadow:
-        0 0 25px rgba(0, 0, 0, 0.5);
-
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(6px);
-
     transition: 0.3s;
 }
 
@@ -346,13 +273,7 @@ button:hover {
 h1,
 h2,
 h3 {
-    text-shadow:
-        0 0 10px rgba(0, 204, 255, 0.45);
-}
-
-h1,
-h2,
-h3 {
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.45);
     color: #00ccff;
 }
 
@@ -374,22 +295,12 @@ hr {
 
 code {
     background: rgba(0, 0, 0, 0.5);
-
-    border:
-        1px solid rgba(0, 204, 255, 0.2);
-
+    border: 1px solid rgba(0, 204, 255, 0.2);
     padding: 3px 6px;
-
     border-radius: 5px;
-
     color: #00ccff;
-
     overflow-wrap: anywhere;
 }
-
-/* =========================
-   IMAGES
-========================= */
 
 img {
     max-width: 100%;
@@ -399,109 +310,61 @@ img {
     display: block;
     max-width: 100%;
     height: auto;
-
     border-radius: 12px;
-
     margin: 10px 0;
-
-    border:
-        1px solid rgba(255, 255, 255, 0.1);
-
-    box-shadow:
-        0 0 15px rgba(0, 0, 0, 0.5);
-
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     transition: 0.4s ease;
 }
 
 .content-image:hover {
     transform: scale(1.02);
-
-    box-shadow:
-        0 0 25px rgba(0, 204, 255, 0.45);
+    box-shadow: 0 0 25px rgba(0, 204, 255, 0.45);
 }
-
-/* =========================
-   DOWNLOAD WRAPPER
-========================= */
 
 .download-wrapper {
     width: 100%;
     max-width: 100%;
-
     display: block;
-
     margin: 20px 0 25px;
-
     position: static;
 }
 
-/* =========================
-   DOWNLOAD BUTTON
-========================= */
-
 .download-button {
     display: inline-block;
-
     max-width: 100%;
-
-    background:
-        linear-gradient(90deg, #00ccff, #0044ff);
-
+    background: linear-gradient(90deg, #00ccff, #0044ff);
     color: white;
-
-    border:
-        1px solid #00ccff;
-
+    border: 1px solid #00ccff;
     border-radius: 10px;
-
     padding: 12px 28px;
-
     font-size: 18px;
-
     font-weight: bold;
-
     cursor: pointer;
-
-    box-shadow:
-        0 0 15px rgba(0, 204, 255, 0.6);
-
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.6);
     transition: 0.3s ease;
 }
 
 .download-button:hover {
     transform: scale(1.1);
-
     box-shadow:
         0 0 20px #00ccff,
         0 0 40px rgba(0, 68, 255, 0.5);
 }
 
-/* =========================
-   DOWNLOAD MODAL
-========================= */
-
 #downloadModalOverlay {
     display: none;
-
     position: fixed;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     background: rgba(0, 0, 0, 0.7);
-
     backdrop-filter: blur(8px);
-
     z-index: 100000;
-
     justify-content: center;
     align-items: center;
-
     opacity: 0;
-
     transition: opacity 0.3s ease;
-
     padding: 15px;
 }
 
@@ -517,33 +380,20 @@ img {
             #0b1026,
             #050814
         );
-
-    border:
-        2px solid #00ccff;
-
+    border: 2px solid #00ccff;
     box-shadow:
         0 0 25px #00ccff,
         inset 0 0 15px rgba(0, 204, 255, 0.12);
-
     border-radius: 16px;
-
     width: 90%;
     max-width: 540px;
-
     max-height: 85vh;
-
     overflow-y: auto;
     overflow-x: hidden;
-
     padding: 24px;
-
     box-sizing: border-box;
-
     transform: scale(0.8);
-
-    transition:
-        transform 0.3s ease;
-
+    transition: transform 0.3s ease;
     color: white;
 }
 
@@ -551,71 +401,41 @@ img {
     transform: scale(1);
 }
 
-/* =========================
-   DOWNLOAD HEADER
-========================= */
-
 .download-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    border-bottom:
-        1px solid rgba(0, 204, 255, 0.3);
-
+    border-bottom: 1px solid rgba(0, 204, 255, 0.3);
     padding-bottom: 12px;
-
     margin-bottom: 20px;
-
     gap: 10px;
 }
 
 .download-header h2 {
     margin: 0;
-
     font-size: 22px;
-
     color: #00ccff;
-
-    text-shadow:
-        0 0 8px #00ccff;
-
+    text-shadow: 0 0 8px #00ccff;
     overflow-wrap: anywhere;
 }
 
 .close-btn {
     background: transparent;
-
     border: none;
-
     color: #00ccff;
-
     font-size: 24px;
-
     cursor: pointer;
-
     padding: 0 8px;
-
     line-height: 1;
-
     flex-shrink: 0;
 }
 
 .close-btn:hover {
     background: transparent;
-
     color: #ff3366;
-
     transform: scale(1.2);
-
     box-shadow: none;
 }
-
-/* =========================
-   DOWNLOAD CONTENT
-========================= */
 
 .download-content {
     width: 100%;
@@ -623,123 +443,70 @@ img {
     min-width: 0;
 }
 
-/* =========================
-   DOWNLOAD IMAGE
-========================= */
-
 .download-image {
     display: block;
-
     width: 180px;
     max-width: 100%;
-
     height: 180px;
-
     object-fit: contain;
-
     margin: 0 auto 15px;
-
     border-radius: 14px;
-
-    border:
-        1px solid rgba(0, 204, 255, 0.3);
-
-    box-shadow:
-        0 0 20px rgba(0, 204, 255, 0.35);
-
+    border: 1px solid rgba(0, 204, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.35);
     transition: 0.4s ease;
 }
 
 .download-image:hover {
-    transform:
-        scale(1.06)
-        rotate(1deg);
-
-    box-shadow:
-        0 0 30px #00ccff;
+    transform: scale(1.06) rotate(1deg);
+    box-shadow: 0 0 30px #00ccff;
 }
 
 .download-title {
     text-align: center;
-
     margin: 0;
-
     color: #00ccff;
-
     font-size: 26px;
-
     overflow-wrap: anywhere;
 }
 
 .download-subtitle {
     text-align: center;
-
     color: #aaa;
-
     margin-top: 4px;
-
     overflow-wrap: anywhere;
 }
 
-/* =========================
-   CURSEFORGE BUTTON
-========================= */
-
 .curseforge-button {
     display: block;
-
     width: 100%;
     max-width: 100%;
-
     text-align: center;
-
     text-decoration: none;
-
     background:
         linear-gradient(
             90deg,
             #f08a24,
             #ffb347
         );
-
     color: white;
-
     padding: 13px;
-
     border-radius: 9px;
-
     font-weight: bold;
-
     margin: 18px 0;
-
-    box-shadow:
-        0 0 12px
-        rgba(240, 138, 36, 0.4);
-
+    box-shadow: 0 0 12px rgba(240, 138, 36, 0.4);
     transition: 0.3s ease;
-
     overflow-wrap: anywhere;
 }
 
 .curseforge-button:hover {
     transform: scale(1.02);
-
     color: white;
-
     text-shadow: none;
-
-    box-shadow:
-        0 0 20px
-        rgba(240, 138, 36, 0.8);
+    box-shadow: 0 0 20px rgba(240, 138, 36, 0.8);
 }
-
-/* =========================
-   FEATURES
-========================= */
 
 .feature-list {
     padding-left: 22px;
-
     overflow-wrap: anywhere;
 }
 
@@ -747,89 +514,51 @@ img {
     margin: 6px 0;
 }
 
-/* =========================
-   FILTER SECTIONS
-========================= */
-
 .filter-section {
     width: 100%;
     max-width: 100%;
-
     margin-top: 18px;
 }
 
 .filter-section label {
     display: block;
-
     font-weight: bold;
-
     color: #00ccff;
-
     margin-bottom: 7px;
 }
 
 .filter-section select {
     display: block;
-
     width: 100%;
     max-width: 100%;
     min-width: 0;
-
     padding: 11px;
-
-    border:
-        1px solid #00ccff;
-
+    border: 1px solid #00ccff;
     border-radius: 8px;
-
     font-size: 15px;
-
-    background:
-        rgba(0, 0, 0, 0.65);
-
+    background: rgba(0, 0, 0, 0.65);
     color: white;
-
     outline: none;
-
     transition: 0.3s;
 }
 
 .filter-section select:hover,
 .filter-section select:focus {
-    box-shadow:
-        0 0 12px #00ccff;
+    box-shadow: 0 0 12px #00ccff;
 }
-
-/* =========================
-   SELECTED FILE CARD
-   HIDDEN UNTIL DOWNLOAD
-========================= */
 
 .file-card {
     display: none;
-
     position: static;
-
     width: 100%;
     max-width: 100%;
     min-width: 0;
-
     margin-top: 20px;
-
     padding: 18px;
-
-    border:
-        1px solid rgba(0, 204, 255, 0.35);
-
+    border: 1px solid rgba(0, 204, 255, 0.35);
     border-radius: 10px;
-
-    background:
-        rgba(255, 255, 255, 0.05);
-
-    box-shadow:
-        inset 0 0 15px
-        rgba(0, 204, 255, 0.04);
-
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 0 15px rgba(0, 204, 255, 0.04);
     overflow: visible;
 }
 
@@ -844,98 +573,45 @@ img {
 
 .file-name {
     font-weight: bold;
-
     font-size: 17px;
-
     word-break: break-word;
     overflow-wrap: anywhere;
-
     color: white;
-
     line-height: 1.45;
 }
 
 .file-info {
     color: #aaa;
-
     font-size: 14px;
-
     margin-top: 7px;
-
     line-height: 1.7;
-
     overflow-wrap: anywhere;
 }
-
-/* =========================
-   STATUS
-========================= */
-
-.selection-status {
-    margin-top: 12px;
-
-    font-size: 14px;
-
-    color: #aaa;
-
-    overflow-wrap: anywhere;
-}
-
-.selection-status.ready {
-    color: #00ff88;
-
-    text-shadow:
-        0 0 8px
-        rgba(0, 255, 136, 0.5);
-}
-
-/* =========================
-   FINAL DOWNLOAD BUTTON
-========================= */
 
 #finalDownload {
     display: none;
-
     width: 100%;
     max-width: 100%;
-
     min-height: 48px;
-
     box-sizing: border-box;
-
     text-align: center;
-
     background:
         linear-gradient(
             90deg,
             #00ccff,
             #0044ff
         );
-
     color: white;
-
     text-decoration: none;
-
     padding: 14px 16px;
-
     border-radius: 9px;
-
     font-weight: bold;
-
     font-size: 17px;
-
     margin-top: 18px;
     margin-bottom: 4px;
-
-    border:
-        1px solid #00ccff;
-
-    box-shadow:
-        0 0 15px
-        rgba(0, 204, 255, 0.5);
-
+    border: 1px solid #00ccff;
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
     overflow-wrap: anywhere;
-
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
@@ -947,109 +623,67 @@ img {
 
 #finalDownload:hover {
     transform: scale(1.02);
-
     color: white;
-
     text-shadow: none;
-
     box-shadow:
         0 0 25px #00ccff,
-        0 0 45px
-        rgba(0, 68, 255, 0.5);
+        0 0 45px rgba(0, 68, 255, 0.5);
 }
 
-/* =========================
-   DETAILS
-========================= */
-
 details {
-    background:
-        rgba(0, 0, 0, 0.2);
-
-    border:
-        1px solid rgba(0, 204, 255, 0.15);
-
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 204, 255, 0.15);
     border-radius: 8px;
-
     padding: 10px 12px;
-
     transition: 0.3s;
-
     overflow-wrap: anywhere;
 }
 
 details:hover {
-    border-color:
-        rgba(0, 204, 255, 0.5);
-
-    box-shadow:
-        0 0 15px
-        rgba(0, 204, 255, 0.15);
+    border-color: rgba(0, 204, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.15);
 }
 
 summary {
     cursor: pointer;
-
     color: #00ccff;
-
     font-weight: bold;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
 @media (max-width: 750px) {
-
     header {
         position: relative;
-
         flex-direction: column;
-
         gap: 12px;
-
         text-align: center;
-
         padding: 12px 15px;
     }
 
     nav {
         justify-content: center;
-
         width: 100%;
     }
 
     .main-container {
         width: 100%;
-
-        padding:
-            15px
-            10px
-            50px;
+        padding: 15px 10px 50px;
     }
 
     .section {
         width: 100%;
-
         padding: 18px;
-
-        margin:
-            25px auto;
+        margin: 25px auto;
     }
 
     #downloadModalOverlay {
         align-items: center;
-
         padding: 10px;
     }
 
     .download-modal {
         width: 95%;
-
         max-width: 540px;
-
         max-height: 90vh;
-
         padding: 18px;
     }
 
@@ -1062,40 +696,28 @@ summary {
     }
 
     #finalDownload {
-        padding:
-            14px 12px;
-
+        padding: 14px 12px;
         font-size: 16px;
     }
 
     .file-card {
         width: 100%;
-
-        padding:
-            17px 15px 20px;
+        padding: 17px 15px 20px;
     }
 
     .content-image {
         width: auto;
-
         max-width: 100%;
     }
 }
 
-/* =========================
-   VERY SMALL SCREENS
-========================= */
-
 @media (max-width: 450px) {
-
     nav {
         gap: 8px;
     }
 
     nav button {
-        padding:
-            7px 10px;
-
+        padding: 7px 10px;
         font-size: 13px;
     }
 
@@ -1105,7 +727,6 @@ summary {
 
     .download-modal {
         width: 96%;
-
         padding: 16px;
     }
 
@@ -1116,7 +737,6 @@ summary {
 
     .download-button {
         width: 100%;
-
         text-align: center;
     }
 
@@ -1129,12 +749,7 @@ summary {
     }
 }
 
-/* =========================
-   EXTRA MOBILE SAFETY
-========================= */
-
 @media (max-width: 360px) {
-
     header {
         padding-left: 8px;
         padding-right: 8px;
@@ -1153,7 +768,6 @@ summary {
     nav button {
         padding-left: 8px;
         padding-right: 8px;
-
         font-size: 12px;
     }
 
@@ -1167,15 +781,9 @@ summary {
 
 <body>
 
-<!-- =========================
-     SPACE STARS
-========================= -->
-
 <script>
 for (let i = 0; i < 150; i++) {
-
-    const star =
-        document.createElement("div");
+    const star = document.createElement("div");
 
     star.className = "star";
 
@@ -1201,18 +809,12 @@ for (let i = 0; i < 150; i++) {
 }
 </script>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
     <div class="logo">
-
         <a href="index.html">
             Eyad Nintendo Ali 🚀
         </a>
-
     </div>
 
     <nav>
@@ -1253,9 +855,7 @@ for (let i = 0; i < 150; i++) {
             type="button"
             class="ai-btn"
             onclick="location.href='ai.html'">
-
             🤖 AI
-
         </button>
 
         <button
@@ -1263,41 +863,31 @@ for (let i = 0; i < 150; i++) {
             class="share-btn"
             id="shareButton"
             aria-label="Share this page">
-
             🔗 Share
-
         </button>
 
         <button
             type="button"
             class="ai-btn"
             onclick="location.href='Football.html'">
-
             ⚽ Football
-
         </button>
 
         <button
             type="button"
             onclick="alert('Search is coming soon!')">
-
             🔍 Search
-
         </button>
 
         <button
             type="button"
             onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">
-
             ▶️ YouTube
-
         </button>
 
     </nav>
 
 </header>
-
-<!-- SHARE STATUS -->
 
 <div
     id="shareStatus"
@@ -1307,10 +897,6 @@ for (let i = 0; i < 150; i++) {
 </div>
 
 <div class="main-container">
-
-<!-- =========================
-     HERO SECTION
-========================= -->
 
 <section class="section">
 
@@ -1324,7 +910,6 @@ for (let i = 0; i < 150; i++) {
     </p>
 
     <p>
-
         <strong>CurseForge Page:</strong>
 
         <a
@@ -1335,12 +920,7 @@ for (let i = 0; i < 150; i++) {
             New Modded VM Computers
 
         </a>
-
     </p>
-
-    <!-- =========================
-         DOWNLOAD BUTTON
-    ========================= -->
 
     <div class="download-wrapper">
 
@@ -1368,10 +948,6 @@ for (let i = 0; i < 150; i++) {
     </p>
 
 </section>
-
-<!-- =========================
-     ORIGINAL MOD
-========================= -->
 
 <section class="section">
 
@@ -1422,11 +998,9 @@ for (let i = 0; i < 150; i++) {
             <br>
 
             <sub>
-
                 <i>
                     Note: Only accepts Bitcoin and BitcoinCash
                 </i>
-
             </sub>
 
         </summary>
@@ -1452,10 +1026,6 @@ for (let i = 0; i < 150; i++) {
     </details>
 
 </section>
-
-<!-- =========================
-     DEPENDENCIES
-========================= -->
 
 <section class="section">
 
@@ -1485,10 +1055,6 @@ for (let i = 0; i < 150; i++) {
     </ul>
 
 </section>
-
-<!-- =========================
-     FEATURES
-========================= -->
 
 <section class="section">
 
@@ -1589,10 +1155,6 @@ for (let i = 0; i < 150; i++) {
 
 </section>
 
-<!-- =========================
-     FUTURE PLANS
-========================= -->
-
 <section class="section">
 
     <h2>
@@ -1631,10 +1193,6 @@ for (let i = 0; i < 150; i++) {
 
 </section>
 
-<!-- =========================
-     LAPTOP CONTROLS
-========================= -->
-
 <section class="section">
 
     <h2>
@@ -1666,10 +1224,6 @@ for (let i = 0; i < 150; i++) {
     </ul>
 
 </section>
-
-<!-- =========================
-     HOW TO USE
-========================= -->
 
 <section class="section">
 
@@ -1718,10 +1272,6 @@ for (let i = 0; i < 150; i++) {
 
 </section>
 
-<!-- =========================
-     HARD DRIVE / ISO
-========================= -->
-
 <section class="section">
 
     <h3>
@@ -1754,10 +1304,6 @@ for (let i = 0; i < 150; i++) {
     </p>
 
 </section>
-
-<!-- =========================
-     BUILDING COMPUTER
-========================= -->
 
 <section class="section">
 
@@ -1866,10 +1412,6 @@ for (let i = 0; i < 150; i++) {
 
 </section>
 
-<!-- =========================
-     USING COMPUTER
-========================= -->
-
 <section class="section">
 
     <h3>
@@ -1906,10 +1448,6 @@ for (let i = 0; i < 150; i++) {
     </p>
 
 </section>
-
-<!-- =========================
-     CONTRIBUTING
-========================= -->
 
 <section class="section">
 
@@ -1985,8 +1523,7 @@ for (let i = 0; i < 150; i++) {
 
                     Where it says
                     <i>'Update [insert file name here]'</i>
-                    should be replaced with a short overview
-                    of what was changed.
+                    should be replaced with a short overview.
 
                     Use the optional extended description
                     to explain the specific changes that were made.
@@ -2022,10 +1559,6 @@ for (let i = 0; i < 150; i++) {
 
 </div>
 
-<!-- =========================
-     DOWNLOAD MODAL
-========================= -->
-
 <div
     id="downloadModalOverlay"
     onclick="closeDownloadOnBackdrop(event)">
@@ -2052,8 +1585,6 @@ for (let i = 0; i < 150; i++) {
 
         <div class="download-content">
 
-            <!-- VM ICON -->
-
             <img
                 src="https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/refs/heads/main/VM%20Icon.png"
                 alt="New Modded VM Computers"
@@ -2066,8 +1597,6 @@ for (let i = 0; i < 150; i++) {
             <p class="download-subtitle">
                 New-Modded VM Computers
             </p>
-
-            <!-- CURSEFORGE -->
 
             <a
                 class="curseforge-button"
@@ -2101,16 +1630,13 @@ for (let i = 0; i < 150; i++) {
                 Download file manually
             </h3>
 
-            <!-- GAME VERSION -->
-
             <div class="filter-section">
 
                 <label for="gameVersion">
                     Select Game Version
                 </label>
 
-                <select
-                    id="gameVersion">
+                <select id="gameVersion">
 
                     <option value="">
                         All Game Versions
@@ -2124,16 +1650,13 @@ for (let i = 0; i < 150; i++) {
 
             </div>
 
-            <!-- MOD LOADER -->
-
             <div class="filter-section">
 
                 <label for="modLoader">
                     Select Mod Loaders
                 </label>
 
-                <select
-                    id="modLoader">
+                <select id="modLoader">
 
                     <option value="">
                         All Mod Loaders
@@ -2146,23 +1669,6 @@ for (let i = 0; i < 150; i++) {
                 </select>
 
             </div>
-
-            <!-- STATUS -->
-
-            <p
-                class="selection-status"
-                id="selectionStatus">
-
-                Select
-                <strong>1.21.1</strong>
-                and
-                <strong>NeoForge</strong>
-                to download the file.
-
-            </p>
-
-            <!-- SELECTED FILE
-                 HIDDEN UNTIL USER CLICKS DOWNLOAD FILE -->
 
             <div
                 class="file-card"
@@ -2199,9 +1705,6 @@ for (let i = 0; i < 150; i++) {
 
             </div>
 
-            <!-- FINAL DOWNLOAD BUTTON
-                 HIDDEN UNTIL 1.21.1 + NEOFORGE ARE SELECTED -->
-
             <a
                 id="finalDownload"
                 href="https://www.curseforge.com/api/v1/mods/1679298/files/8794371/download"
@@ -2218,15 +1721,7 @@ for (let i = 0; i < 150; i++) {
 
 </div>
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
 <script>
-
-/* =========================
-   DOWNLOAD MODAL
-========================= */
 
 function openDownloadModal() {
 
@@ -2235,13 +1730,6 @@ function openDownloadModal() {
         .classList.add("active");
 
     document.body.classList.add("modal-open");
-
-    /*
-     * Every time the modal opens,
-     * hide the Selected File card.
-     * It will only appear after the user
-     * actually clicks Download File.
-     */
 
     document
         .getElementById("selectedFile")
@@ -2271,10 +1759,6 @@ function closeDownloadOnBackdrop(event) {
     }
 }
 
-/* =========================
-   ESCAPE KEY
-========================= */
-
 document.addEventListener(
     "keydown",
     function(event) {
@@ -2288,10 +1772,6 @@ document.addEventListener(
     }
 );
 
-/* =========================
-   DOWNLOAD SELECTION
-========================= */
-
 const gameVersion =
     document.getElementById("gameVersion");
 
@@ -2303,9 +1783,6 @@ const finalDownload =
 
 const selectedFile =
     document.getElementById("selectedFile");
-
-const selectionStatus =
-    document.getElementById("selectionStatus");
 
 function updateDownloadButton() {
 
@@ -2319,47 +1796,18 @@ function updateDownloadButton() {
         versionSelected &&
         loaderSelected;
 
-    /*
-     * Selected File must NOT be shown
-     * just because the correct options
-     * were selected.
-     */
-
     selectedFile.classList.remove("show");
 
     if (ready) {
 
         finalDownload.classList.add("show");
 
-        selectionStatus.classList.add(
-            "ready"
-        );
-
-        selectionStatus.innerHTML =
-            "✓ <strong>1.21.1</strong> and " +
-            "<strong>NeoForge</strong> selected. " +
-            "Click <strong>Download File</strong> to download.";
-
     } else {
 
         finalDownload.classList.remove("show");
 
-        selectionStatus.classList.remove(
-            "ready"
-        );
-
-        selectionStatus.innerHTML =
-            "Select <strong>1.21.1</strong> and " +
-            "<strong>NeoForge</strong> to download the file.";
-
     }
 }
-
-/*
- * The important part:
- * The file card appears ONLY when
- * Download File is clicked.
- */
 
 finalDownload.addEventListener(
     "click",
@@ -2382,20 +1830,7 @@ finalDownload.addEventListener(
 
         }
 
-        /*
-         * Show the Selected File information
-         * when the actual download is manually requested.
-         */
-
         selectedFile.classList.add("show");
-
-        selectionStatus.classList.add(
-            "ready"
-        );
-
-        selectionStatus.innerHTML =
-            "✓ Download started: " +
-            "<strong>new-modded-vmcomputers-1.21.1-neoforge.jar</strong>";
 
     }
 );
@@ -2410,18 +1845,10 @@ modLoader.addEventListener(
     updateDownloadButton
 );
 
-/*
- * Start with everything hidden.
- */
-
 selectedFile.classList.remove("show");
 finalDownload.classList.remove("show");
 
 updateDownloadButton();
-
-/* =========================
-   SHARE SYSTEM
-========================= */
 
 const shareButton =
     document.getElementById("shareButton");
@@ -2470,8 +1897,6 @@ shareButton.addEventListener(
 
         };
 
-        /* Native browser share menu */
-
         if (
             navigator.share
         ) {
@@ -2503,8 +1928,6 @@ shareButton.addEventListener(
             return;
         }
 
-        /* Clipboard fallback */
-
         if (
             navigator.clipboard &&
             window.isSecureContext
@@ -2531,8 +1954,6 @@ shareButton.addEventListener(
 
             }
         }
-
-        /* Older browser fallback */
 
         const temporaryInput =
             document.createElement("input");
