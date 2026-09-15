@@ -593,6 +593,76 @@ body::before {
     font-weight: bold;
 
     color: #ffd86b;
+
+    text-align: right;
+
+    min-width: 90px;
+}
+
+.player-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    margin-top: 5px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.player-status.online {
+    color: #7dff9a;
+}
+
+.player-status.offline {
+    color: #9aa5bd;
+}
+
+.player-score-small {
+
+    color: #c5d0ea;
+
+    font-size: 11px;
+
+    margin-top: 3px;
+}
+
+.status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.status-badge.online {
+    color: #8fffa5;
+    background: rgba(60,255,130,0.10);
+    border: 1px solid rgba(60,255,130,0.25);
+}
+
+.status-badge.offline {
+    color: #aeb9d5;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.last-score {
+    color: #b8c8e8;
+    font-weight: bold;
 }
 
 
@@ -1150,7 +1220,7 @@ body::before {
     loop>
 
     <source
-        src="intro Music.MP3"
+        src="./intro%20Music.MP3"
         type="audio/mpeg">
 
 </audio>
@@ -1393,7 +1463,11 @@ body::before {
 
                             <th>Character</th>
 
-                            <th>Score</th>
+                            <th>Status</th>
+
+                            <th>High Score</th>
+
+                            <th>Last Score</th>
 
                         </tr>
 
@@ -1485,12 +1559,44 @@ body::before {
                 <div class="detail">
 
                     <div class="detail-label">
+                        Status
+                    </div>
+
+                    <div
+                        id="modalStatus"
+                        class="detail-value">
+
+                        ⚫ Offline
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
                         High Score
                     </div>
 
                     <div
                         id="modalScore"
                         class="detail-value modal-score">
+
+                        0
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        Last Score
+                    </div>
+
+                    <div
+                        id="modalLastScore"
+                        class="detail-value last-score">
 
                         0
 
@@ -1887,7 +1993,7 @@ async function loadPlayers()
         const response =
             await fetch(
                 PLAYERS_URL +
-                "?select=id,player_name,character,high_score,updated_at" +
+                "?select=id,player_name,character,high_score,last_score,updated_at" +
                 "&order=high_score.desc",
                 {
                     method: "GET",
@@ -1986,6 +2092,11 @@ async function loadPlayers()
                             score:
                                 Number(
                                     player.high_score
+                                ) || 0,
+
+                            lastScore:
+                                Number(
+                                    player.last_score
                                 ) || 0,
 
                             updated_at:
@@ -2421,11 +2532,17 @@ function renderPlayers()
 
                     </div>
 
+                    ${getPlayerStatusHTML(player)}
+
                 </div>
 
                 <div class="player-score">
 
                     ${player.score.toLocaleString()}
+
+                    <div class="player-score-small">
+                        Last: ${player.lastScore.toLocaleString()}
+                    </div>
 
                 </div>
 
@@ -2503,8 +2620,16 @@ function renderLeaderboard(
                     )}
                 </td>
 
+                <td>
+                    ${getStatusBadgeHTML(player)}
+                </td>
+
                 <td class="score">
                     ${player.score.toLocaleString()}
+                </td>
+
+                <td class="last-score">
+                    ${player.lastScore.toLocaleString()}
                 </td>
 
             `;
@@ -2559,6 +2684,33 @@ function openPlayerModal(
         "modalScore"
     ).textContent =
         player.score.toLocaleString();
+
+    document.getElementById(
+        "modalLastScore"
+    ).textContent =
+        player.lastScore.toLocaleString();
+
+    const modalStatus =
+        document.getElementById(
+            "modalStatus"
+        );
+
+    if (isPlayerOnline(player))
+    {
+        modalStatus.textContent =
+            "🟢 Online";
+
+        modalStatus.style.color =
+            "#8fffa5";
+    }
+    else
+    {
+        modalStatus.textContent =
+            "⚫ Offline";
+
+        modalStatus.style.color =
+            "#aeb9d5";
+    }
 
 
     const image =
