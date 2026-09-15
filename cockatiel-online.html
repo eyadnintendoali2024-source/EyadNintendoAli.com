@@ -7,6 +7,11 @@
 <title>Cockatiel Bird Online List - Eyad Nintendo Ali</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 * {
     box-sizing: border-box;
 }
@@ -15,44 +20,85 @@ html,
 body {
     margin: 0;
     padding: 0;
+
     width: 100%;
     min-height: 100%;
+
     font-family: Arial, Helvetica, sans-serif;
+
     color: white;
+
     overflow-x: hidden;
 }
 
-/* =========================
+
+/* =========================================================
    SPACE BACKGROUND
-========================= */
+========================================================= */
 
 body {
+
     min-height: 100vh;
 
     background:
-        radial-gradient(circle at 20% 20%, rgba(90, 70, 180, 0.25), transparent 30%),
-        radial-gradient(circle at 80% 70%, rgba(0, 150, 255, 0.15), transparent 30%),
-        linear-gradient(180deg, #030414 0%, #08051d 50%, #02030d 100%);
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(90, 70, 180, 0.25),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(0, 150, 255, 0.15),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            180deg,
+            #030414 0%,
+            #08051d 50%,
+            #02030d 100%
+        );
 
     position: relative;
 }
 
-/* Animated stars */
 
-body::before,
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-}
+/* =========================================================
+   STARS
+========================================================= */
 
 body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+
     background-image:
-        radial-gradient(circle, white 1px, transparent 1px),
-        radial-gradient(circle, white 1px, transparent 1px),
-        radial-gradient(circle, white 2px, transparent 2px);
+
+        radial-gradient(
+            circle,
+            white 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle,
+            white 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle,
+            white 2px,
+            transparent 2px
+        );
 
     background-size:
         100px 100px,
@@ -66,15 +112,13 @@ body::before {
 
     opacity: 0.55;
 
-    animation: starsMove 30s linear infinite;
+    animation:
+        starsMove 30s linear infinite;
 }
 
-body::after {
-    background:
-        radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.35) 100%);
-}
 
 @keyframes starsMove {
+
     from {
         transform: translateY(0);
     }
@@ -82,34 +126,48 @@ body::after {
     to {
         transform: translateY(-150px);
     }
+
 }
 
-/* =========================
+
+/* =========================================================
    TOP BAR
-========================= */
+========================================================= */
 
 .topbar {
+
     width: 100%;
+
     min-height: 75px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 12px 25px;
 
-    background: rgba(5, 5, 25, 0.78);
+    background:
+        rgba(5, 5, 25, 0.78);
+
     backdrop-filter: blur(12px);
 
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom:
+        1px solid rgba(255,255,255,0.12);
 
     position: sticky;
+
     top: 0;
+
     z-index: 100;
 }
 
+
 .logo {
+
     font-size: 25px;
+
     font-weight: bold;
 
     text-shadow:
@@ -117,19 +175,26 @@ body::after {
         0 0 25px rgba(100,100,255,0.5);
 }
 
+
 .top-buttons {
+
     display: flex;
+
     gap: 10px;
 }
 
+
 .top-button {
+
     border: none;
 
     padding: 10px 17px;
 
     border-radius: 12px;
 
-    background: rgba(255,255,255,0.1);
+    background:
+        rgba(255,255,255,0.1);
+
     color: white;
 
     cursor: pointer;
@@ -142,41 +207,54 @@ body::after {
         box-shadow 0.2s;
 }
 
+
 .top-button:hover {
+
     transform: translateY(-2px);
 
-    background: rgba(80,150,255,0.3);
+    background:
+        rgba(80,150,255,0.3);
 
     box-shadow:
         0 0 15px rgba(80,150,255,0.5);
 }
 
-/* =========================
+
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
 
 .main {
+
     width: 100%;
+
     max-width: 1500px;
 
     margin: auto;
 
-    padding: 35px 25px 70px;
+    padding:
+        35px 25px 70px;
 }
 
+
 .title {
+
     text-align: center;
 
-    font-size: clamp(30px, 5vw, 55px);
+    font-size:
+        clamp(30px, 5vw, 55px);
 
-    margin: 10px 0 8px;
+    margin:
+        10px 0 8px;
 
     text-shadow:
         0 0 10px #ffffff,
         0 0 30px rgba(80,150,255,0.9);
 }
 
+
 .subtitle {
+
     text-align: center;
 
     color: #c8d7ff;
@@ -184,25 +262,26 @@ body::after {
     margin-bottom: 35px;
 }
 
-/* =========================
-   LAYOUT
-========================= */
+
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
 
 .content {
+
     display: grid;
 
-    grid-template-columns: 390px 1fr;
+    grid-template-columns:
+        390px 1fr;
 
     gap: 30px;
 
     align-items: start;
 }
 
-/* =========================
-   LEFT SIDE
-========================= */
 
 .left-panel {
+
     display: flex;
 
     flex-direction: column;
@@ -210,64 +289,124 @@ body::after {
     gap: 20px;
 }
 
-/* Giant bird */
+
+/* =========================================================
+   BIRD CARD
+========================================================= */
 
 .bird-card {
+
     min-height: 450px;
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 15px;
 
     border-radius: 25px;
 
-    background: rgba(10, 10, 35, 0.68);
+    background:
+        rgba(10, 10, 35, 0.68);
 
-    border: 1px solid rgba(255,255,255,0.12);
+    border:
+        1px solid rgba(255,255,255,0.12);
 
     box-shadow:
         0 0 35px rgba(50,100,255,0.18),
-        inset 0 0 30px rgba(255,255,255,0.03);
+
+        inset
+        0 0 30px
+        rgba(255,255,255,0.03);
 
     overflow: hidden;
 }
 
-.bird-card img {
-    width: 100%;
-    max-width: 370px;
+
+/* =========================================================
+   UNITY-LIKE PIXEL ART IMAGE
+========================================================= */
+
+.character-image {
+
+    width: auto;
 
     height: auto;
 
+    max-width: 100%;
+
+    max-height: 430px;
+
     object-fit: contain;
 
-    filter:
-        drop-shadow(0 0 20px rgba(100,180,255,0.35));
+    display: block;
 
-    animation: birdFloat 4s ease-in-out infinite;
+    /*
+        Unity Filter Mode = Point (no filter)
+
+        Browser equivalent:
+    */
+
+    image-rendering: pixelated;
+
+    image-rendering: crisp-edges;
+
+    /*
+        Do NOT blur the texture.
+    */
+
+    filter: none;
+
+    /*
+        Do not let the browser smooth the image.
+    */
+
+    -webkit-font-smoothing: none;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+
+    animation:
+        birdFloat 4s ease-in-out infinite;
 }
 
+
 @keyframes birdFloat {
+
     0%,
     100% {
-        transform: translateY(0) rotate(0deg);
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
     }
 
     50% {
-        transform: translateY(-12px) rotate(1deg);
+
+        transform:
+            translateY(-12px)
+            rotate(1deg);
+
     }
+
 }
 
-/* =========================
+
+/* =========================================================
    PLAYER LIST
-========================= */
+========================================================= */
 
 .player-list-panel {
-    background: rgba(10, 10, 35, 0.72);
 
-    border: 1px solid rgba(255,255,255,0.12);
+    background:
+        rgba(10, 10, 35, 0.72);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
 
     border-radius: 22px;
 
@@ -277,7 +416,9 @@ body::after {
         0 0 30px rgba(50,100,255,0.15);
 }
 
+
 .panel-title {
+
     font-size: 23px;
 
     font-weight: bold;
@@ -285,10 +426,13 @@ body::after {
     margin-bottom: 15px;
 }
 
+
 .search-box {
+
     width: 100%;
 
-    padding: 13px 15px;
+    padding:
+        13px 15px;
 
     border: none;
 
@@ -296,7 +440,8 @@ body::after {
 
     border-radius: 12px;
 
-    background: rgba(255,255,255,0.1);
+    background:
+        rgba(255,255,255,0.1);
 
     color: white;
 
@@ -305,11 +450,15 @@ body::after {
     margin-bottom: 12px;
 }
 
+
 .search-box::placeholder {
+
     color: #aeb9d5;
 }
 
+
 .sort-row {
+
     display: flex;
 
     gap: 8px;
@@ -317,7 +466,9 @@ body::after {
     margin-bottom: 15px;
 }
 
+
 .sort-button {
+
     flex: 1;
 
     border: none;
@@ -326,22 +477,29 @@ body::after {
 
     padding: 10px;
 
-    background: rgba(255,255,255,0.08);
+    background:
+        rgba(255,255,255,0.08);
 
     color: white;
 
     cursor: pointer;
 }
 
+
 .sort-button.active,
 .sort-button:hover {
-    background: rgba(80,140,255,0.35);
+
+    background:
+        rgba(80,140,255,0.35);
 
     box-shadow:
-        0 0 12px rgba(80,140,255,0.25);
+        0 0 12px
+        rgba(80,140,255,0.25);
 }
 
+
 .players {
+
     display: flex;
 
     flex-direction: column;
@@ -353,7 +511,13 @@ body::after {
     overflow-y: auto;
 }
 
+
+/* =========================================================
+   PLAYER ITEM
+========================================================= */
+
 .player {
+
     width: 100%;
 
     display: flex;
@@ -366,9 +530,11 @@ body::after {
 
     border-radius: 13px;
 
-    background: rgba(255,255,255,0.055);
+    background:
+        rgba(255,255,255,0.055);
 
-    border: 1px solid transparent;
+    border:
+        1px solid transparent;
 
     cursor: pointer;
 
@@ -378,15 +544,22 @@ body::after {
         border 0.2s;
 }
 
+
 .player:hover {
-    transform: translateX(5px);
 
-    background: rgba(70,130,255,0.18);
+    transform:
+        translateX(5px);
 
-    border-color: rgba(100,170,255,0.3);
+    background:
+        rgba(70,130,255,0.18);
+
+    border-color:
+        rgba(100,170,255,0.3);
 }
 
+
 .rank {
+
     min-width: 30px;
 
     font-weight: bold;
@@ -394,13 +567,17 @@ body::after {
     color: #8bb8ff;
 }
 
+
 .player-info {
+
     flex: 1;
 
     min-width: 0;
 }
 
+
 .player-name {
+
     font-weight: bold;
 
     overflow: hidden;
@@ -410,7 +587,9 @@ body::after {
     text-overflow: ellipsis;
 }
 
+
 .player-character {
+
     color: #9caed3;
 
     font-size: 12px;
@@ -418,24 +597,32 @@ body::after {
     margin-top: 3px;
 }
 
+
 .player-score {
+
     font-weight: bold;
 
     color: #ffd86b;
 }
 
-/* =========================
+
+/* =========================================================
    RIGHT SIDE
-========================= */
+========================================================= */
 
 .right-panel {
+
     min-width: 0;
 }
 
-.welcome-card {
-    background: rgba(10, 10, 35, 0.72);
 
-    border: 1px solid rgba(255,255,255,0.12);
+.welcome-card {
+
+    background:
+        rgba(10,10,35,0.72);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
 
     border-radius: 25px;
 
@@ -444,49 +631,65 @@ body::after {
     margin-bottom: 20px;
 
     box-shadow:
-        0 0 35px rgba(50,100,255,0.15);
+        0 0 35px
+        rgba(50,100,255,0.15);
 }
 
+
 .welcome-card h2 {
+
     margin-top: 0;
 
     font-size: 30px;
 }
 
+
 .welcome-card p {
+
     color: #c5d0ea;
 
     line-height: 1.6;
 }
 
-/* =========================
+
+/* =========================================================
    SIGN IN
-========================= */
+========================================================= */
 
 .signin {
-    background: rgba(10, 10, 35, 0.72);
 
-    border: 1px solid rgba(255,255,255,0.12);
+    background:
+        rgba(10,10,35,0.72);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
 
     border-radius: 25px;
 
     padding: 25px;
 
     box-shadow:
-        0 0 35px rgba(50,100,255,0.15);
+        0 0 35px
+        rgba(50,100,255,0.15);
 }
 
+
 .signin h2 {
+
     margin-top: 0;
 }
 
+
 .name-row {
+
     display: flex;
 
     gap: 10px;
 }
 
+
 .name-input {
+
     flex: 1;
 
     min-width: 0;
@@ -499,29 +702,36 @@ body::after {
 
     border-radius: 12px;
 
-    background: rgba(255,255,255,0.1);
+    background:
+        rgba(255,255,255,0.1);
 
     color: white;
 
     font-size: 16px;
 }
 
+
 .name-input::placeholder {
+
     color: #aeb9d5;
 }
 
+
 .save-button {
+
     border: none;
 
-    padding: 14px 20px;
+    padding:
+        14px 20px;
 
     border-radius: 12px;
 
-    background: linear-gradient(
-        135deg,
-        #477eff,
-        #7254ff
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #477eff,
+            #7254ff
+        );
 
     color: white;
 
@@ -529,14 +739,20 @@ body::after {
 
     cursor: pointer;
 
-    transition: transform 0.2s;
+    transition:
+        transform 0.2s;
 }
+
 
 .save-button:hover {
-    transform: translateY(-2px);
+
+    transform:
+        translateY(-2px);
 }
 
+
 .saved-message {
+
     min-height: 20px;
 
     margin-top: 10px;
@@ -546,67 +762,93 @@ body::after {
     font-size: 14px;
 }
 
-/* =========================
+
+/* =========================================================
    LEADERBOARD
-========================= */
+========================================================= */
 
 .leaderboard {
+
     margin-top: 20px;
 
-    background: rgba(10, 10, 35, 0.72);
+    background:
+        rgba(10,10,35,0.72);
 
-    border: 1px solid rgba(255,255,255,0.12);
+    border:
+        1px solid rgba(255,255,255,0.12);
 
     border-radius: 25px;
 
     padding: 25px;
 
     box-shadow:
-        0 0 35px rgba(50,100,255,0.15);
+        0 0 35px
+        rgba(50,100,255,0.15);
 }
 
+
 .leaderboard h2 {
+
     margin-top: 0;
 }
 
+
 .table {
+
     width: 100%;
 
     border-collapse: collapse;
 }
 
+
 .table th,
 .table td {
+
     padding: 13px;
 
     text-align: left;
 
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
 }
 
+
 .table th {
+
     color: #9db7e8;
 }
 
-.table tr {
+
+.table tbody tr {
+
     cursor: pointer;
+
+    transition:
+        background 0.2s;
 }
+
 
 .table tbody tr:hover {
-    background: rgba(80,140,255,0.12);
+
+    background:
+        rgba(80,140,255,0.12);
 }
 
+
 .score {
+
     color: #ffd86b;
 
     font-weight: bold;
 }
 
-/* =========================
+
+/* =========================================================
    PLAYER MODAL
-========================= */
+========================================================= */
 
 .modal {
+
     position: fixed;
 
     inset: 0;
@@ -616,22 +858,29 @@ body::after {
     display: none;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 20px;
 
-    background: rgba(0,0,15,0.78);
+    background:
+        rgba(0,0,15,0.78);
 
     backdrop-filter: blur(12px);
 }
 
+
 .modal.show {
+
     display: flex;
 
-    animation: modalFade 0.2s ease;
+    animation:
+        modalFade 0.2s ease;
 }
 
+
 @keyframes modalFade {
+
     from {
         opacity: 0;
     }
@@ -639,10 +888,14 @@ body::after {
     to {
         opacity: 1;
     }
+
 }
 
+
 .modal-box {
-    width: min(600px, 100%);
+
+    width:
+        min(600px, 100%);
 
     background:
         linear-gradient(
@@ -651,7 +904,9 @@ body::after {
             rgba(7,8,28,0.98)
         );
 
-    border: 1px solid rgba(130,180,255,0.3);
+    border:
+        1px solid
+        rgba(130,180,255,0.3);
 
     border-radius: 28px;
 
@@ -660,39 +915,55 @@ body::after {
     position: relative;
 
     box-shadow:
-        0 0 60px rgba(50,120,255,0.3);
+        0 0 60px
+        rgba(50,120,255,0.3);
 
-    animation: modalPop 0.25s ease;
+    animation:
+        modalPop 0.25s ease;
 }
 
+
 @keyframes modalPop {
+
     from {
-        transform: scale(0.9);
+
+        transform:
+            scale(0.9);
 
         opacity: 0;
+
     }
 
     to {
-        transform: scale(1);
+
+        transform:
+            scale(1);
 
         opacity: 1;
+
     }
+
 }
 
+
 .close-modal {
+
     position: absolute;
 
     top: 15px;
+
     right: 18px;
 
     width: 40px;
+
     height: 40px;
 
     border: none;
 
     border-radius: 50%;
 
-    background: rgba(255,255,255,0.1);
+    background:
+        rgba(255,255,255,0.1);
 
     color: white;
 
@@ -701,31 +972,60 @@ body::after {
     cursor: pointer;
 }
 
+
 .close-modal:hover {
-    background: rgba(255,70,70,0.3);
+
+    background:
+        rgba(255,70,70,0.3);
 }
 
+
 .modal-content {
+
     display: grid;
 
-    grid-template-columns: 220px 1fr;
+    grid-template-columns:
+        220px 1fr;
 
     gap: 25px;
 
     align-items: center;
 }
 
+
+/* =========================================================
+   MODAL CHARACTER IMAGE
+========================================================= */
+
 .modal-character-image {
+
     width: 220px;
+
     height: 220px;
 
     object-fit: contain;
 
-    filter:
-        drop-shadow(0 0 25px rgba(100,180,255,0.4));
+    display: block;
+
+    /*
+        Same pixel-art rendering
+        for Bondock AND Bosbos.
+    */
+
+    image-rendering: pixelated;
+
+    image-rendering: crisp-edges;
+
+    filter: none;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
 }
 
+
 .modal-player-name {
+
     font-size: 32px;
 
     font-weight: bold;
@@ -733,23 +1033,31 @@ body::after {
     margin-bottom: 20px;
 }
 
+
 .detail {
-    margin: 12px 0;
+
+    margin:
+        12px 0;
 
     padding: 13px;
 
     border-radius: 12px;
 
-    background: rgba(255,255,255,0.06);
+    background:
+        rgba(255,255,255,0.06);
 }
 
+
 .detail-label {
+
     color: #9eafd2;
 
     font-size: 13px;
 }
 
+
 .detail-value {
+
     font-size: 19px;
 
     font-weight: bold;
@@ -757,15 +1065,19 @@ body::after {
     margin-top: 3px;
 }
 
+
 .modal-score {
+
     color: #ffd86b;
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 .footer {
+
     text-align: center;
 
     color: #8290b1;
@@ -775,91 +1087,139 @@ body::after {
     padding: 20px;
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media (max-width: 900px) {
 
     .content {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
     }
 
+
     .left-panel {
+
         order: 1;
     }
 
+
     .right-panel {
+
         order: 2;
     }
 
+
     .bird-card {
-        min-height: 300px;
+
+        min-height: 350px;
     }
 
-    .bird-card img {
-        max-width: 300px;
+
+    .character-image {
+
+        max-height: 330px;
     }
+
 }
+
 
 @media (max-width: 600px) {
 
     .topbar {
-        padding: 10px 15px;
+
+        padding:
+            10px 15px;
     }
 
+
     .logo {
+
         font-size: 18px;
     }
 
+
     .top-button {
-        padding: 9px 12px;
+
+        padding:
+            9px 12px;
     }
+
 
     .main {
-        padding: 20px 12px 50px;
+
+        padding:
+            20px 12px 50px;
     }
+
 
     .name-row {
-        flex-direction: column;
+
+        flex-direction:
+            column;
     }
 
+
     .modal-content {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
 
         text-align: center;
     }
 
+
     .modal-character-image {
+
         width: 180px;
+
         height: 180px;
 
-        margin: auto;
+        margin:
+            auto;
     }
+
 
     .table th,
     .table td {
-        padding: 9px 5px;
 
-        font-size: 13px;
+        padding:
+            9px 5px;
+
+        font-size:
+            13px;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
-     MUSIC
-========================= -->
 
-<audio id="backgroundMusic" loop>
-    <source src="intro Music.MP3" type="audio/mpeg">
+<!-- =====================================================
+     MUSIC
+===================================================== -->
+
+<audio
+    id="backgroundMusic"
+    loop>
+
+    <source
+        src="intro Music.MP3"
+        type="audio/mpeg">
+
 </audio>
 
-<!-- =========================
+
+<!-- =====================================================
      TOP BAR
-========================= -->
+===================================================== -->
 
 <header class="topbar">
 
@@ -867,19 +1227,25 @@ body::after {
         🚀 Eyad Nintendo Ali
     </div>
 
+
     <div class="top-buttons">
 
         <button
             class="top-button"
             id="muteButton"
             onclick="toggleMute()">
+
             🔊 Music
+
         </button>
+
 
         <button
             class="top-button"
             onclick="window.location.href='index.html'">
+
             🏠 Home
+
         </button>
 
     </div>
@@ -887,11 +1253,17 @@ body::after {
 </header>
 
 
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main class="main">
+
 
     <h1 class="title">
         🐦 Cockatiel Bird Online
     </h1>
+
 
     <p class="subtitle">
         Online Players • High Scores • Characters
@@ -900,20 +1272,28 @@ body::after {
 
     <div class="content">
 
-        <!-- =========================
-             LEFT SIDE
-        ========================= -->
+
+        <!-- =================================================
+             LEFT
+        ================================================= -->
 
         <section class="left-panel">
+
+
+            <!-- GIANT BONDOCK -->
 
             <div class="bird-card">
 
                 <img
                     src="Bird_01.png"
-                    alt="Cockatiel Bird">
+                    alt="Bondock"
+                    class="character-image"
+                    draggable="false">
 
             </div>
 
+
+            <!-- PLAYER LIST -->
 
             <div class="player-list-panel">
 
@@ -921,13 +1301,14 @@ body::after {
                     👥 Players
                 </div>
 
+
                 <input
                     id="searchInput"
                     class="search-box"
                     type="text"
                     placeholder="🔎 Search players..."
-                    oninput="renderPlayers()"
-                >
+                    oninput="renderPlayers()">
+
 
                 <div class="sort-row">
 
@@ -935,21 +1316,28 @@ body::after {
                         id="bestButton"
                         class="sort-button active"
                         onclick="setSort('best')">
+
                         🏆 Best
+
                     </button>
+
 
                     <button
                         id="nameButton"
                         class="sort-button"
                         onclick="setSort('name')">
+
                         🔤 Name
+
                     </button>
 
                 </div>
 
+
                 <div
                     id="players"
                     class="players">
+
                 </div>
 
             </div>
@@ -957,11 +1345,12 @@ body::after {
         </section>
 
 
-        <!-- =========================
-             RIGHT SIDE
-        ========================= -->
+        <!-- =================================================
+             RIGHT
+        ================================================= -->
 
         <section class="right-panel">
+
 
             <div class="welcome-card">
 
@@ -969,27 +1358,32 @@ body::after {
                     🐦 Cockatiel Bird Online List
                 </h2>
 
+
                 <p>
                     See the best players, search for players,
                     and click a player to see their character
                     and high score.
                 </p>
 
+
                 <p>
-                    Your name is automatically saved in this
-                    browser.
+                    Your player name is automatically saved
+                    in this browser.
                 </p>
 
             </div>
 
 
-            <!-- SIGN IN -->
+            <!-- =================================================
+                 NAME
+            ================================================= -->
 
             <div class="signin">
 
                 <h2>
                     👤 Your Player Name
                 </h2>
+
 
                 <div class="name-row">
 
@@ -998,26 +1392,32 @@ body::after {
                         class="name-input"
                         type="text"
                         maxlength="20"
-                        placeholder="Enter your name..."
-                    >
+                        placeholder="Enter your name...">
+
 
                     <button
                         class="save-button"
                         onclick="saveName()">
+
                         Save
+
                     </button>
 
                 </div>
 
+
                 <div
                     id="savedMessage"
                     class="saved-message">
+
                 </div>
 
             </div>
 
 
-            <!-- LEADERBOARD -->
+            <!-- =================================================
+                 LEADERBOARD
+            ================================================= -->
 
             <div class="leaderboard">
 
@@ -1025,20 +1425,37 @@ body::after {
                     🏆 Best Players
                 </h2>
 
+
                 <table class="table">
 
                     <thead>
 
                         <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Character</th>
-                            <th>Score</th>
+
+                            <th>
+                                #
+                            </th>
+
+                            <th>
+                                Player
+                            </th>
+
+                            <th>
+                                Character
+                            </th>
+
+                            <th>
+                                Score
+                            </th>
+
                         </tr>
 
                     </thead>
 
-                    <tbody id="leaderboardBody">
+
+                    <tbody
+                        id="leaderboardBody">
+
                     </tbody>
 
                 </table>
@@ -1051,44 +1468,58 @@ body::after {
 
 
     <footer class="footer">
+
         © Eyad Nintendo Ali • Cockatiel Bird Online
+
     </footer>
 
 </main>
 
 
-<!-- =========================
+<!-- =====================================================
      PLAYER POPUP
-========================= -->
+===================================================== -->
 
 <div
     id="playerModal"
     class="modal"
     onclick="closeModalOutside(event)">
 
+
     <div class="modal-box">
+
 
         <button
             class="close-modal"
             onclick="closePlayerModal()">
+
             ×
+
         </button>
 
+
         <div class="modal-content">
+
 
             <img
                 id="modalCharacterImage"
                 class="modal-character-image"
                 src="Bird_01.png"
-                alt="Character">
+                alt="Character"
+                draggable="false">
+
 
             <div>
+
 
                 <div
                     id="modalPlayerName"
                     class="modal-player-name">
+
                     Player
+
                 </div>
+
 
                 <div class="detail">
 
@@ -1096,13 +1527,17 @@ body::after {
                         Character
                     </div>
 
+
                     <div
                         id="modalCharacter"
                         class="detail-value">
+
                         Bondock
+
                     </div>
 
                 </div>
+
 
                 <div class="detail">
 
@@ -1110,10 +1545,13 @@ body::after {
                         High Score
                     </div>
 
+
                     <div
                         id="modalScore"
                         class="detail-value modal-score">
+
                         0
+
                     </div>
 
                 </div>
@@ -1130,14 +1568,7 @@ body::after {
 <script>
 
 /* =========================================================
-   DEMO PLAYER DATA
-   =========================================================
-
-   This is currently browser-side demo data.
-
-   Later, this section can be replaced with your
-   Unity/server/database API.
-
+   PLAYER DATA
 ========================================================= */
 
 const players = [
@@ -1175,8 +1606,6 @@ const players = [
 ];
 
 
-/* Current sorting */
-
 let currentSort = "best";
 
 
@@ -1184,28 +1613,38 @@ let currentSort = "best";
    MUSIC
 ========================================================= */
 
-const music = document.getElementById("backgroundMusic");
-const muteButton = document.getElementById("muteButton");
+const music =
+    document.getElementById(
+        "backgroundMusic"
+    );
+
+
+const muteButton =
+    document.getElementById(
+        "muteButton"
+    );
 
 
 function loadMusicState() {
 
     const savedMute =
-        localStorage.getItem("CockatielMusicMuted");
+        localStorage.getItem(
+            "CockatielMusicMuted"
+        );
+
 
     if (savedMute === "true") {
 
         music.muted = true;
 
-        updateMuteButton();
-
     } else {
 
         music.muted = false;
 
-        updateMuteButton();
-
     }
+
+
+    updateMuteButton();
 
 }
 
@@ -1213,24 +1652,24 @@ function loadMusicState() {
 function startMusic() {
 
     const savedMute =
-        localStorage.getItem("CockatielMusicMuted");
+        localStorage.getItem(
+            "CockatielMusicMuted"
+        );
+
 
     if (savedMute === "true") {
+
         return;
+
     }
+
 
     music.volume = 0.5;
 
-    music.play().catch(() => {
 
-        /*
-         Browsers may block autoplay.
-
-         Music will start after the user clicks
-         anywhere on the page.
-        */
-
-    });
+    music.play().catch(
+        () => {}
+    );
 
 }
 
@@ -1239,11 +1678,13 @@ function updateMuteButton() {
 
     if (music.muted) {
 
-        muteButton.textContent = "🔇 Music";
+        muteButton.textContent =
+            "🔇 Music";
 
     } else {
 
-        muteButton.textContent = "🔊 Music";
+        muteButton.textContent =
+            "🔊 Music";
 
     }
 
@@ -1252,25 +1693,35 @@ function updateMuteButton() {
 
 function toggleMute() {
 
-    music.muted = !music.muted;
+    music.muted =
+        !music.muted;
+
 
     localStorage.setItem(
         "CockatielMusicMuted",
-        music.muted ? "true" : "false"
+        music.muted
+            ? "true"
+            : "false"
     );
+
 
     updateMuteButton();
 
+
     if (!music.muted) {
 
-        music.play().catch(() => {});
+        music.play().catch(
+            () => {}
+        );
 
     }
 
 }
 
 
-/* Start music after first interaction */
+/* =========================================================
+   START MUSIC AFTER USER INTERACTION
+========================================================= */
 
 document.addEventListener(
     "click",
@@ -1292,23 +1743,34 @@ document.addEventListener(
 ========================================================= */
 
 const nameInput =
-    document.getElementById("nameInput");
+    document.getElementById(
+        "nameInput"
+    );
+
 
 const savedMessage =
-    document.getElementById("savedMessage");
+    document.getElementById(
+        "savedMessage"
+    );
 
 
 function loadName() {
 
     const savedName =
-        localStorage.getItem("CockatielPlayerName");
+        localStorage.getItem(
+            "CockatielPlayerName"
+        );
+
 
     if (savedName) {
 
-        nameInput.value = savedName;
+        nameInput.value =
+            savedName;
+
 
         savedMessage.textContent =
-            "✓ Your name is saved as " + savedName;
+            "✓ Your name is saved as "
+            + savedName;
 
     }
 
@@ -1320,6 +1782,7 @@ function saveName() {
     const name =
         nameInput.value.trim();
 
+
     if (!name) {
 
         savedMessage.textContent =
@@ -1329,18 +1792,19 @@ function saveName() {
 
     }
 
+
     localStorage.setItem(
         "CockatielPlayerName",
         name
     );
 
+
     savedMessage.textContent =
-        "✓ Your name is saved as " + name;
+        "✓ Your name is saved as "
+        + name;
 
 }
 
-
-/* Save when pressing Enter */
 
 nameInput.addEventListener(
     "keydown",
@@ -1364,9 +1828,11 @@ function setSort(type) {
 
     currentSort = type;
 
+
     document
         .getElementById("bestButton")
         .classList.remove("active");
+
 
     document
         .getElementById("nameButton")
@@ -1387,44 +1853,51 @@ function setSort(type) {
 
     }
 
+
     renderPlayers();
 
 }
 
 
 /* =========================================================
-   GET FILTERED PLAYERS
+   FILTER
 ========================================================= */
 
 function getFilteredPlayers() {
 
     const search =
         document
-            .getElementById("searchInput")
+            .getElementById(
+                "searchInput"
+            )
             .value
             .toLowerCase()
             .trim();
 
 
     let result =
-        players.filter(player =>
-            player.name
-                .toLowerCase()
-                .includes(search)
+        players.filter(
+            player =>
+                player.name
+                    .toLowerCase()
+                    .includes(search)
         );
 
 
     if (currentSort === "best") {
 
         result.sort(
-            (a, b) => b.score - a.score
+            (a, b) =>
+                b.score - a.score
         );
 
     } else {
 
         result.sort(
             (a, b) =>
-                a.name.localeCompare(b.name)
+                a.name.localeCompare(
+                    b.name
+                )
         );
 
     }
@@ -1442,7 +1915,10 @@ function getFilteredPlayers() {
 function renderPlayers() {
 
     const container =
-        document.getElementById("players");
+        document.getElementById(
+            "players"
+        );
+
 
     container.innerHTML = "";
 
@@ -1463,6 +1939,7 @@ function renderPlayers() {
             </div>
         `;
 
+
         renderLeaderboard([]);
 
         return;
@@ -1474,9 +1951,13 @@ function renderPlayers() {
         (player, index) => {
 
             const element =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
-            element.className = "player";
+
+            element.className =
+                "player";
 
 
             element.innerHTML = `
@@ -1488,11 +1969,15 @@ function renderPlayers() {
                 <div class="player-info">
 
                     <div class="player-name">
-                        ${escapeHTML(player.name)}
+                        ${escapeHTML(
+                            player.name
+                        )}
                     </div>
 
                     <div class="player-character">
-                        ${escapeHTML(player.character)}
+                        ${escapeHTML(
+                            player.character
+                        )}
                     </div>
 
                 </div>
@@ -1504,20 +1989,27 @@ function renderPlayers() {
             `;
 
 
-            element.onclick = function() {
+            element.onclick =
+                function() {
 
-                openPlayerModal(player);
+                    openPlayerModal(
+                        player
+                    );
 
-            };
+                };
 
 
-            container.appendChild(element);
+            container.appendChild(
+                element
+            );
 
         }
     );
 
 
-    renderLeaderboard(filtered);
+    renderLeaderboard(
+        filtered
+    );
 
 }
 
@@ -1526,10 +2018,15 @@ function renderPlayers() {
    LEADERBOARD
 ========================================================= */
 
-function renderLeaderboard(list) {
+function renderLeaderboard(
+    list
+) {
 
     const body =
-        document.getElementById("leaderboardBody");
+        document.getElementById(
+            "leaderboardBody"
+        );
+
 
     body.innerHTML = "";
 
@@ -1538,7 +2035,9 @@ function renderLeaderboard(list) {
         (player, index) => {
 
             const row =
-                document.createElement("tr");
+                document.createElement(
+                    "tr"
+                );
 
 
             row.innerHTML = `
@@ -1548,11 +2047,15 @@ function renderLeaderboard(list) {
                 </td>
 
                 <td>
-                    ${escapeHTML(player.name)}
+                    ${escapeHTML(
+                        player.name
+                    )}
                 </td>
 
                 <td>
-                    ${escapeHTML(player.character)}
+                    ${escapeHTML(
+                        player.character
+                    )}
                 </td>
 
                 <td class="score">
@@ -1562,14 +2065,19 @@ function renderLeaderboard(list) {
             `;
 
 
-            row.onclick = function() {
+            row.onclick =
+                function() {
 
-                openPlayerModal(player);
+                    openPlayerModal(
+                        player
+                    );
 
-            };
+                };
 
 
-            body.appendChild(row);
+            body.appendChild(
+                row
+            );
 
         }
     );
@@ -1578,23 +2086,29 @@ function renderLeaderboard(list) {
 
 
 /* =========================================================
-   PLAYER MODAL
+   PLAYER POPUP
 ========================================================= */
 
-function openPlayerModal(player) {
+function openPlayerModal(
+    player
+) {
 
     const modal =
-        document.getElementById("playerModal");
+        document.getElementById(
+            "playerModal"
+        );
 
 
     document.getElementById(
         "modalPlayerName"
-    ).textContent = player.name;
+    ).textContent =
+        player.name;
 
 
     document.getElementById(
         "modalCharacter"
-    ).textContent = player.character;
+    ).textContent =
+        player.character;
 
 
     document.getElementById(
@@ -1609,22 +2123,33 @@ function openPlayerModal(player) {
         );
 
 
-    if (player.character === "Bosbos") {
+    if (
+        player.character ===
+        "Bosbos"
+    ) {
 
-        image.src = "Bird_01 - Bosbos.png";
+        image.src =
+            "Bird_01 - Bosbos.png";
 
-        image.alt = "Bosbos";
+
+        image.alt =
+            "Bosbos";
 
     } else {
 
-        image.src = "Bird_01.png";
+        image.src =
+            "Bird_01.png";
 
-        image.alt = "Bondock";
+
+        image.alt =
+            "Bondock";
 
     }
 
 
-    modal.classList.add("show");
+    modal.classList.add(
+        "show"
+    );
 
 }
 
@@ -1632,16 +2157,23 @@ function openPlayerModal(player) {
 function closePlayerModal() {
 
     document
-        .getElementById("playerModal")
-        .classList.remove("show");
+        .getElementById(
+            "playerModal"
+        )
+        .classList.remove(
+            "show"
+        );
 
 }
 
 
-function closeModalOutside(event) {
+function closeModalOutside(
+    event
+) {
 
     if (
-        event.target.id === "playerModal"
+        event.target.id ===
+        "playerModal"
     ) {
 
         closePlayerModal();
@@ -1651,7 +2183,9 @@ function closeModalOutside(event) {
 }
 
 
-/* ESC closes popup */
+/* =========================================================
+   ESC CLOSE
+========================================================= */
 
 document.addEventListener(
     "keydown",
@@ -1668,15 +2202,22 @@ document.addEventListener(
 
 
 /* =========================================================
-   SECURITY / HTML ESCAPING
+   HTML ESCAPE
 ========================================================= */
 
-function escapeHTML(text) {
+function escapeHTML(
+    text
+) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    div.textContent = text;
+
+    div.textContent =
+        text;
+
 
     return div.innerHTML;
 
@@ -1694,6 +2235,7 @@ loadName();
 renderPlayers();
 
 </script>
+
 
 </body>
 </html>
