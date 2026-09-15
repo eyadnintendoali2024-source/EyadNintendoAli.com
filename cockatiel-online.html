@@ -593,76 +593,6 @@ body::before {
     font-weight: bold;
 
     color: #ffd86b;
-
-    text-align: right;
-
-    min-width: 90px;
-}
-
-.player-status {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    margin-top: 5px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-}
-
-.player-status.online {
-    color: #7dff9a;
-}
-
-.player-status.offline {
-    color: #9aa5bd;
-}
-
-.player-score-small {
-
-    color: #c5d0ea;
-
-    font-size: 11px;
-
-    margin-top: 3px;
-}
-
-.status-badge {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    padding: 5px 9px;
-
-    border-radius: 999px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-}
-
-.status-badge.online {
-    color: #8fffa5;
-    background: rgba(60,255,130,0.10);
-    border: 1px solid rgba(60,255,130,0.25);
-}
-
-.status-badge.offline {
-    color: #aeb9d5;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.10);
-}
-
-.last-score {
-    color: #b8c8e8;
-    font-weight: bold;
 }
 
 
@@ -1203,6 +1133,37 @@ body::before {
     }
 }
 
+/* =========================================================
+   ONLINE PLAYER STATUS
+========================================================= */
+
+.player-status {
+    font-size: 12px;
+    margin-top: 4px;
+    white-space: nowrap;
+}
+
+.player-status.online {
+    color: #72ff9b;
+}
+
+.player-status.offline {
+    color: #aeb9d5;
+}
+
+.status-online {
+    color: #72ff9b;
+}
+
+.status-offline {
+    color: #aeb9d5;
+}
+
+.modal-character-image {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
 </style>
 </head>
 
@@ -1566,11 +1527,12 @@ body::before {
                         id="modalStatus"
                         class="detail-value">
 
-                        ⚫ Offline
+                        Offline
 
                     </div>
 
                 </div>
+
 
                 <div class="detail">
 
@@ -1588,6 +1550,7 @@ body::before {
 
                 </div>
 
+
                 <div class="detail">
 
                     <div class="detail-label">
@@ -1596,7 +1559,7 @@ body::before {
 
                     <div
                         id="modalLastScore"
-                        class="detail-value last-score">
+                        class="detail-value">
 
                         0
 
@@ -1689,6 +1652,13 @@ const music =
         "backgroundMusic"
     );
 
+/* GitHub Pages safely handles the space-encoded filename. */
+if (music)
+{
+    music.src = "./intro%20Music.MP3";
+    music.load();
+}
+
 
 const muteButton =
     document.getElementById(
@@ -1705,6 +1675,8 @@ let musicStarted = false;
 
 function loadMusicState()
 {
+    if (!music || !muteButton) return;
+
     const savedMute =
         localStorage.getItem(
             "CockatielMusicMuted"
@@ -1757,6 +1729,8 @@ function updateMuteButton()
 
 async function startMusic()
 {
+    if (!music) return;
+
     if (music.muted)
     {
         return;
@@ -1838,6 +1812,8 @@ document.addEventListener(
 
 async function toggleMute()
 {
+    if (!music) return;
+
     if (music.muted)
     {
         music.muted = false;
@@ -1888,7 +1864,7 @@ async function toggleMute()
     Music error diagnostics.
 */
 
-music.addEventListener(
+if (music) music.addEventListener(
     "error",
     function()
     {
@@ -1919,7 +1895,7 @@ music.addEventListener(
     Confirm that browser loaded the audio.
 */
 
-music.addEventListener(
+if (music) music.addEventListener(
     "canplay",
     function()
     {
@@ -1949,114 +1925,34 @@ async function loadPlayers()
     {
         setOnlineStatus("loading", "🟡 Connecting to Supabase...");
 
-        if (container)
+        if (!SUPABASE_KEY || SUPABASE_KEY === "PASTE_YOUR_PUBLIC_SUPABASE_ANON_KEY_HERE")
         {
-            container.innerHTML = `
-                <div style="text-align:center;padding:25px;color:#9eafd2;">
-                    Connecting to online players...
-                </div>
-            `;
+            throw new Error("Supabase public anon key is missing.");
         }
-
-        if (!SUPABASE_URL || !SUPABASE_KEY || SUPABASE_KEY.length < 50)
-        {
-            throw new Error("Supabase URL or public anon key is missing.");
-        }
-
-        /*
-            IMPORTANT:
-            Use only the public anon key for this browser request.
-            The Authorization header is intentionally omitted here.
-            Supabase's REST gateway accepts the anon key through the
-            apikey header and this avoids browser JWT/header problems.
-        */
-        const headers = {
-            "apikey": SUPABASE_KEY,
-            "Accept": "application/json"
-        };
 
         const query =
             "?select=id,player_name,character,high_score,last_score,updated_at" +
             "&order=high_score.desc";
 
-        let response;
-        let responseText = "";
+        const response = await fetch(
+            PLAYERS_URL + query,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": "Bearer " + SUPABASE_KEY,
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            }
+        );
 
-        try
-        {
-            response = await fetch(
-                PLAYERS_URL + query,
-                {
-                    method: "GET",
-                    headers: headers,
-                    mode: "cors",
-                    cache: "no-store",
-                    credentials: "omit"
-                }
-            );
-
-            responseText = await response.text();
-        }
-        catch (networkError)
-        {
-            throw new Error(
-                "Could not reach Supabase. Browser/network error: " +
-                networkError.message
-            );
-        }
+        const responseText = await response.text();
 
         if (!response.ok)
         {
-            /*
-                If last_score is not available in the API schema yet,
-                retry with the original four database fields.
-            */
-            const lower = responseText.toLowerCase();
-            const missingLastScore =
-                response.status === 400 &&
-                lower.includes("last_score");
-
-            if (missingLastScore)
-            {
-                console.warn("last_score is not available yet. Using fallback schema.");
-
-                response = await fetch(
-                    PLAYERS_URL +
-                    "?select=id,player_name,character,high_score,updated_at&order=high_score.desc",
-                    {
-                        method: "GET",
-                        headers: headers,
-                        mode: "cors",
-                        cache: "no-store",
-                        credentials: "omit"
-                    }
-                );
-
-                responseText = await response.text();
-            }
-        }
-
-        if (!response.ok)
-        {
-            let details = responseText;
-
-            try
-            {
-                const jsonError = JSON.parse(responseText);
-                details =
-                    jsonError.message ||
-                    jsonError.error_description ||
-                    jsonError.hint ||
-                    jsonError.details ||
-                    responseText;
-            }
-            catch (_) {}
-
             throw new Error(
-                "Supabase HTTP " +
-                response.status +
-                ": " +
-                details
+                "Supabase HTTP " + response.status + ": " + responseText
             );
         }
 
@@ -2066,16 +1962,14 @@ async function loadPlayers()
         {
             data = JSON.parse(responseText);
         }
-        catch (jsonError)
+        catch (error)
         {
-            throw new Error(
-                "Supabase returned invalid JSON: " + responseText
-            );
+            throw new Error("Supabase returned invalid JSON.");
         }
 
         if (!Array.isArray(data))
         {
-            throw new Error("Supabase did not return a player array.");
+            throw new Error("Supabase did not return an array.");
         }
 
         players = data
@@ -2083,11 +1977,8 @@ async function loadPlayers()
             {
                 return {
                     id: player.id,
-                    name: String(player.player_name || ""),
-                    character:
-                        player.character === "Bosbos"
-                            ? "Bosbos"
-                            : "Bondock",
+                    name: String(player.player_name || "").trim(),
+                    character: player.character === "Bosbos" ? "Bosbos" : "Bondock",
                     score: Number(player.high_score) || 0,
                     lastScore: Number(player.last_score) || 0,
                     updated_at: player.updated_at || null
@@ -2098,48 +1989,50 @@ async function loadPlayers()
                 return player.name.length > 0;
             });
 
-        console.log("SUPABASE PLAYERS LOADED", players);
-
         setOnlineStatus(
             "online",
-            "🟢 Online • " +
-            players.length +
-            " player" +
-            (players.length === 1 ? "" : "s")
+            "🟢 Supabase Online • " + players.length +
+            " player" + (players.length === 1 ? "" : "s")
         );
 
         renderPlayers();
     }
     catch (error)
     {
-        console.error("SUPABASE LOAD FAILED:", error);
+        console.error("Supabase leaderboard error:", error);
 
-        players = [];
-
-        setOnlineStatus(
-            "error",
-            "🔴 Supabase connection failed"
-        );
-
-        if (container)
+        /*
+           Do NOT erase already-loaded players when a refresh fails.
+           This prevents a temporary network error from destroying the page.
+        */
+        if (players.length > 0)
         {
-            const safeMessage = String(error.message || error)
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            setOnlineStatus(
+                "error",
+                "🟠 Refresh failed • Showing last data"
+            );
+            renderPlayers();
+        }
+        else
+        {
+            setOnlineStatus(
+                "error",
+                "🔴 Could not connect to Supabase"
+            );
 
             container.innerHTML = `
-                <div style="text-align:center;padding:25px;color:#ff9b9b;">
+                <div style="text-align:center;padding:25px;color:#ffb0b0;">
                     <div style="font-size:20px;margin-bottom:10px;">
                         ⚠️ Could not load players
                     </div>
-                    <div style="font-size:13px;color:#aeb9d5;line-height:1.6;word-break:break-word;">
-                        ${safeMessage}
+                    <div style="font-size:13px;color:#aeb9d5;line-height:1.6;">
+                        Please refresh the page and try again.
                     </div>
                 </div>
             `;
-        }
 
-        renderLeaderboard([]);
+            renderLeaderboard([]);
+        }
     }
     finally
     {
@@ -2227,7 +2120,7 @@ function saveName()
 }
 
 
-nameInput.addEventListener(
+if (nameInput) nameInput.addEventListener(
     "keydown",
     function(event)
     {
@@ -2246,14 +2139,11 @@ nameInput.addEventListener(
    SEARCH
 ========================================================= */
 
-document
-    .getElementById(
-        "searchInput"
-    )
-    .addEventListener(
-        "input",
-        renderPlayers
-    );
+const searchInput = document.getElementById("searchInput");
+if (searchInput)
+{
+    searchInput.addEventListener("input", renderPlayers);
+}
 
 
 /* =========================================================
@@ -2312,6 +2202,34 @@ function setSort(type)
     renderPlayers();
 }
 
+
+/* =========================================================
+   ONLINE STATUS HELPERS
+========================================================= */
+
+const ONLINE_TIMEOUT_MS = 60 * 1000;
+
+function isPlayerOnline(player)
+{
+    if (!player.updated_at)
+    {
+        return false;
+    }
+
+    const time = Date.parse(player.updated_at);
+
+    if (!Number.isFinite(time))
+    {
+        return false;
+    }
+
+    return (Date.now() - time) <= ONLINE_TIMEOUT_MS;
+}
+
+function getPlayerStatusText(player)
+{
+    return isPlayerOnline(player) ? "🟢 Online" : "⚪ Offline";
+}
 
 /* =========================================================
    FILTER
@@ -2382,206 +2300,100 @@ function getFilteredPlayers()
 
 function renderPlayers()
 {
-    const container =
-        document.getElementById(
-            "players"
-        );
-
-
+    const container = document.getElementById("players");
     container.innerHTML = "";
 
+    const filtered = getFilteredPlayers();
 
-    const filtered =
-        getFilteredPlayers();
-
-
-    if (
-        filtered.length ===
-        0
-    )
+    if (filtered.length === 0)
     {
         container.innerHTML = `
-
-            <div style="
-                text-align:center;
-                padding:20px;
-                color:#9eafd2;
-            ">
-
+            <div style="text-align:center;padding:20px;color:#9eafd2;">
                 No players found.
-
             </div>
-
         `;
 
-
         renderLeaderboard([]);
-
         return;
     }
 
+    filtered.forEach(function(player, index)
+    {
+        const element = document.createElement("div");
+        const online = isPlayerOnline(player);
 
-    filtered.forEach(
-        function(
-            player,
-            index
-        )
+        element.className = "player";
+
+        element.innerHTML = `
+            <div class="rank">#${index + 1}</div>
+
+            <div class="player-info">
+                <div class="player-name">
+                    ${escapeHTML(player.name)}
+                </div>
+
+                <div class="player-character">
+                    ${escapeHTML(player.character)}
+                </div>
+
+                <div class="player-status ${online ? "online" : "offline"}">
+                    ${online ? "🟢 Online" : "⚪ Offline"}
+                </div>
+            </div>
+
+            <div class="player-score">
+                ${player.score.toLocaleString()}
+            </div>
+        `;
+
+        element.addEventListener("click", function()
         {
-            const element =
-                document.createElement(
-                    "div"
-                );
+            openPlayerModal(player);
+        });
 
+        container.appendChild(element);
+    });
 
-            element.className =
-                "player";
-
-
-            element.innerHTML = `
-
-                <div class="rank">
-                    #${index + 1}
-                </div>
-
-                <div class="player-info">
-
-                    <div class="player-name">
-
-                        ${escapeHTML(
-                            player.name
-                        )}
-
-                    </div>
-
-                    <div class="player-character">
-
-                        ${escapeHTML(
-                            player.character
-                        )}
-
-                    </div>
-
-                    ${getPlayerStatusHTML(player)}
-
-                </div>
-
-                <div class="player-score">
-
-                    ${player.score.toLocaleString()}
-
-                    <div class="player-score-small">
-                        Last: ${player.lastScore.toLocaleString()}
-                    </div>
-
-                </div>
-
-            `;
-
-
-            element.addEventListener(
-                "click",
-                function()
-                {
-                    openPlayerModal(
-                        player
-                    );
-                }
-            );
-
-
-            container.appendChild(
-                element
-            );
-        }
-    );
-
-
-    renderLeaderboard(
-        filtered
-    );
+    renderLeaderboard(filtered);
 }
-
 
 /* =========================================================
    LEADERBOARD
 ========================================================= */
 
-function renderLeaderboard(
-    list
-)
+function renderLeaderboard(list)
 {
-    const body =
-        document.getElementById(
-            "leaderboardBody"
-        );
-
-
+    const body = document.getElementById("leaderboardBody");
     body.innerHTML = "";
 
+    list.forEach(function(player, index)
+    {
+        const row = document.createElement("tr");
+        const online = isPlayerOnline(player);
 
-    list.forEach(
-        function(
-            player,
-            index
-        )
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${escapeHTML(player.name)}</td>
+            <td>${escapeHTML(player.character)}</td>
+            <td class="${online ? "status-online" : "status-offline"}">
+                ${online ? "🟢 Online" : "⚪ Offline"}
+            </td>
+            <td class="score">
+                ${player.score.toLocaleString()}
+            </td>
+            <td class="score">
+                ${player.lastScore.toLocaleString()}
+            </td>
+        `;
+
+        row.addEventListener("click", function()
         {
-            const row =
-                document.createElement(
-                    "tr"
-                );
+            openPlayerModal(player);
+        });
 
-
-            row.innerHTML = `
-
-                <td>
-                    ${index + 1}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        player.name
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        player.character
-                    )}
-                </td>
-
-                <td>
-                    ${getStatusBadgeHTML(player)}
-                </td>
-
-                <td class="score">
-                    ${player.score.toLocaleString()}
-                </td>
-
-                <td class="last-score">
-                    ${player.lastScore.toLocaleString()}
-                </td>
-
-            `;
-
-
-            row.addEventListener(
-                "click",
-                function()
-                {
-                    openPlayerModal(
-                        player
-                    );
-                }
-            );
-
-
-            body.appendChild(
-                row
-            );
-        }
-    );
+        body.appendChild(row);
+    });
 }
-
 
 /* =========================================================
    PLAYER POPUP
@@ -2610,6 +2422,17 @@ function openPlayerModal(
 
 
     document.getElementById(
+        "modalStatus"
+    ).textContent =
+        getPlayerStatusText(player);
+
+    document.getElementById(
+        "modalStatus"
+    ).className =
+        "detail-value " +
+        (isPlayerOnline(player) ? "status-online" : "status-offline");
+
+    document.getElementById(
         "modalScore"
     ).textContent =
         player.score.toLocaleString();
@@ -2618,28 +2441,6 @@ function openPlayerModal(
         "modalLastScore"
     ).textContent =
         player.lastScore.toLocaleString();
-
-    const modalStatus =
-        document.getElementById(
-            "modalStatus"
-        );
-
-    if (isPlayerOnline(player))
-    {
-        modalStatus.textContent =
-            "🟢 Online";
-
-        modalStatus.style.color =
-            "#8fffa5";
-    }
-    else
-    {
-        modalStatus.textContent =
-            "⚫ Offline";
-
-        modalStatus.style.color =
-            "#aeb9d5";
-    }
 
 
     const image =
