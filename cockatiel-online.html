@@ -1941,297 +1941,203 @@ async function loadPlayers()
         return;
     }
 
-
     playersLoading = true;
 
-
-    const container =
-        document.getElementById(
-            "players"
-        );
-
+    const container = document.getElementById("players");
 
     try
     {
-        setOnlineStatus(
-            "loading",
-            "🟡 Loading online players..."
-        );
+        setOnlineStatus("loading", "🟡 Connecting to Supabase...");
 
-
-        container.innerHTML = `
-            <div style="
-                text-align:center;
-                padding:25px;
-                color:#9eafd2;
-            ">
-                Loading online players...
-            </div>
-        `;
-
-
-        /*
-            Make sure the public key was entered.
-        */
-
-        if (
-            !SUPABASE_KEY ||
-            SUPABASE_KEY ===
-            "PASTE_YOUR_PUBLIC_SUPABASE_ANON_KEY_HERE"
-        )
+        if (container)
         {
-            throw new Error(
-                "Supabase public key has not been entered."
-            );
+            container.innerHTML = `
+                <div style="text-align:center;padding:25px;color:#9eafd2;">
+                    Connecting to online players...
+                </div>
+            `;
         }
 
+        if (!SUPABASE_URL || !SUPABASE_KEY || SUPABASE_KEY.length < 50)
+        {
+            throw new Error("Supabase URL or public anon key is missing.");
+        }
 
         /*
-            Request real players from Supabase.
+            IMPORTANT:
+            Use only the public anon key for this browser request.
+            The Authorization header is intentionally omitted here.
+            Supabase's REST gateway accepts the anon key through the
+            apikey header and this avoids browser JWT/header problems.
         */
-
-        const requestHeaders =
-        {
+        const headers = {
             "apikey": SUPABASE_KEY,
-            "Authorization": "Bearer " + SUPABASE_KEY,
-            "Accept": "application/json",
-            "Content-Type": "application/json"
+            "Accept": "application/json"
         };
 
-        /*
-            First try the newest schema, including last_score.
-            If the database has not received last_score yet,
-            automatically retry using the older schema so the
-            leaderboard still loads instead of completely failing.
-        */
-        let response = await fetch(
-            PLAYERS_URL +
+        const query =
             "?select=id,player_name,character,high_score,last_score,updated_at" +
-            "&order=high_score.desc",
-            {
-                method: "GET",
-                headers: requestHeaders,
-                cache: "no-store"
-            }
-        );
+            "&order=high_score.desc";
 
-        let responseText = await response.text();
+        let response;
+        let responseText = "";
 
-        if (!response.ok)
+        try
         {
-            console.warn(
-                "Supabase full-schema request failed. Retrying without last_score...",
-                response.status,
-                responseText
-            );
-
             response = await fetch(
-                PLAYERS_URL +
-                "?select=id,player_name,character,high_score,updated_at" +
-                "&order=high_score.desc",
+                PLAYERS_URL + query,
                 {
                     method: "GET",
-                    headers: requestHeaders,
-                    cache: "no-store"
+                    headers: headers,
+                    mode: "cors",
+                    cache: "no-store",
+                    credentials: "omit"
                 }
             );
 
             responseText = await response.text();
         }
-
-
-        /*
-            Check HTTP status.
-        */
+        catch (networkError)
+        {
+            throw new Error(
+                "Could not reach Supabase. Browser/network error: " +
+                networkError.message
+            );
+        }
 
         if (!response.ok)
         {
+            /*
+                If last_score is not available in the API schema yet,
+                retry with the original four database fields.
+            */
+            const lower = responseText.toLowerCase();
+            const missingLastScore =
+                response.status === 400 &&
+                lower.includes("last_score");
+
+            if (missingLastScore)
+            {
+                console.warn("last_score is not available yet. Using fallback schema.");
+
+                response = await fetch(
+                    PLAYERS_URL +
+                    "?select=id,player_name,character,high_score,updated_at&order=high_score.desc",
+                    {
+                        method: "GET",
+                        headers: headers,
+                        mode: "cors",
+                        cache: "no-store",
+                        credentials: "omit"
+                    }
+                );
+
+                responseText = await response.text();
+            }
+        }
+
+        if (!response.ok)
+        {
+            let details = responseText;
+
+            try
+            {
+                const jsonError = JSON.parse(responseText);
+                details =
+                    jsonError.message ||
+                    jsonError.error_description ||
+                    jsonError.hint ||
+                    jsonError.details ||
+                    responseText;
+            }
+            catch (_) {}
+
             throw new Error(
                 "Supabase HTTP " +
                 response.status +
                 ": " +
-                responseText
+                details
             );
         }
-
 
         let data;
 
-
         try
         {
-            data =
-                JSON.parse(
-                    responseText
-                );
+            data = JSON.parse(responseText);
         }
-        catch (error)
+        catch (jsonError)
         {
             throw new Error(
-                "Supabase returned invalid JSON: " +
-                responseText
+                "Supabase returned invalid JSON: " + responseText
             );
         }
-
 
         if (!Array.isArray(data))
         {
-            throw new Error(
-                "Supabase did not return a player array."
-            );
+            throw new Error("Supabase did not return a player array.");
         }
 
+        players = data
+            .map(function(player)
+            {
+                return {
+                    id: player.id,
+                    name: String(player.player_name || ""),
+                    character:
+                        player.character === "Bosbos"
+                            ? "Bosbos"
+                            : "Bondock",
+                    score: Number(player.high_score) || 0,
+                    lastScore: Number(player.last_score) || 0,
+                    updated_at: player.updated_at || null
+                };
+            })
+            .filter(function(player)
+            {
+                return player.name.length > 0;
+            });
 
-        /*
-            Convert Supabase data into website data.
-        */
-
-        players =
-            data
-                .map(
-                    function(player)
-                    {
-                        return {
-
-                            id:
-                                player.id,
-
-                            name:
-                                String(
-                                    player.player_name ||
-                                    ""
-                                ),
-
-                            character:
-                                player.character ===
-                                "Bosbos"
-                                    ? "Bosbos"
-                                    : "Bondock",
-
-                            score:
-                                Number(
-                                    player.high_score
-                                ) || 0,
-
-                            lastScore:
-                                Number(
-                                    player.last_score
-                                ) || 0,
-
-                            lastScore:
-                                Number(
-                                    player.last_score
-                                ) || 0,
-
-                            updated_at:
-                                player.updated_at
-
-                        };
-                    }
-                )
-                .filter(
-                    function(player)
-                    {
-                        return (
-                            player.name.length > 0
-                        );
-                    }
-                );
-
-
-        console.log(
-            "========================================"
-        );
-
-        console.log(
-            "SUPABASE PLAYERS LOADED"
-        );
-
-        console.log(
-            players
-        );
-
-        console.log(
-            "Player count:",
-            players.length
-        );
-
-        console.log(
-            "========================================"
-        );
-
+        console.log("SUPABASE PLAYERS LOADED", players);
 
         setOnlineStatus(
             "online",
             "🟢 Online • " +
             players.length +
             " player" +
-            (
-                players.length === 1
-                    ? ""
-                    : "s"
-            )
+            (players.length === 1 ? "" : "s")
         );
-
 
         renderPlayers();
     }
     catch (error)
     {
-        console.error(
-            "========================================"
-        );
-
-        console.error(
-            "SUPABASE LOAD FAILED"
-        );
-
-        console.error(
-            error
-        );
-
-        console.error(
-            "========================================"
-        );
-
+        console.error("SUPABASE LOAD FAILED:", error);
 
         players = [];
 
-
         setOnlineStatus(
             "error",
-            "🔴 Online leaderboard connection failed"
+            "🔴 Supabase connection failed"
         );
 
+        if (container)
+        {
+            const safeMessage = String(error.message || error)
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
 
-        container.innerHTML = `
-
-            <div style="
-                text-align:center;
-                padding:25px;
-                color:#ff9b9b;
-            ">
-
-                <div style="
-                    font-size:20px;
-                    margin-bottom:10px;
-                ">
-                    ⚠️ Could not load players
+            container.innerHTML = `
+                <div style="text-align:center;padding:25px;color:#ff9b9b;">
+                    <div style="font-size:20px;margin-bottom:10px;">
+                        ⚠️ Could not load players
+                    </div>
+                    <div style="font-size:13px;color:#aeb9d5;line-height:1.6;word-break:break-word;">
+                        ${safeMessage}
+                    </div>
                 </div>
-
-                <div style="
-                    font-size:13px;
-                    color:#aeb9d5;
-                    line-height:1.6;
-                ">
-                    Check the Supabase public key
-                    and RLS policies.
-                </div>
-
-            </div>
-
-        `;
-
+            `;
+        }
 
         renderLeaderboard([]);
     }
@@ -2240,7 +2146,6 @@ async function loadPlayers()
         playersLoading = false;
     }
 }
-
 
 /*
     Refresh every 10 seconds.
