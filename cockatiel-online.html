@@ -8,10 +8,6 @@
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -20,24 +16,14 @@ html,
 body {
     margin: 0;
     padding: 0;
-
     width: 100%;
     min-height: 100%;
-
     font-family: Arial, Helvetica, sans-serif;
-
     color: white;
-
     overflow-x: hidden;
 }
 
-
-/* =========================================================
-   SPACE BACKGROUND
-========================================================= */
-
 body {
-
     min-height: 100vh;
 
     background:
@@ -46,13 +32,11 @@ body {
             rgba(90, 70, 180, 0.25),
             transparent 30%
         ),
-
         radial-gradient(
             circle at 80% 70%,
             rgba(0, 150, 255, 0.15),
             transparent 30%
         ),
-
         linear-gradient(
             180deg,
             #030414 0%,
@@ -62,11 +46,6 @@ body {
 
     position: relative;
 }
-
-
-/* =========================================================
-   STARS
-========================================================= */
 
 body::before {
 
@@ -81,19 +60,16 @@ body::before {
     z-index: -1;
 
     background-image:
-
         radial-gradient(
             circle,
             white 1px,
             transparent 1px
         ),
-
         radial-gradient(
             circle,
             white 1px,
             transparent 1px
         ),
-
         radial-gradient(
             circle,
             white 2px,
@@ -116,7 +92,6 @@ body::before {
         starsMove 30s linear infinite;
 }
 
-
 @keyframes starsMove {
 
     from {
@@ -128,7 +103,6 @@ body::before {
     }
 
 }
-
 
 /* =========================================================
    TOP BAR
@@ -163,7 +137,6 @@ body::before {
     z-index: 100;
 }
 
-
 .logo {
 
     font-size: 25px;
@@ -175,14 +148,12 @@ body::before {
         0 0 25px rgba(100,100,255,0.5);
 }
 
-
 .top-buttons {
 
     display: flex;
 
     gap: 10px;
 }
-
 
 .top-button {
 
@@ -207,18 +178,18 @@ body::before {
         box-shadow 0.2s;
 }
 
-
 .top-button:hover {
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 
     background:
         rgba(80,150,255,0.3);
 
     box-shadow:
-        0 0 15px rgba(80,150,255,0.5);
+        0 0 15px
+        rgba(80,150,255,0.5);
 }
-
 
 /* =========================================================
    MAIN
@@ -236,7 +207,6 @@ body::before {
         35px 25px 70px;
 }
 
-
 .title {
 
     text-align: center;
@@ -252,7 +222,6 @@ body::before {
         0 0 30px rgba(80,150,255,0.9);
 }
 
-
 .subtitle {
 
     text-align: center;
@@ -262,9 +231,8 @@ body::before {
     margin-bottom: 35px;
 }
 
-
 /* =========================================================
-   MAIN LAYOUT
+   LAYOUT
 ========================================================= */
 
 .content {
@@ -279,7 +247,6 @@ body::before {
     align-items: start;
 }
 
-
 .left-panel {
 
     display: flex;
@@ -289,9 +256,8 @@ body::before {
     gap: 20px;
 }
 
-
 /* =========================================================
-   BIRD CARD
+   BIRD
 ========================================================= */
 
 .bird-card {
@@ -315,7 +281,8 @@ body::before {
         1px solid rgba(255,255,255,0.12);
 
     box-shadow:
-        0 0 35px rgba(50,100,255,0.18),
+        0 0 35px
+        rgba(50,100,255,0.18),
 
         inset
         0 0 30px
@@ -323,11 +290,6 @@ body::before {
 
     overflow: hidden;
 }
-
-
-/* =========================================================
-   UNITY-LIKE PIXEL ART IMAGE
-========================================================= */
 
 .character-image {
 
@@ -343,27 +305,11 @@ body::before {
 
     display: block;
 
-    /*
-        Unity Filter Mode = Point (no filter)
-
-        Browser equivalent:
-    */
-
     image-rendering: pixelated;
 
     image-rendering: crisp-edges;
 
-    /*
-        Do NOT blur the texture.
-    */
-
     filter: none;
-
-    /*
-        Do not let the browser smooth the image.
-    */
-
-    -webkit-font-smoothing: none;
 
     user-select: none;
 
@@ -372,7 +318,6 @@ body::before {
     animation:
         birdFloat 4s ease-in-out infinite;
 }
-
 
 @keyframes birdFloat {
 
@@ -395,7 +340,6 @@ body::before {
 
 }
 
-
 /* =========================================================
    PLAYER LIST
 ========================================================= */
@@ -413,9 +357,9 @@ body::before {
     padding: 20px;
 
     box-shadow:
-        0 0 30px rgba(50,100,255,0.15);
+        0 0 30px
+        rgba(50,100,255,0.15);
 }
-
 
 .panel-title {
 
@@ -425,7 +369,6 @@ body::before {
 
     margin-bottom: 15px;
 }
-
 
 .search-box {
 
@@ -450,12 +393,10 @@ body::before {
     margin-bottom: 12px;
 }
 
-
 .search-box::placeholder {
 
     color: #aeb9d5;
 }
-
 
 .sort-row {
 
@@ -465,7 +406,6 @@ body::before {
 
     margin-bottom: 15px;
 }
-
 
 .sort-button {
 
@@ -485,7 +425,6 @@ body::before {
     cursor: pointer;
 }
 
-
 .sort-button.active,
 .sort-button:hover {
 
@@ -496,7 +435,6 @@ body::before {
         0 0 12px
         rgba(80,140,255,0.25);
 }
-
 
 .players {
 
@@ -511,9 +449,8 @@ body::before {
     overflow-y: auto;
 }
 
-
 /* =========================================================
-   PLAYER ITEM
+   PLAYER
 ========================================================= */
 
 .player {
@@ -544,7 +481,6 @@ body::before {
         border 0.2s;
 }
 
-
 .player:hover {
 
     transform:
@@ -557,7 +493,6 @@ body::before {
         rgba(100,170,255,0.3);
 }
 
-
 .rank {
 
     min-width: 30px;
@@ -567,14 +502,12 @@ body::before {
     color: #8bb8ff;
 }
 
-
 .player-info {
 
     flex: 1;
 
     min-width: 0;
 }
-
 
 .player-name {
 
@@ -587,7 +520,6 @@ body::before {
     text-overflow: ellipsis;
 }
 
-
 .player-character {
 
     color: #9caed3;
@@ -597,7 +529,6 @@ body::before {
     margin-top: 3px;
 }
 
-
 .player-score {
 
     font-weight: bold;
@@ -605,16 +536,14 @@ body::before {
     color: #ffd86b;
 }
 
-
 /* =========================================================
-   RIGHT SIDE
+   RIGHT
 ========================================================= */
 
 .right-panel {
 
     min-width: 0;
 }
-
 
 .welcome-card {
 
@@ -635,14 +564,12 @@ body::before {
         rgba(50,100,255,0.15);
 }
 
-
 .welcome-card h2 {
 
     margin-top: 0;
 
     font-size: 30px;
 }
-
 
 .welcome-card p {
 
@@ -651,9 +578,8 @@ body::before {
     line-height: 1.6;
 }
 
-
 /* =========================================================
-   SIGN IN
+   NAME
 ========================================================= */
 
 .signin {
@@ -673,12 +599,10 @@ body::before {
         rgba(50,100,255,0.15);
 }
 
-
 .signin h2 {
 
     margin-top: 0;
 }
-
 
 .name-row {
 
@@ -686,7 +610,6 @@ body::before {
 
     gap: 10px;
 }
-
 
 .name-input {
 
@@ -710,12 +633,10 @@ body::before {
     font-size: 16px;
 }
 
-
 .name-input::placeholder {
 
     color: #aeb9d5;
 }
-
 
 .save-button {
 
@@ -743,13 +664,11 @@ body::before {
         transform 0.2s;
 }
 
-
 .save-button:hover {
 
     transform:
         translateY(-2px);
 }
-
 
 .saved-message {
 
@@ -761,7 +680,6 @@ body::before {
 
     font-size: 14px;
 }
-
 
 /* =========================================================
    LEADERBOARD
@@ -786,12 +704,10 @@ body::before {
         rgba(50,100,255,0.15);
 }
 
-
 .leaderboard h2 {
 
     margin-top: 0;
 }
-
 
 .table {
 
@@ -799,7 +715,6 @@ body::before {
 
     border-collapse: collapse;
 }
-
 
 .table th,
 .table td {
@@ -812,12 +727,10 @@ body::before {
         1px solid rgba(255,255,255,0.08);
 }
 
-
 .table th {
 
     color: #9db7e8;
 }
-
 
 .table tbody tr {
 
@@ -827,13 +740,11 @@ body::before {
         background 0.2s;
 }
 
-
 .table tbody tr:hover {
 
     background:
         rgba(80,140,255,0.12);
 }
-
 
 .score {
 
@@ -842,9 +753,8 @@ body::before {
     font-weight: bold;
 }
 
-
 /* =========================================================
-   PLAYER MODAL
+   MODAL
 ========================================================= */
 
 .modal {
@@ -866,9 +776,9 @@ body::before {
     background:
         rgba(0,0,15,0.78);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter:
+        blur(12px);
 }
-
 
 .modal.show {
 
@@ -877,7 +787,6 @@ body::before {
     animation:
         modalFade 0.2s ease;
 }
-
 
 @keyframes modalFade {
 
@@ -890,7 +799,6 @@ body::before {
     }
 
 }
-
 
 .modal-box {
 
@@ -922,7 +830,6 @@ body::before {
         modalPop 0.25s ease;
 }
 
-
 @keyframes modalPop {
 
     from {
@@ -944,7 +851,6 @@ body::before {
     }
 
 }
-
 
 .close-modal {
 
@@ -972,13 +878,11 @@ body::before {
     cursor: pointer;
 }
 
-
 .close-modal:hover {
 
     background:
         rgba(255,70,70,0.3);
 }
-
 
 .modal-content {
 
@@ -992,11 +896,6 @@ body::before {
     align-items: center;
 }
 
-
-/* =========================================================
-   MODAL CHARACTER IMAGE
-========================================================= */
-
 .modal-character-image {
 
     width: 220px;
@@ -1006,11 +905,6 @@ body::before {
     object-fit: contain;
 
     display: block;
-
-    /*
-        Same pixel-art rendering
-        for Bondock AND Bosbos.
-    */
 
     image-rendering: pixelated;
 
@@ -1023,7 +917,6 @@ body::before {
     -webkit-user-drag: none;
 }
 
-
 .modal-player-name {
 
     font-size: 32px;
@@ -1032,7 +925,6 @@ body::before {
 
     margin-bottom: 20px;
 }
-
 
 .detail {
 
@@ -1047,14 +939,12 @@ body::before {
         rgba(255,255,255,0.06);
 }
 
-
 .detail-label {
 
     color: #9eafd2;
 
     font-size: 13px;
 }
-
 
 .detail-value {
 
@@ -1065,12 +955,10 @@ body::before {
     margin-top: 3px;
 }
 
-
 .modal-score {
 
     color: #ffd86b;
 }
-
 
 /* =========================================================
    FOOTER
@@ -1087,7 +975,6 @@ body::before {
     padding: 20px;
 }
 
-
 /* =========================================================
    MOBILE
 ========================================================= */
@@ -1100,24 +987,20 @@ body::before {
             1fr;
     }
 
-
     .left-panel {
 
         order: 1;
     }
-
 
     .right-panel {
 
         order: 2;
     }
 
-
     .bird-card {
 
         min-height: 350px;
     }
-
 
     .character-image {
 
@@ -1125,7 +1008,6 @@ body::before {
     }
 
 }
-
 
 @media (max-width: 600px) {
 
@@ -1135,12 +1017,10 @@ body::before {
             10px 15px;
     }
 
-
     .logo {
 
         font-size: 18px;
     }
-
 
     .top-button {
 
@@ -1148,20 +1028,17 @@ body::before {
             9px 12px;
     }
 
-
     .main {
 
         padding:
             20px 12px 50px;
     }
 
-
     .name-row {
 
         flex-direction:
             column;
     }
-
 
     .modal-content {
 
@@ -1170,7 +1047,6 @@ body::before {
 
         text-align: center;
     }
-
 
     .modal-character-image {
 
@@ -1181,7 +1057,6 @@ body::before {
         margin:
             auto;
     }
-
 
     .table th,
     .table td {
@@ -1202,12 +1077,13 @@ body::before {
 <body>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MUSIC
-===================================================== -->
+========================================================= -->
 
 <audio
     id="backgroundMusic"
+    preload="auto"
     loop>
 
     <source
@@ -1217,9 +1093,9 @@ body::before {
 </audio>
 
 
-<!-- =====================================================
+<!-- =========================================================
      TOP BAR
-===================================================== -->
+========================================================= -->
 
 <header class="topbar">
 
@@ -1233,6 +1109,7 @@ body::before {
         <button
             class="top-button"
             id="muteButton"
+            type="button"
             onclick="toggleMute()">
 
             🔊 Music
@@ -1242,6 +1119,7 @@ body::before {
 
         <button
             class="top-button"
+            type="button"
             onclick="window.location.href='index.html'">
 
             🏠 Home
@@ -1253,9 +1131,9 @@ body::before {
 </header>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MAIN
-===================================================== -->
+========================================================= -->
 
 <main class="main">
 
@@ -1274,13 +1152,11 @@ body::before {
 
 
         <!-- =================================================
-             LEFT
+             LEFT SIDE
         ================================================= -->
 
         <section class="left-panel">
 
-
-            <!-- GIANT BONDOCK -->
 
             <div class="bird-card">
 
@@ -1292,8 +1168,6 @@ body::before {
 
             </div>
 
-
-            <!-- PLAYER LIST -->
 
             <div class="player-list-panel">
 
@@ -1307,7 +1181,7 @@ body::before {
                     class="search-box"
                     type="text"
                     placeholder="🔎 Search players..."
-                    oninput="renderPlayers()">
+                    autocomplete="off">
 
 
                 <div class="sort-row">
@@ -1315,6 +1189,7 @@ body::before {
                     <button
                         id="bestButton"
                         class="sort-button active"
+                        type="button"
                         onclick="setSort('best')">
 
                         🏆 Best
@@ -1325,6 +1200,7 @@ body::before {
                     <button
                         id="nameButton"
                         class="sort-button"
+                        type="button"
                         onclick="setSort('name')">
 
                         🔤 Name
@@ -1337,7 +1213,6 @@ body::before {
                 <div
                     id="players"
                     class="players">
-
                 </div>
 
             </div>
@@ -1346,7 +1221,7 @@ body::before {
 
 
         <!-- =================================================
-             RIGHT
+             RIGHT SIDE
         ================================================= -->
 
         <section class="right-panel">
@@ -1374,10 +1249,6 @@ body::before {
             </div>
 
 
-            <!-- =================================================
-                 NAME
-            ================================================= -->
-
             <div class="signin">
 
                 <h2>
@@ -1392,11 +1263,13 @@ body::before {
                         class="name-input"
                         type="text"
                         maxlength="20"
-                        placeholder="Enter your name...">
+                        placeholder="Enter your name..."
+                        autocomplete="off">
 
 
                     <button
                         class="save-button"
+                        type="button"
                         onclick="saveName()">
 
                         Save
@@ -1409,15 +1282,10 @@ body::before {
                 <div
                     id="savedMessage"
                     class="saved-message">
-
                 </div>
 
             </div>
 
-
-            <!-- =================================================
-                 LEADERBOARD
-            ================================================= -->
 
             <div class="leaderboard">
 
@@ -1432,21 +1300,13 @@ body::before {
 
                         <tr>
 
-                            <th>
-                                #
-                            </th>
+                            <th>#</th>
 
-                            <th>
-                                Player
-                            </th>
+                            <th>Player</th>
 
-                            <th>
-                                Character
-                            </th>
+                            <th>Character</th>
 
-                            <th>
-                                Score
-                            </th>
+                            <th>Score</th>
 
                         </tr>
 
@@ -1455,7 +1315,6 @@ body::before {
 
                     <tbody
                         id="leaderboardBody">
-
                     </tbody>
 
                 </table>
@@ -1476,14 +1335,13 @@ body::before {
 </main>
 
 
-<!-- =====================================================
+<!-- =========================================================
      PLAYER POPUP
-===================================================== -->
+========================================================= -->
 
 <div
     id="playerModal"
-    class="modal"
-    onclick="closeModalOutside(event)">
+    class="modal">
 
 
     <div class="modal-box">
@@ -1491,6 +1349,7 @@ body::before {
 
         <button
             class="close-modal"
+            type="button"
             onclick="closePlayerModal()">
 
             ×
@@ -1618,12 +1477,15 @@ const music =
         "backgroundMusic"
     );
 
-
 const muteButton =
     document.getElementById(
         "muteButton"
     );
 
+
+/*
+    Load the saved mute state.
+*/
 
 function loadMusicState() {
 
@@ -1649,30 +1511,9 @@ function loadMusicState() {
 }
 
 
-function startMusic() {
-
-    const savedMute =
-        localStorage.getItem(
-            "CockatielMusicMuted"
-        );
-
-
-    if (savedMute === "true") {
-
-        return;
-
-    }
-
-
-    music.volume = 0.5;
-
-
-    music.play().catch(
-        () => {}
-    );
-
-}
-
+/*
+    Update the button text.
+*/
 
 function updateMuteButton() {
 
@@ -1691,27 +1532,41 @@ function updateMuteButton() {
 }
 
 
-function toggleMute() {
+/*
+    Start the music.
 
-    music.muted =
-        !music.muted;
+    IMPORTANT:
+    Browsers do not normally allow a website
+    to autoplay sound before the user interacts
+    with the page.
+
+    This function is called directly from the
+    user's first interaction.
+*/
+
+async function startMusic() {
+
+    if (music.muted) {
+
+        return;
+
+    }
 
 
-    localStorage.setItem(
-        "CockatielMusicMuted",
-        music.muted
-            ? "true"
-            : "false"
-    );
+    try {
 
+        music.volume = 0.5;
 
-    updateMuteButton();
+        await music.play();
 
+        console.log(
+            "intro Music.MP3 started."
+        );
 
-    if (!music.muted) {
+    } catch (error) {
 
-        music.play().catch(
-            () => {}
+        console.log(
+            "Music waiting for user interaction."
         );
 
     }
@@ -1719,27 +1574,99 @@ function toggleMute() {
 }
 
 
-/* =========================================================
-   START MUSIC AFTER USER INTERACTION
-========================================================= */
+/*
+    Mute / unmute button.
+*/
 
-document.addEventListener(
-    "click",
-    function firstInteraction() {
+async function toggleMute() {
 
-        startMusic();
+    if (music.muted) {
 
-        document.removeEventListener(
-            "click",
-            firstInteraction
+        music.muted = false;
+
+        localStorage.setItem(
+            "CockatielMusicMuted",
+            "false"
         );
 
+        updateMuteButton();
+
+
+        try {
+
+            music.volume = 0.5;
+
+            await music.play();
+
+        } catch (error) {
+
+            console.log(
+                "Browser blocked music."
+            );
+
+        }
+
+    } else {
+
+        music.muted = true;
+
+        localStorage.setItem(
+            "CockatielMusicMuted",
+            "true"
+        );
+
+        updateMuteButton();
+
+    }
+
+}
+
+
+/*
+    Start music when the user first interacts.
+
+    The click itself is the browser's
+    allowed user gesture.
+*/
+
+let musicStarted = false;
+
+
+async function firstUserInteraction() {
+
+    if (musicStarted) {
+
+        return;
+
+    }
+
+    musicStarted = true;
+
+    await startMusic();
+
+}
+
+
+document.addEventListener(
+    "pointerdown",
+    firstUserInteraction,
+    {
+        once: true
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    firstUserInteraction,
+    {
+        once: true
     }
 );
 
 
 /* =========================================================
-   PLAYER NAME
+   NAME
 ========================================================= */
 
 const nameInput =
@@ -1821,6 +1748,18 @@ nameInput.addEventListener(
 
 
 /* =========================================================
+   SEARCH
+========================================================= */
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        renderPlayers
+    );
+
+
+/* =========================================================
    SORT
 ========================================================= */
 
@@ -1831,25 +1770,33 @@ function setSort(type) {
 
     document
         .getElementById("bestButton")
-        .classList.remove("active");
+        .classList.remove(
+            "active"
+        );
 
 
     document
         .getElementById("nameButton")
-        .classList.remove("active");
+        .classList.remove(
+            "active"
+        );
 
 
     if (type === "best") {
 
         document
             .getElementById("bestButton")
-            .classList.add("active");
+            .classList.add(
+                "active"
+            );
 
     } else {
 
         document
             .getElementById("nameButton")
-            .classList.add("active");
+            .classList.add(
+                "active"
+            );
 
     }
 
@@ -1930,13 +1877,17 @@ function renderPlayers() {
     if (filtered.length === 0) {
 
         container.innerHTML = `
+
             <div style="
                 text-align:center;
                 padding:20px;
                 color:#9eafd2;
             ">
+
                 No players found.
+
             </div>
+
         `;
 
 
@@ -1989,14 +1940,16 @@ function renderPlayers() {
             `;
 
 
-            element.onclick =
+            element.addEventListener(
+                "click",
                 function() {
 
                     openPlayerModal(
                         player
                     );
 
-                };
+                }
+            );
 
 
             container.appendChild(
@@ -2065,14 +2018,16 @@ function renderLeaderboard(
             `;
 
 
-            row.onclick =
+            row.addEventListener(
+                "click",
                 function() {
 
                     openPlayerModal(
                         player
                     );
 
-                };
+                }
+            );
 
 
             body.appendChild(
@@ -2131,7 +2086,6 @@ function openPlayerModal(
         image.src =
             "Bird_01 - Bosbos.png";
 
-
         image.alt =
             "Bosbos";
 
@@ -2139,7 +2093,6 @@ function openPlayerModal(
 
         image.src =
             "Bird_01.png";
-
 
         image.alt =
             "Bondock";
@@ -2167,31 +2120,41 @@ function closePlayerModal() {
 }
 
 
-function closeModalOutside(
-    event
-) {
+/*
+    Close when clicking outside
+    the popup.
+*/
 
-    if (
-        event.target.id ===
-        "playerModal"
-    ) {
+document
+    .getElementById("playerModal")
+    .addEventListener(
+        "click",
+        function(event) {
 
-        closePlayerModal();
+            if (
+                event.target ===
+                this
+            ) {
 
-    }
+                closePlayerModal();
 
-}
+            }
+
+        }
+    );
 
 
-/* =========================================================
-   ESC CLOSE
-========================================================= */
+/*
+    ESC closes popup.
+*/
 
 document.addEventListener(
     "keydown",
     function(event) {
 
-        if (event.key === "Escape") {
+        if (
+            event.key === "Escape"
+        ) {
 
             closePlayerModal();
 
