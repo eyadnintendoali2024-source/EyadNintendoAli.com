@@ -1990,35 +1990,54 @@ async function loadPlayers()
             Request real players from Supabase.
         */
 
-        const response =
-            await fetch(
+        const requestHeaders =
+        {
+            "apikey": SUPABASE_KEY,
+            "Authorization": "Bearer " + SUPABASE_KEY,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        };
+
+        /*
+            First try the newest schema, including last_score.
+            If the database has not received last_score yet,
+            automatically retry using the older schema so the
+            leaderboard still loads instead of completely failing.
+        */
+        let response = await fetch(
+            PLAYERS_URL +
+            "?select=id,player_name,character,high_score,last_score,updated_at" +
+            "&order=high_score.desc",
+            {
+                method: "GET",
+                headers: requestHeaders,
+                cache: "no-store"
+            }
+        );
+
+        let responseText = await response.text();
+
+        if (!response.ok)
+        {
+            console.warn(
+                "Supabase full-schema request failed. Retrying without last_score...",
+                response.status,
+                responseText
+            );
+
+            response = await fetch(
                 PLAYERS_URL +
-                "?select=id,player_name,character,high_score,last_score,updated_at" +
+                "?select=id,player_name,character,high_score,updated_at" +
                 "&order=high_score.desc",
                 {
                     method: "GET",
-
-                    headers:
-                    {
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_KEY,
-
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    cache:
-                        "no-store"
+                    headers: requestHeaders,
+                    cache: "no-store"
                 }
             );
 
-
-        const responseText =
-            await response.text();
+            responseText = await response.text();
+        }
 
 
         /*
@@ -2092,6 +2111,11 @@ async function loadPlayers()
                             score:
                                 Number(
                                     player.high_score
+                                ) || 0,
+
+                            lastScore:
+                                Number(
+                                    player.last_score
                                 ) || 0,
 
                             lastScore:
