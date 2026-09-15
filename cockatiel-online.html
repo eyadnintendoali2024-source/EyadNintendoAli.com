@@ -48,7 +48,6 @@ body {
 }
 
 body::before {
-
     content: "";
 
     position: fixed;
@@ -103,6 +102,7 @@ body::before {
     }
 
 }
+
 
 /* =========================================================
    TOP BAR
@@ -191,6 +191,7 @@ body::before {
         rgba(80,150,255,0.5);
 }
 
+
 /* =========================================================
    MAIN
 ========================================================= */
@@ -231,6 +232,60 @@ body::before {
     margin-bottom: 35px;
 }
 
+
+/* =========================================================
+   ONLINE STATUS
+========================================================= */
+
+.online-status {
+
+    width: fit-content;
+
+    margin:
+        0 auto 25px;
+
+    padding:
+        8px 15px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(60,255,130,0.08);
+
+    border:
+        1px solid rgba(60,255,130,0.25);
+
+    color:
+        #8fffa5;
+
+    font-size: 14px;
+}
+
+.online-status.loading {
+
+    color:
+        #ffd86b;
+
+    background:
+        rgba(255,216,107,0.08);
+
+    border-color:
+        rgba(255,216,107,0.25);
+}
+
+.online-status.error {
+
+    color:
+        #ff9b9b;
+
+    background:
+        rgba(255,80,80,0.08);
+
+    border-color:
+        rgba(255,80,80,0.25);
+}
+
+
 /* =========================================================
    LAYOUT
 ========================================================= */
@@ -255,6 +310,7 @@ body::before {
 
     gap: 20px;
 }
+
 
 /* =========================================================
    BIRD
@@ -327,7 +383,6 @@ body::before {
         transform:
             translateY(0)
             rotate(0deg);
-
     }
 
     50% {
@@ -335,10 +390,9 @@ body::before {
         transform:
             translateY(-12px)
             rotate(1deg);
-
     }
-
 }
+
 
 /* =========================================================
    PLAYER LIST
@@ -423,6 +477,10 @@ body::before {
     color: white;
 
     cursor: pointer;
+
+    transition:
+        background 0.2s,
+        box-shadow 0.2s;
 }
 
 .sort-button.active,
@@ -448,6 +506,7 @@ body::before {
 
     overflow-y: auto;
 }
+
 
 /* =========================================================
    PLAYER
@@ -536,6 +595,7 @@ body::before {
     color: #ffd86b;
 }
 
+
 /* =========================================================
    RIGHT
 ========================================================= */
@@ -577,6 +637,7 @@ body::before {
 
     line-height: 1.6;
 }
+
 
 /* =========================================================
    NAME
@@ -681,6 +742,7 @@ body::before {
     font-size: 14px;
 }
 
+
 /* =========================================================
    LEADERBOARD
 ========================================================= */
@@ -702,6 +764,8 @@ body::before {
     box-shadow:
         0 0 35px
         rgba(50,100,255,0.15);
+
+    overflow-x: auto;
 }
 
 .leaderboard h2 {
@@ -753,6 +817,7 @@ body::before {
     font-weight: bold;
 }
 
+
 /* =========================================================
    MODAL
 ========================================================= */
@@ -797,7 +862,6 @@ body::before {
     to {
         opacity: 1;
     }
-
 }
 
 .modal-box {
@@ -838,7 +902,6 @@ body::before {
             scale(0.9);
 
         opacity: 0;
-
     }
 
     to {
@@ -847,9 +910,7 @@ body::before {
             scale(1);
 
         opacity: 1;
-
     }
-
 }
 
 .close-modal {
@@ -924,6 +985,8 @@ body::before {
     font-weight: bold;
 
     margin-bottom: 20px;
+
+    word-break: break-word;
 }
 
 .detail {
@@ -960,6 +1023,7 @@ body::before {
     color: #ffd86b;
 }
 
+
 /* =========================================================
    FOOTER
 ========================================================= */
@@ -974,6 +1038,7 @@ body::before {
 
     padding: 20px;
 }
+
 
 /* =========================================================
    MOBILE
@@ -1006,7 +1071,6 @@ body::before {
 
         max-height: 330px;
     }
-
 }
 
 @media (max-width: 600px) {
@@ -1067,7 +1131,6 @@ body::before {
         font-size:
             13px;
     }
-
 }
 
 </style>
@@ -1103,7 +1166,6 @@ body::before {
         🚀 Eyad Nintendo Ali
     </div>
 
-
     <div class="top-buttons">
 
         <button
@@ -1115,7 +1177,6 @@ body::before {
             🔊 Music
 
         </button>
-
 
         <button
             class="top-button"
@@ -1137,15 +1198,22 @@ body::before {
 
 <main class="main">
 
-
     <h1 class="title">
         🐦 Cockatiel Bird Online
     </h1>
 
-
     <p class="subtitle">
         Online Players • High Scores • Characters
     </p>
+
+
+    <div
+        id="onlineStatus"
+        class="online-status loading">
+
+        🟡 Connecting to online leaderboard...
+
+    </div>
 
 
     <div class="content">
@@ -1213,6 +1281,17 @@ body::before {
                 <div
                     id="players"
                     class="players">
+
+                    <div style="
+                        text-align:center;
+                        padding:25px;
+                        color:#9eafd2;
+                    ">
+
+                        Loading online players...
+
+                    </div>
+
                 </div>
 
             </div>
@@ -1235,15 +1314,23 @@ body::before {
 
 
                 <p>
-                    See the best players, search for players,
-                    and click a player to see their character
-                    and high score.
+                    See the real online players,
+                    search for players,
+                    and click a player to see
+                    their character and high score.
                 </p>
 
 
                 <p>
-                    Your player name is automatically saved
-                    in this browser.
+                    Scores are loaded directly
+                    from the Cockatiel Online
+                    Supabase database.
+                </p>
+
+
+                <p>
+                    Your player name is automatically
+                    saved in this browser.
                 </p>
 
             </div>
@@ -1315,6 +1402,7 @@ body::before {
 
                     <tbody
                         id="leaderboardBody">
+
                     </tbody>
 
                 </table>
@@ -1343,9 +1431,7 @@ body::before {
     id="playerModal"
     class="modal">
 
-
     <div class="modal-box">
-
 
         <button
             class="close-modal"
@@ -1370,7 +1456,6 @@ body::before {
 
             <div>
 
-
                 <div
                     id="modalPlayerName"
                     class="modal-player-name">
@@ -1385,7 +1470,6 @@ body::before {
                     <div class="detail-label">
                         Character
                     </div>
-
 
                     <div
                         id="modalCharacter"
@@ -1403,7 +1487,6 @@ body::before {
                     <div class="detail-label">
                         High Score
                     </div>
-
 
                     <div
                         id="modalScore"
@@ -1427,45 +1510,68 @@ body::before {
 <script>
 
 /* =========================================================
+    CONFIGURATION
+========================================================= */
+
+const SUPABASE_URL =
+    "https://gknwpvegzjhgpypjvkkv.supabase.co";
+
+
+/*
+    ========================================================
+    IMPORTANT
+    ========================================================
+
+    Put your PUBLIC Supabase anon key here.
+
+    Use the SAME public anon key that is already working
+    in your Unity SupabaseLeaderboard.cs.
+
+    NEVER put a service_role or secret key here.
+*/
+
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrbndwdmVnempoZ3B5cGp2a2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzk0MzIsImV4cCI6MjEwNTA1NTQzMn0.b0zyXjMSJjNP3WKfYNFuKTAMFKN8xJzIorVygpzaakw";
+
+
+const PLAYERS_URL =
+    SUPABASE_URL +
+    "/rest/v1/players";
+
+
+/* =========================================================
    PLAYER DATA
 ========================================================= */
 
-const players = [
-
-    {
-        name: "Eyad",
-        character: "Bondock",
-        score: 10000
-    },
-
-    {
-        name: "Mimo",
-        character: "Bosbos",
-        score: 8500
-    },
-
-    {
-        name: "BondockFan",
-        character: "Bondock",
-        score: 7200
-    },
-
-    {
-        name: "BirdMaster",
-        character: "Bosbos",
-        score: 6100
-    },
-
-    {
-        name: "NintendoPlayer",
-        character: "Bondock",
-        score: 5000
-    }
-
-];
-
+let players = [];
 
 let currentSort = "best";
+
+let playersLoading = false;
+
+
+/* =========================================================
+   ONLINE STATUS
+========================================================= */
+
+const onlineStatus =
+    document.getElementById(
+        "onlineStatus"
+    );
+
+
+function setOnlineStatus(
+    type,
+    text
+)
+{
+    onlineStatus.className =
+        "online-status " +
+        type;
+
+    onlineStatus.textContent =
+        text;
+}
 
 
 /* =========================================================
@@ -1477,111 +1583,157 @@ const music =
         "backgroundMusic"
     );
 
+
 const muteButton =
     document.getElementById(
         "muteButton"
     );
 
 
+let musicStarted = false;
+
+
 /*
-    Load the saved mute state.
+    Load saved mute state.
 */
 
-function loadMusicState() {
-
+function loadMusicState()
+{
     const savedMute =
         localStorage.getItem(
             "CockatielMusicMuted"
         );
 
 
-    if (savedMute === "true") {
-
+    if (savedMute === "true")
+    {
         music.muted = true;
-
-    } else {
-
+    }
+    else
+    {
         music.muted = false;
-
     }
 
+
+    music.volume = 0.5;
 
     updateMuteButton();
-
 }
 
 
 /*
-    Update the button text.
+    Update music button.
 */
 
-function updateMuteButton() {
-
-    if (music.muted) {
-
+function updateMuteButton()
+{
+    if (music.muted)
+    {
         muteButton.textContent =
             "🔇 Music";
-
-    } else {
-
+    }
+    else
+    {
         muteButton.textContent =
             "🔊 Music";
-
     }
-
 }
 
 
 /*
-    Start the music.
+    Start music.
 
-    IMPORTANT:
-    Browsers do not normally allow a website
-    to autoplay sound before the user interacts
-    with the page.
+    Browsers can block autoplay.
 
-    This function is called directly from the
-    user's first interaction.
+    The first user interaction will
+    attempt to start it.
 */
 
-async function startMusic() {
-
-    if (music.muted) {
-
+async function startMusic()
+{
+    if (music.muted)
+    {
         return;
-
     }
 
 
-    try {
-
+    try
+    {
         music.volume = 0.5;
 
         await music.play();
 
-        console.log(
-            "intro Music.MP3 started."
-        );
-
-    } catch (error) {
+        musicStarted = true;
 
         console.log(
-            "Music waiting for user interaction."
+            "Music started: intro Music.MP3"
         );
-
     }
+    catch (error)
+    {
+        musicStarted = false;
 
+        console.log(
+            "Music is waiting for user interaction."
+        );
+
+        console.log(error);
+    }
 }
 
 
 /*
-    Mute / unmute button.
+    Start music on first interaction.
 */
 
-async function toggleMute() {
+async function firstUserInteraction()
+{
+    if (musicStarted)
+    {
+        return;
+    }
 
-    if (music.muted) {
 
+    if (music.muted)
+    {
+        return;
+    }
+
+
+    await startMusic();
+}
+
+
+/*
+    Capture the user's first click/touch.
+*/
+
+document.addEventListener(
+    "pointerdown",
+    firstUserInteraction,
+    true
+);
+
+
+/*
+    Also allow keyboard interaction.
+*/
+
+document.addEventListener(
+    "keydown",
+    firstUserInteraction,
+    true
+);
+
+
+/*
+    Music button.
+*/
+
+async function toggleMute()
+{
+    if (music.muted)
+    {
         music.muted = false;
 
         localStorage.setItem(
@@ -1592,22 +1744,28 @@ async function toggleMute() {
         updateMuteButton();
 
 
-        try {
-
+        try
+        {
             music.volume = 0.5;
 
             await music.play();
 
-        } catch (error) {
+            musicStarted = true;
 
             console.log(
-                "Browser blocked music."
+                "Music started from button."
             );
-
         }
-
-    } else {
-
+        catch (error)
+        {
+            console.error(
+                "Music could not start:",
+                error
+            );
+        }
+    }
+    else
+    {
         music.muted = true;
 
         localStorage.setItem(
@@ -1616,52 +1774,352 @@ async function toggleMute() {
         );
 
         updateMuteButton();
-
     }
-
 }
 
 
 /*
-    Start music when the user first interacts.
-
-    The click itself is the browser's
-    allowed user gesture.
+    Music error diagnostics.
 */
 
-let musicStarted = false;
-
-
-async function firstUserInteraction() {
-
-    if (musicStarted) {
-
-        return;
-
-    }
-
-    musicStarted = true;
-
-    await startMusic();
-
-}
-
-
-document.addEventListener(
-    "pointerdown",
-    firstUserInteraction,
+music.addEventListener(
+    "error",
+    function()
     {
-        once: true
+        console.error(
+            "========================================"
+        );
+
+        console.error(
+            "MUSIC ERROR"
+        );
+
+        console.error(
+            "Could not load: intro Music.MP3"
+        );
+
+        console.error(
+            "Make sure the file is in the same folder as cockatiel-online.html."
+        );
+
+        console.error(
+            "========================================"
+        );
     }
 );
 
 
-document.addEventListener(
-    "keydown",
-    firstUserInteraction,
+/*
+    Confirm that browser loaded the audio.
+*/
+
+music.addEventListener(
+    "canplay",
+    function()
     {
-        once: true
+        console.log(
+            "intro Music.MP3 loaded successfully."
+        );
     }
+);
+
+
+/* =========================================================
+   SUPABASE LOAD PLAYERS
+========================================================= */
+
+async function loadPlayers()
+{
+    if (playersLoading)
+    {
+        return;
+    }
+
+
+    playersLoading = true;
+
+
+    const container =
+        document.getElementById(
+            "players"
+        );
+
+
+    try
+    {
+        setOnlineStatus(
+            "loading",
+            "🟡 Loading online players..."
+        );
+
+
+        container.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:25px;
+                color:#9eafd2;
+            ">
+                Loading online players...
+            </div>
+        `;
+
+
+        /*
+            Make sure the public key was entered.
+        */
+
+        if (
+            !SUPABASE_KEY ||
+            SUPABASE_KEY ===
+            "PASTE_YOUR_PUBLIC_SUPABASE_ANON_KEY_HERE"
+        )
+        {
+            throw new Error(
+                "Supabase public key has not been entered."
+            );
+        }
+
+
+        /*
+            Request real players from Supabase.
+        */
+
+        const response =
+            await fetch(
+                PLAYERS_URL +
+                "?select=id,player_name,character,high_score,updated_at" +
+                "&order=high_score.desc",
+                {
+                    method: "GET",
+
+                    headers:
+                    {
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            SUPABASE_KEY,
+
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        const responseText =
+            await response.text();
+
+
+        /*
+            Check HTTP status.
+        */
+
+        if (!response.ok)
+        {
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                responseText
+            );
+        }
+
+
+        let data;
+
+
+        try
+        {
+            data =
+                JSON.parse(
+                    responseText
+                );
+        }
+        catch (error)
+        {
+            throw new Error(
+                "Supabase returned invalid JSON: " +
+                responseText
+            );
+        }
+
+
+        if (!Array.isArray(data))
+        {
+            throw new Error(
+                "Supabase did not return a player array."
+            );
+        }
+
+
+        /*
+            Convert Supabase data into website data.
+        */
+
+        players =
+            data
+                .map(
+                    function(player)
+                    {
+                        return {
+
+                            id:
+                                player.id,
+
+                            name:
+                                String(
+                                    player.player_name ||
+                                    ""
+                                ),
+
+                            character:
+                                player.character ===
+                                "Bosbos"
+                                    ? "Bosbos"
+                                    : "Bondock",
+
+                            score:
+                                Number(
+                                    player.high_score
+                                ) || 0,
+
+                            updated_at:
+                                player.updated_at
+
+                        };
+                    }
+                )
+                .filter(
+                    function(player)
+                    {
+                        return (
+                            player.name.length > 0
+                        );
+                    }
+                );
+
+
+        console.log(
+            "========================================"
+        );
+
+        console.log(
+            "SUPABASE PLAYERS LOADED"
+        );
+
+        console.log(
+            players
+        );
+
+        console.log(
+            "Player count:",
+            players.length
+        );
+
+        console.log(
+            "========================================"
+        );
+
+
+        setOnlineStatus(
+            "online",
+            "🟢 Online • " +
+            players.length +
+            " player" +
+            (
+                players.length === 1
+                    ? ""
+                    : "s"
+            )
+        );
+
+
+        renderPlayers();
+    }
+    catch (error)
+    {
+        console.error(
+            "========================================"
+        );
+
+        console.error(
+            "SUPABASE LOAD FAILED"
+        );
+
+        console.error(
+            error
+        );
+
+        console.error(
+            "========================================"
+        );
+
+
+        players = [];
+
+
+        setOnlineStatus(
+            "error",
+            "🔴 Online leaderboard connection failed"
+        );
+
+
+        container.innerHTML = `
+
+            <div style="
+                text-align:center;
+                padding:25px;
+                color:#ff9b9b;
+            ">
+
+                <div style="
+                    font-size:20px;
+                    margin-bottom:10px;
+                ">
+                    ⚠️ Could not load players
+                </div>
+
+                <div style="
+                    font-size:13px;
+                    color:#aeb9d5;
+                    line-height:1.6;
+                ">
+                    Check the Supabase public key
+                    and RLS policies.
+                </div>
+
+            </div>
+
+        `;
+
+
+        renderLeaderboard([]);
+    }
+    finally
+    {
+        playersLoading = false;
+    }
+}
+
+
+/*
+    Refresh every 10 seconds.
+
+    This means a new score from Unity
+    appears automatically.
+*/
+
+setInterval(
+    function()
+    {
+        loadPlayers();
+    },
+    10000
 );
 
 
@@ -1681,42 +2139,39 @@ const savedMessage =
     );
 
 
-function loadName() {
-
+function loadName()
+{
     const savedName =
         localStorage.getItem(
             "CockatielPlayerName"
         );
 
 
-    if (savedName) {
-
+    if (savedName)
+    {
         nameInput.value =
             savedName;
 
 
         savedMessage.textContent =
-            "✓ Your name is saved as "
-            + savedName;
-
+            "✓ Your name is saved as " +
+            savedName;
     }
-
 }
 
 
-function saveName() {
-
+function saveName()
+{
     const name =
         nameInput.value.trim();
 
 
-    if (!name) {
-
+    if (!name)
+    {
         savedMessage.textContent =
             "Please enter a name.";
 
         return;
-
     }
 
 
@@ -1727,22 +2182,22 @@ function saveName() {
 
 
     savedMessage.textContent =
-        "✓ Your name is saved as "
-        + name;
-
+        "✓ Your name is saved as " +
+        name;
 }
 
 
 nameInput.addEventListener(
     "keydown",
-    function(event) {
-
-        if (event.key === "Enter") {
-
+    function(event)
+    {
+        if (
+            event.key ===
+            "Enter"
+        )
+        {
             saveName();
-
         }
-
     }
 );
 
@@ -1752,7 +2207,9 @@ nameInput.addEventListener(
 ========================================================= */
 
 document
-    .getElementById("searchInput")
+    .getElementById(
+        "searchInput"
+    )
     .addEventListener(
         "input",
         renderPlayers
@@ -1763,46 +2220,56 @@ document
    SORT
 ========================================================= */
 
-function setSort(type) {
-
-    currentSort = type;
+function setSort(type)
+{
+    currentSort =
+        type;
 
 
     document
-        .getElementById("bestButton")
+        .getElementById(
+            "bestButton"
+        )
         .classList.remove(
             "active"
         );
 
 
     document
-        .getElementById("nameButton")
+        .getElementById(
+            "nameButton"
+        )
         .classList.remove(
             "active"
         );
 
 
-    if (type === "best") {
-
+    if (
+        type ===
+        "best"
+    )
+    {
         document
-            .getElementById("bestButton")
+            .getElementById(
+                "bestButton"
+            )
             .classList.add(
                 "active"
             );
-
-    } else {
-
+    }
+    else
+    {
         document
-            .getElementById("nameButton")
+            .getElementById(
+                "nameButton"
+            )
             .classList.add(
                 "active"
             );
-
     }
 
 
     renderPlayers();
-
 }
 
 
@@ -1810,8 +2277,8 @@ function setSort(type) {
    FILTER
 ========================================================= */
 
-function getFilteredPlayers() {
-
+function getFilteredPlayers()
+{
     const search =
         document
             .getElementById(
@@ -1824,34 +2291,48 @@ function getFilteredPlayers() {
 
     let result =
         players.filter(
-            player =>
-                player.name
-                    .toLowerCase()
-                    .includes(search)
+            function(player)
+            {
+                return (
+                    player.name
+                        .toLowerCase()
+                        .includes(
+                            search
+                        )
+                );
+            }
         );
 
 
-    if (currentSort === "best") {
-
+    if (
+        currentSort ===
+        "best"
+    )
+    {
         result.sort(
-            (a, b) =>
-                b.score - a.score
+            function(a, b)
+            {
+                return (
+                    b.score -
+                    a.score
+                );
+            }
         );
-
-    } else {
-
+    }
+    else
+    {
         result.sort(
-            (a, b) =>
-                a.name.localeCompare(
+            function(a, b)
+            {
+                return a.name.localeCompare(
                     b.name
-                )
+                );
+            }
         );
-
     }
 
 
     return result;
-
 }
 
 
@@ -1859,8 +2340,8 @@ function getFilteredPlayers() {
    PLAYER LIST
 ========================================================= */
 
-function renderPlayers() {
-
+function renderPlayers()
+{
     const container =
         document.getElementById(
             "players"
@@ -1874,8 +2355,11 @@ function renderPlayers() {
         getFilteredPlayers();
 
 
-    if (filtered.length === 0) {
-
+    if (
+        filtered.length ===
+        0
+    )
+    {
         container.innerHTML = `
 
             <div style="
@@ -1894,13 +2378,15 @@ function renderPlayers() {
         renderLeaderboard([]);
 
         return;
-
     }
 
 
     filtered.forEach(
-        (player, index) => {
-
+        function(
+            player,
+            index
+        )
+        {
             const element =
                 document.createElement(
                     "div"
@@ -1920,21 +2406,27 @@ function renderPlayers() {
                 <div class="player-info">
 
                     <div class="player-name">
+
                         ${escapeHTML(
                             player.name
                         )}
+
                     </div>
 
                     <div class="player-character">
+
                         ${escapeHTML(
                             player.character
                         )}
+
                     </div>
 
                 </div>
 
                 <div class="player-score">
+
                     ${player.score.toLocaleString()}
+
                 </div>
 
             `;
@@ -1942,12 +2434,11 @@ function renderPlayers() {
 
             element.addEventListener(
                 "click",
-                function() {
-
+                function()
+                {
                     openPlayerModal(
                         player
                     );
-
                 }
             );
 
@@ -1955,7 +2446,6 @@ function renderPlayers() {
             container.appendChild(
                 element
             );
-
         }
     );
 
@@ -1963,7 +2453,6 @@ function renderPlayers() {
     renderLeaderboard(
         filtered
     );
-
 }
 
 
@@ -1973,8 +2462,8 @@ function renderPlayers() {
 
 function renderLeaderboard(
     list
-) {
-
+)
+{
     const body =
         document.getElementById(
             "leaderboardBody"
@@ -1985,8 +2474,11 @@ function renderLeaderboard(
 
 
     list.forEach(
-        (player, index) => {
-
+        function(
+            player,
+            index
+        )
+        {
             const row =
                 document.createElement(
                     "tr"
@@ -2020,12 +2512,11 @@ function renderLeaderboard(
 
             row.addEventListener(
                 "click",
-                function() {
-
+                function()
+                {
                     openPlayerModal(
                         player
                     );
-
                 }
             );
 
@@ -2033,10 +2524,8 @@ function renderLeaderboard(
             body.appendChild(
                 row
             );
-
         }
     );
-
 }
 
 
@@ -2046,8 +2535,8 @@ function renderLeaderboard(
 
 function openPlayerModal(
     player
-) {
-
+)
+{
     const modal =
         document.getElementById(
             "playerModal"
@@ -2081,34 +2570,36 @@ function openPlayerModal(
     if (
         player.character ===
         "Bosbos"
-    ) {
-
+    )
+    {
         image.src =
             "Bird_01 - Bosbos.png";
 
         image.alt =
             "Bosbos";
-
-    } else {
-
+    }
+    else
+    {
         image.src =
             "Bird_01.png";
 
         image.alt =
             "Bondock";
-
     }
 
 
     modal.classList.add(
         "show"
     );
-
 }
 
 
-function closePlayerModal() {
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
 
+function closePlayerModal()
+{
     document
         .getElementById(
             "playerModal"
@@ -2116,50 +2607,39 @@ function closePlayerModal() {
         .classList.remove(
             "show"
         );
-
 }
 
 
-/*
-    Close when clicking outside
-    the popup.
-*/
-
 document
-    .getElementById("playerModal")
+    .getElementById(
+        "playerModal"
+    )
     .addEventListener(
         "click",
-        function(event) {
-
+        function(event)
+        {
             if (
                 event.target ===
                 this
-            ) {
-
+            )
+            {
                 closePlayerModal();
-
             }
-
         }
     );
 
 
-/*
-    ESC closes popup.
-*/
-
 document.addEventListener(
     "keydown",
-    function(event) {
-
+    function(event)
+    {
         if (
-            event.key === "Escape"
-        ) {
-
+            event.key ===
+            "Escape"
+        )
+        {
             closePlayerModal();
-
         }
-
     }
 );
 
@@ -2170,8 +2650,8 @@ document.addEventListener(
 
 function escapeHTML(
     text
-) {
-
+)
+{
     const div =
         document.createElement(
             "div"
@@ -2183,7 +2663,6 @@ function escapeHTML(
 
 
     return div.innerHTML;
-
 }
 
 
@@ -2195,7 +2674,7 @@ loadMusicState();
 
 loadName();
 
-renderPlayers();
+loadPlayers();
 
 </script>
 
