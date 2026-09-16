@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Games - Space Edition</title>
 
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -23,22 +24,35 @@ body {
   border-radius: 50%;
   opacity: 0.8;
   animation: twinkle 2s infinite alternate;
+  pointer-events: none;
 }
 
 @keyframes twinkle {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.3;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* HEADER */
 header {
+  position: relative;
+  z-index: 100;
+
   background: rgba(0,0,40,0.8);
   backdrop-filter: blur(8px);
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 10px 25px;
+
   color: white;
+
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
@@ -58,57 +72,102 @@ nav {
   display: flex;
   align-items: center;
   gap: 15px;
+  position: relative;
 }
 
 /* BUTTONS */
 button {
   background: rgba(255,255,255,0.1);
+
   color: white;
+
   border: 1px solid #00ccff;
+
   border-radius: 8px;
+
   padding: 8px 14px;
+
   font-weight: bold;
+
   cursor: pointer;
+
   transition: 0.3s;
+
   display: flex;
+
   align-items: center;
+
   gap: 6px;
 }
 
 button:hover {
   transform: scale(1.08);
+
   background: #00ccff;
+
   color: black;
 }
 
-/* DROPDOWN */
+/* =========================
+   DROPDOWN
+========================= */
+
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
+/*
+   FIX:
+   The menu is aligned to the right edge of
+   the Types button so it doesn't overflow
+   the screen on the right.
+*/
+
 .dropdown-content {
   display: none;
+
   position: absolute;
+
+  top: calc(100% + 6px);
+
+  right: 0;
+  left: auto;
+
   background: #111844;
-  min-width: 150px;
+
+  width: 180px;
+
+  max-width: calc(100vw - 20px);
+
   border-radius: 8px;
+
   overflow: hidden;
+
   box-shadow: 0 0 15px rgba(0,0,0,0.5);
-  z-index: 1;
+
+  z-index: 1000;
 }
 
 .dropdown-content a {
   color: white;
+
   padding: 10px 12px;
+
   display: block;
+
   text-decoration: none;
+
   font-weight: bold;
+
   transition: 0.3s;
+
+  white-space: nowrap;
 }
 
 .dropdown-content a:hover {
   background: #00ccff;
+
   color: black;
 }
 
@@ -116,84 +175,183 @@ button:hover {
   display: block;
 }
 
-/* WRAP */
+/* =========================
+   WRAP
+========================= */
+
 .wrap {
   max-width: 1100px;
+
   margin: 40px auto;
+
   padding: 0 16px;
+
   display: flex;
+
   flex-direction: column;
+
   gap: 24px;
 }
 
-/* GAME ITEMS */
+/* =========================
+   GAME ITEMS
+========================= */
+
 .game-item {
   display: flex;
+
   align-items: center;
+
   gap: 18px;
+
   background: rgba(255,255,255,0.05);
+
   padding: 14px;
+
   border-radius: 16px;
+
   cursor: pointer;
+
   transition: 0.3s;
+
   backdrop-filter: blur(5px);
+
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
+
+  position: relative;
+
+  z-index: 2;
 }
 
 .game-item:hover {
   transform: scale(1.02);
+
   background: rgba(0,204,255,0.12);
+
   box-shadow: 0 0 20px rgba(0,204,255,0.4);
 }
 
-/* THUMB */
+/* =========================
+   THUMB
+========================= */
+
 .game-thumb {
   width: 220px;
+
   height: 130px;
+
   border-radius: 12px;
+
   overflow: hidden;
+
   flex-shrink: 0;
+
   background: #111;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   box-shadow: 0 0 15px rgba(0,204,255,0.2);
 }
 
 .game-thumb img {
   width: 100%;
+
   height: 100%;
+
   object-fit: cover;
+
   display: block;
 }
 
-/* INFO */
+/* =========================
+   INFO
+========================= */
+
 .game-info h3 {
   margin: 0;
+
   font-size: 28px;
+
   color: #00ccff;
+
   text-shadow: 0 0 10px #00ccff;
 }
 
 .game-info p {
   margin-top: 10px;
+
   font-size: 17px;
+
   line-height: 1.5;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 720px) {
+
+  header {
+    flex-direction: column;
+
+    gap: 12px;
+
+    padding: 12px;
+  }
+
+  .logo {
+    text-align: center;
+
+    font-size: 21px;
+  }
+
+  nav {
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+  }
+
+  .dropdown-content {
+    right: 0;
+
+    left: auto;
+
+    width: 180px;
+
+    max-width: calc(100vw - 20px);
+  }
 
   .game-item {
     flex-direction: column;
+
     text-align: center;
+
+    padding: 18px;
   }
 
   .game-thumb {
     width: 100%;
+
     height: auto;
+
+    aspect-ratio: 16 / 9;
   }
 
+  .game-info h3 {
+    font-size: 25px;
+  }
+
+  .game-info p {
+    font-size: 16px;
+  }
 }
 </style>
 </head>
@@ -208,101 +366,163 @@ for (let i = 0; i < 180; i++) {
 
   s.className = "star";
 
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
+  s.style.left =
+    Math.random() * 100 + "vw";
 
-  let size = Math.random() * 3 + 1;
+  s.style.top =
+    Math.random() * 100 + "vh";
 
-  s.style.width = size + "px";
-  s.style.height = size + "px";
+  let size =
+    Math.random() * 3 + 1;
 
-  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+  s.style.width =
+    size + "px";
+
+  s.style.height =
+    size + "px";
+
+  s.style.animationDuration =
+    (1 + Math.random() * 3) + "s";
 
   document.body.appendChild(s);
 }
 </script>
 
+
 <!-- HEADER -->
 <header>
 
   <div class="logo">
-    <a href="index.html">Games - Eyad Nintendo Ali 🚀</a>
+
+    <a href="index.html">
+      Games - Eyad Nintendo Ali 🚀
+    </a>
+
   </div>
+
 
   <nav>
 
+    <!-- TYPES -->
     <div class="dropdown">
 
-      <button>🌌 Types ▾</button>
+      <button>
+        🌌 Types ▾
+      </button>
 
       <div class="dropdown-content">
 
-        <a href="minecraft.html">⛏️ Minecraft</a>
+        <a href="minecraft.html">
+          ⛏️ Minecraft
+        </a>
 
-        <a href="games.html">🎮 Games</a>
+        <a href="games.html">
+          🎮 Games
+        </a>
 
-        <a href="cartoons.html">📺 Cartoons</a>
+        <a href="cartoons.html">
+          📺 Cartoons
+        </a>
 
-        <a href="Movies.html">🎬 Movies</a>
+        <a href="Movies.html">
+          🎬 Movies
+        </a>
 
-        <a href="news.html">📰 News</a>
+        <a href="news.html">
+          📰 News
+        </a>
 
       </div>
 
     </div>
 
-    <button>🔍 Search</button>
 
-    <button>📤 Share</button>
+    <!-- SEARCH -->
+    <button onclick="searchGames()">
+      🔍 Search
+    </button>
 
-    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025', '_blank')">
+
+    <!-- SHARE -->
+    <button onclick="sharePage()">
+      📤 Share
+    </button>
+
+
+    <!-- YOUTUBE -->
+    <button
+      onclick="window.open(
+        'https://www.youtube.com/@EyadNintendoAli2025',
+        '_blank'
+      )">
+
       ▶️ YouTube
+
     </button>
 
   </nav>
 
 </header>
 
-<!-- GAMES -->
+
+<!-- =========================
+     GAMES
+========================= -->
+
 <div class="wrap">
 
+
   <!-- BOY & JELLY -->
-  <div class="game-item"
-       onclick="window.location.href='Boy&jelly.html'">
+
+  <div
+    class="game-item"
+    onclick="window.location.href='Boy&jelly.html'">
 
     <div class="game-thumb">
 
-      <img src="Boy&jelly.png" alt="Boy & Jelly">
+      <img
+        src="Boy&jelly.png"
+        alt="Boy & Jelly">
 
     </div>
 
+
     <div class="game-info">
 
-      <h3>🚀 Boy & Jelly</h3>
+      <h3>
+        🚀 Boy & Jelly
+      </h3>
 
       <p>
-        Explore the galaxy with Boy & Jelly in a fun
-        and exciting space adventure.
+        Explore the galaxy with Boy & Jelly
+        in a fun and exciting space adventure.
       </p>
 
     </div>
 
   </div>
 
+
   <!-- GAME HAVEN -->
-  <div class="game-item"
-       onclick="window.location.href='Game Haven domdom.html'">
+
+  <div
+    class="game-item"
+    onclick="window.location.href='Game Haven domdom.html'">
 
     <div class="game-thumb">
 
-      <img src="Game Haven domdom.png"
-           alt="Game Haven domdom">
+      <img
+        src="Game Haven domdom.png"
+        alt="Game Haven domdom">
 
     </div>
 
+
     <div class="game-info">
 
-      <h3>🌌 Game Haven domdom</h3>
+      <h3>
+        🌌 Game Haven domdom
+      </h3>
 
       <p>
         Enter the universe of Game Haven domdom
@@ -313,7 +533,134 @@ for (let i = 0; i < 180; i++) {
 
   </div>
 
+
+  <!-- 🐦 COCKATIEL BIRD -->
+
+  <div
+    class="game-item"
+    onclick="window.location.href='cockatiel bird.html'">
+
+    <div class="game-thumb">
+
+      <img
+        src="cockatiel bird.png"
+        alt="Cockatiel Bird">
+
+    </div>
+
+
+    <div class="game-info">
+
+      <h3>
+        🐦 Cockatiel Bird
+      </h3>
+
+      <p>
+        Fly, play and explore with Cockatiel Bird!
+        Challenge yourself and try to get the highest score.
+      </p>
+
+    </div>
+
+  </div>
+
+
 </div>
+
+
+<script>
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchGames() {
+
+  const search =
+    prompt("🔍 Search for a game:");
+
+  if (!search) return;
+
+  const games =
+    document.querySelectorAll(".game-item");
+
+  const query =
+    search.toLowerCase();
+
+  let found = false;
+
+  games.forEach(game => {
+
+    const text =
+      game.innerText.toLowerCase();
+
+    if (text.includes(query)) {
+
+      game.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      found = true;
+
+    }
+
+  });
+
+  if (!found) {
+
+    alert(
+      "No game found for: " + search
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SHARE
+========================= */
+
+function sharePage() {
+
+  if (navigator.share) {
+
+    navigator.share({
+
+      title: "Games - Eyad Nintendo Ali",
+
+      text:
+        "Check out these games!",
+
+      url:
+        window.location.href
+
+    });
+
+  } else {
+
+    navigator.clipboard.writeText(
+      window.location.href
+    );
+
+    alert(
+      "Page link copied!"
+    );
+
+  }
+
+}
+
+</script>
 
 </body>
 </html>
+
+Now the Games page has 3 cards:
+
+- 🚀 Boy & Jelly → "Boy&jelly.html"
+- 🌌 Game Haven domdom → "Game Haven domdom.html"
+- 🐦 Cockatiel Bird → "cockatiel bird.html"
+
+The Types menu is also positioned from the right side and constrained to the viewport, so it shouldn't run off the screen on mobile.
