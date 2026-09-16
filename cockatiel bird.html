@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cockatiel Bird - Space Edition</title>
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #10264a, #000000);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* 🌌 STARS */
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.3;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* HEADER */
+header {
+  position: relative;
+  z-index: 10;
+
+  background: rgba(0, 0, 40, 0.8);
+  backdrop-filter: blur(8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px 25px;
+
+  color: white;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px #00ccff;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+button {
+  background: rgba(255,255,255,0.1);
+  color: white;
+
+  border: 1px solid #00ccff;
+  border-radius: 8px;
+
+  padding: 8px 14px;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+button:hover {
+  transform: scale(1.08);
+  background: #00ccff;
+  color: black;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+
+  position: absolute;
+
+  background: #111844;
+
+  min-width: 150px;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+
+  z-index: 20;
+}
+
+.dropdown-content a {
+  color: white;
+
+  padding: 10px 12px;
+
+  display: block;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+  background: #00ccff;
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* MUTE BUTTON */
+.mute-btn {
+  border-radius: 50%;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+/* GAME SECTION */
+.wrap {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1100px;
+
+  margin: 50px auto;
+
+  padding: 20px;
+
+  display: flex;
+
+  gap: 30px;
+
+  flex-wrap: wrap;
+
+  align-items: flex-start;
+
+  background: rgba(255,255,255,0.05);
+
+  border-radius: 16px;
+
+  backdrop-filter: blur(5px);
+
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.game-thumb {
+  flex: 1 1 400px;
+  max-width: 420px;
+}
+
+.game-thumb img {
+  width: 100%;
+  height: auto;
+
+  border-radius: 16px;
+
+  box-shadow: 0 0 25px rgba(0,204,255,0.5);
+}
+
+.game-info {
+  flex: 1 1 400px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.game-info h1 {
+  margin: 0;
+
+  color: #00ccff;
+
+  font-size: 42px;
+
+  text-shadow: 0 0 15px #00ccff;
+}
+
+.game-info p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* BUTTONS */
+.download-btn,
+.online-btn {
+  padding: 14px 22px;
+
+  font-size: 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  text-decoration: none;
+
+  display: inline-block;
+
+  text-align: center;
+
+  transition: 0.3s;
+
+  width: fit-content;
+}
+
+.download-btn {
+  background: linear-gradient(90deg, #00ccff, #0044ff);
+
+  color: white;
+
+  box-shadow: 0 0 15px #00ccff;
+}
+
+.download-btn:hover {
+  transform: scale(1.08);
+
+  box-shadow: 0 0 25px #00ccff;
+}
+
+.online-btn {
+  background: linear-gradient(90deg, #ffd000, #ff6600);
+
+  color: white;
+
+  box-shadow: 0 0 15px #ff9900;
+}
+
+.online-btn:hover {
+  transform: scale(1.08);
+
+  box-shadow: 0 0 25px #ff9900;
+}
+
+/* DOWNLOAD MODAL */
+.modal {
+  display: none;
+
+  position: fixed;
+
+  z-index: 100;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.75);
+
+  backdrop-filter: blur(7px);
+
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-box {
+  width: 90%;
+  max-width: 450px;
+
+  background: linear-gradient(
+    145deg,
+    #111844,
+    #050718
+  );
+
+  border: 2px solid #00ccff;
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  box-shadow:
+    0 0 30px rgba(0,204,255,0.7);
+
+  animation: popup 0.25s ease;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-box h2 {
+  margin-top: 0;
+
+  color: #00ccff;
+
+  font-size: 30px;
+
+  text-shadow: 0 0 12px #00ccff;
+}
+
+.modal-box p {
+  color: #ddd;
+
+  margin-bottom: 25px;
+}
+
+.platform-btn {
+  display: block;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 15px;
+
+  margin: 12px 0;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.android-btn {
+  background: linear-gradient(90deg, #39d353, #168f32);
+
+  color: white;
+
+  box-shadow: 0 0 15px rgba(57,211,83,0.5);
+}
+
+.windows-btn {
+  background: linear-gradient(90deg, #00a8ff, #0055ff);
+
+  color: white;
+
+  box-shadow: 0 0 15px rgba(0,168,255,0.5);
+}
+
+.platform-btn:hover {
+  transform: scale(1.05);
+}
+
+.close-btn {
+  margin: 20px auto 0;
+
+  background: rgba(255,255,255,0.1);
+
+  border: 1px solid #ff4444;
+
+  color: white;
+}
+
+.close-btn:hover {
+  background: #ff4444;
+
+  color: white;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .wrap {
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  .game-info {
+    text-align: center;
+
+    align-items: center;
+  }
+
+  .game-info h1 {
+    font-size: 34px;
+  }
+
+  .modal-box {
+    padding: 25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🌌 STAR SCRIPT -->
+<script>
+for (let i = 0; i < 180; i++) {
+
+  let s = document.createElement("div");
+
+  s.className = "star";
+
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+
+  let size = Math.random() * 3 + 1;
+
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+
+  s.style.animationDuration =
+    (1 + Math.random() * 3) + "s";
+
+  document.body.appendChild(s);
+}
+</script>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" src="intro Music.MP3" loop></audio>
+
+<!-- HEADER -->
+<header>
+
+  <div class="logo">
+    <a href="index.html">
+      Eyad Nintendo Ali 🚀
+    </a>
+  </div>
+
+  <nav>
+
+    <div class="dropdown">
+
+      <button>
+        🌌 Types ▾
+      </button>
+
+      <div class="dropdown-content">
+
+        <a href="minecraft.html">
+          ⛏️ Minecraft
+        </a>
+
+        <a href="games.html">
+          🎮 Games
+        </a>
+
+        <a href="cartoons.html">
+          📺 Cartoons
+        </a>
+
+        <a href="movies.html">
+          🎬 Movies
+        </a>
+
+        <a href="news.html">
+          📰 News
+        </a>
+
+      </div>
+
+    </div>
+
+    <button onclick="sharePage()">
+      📤 Share
+    </button>
+
+    <button
+      onclick="window.open(
+        'https://www.youtube.com/@EyadNintendoAli2025',
+        '_blank'
+      )">
+
+      ▶️ YouTube
+
+    </button>
+
+    <button
+      class="mute-btn"
+      id="muteBtn">
+
+      🔊
+
+    </button>
+
+  </nav>
+
+</header>
+
+
+<!-- 🐦 COCKATIEL BIRD GAME -->
+<div class="wrap">
+
+  <div class="game-thumb">
+
+    <img
+      src="cockatiel bird.png"
+      alt="Cockatiel Bird">
+
+  </div>
+
+
+  <div class="game-info">
+
+    <h1>
+      🐦 Cockatiel Bird
+    </h1>
+
+    <p>
+      Welcome to Cockatiel Bird!
+      Fly, play, explore and challenge
+      yourself to get the highest score.
+    </p>
+
+    <!-- DOWNLOAD BUTTON -->
+    <button
+      class="download-btn"
+      onclick="openDownloadMenu()">
+
+      🚀 Download / Play
+
+    </button>
+
+
+    <!-- ONLINE LIST BUTTON -->
+    <a
+      class="online-btn"
+      href="https://eyadnintendoali2024-source.github.io/EyadNintendoAli.com/cockatiel-online.html"
+      target="_blank">
+
+      🐦 Go to Online List
+
+    </a>
+
+  </div>
+
+</div>
+
+
+<!-- DOWNLOAD MODAL -->
+<div
+  class="modal"
+  id="downloadModal"
+  onclick="closeDownloadOutside(event)">
+
+  <div class="modal-box">
+
+    <h2>
+      🐦 Cockatiel Bird
+    </h2>
+
+    <p>
+      Choose your platform
+    </p>
+
+
+    <!-- ANDROID -->
+    <a
+      class="platform-btn android-btn"
+      href="https://www.mediafire.com/file/hyvpwe5xu0e3goy/Cockatiel+Bird.apk/file"
+      target="_blank">
+
+      📱 Android
+
+    </a>
+
+
+    <!-- WINDOWS -->
+    <a
+      class="platform-btn windows-btn"
+      href="https://www.mediafire.com/file/bdv0he8i575q9zv/cockatiel+bird.zip/file"
+      target="_blank">
+
+      🖥️ Windows
+
+    </a>
+
+
+    <button
+      class="close-btn"
+      onclick="closeDownloadMenu()">
+
+      ✖ Close
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   MUSIC
+========================= */
+
+const music =
+  document.getElementById("bgMusic");
+
+const btn =
+  document.getElementById("muteBtn");
+
+
+function tryPlay() {
+
+  music.play().catch(() => {
+
+    console.log(
+      "Autoplay blocked"
+    );
+
+  });
+
+}
+
+
+window.addEventListener(
+  "load",
+  tryPlay
+);
+
+
+document.body.addEventListener(
+  "click",
+  tryPlay,
+  { once: true }
+);
+
+
+/* =========================
+   MUTE
+========================= */
+
+btn.addEventListener(
+  "click",
+  () => {
+
+    music.muted =
+      !music.muted;
+
+    btn.textContent =
+      music.muted
+        ? "🔇"
+        : "🔊";
+
+  }
+);
+
+
+/* =========================
+   DOWNLOAD MENU
+========================= */
+
+function openDownloadMenu() {
+
+  document.getElementById(
+    "downloadModal"
+  ).style.display = "flex";
+
+}
+
+
+function closeDownloadMenu() {
+
+  document.getElementById(
+    "downloadModal"
+  ).style.display = "none";
+
+}
+
+
+function closeDownloadOutside(event) {
+
+  if (
+    event.target ===
+    document.getElementById(
+      "downloadModal"
+    )
+  ) {
+
+    closeDownloadMenu();
+
+  }
+
+}
+
+
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (event.key === "Escape") {
+
+      closeDownloadMenu();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   SHARE
+========================= */
+
+function sharePage() {
+
+  if (navigator.share) {
+
+    navigator.share({
+
+      title:
+        "Cockatiel Bird",
+
+      text:
+        "Check out Cockatiel Bird!",
+
+      url:
+        window.location.href
+
+    });
+
+  } else {
+
+    navigator.clipboard.writeText(
+      window.location.href
+    );
+
+    alert(
+      "Page link copied!"
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
+
+The Download / Play button now opens a centered overlay with:
+
+- 📱 Android → your APK MediaFire link
+- 🖥️ Windows → your ZIP MediaFire link
+- ✖ Close
+- Clicking outside the menu or pressing Esc also closes it.
+
+And 🐦 Go to Online List goes directly to your "cockatiel-online.html" page.
