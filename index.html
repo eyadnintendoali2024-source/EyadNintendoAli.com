@@ -382,29 +382,113 @@ button:hover {
   display: none;
 }
 
-/* 👶 OMAR THE BABY OVERLAY */
-#omarOverlay {
+/* 🛠️ CREATOR MODE SYSTEM STYLES */
+#creatorBar {
   position: fixed;
-  inset: 0;
-  background: black;
-  z-index: 100005;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(5, 10, 30, 0.95);
+  border-bottom: 2px solid #00ccff;
+  box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+  z-index: 100000;
   display: flex;
   align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
+  justify-content: space-between;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-#omarOverlay.active {
-  opacity: 1;
-  pointer-events: auto;
+#creatorBar .status {
+  font-weight: bold;
+  color: #00ccff;
+  text-shadow: 0 0 10px #00ccff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-#omarOverlay img {
-  max-width: 100vw;
-  max-height: 100vh;
-  object-fit: contain;
+#creatorBar .controls {
+  display: flex;
+  gap: 10px;
+}
+
+#creatorBar button {
+  font-size: 13px;
+  padding: 6px 12px;
+}
+
+#creatorPanel {
+  position: fixed;
+  right: 20px;
+  top: 60px;
+  width: 320px;
+  max-height: 80vh;
+  background: radial-gradient(circle at top, #0b1026, #050814);
+  border: 2px solid #00ccff;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 204, 255, 0.4);
+  z-index: 99999;
+  padding: 15px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+#creatorPanel h3 {
+  margin-top: 0;
+  color: #00ccff;
+  border-bottom: 1px solid rgba(0,204,255,0.3);
+  padding-bottom: 8px;
+  font-size: 16px;
+}
+
+.creator-group {
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0,204,255,0.15);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.creator-group label {
+  display: block;
+  font-size: 12px;
+  color: #00ccff;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.creator-group input, .creator-group select, .creator-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00ccff;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.creator-group textarea {
+  resize: vertical;
+  min-height: 50px;
+}
+
+.creator-active-element {
+  outline: 3px dashed #00ccff !important;
+  outline-offset: 4px;
+  box-shadow: 0 0 15px #00ccff !important;
+}
+
+body.creator-mode-active [data-creator-editable="true"] {
+  cursor: pointer !important;
+}
+
+body.creator-mode-active [data-creator-editable="true"]:hover {
+  outline: 2px solid #00ccff;
 }
 </style>
 </head>
@@ -425,10 +509,6 @@ for (let i = 0; i < 150; i++) {
 }
 </script>
 
-<div id="omarOverlay">
-  <img src="OMAR THE BABY.png" alt="Omar the Baby">
-</div>
-
 <div id="intro">
   <img src="mario.png">
   <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
@@ -445,14 +525,14 @@ for (let i = 0; i < 150; i++) {
 
 <header>
   <div class="logo">
-    <a href="index.html">Eyad Nintendo Ali 🚀</a>
+    <a href="index.html" id="siteLogoText">Eyad Nintendo Ali 🚀</a>
   </div>
 
-  <nav>
+  <nav id="mainNav">
 
     <div class="dropdown">
       <button>🌌 Types ▾</button>
-      <div class="dropdown-content">
+      <div class="dropdown-content" id="typesDropdown">
 
         <a href="minecraft.html">⛏️ Minecraft</a>
         <a href="cockatiel-online.html">🐦 Cockatiel Bird Online List</a>
@@ -477,21 +557,21 @@ for (let i = 0; i < 150; i++) {
   </nav>
 </header>
 
-<div class="section">
-  <h1>🌌 SPACE MODE 🌌</h1>
-  <p>Explore the universe of games, fun, and creativity.</p>
+<div class="section" id="heroSection">
+  <h1 id="mainTitle">🌌 SPACE MODE 🌌</h1>
+  <p id="mainDescription">Explore the universe of games, fun, and creativity.</p>
 </div>
 
 <div class="section" id="gamesSection">
-  <h2>🎮 Games</h2>
-  <div class="cards">
-    <div class="card" onclick="location.href='Boy&jelly.html'">
-      <img src="Boy&jelly.png">
+  <h2 id="gamesTitle">🎮 Games</h2>
+  <div class="cards" id="gamesCardsContainer">
+    <div class="card" onclick="location.href='Boy&jelly.html'" data-card-id="boy-jelly">
+      <img src="Boy&jelly.png" alt="Boy & Jelly">
       <p>Boy & Jelly</p>
     </div>
 
-    <div class="card" onclick="location.href='Game Haven domdom.html'">
-      <img src="Game Haven domdom.png">
+    <div class="card" onclick="location.href='Game Haven domdom.html'" data-card-id="domdom">
+      <img src="Game Haven domdom.png" alt="Game Haven Domdom">
       <p>Game Haven Domdom</p>
     </div>
   </div>
@@ -538,6 +618,50 @@ for (let i = 0; i < 150; i++) {
   </div>
 </div>
 
+<!-- 🛠️ CREATOR MODE UI OVERLAYS -->
+<div id="creatorBar" style="display: none;">
+  <div class="status">⚡ Creator Mode Active</div>
+  <div class="controls">
+    <button onclick="saveCreatorData()">💾 Save Changes</button>
+    <button onclick="resetCreatorData()">↩️ Reset Changes</button>
+    <button onclick="toggleCreatorMode(false)" style="border-color: #ff3366; color: #ff3366;">✕ Exit</button>
+  </div>
+</div>
+
+<div id="creatorPanel" style="display: none;">
+  <h3>🛠️ Creator Tools</h3>
+  
+  <div class="creator-group">
+    <label>✏️ Edit Text / Selected Element</label>
+    <input type="text" id="creatorSelectedTag" readonly placeholder="Click any text/card to select" style="opacity: 0.7;">
+    <textarea id="creatorTextInput" placeholder="Selected text value..."></textarea>
+    <button onclick="applySelectedTextEdit()" style="width:100%;">Apply Text Change</button>
+  </div>
+
+  <div class="creator-group">
+    <label>🎮 Cards Management</label>
+    <input type="text" id="cardTitleInput" placeholder="Card Title">
+    <input type="text" id="cardImgInput" placeholder="Image URL (e.g., game.png)">
+    <input type="text" id="cardLinkInput" placeholder="Link URL (e.g., game.html)">
+    <button onclick="addNewCard()" style="width:100%; margin-bottom: 5px;">➕ Add New Card</button>
+    <button onclick="deleteSelectedCard()" style="width:100%; border-color:#ff3366; color:#ff3366;">🗑️ Delete Selected Card</button>
+  </div>
+
+  <div class="creator-group">
+    <label>🎨 Appearance & Background</label>
+    <input type="color" id="bgColorPicker" value="#0b1026" onchange="updateBgColor(this.value)">
+    <label style="margin-top: 5px;">Accent Color</label>
+    <input type="color" id="accentColorPicker" value="#00ccff" onchange="updateAccentColor(this.value)">
+  </div>
+
+  <div class="creator-group">
+    <label>🧭 Navigation Link</label>
+    <input type="text" id="navTextInput" placeholder="Link Text (e.g., 🚀 Shop)">
+    <input type="text" id="navUrlInput" placeholder="Link URL (e.g., shop.html)">
+    <button onclick="addNavItem()" style="width:100%;">➕ Add Nav Link</button>
+  </div>
+</div>
+
 <script>
 const intro = document.getElementById("intro");
 const site = document.getElementById("site");
@@ -547,38 +671,21 @@ const loadVid = document.getElementById("loadVid");
 const loadingVideos = ["loading.mp4", "loading2.mp4"];
 const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
 
-// Initialization sequence taking OMAR THE BABY overlay into account
+// Initialization sequence
 window.addEventListener("DOMContentLoaded", () => {
-  renderSettings();
-  
-  const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-  const omarEnabled = localStorage.getItem("omarTheBabyEnabled") !== "false";
-
-  if (unlockedCodes.includes("20152026") && omarEnabled) {
-    showOmarOverlay(() => {
-      startNormalIntroFlow();
-    });
-  } else {
-    startNormalIntroFlow();
+  // Clean up legacy keys if present
+  localStorage.removeItem("omarTheBabyEnabled");
+  let unlocked = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+  if (unlocked.includes("20152026")) {
+    unlocked = unlocked.filter(c => c !== "20152026");
+    localStorage.setItem("unlockedCodes", JSON.stringify(unlocked));
   }
+
+  loadWebsiteConfig();
+  renderSettings();
+  initCreatorModeSystem();
+  startNormalIntroFlow();
 });
-
-function showOmarOverlay(callback) {
-  const omarOverlay = document.getElementById("omarOverlay");
-  omarOverlay.style.display = "flex";
-  // Small delay to trigger CSS fade-in
-  setTimeout(() => {
-    omarOverlay.classList.add("active");
-  }, 20);
-
-  setTimeout(() => {
-    omarOverlay.classList.remove("active");
-    setTimeout(() => {
-      omarOverlay.style.display = "none";
-      if (callback) callback();
-    }, 800);
-  }, 8000);
-}
 
 function startNormalIntroFlow() {
   if (sessionStorage.getItem("visitedHome")) {
@@ -652,17 +759,16 @@ function renderSettings() {
   if (unlockedCodes.length === 0) {
     codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
   } else {
-    if (unlockedCodes.includes("20152026")) {
-      const omarEnabled = localStorage.getItem("omarTheBabyEnabled") !== "false";
-      
+    if (unlockedCodes.includes("20112015")) {
+      const isCreatorOn = localStorage.getItem("creatorModeActive") === "true";
       const item = document.createElement("div");
       item.className = "code-item";
       item.innerHTML = `
         <div>
-          <div>👶 Omar the baby</div>
-          <div class="code-status">Status: <span class="${omarEnabled ? 'enabled' : 'disabled'}">${omarEnabled ? 'Enabled' : 'Disabled'}</span></div>
+          <div>🛠️ Creator Mode</div>
+          <div class="code-status">Status: <span class="${isCreatorOn ? 'enabled' : 'disabled'}">${isCreatorOn ? 'Active' : 'Inactive'}</span></div>
         </div>
-        <button onclick="toggleOmarFeature()">${omarEnabled ? 'Disable' : 'Enable'}</button>
+        <button onclick="toggleCreatorMode(!${isCreatorOn})">${isCreatorOn ? 'Disable' : 'Enable'}</button>
       `;
       codeListContent.appendChild(item);
     }
@@ -708,27 +814,264 @@ function submitCode() {
   const val = codeInput.value.trim();
   const errorMsg = document.getElementById("codeError");
 
-  if (val === "20152026") {
+  if (val === "20112015") {
     let unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-    if (!unlockedCodes.includes("20152026")) {
-      unlockedCodes.push("20152026");
+    if (!unlockedCodes.includes("20112015")) {
+      unlockedCodes.push("20112015");
       localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
     }
-    if (localStorage.getItem("omarTheBabyEnabled") === null) {
-      localStorage.setItem("omarTheBabyEnabled", "true");
-    }
+    localStorage.setItem("creatorModeUnlocked", "true");
+    localStorage.setItem("creatorModeActive", "true");
     codeInput.value = "";
     errorMsg.style.display = "none";
+    closeSettings();
     location.reload();
   } else {
     errorMsg.style.display = "block";
   }
 }
 
-function toggleOmarFeature() {
-  const current = localStorage.getItem("omarTheBabyEnabled") !== "false";
-  localStorage.setItem("omarTheBabyEnabled", (!current).toString());
+/* 🛠️ CREATOR MODE SHARED DATA SYSTEM */
+let currentSelectedElement = null;
+
+function getSiteConfig() {
+  const defaultConfig = {
+    heroTitle: "🌌 SPACE MODE 🌌",
+    heroDesc: "Explore the universe of games, fun, and creativity.",
+    gamesTitle: "🎮 Games",
+    cards: [
+      { id: "boy-jelly", title: "Boy & Jelly", img: "Boy&jelly.png", link: "Boy&jelly.html" },
+      { id: "domdom", title: "Game Haven Domdom", img: "Game Haven domdom.png", link: "Game Haven domdom.html" }
+    ],
+    navLinks: [],
+    bgColor: "#0b1026",
+    accentColor: "#00ccff"
+  };
+  const saved = localStorage.getItem("spaceSiteConfig");
+  return saved ? Object.assign(defaultConfig, JSON.parse(saved)) : defaultConfig;
+}
+
+function saveSiteConfig(config) {
+  localStorage.setItem("spaceSiteConfig", JSON.stringify(config));
+}
+
+function loadWebsiteConfig() {
+  const config = getSiteConfig();
+  
+  const heroTitle = document.getElementById("mainTitle");
+  if (heroTitle) heroTitle.textContent = config.heroTitle;
+
+  const heroDesc = document.getElementById("mainDescription");
+  if (heroDesc) heroDesc.textContent = config.heroDesc;
+
+  const gamesTitle = document.getElementById("gamesTitle");
+  if (gamesTitle) gamesTitle.textContent = config.gamesTitle;
+
+  if (config.bgColor) {
+    document.body.style.background = `radial-gradient(circle at top, ${config.bgColor}, #000000)`;
+  }
+
+  // Render Cards
+  const cardsContainer = document.getElementById("gamesCardsContainer");
+  if (cardsContainer && config.cards) {
+    cardsContainer.innerHTML = "";
+    config.cards.forEach(c => {
+      const cardDiv = document.createElement("div");
+      cardDiv.className = "card";
+      cardDiv.setAttribute("data-card-id", c.id);
+      cardDiv.onclick = function() {
+        if (localStorage.getItem("creatorModeActive") !== "true") {
+          location.href = c.link;
+        }
+      };
+      cardDiv.innerHTML = `
+        <img src="${c.img}" alt="${c.title}">
+        <p>${c.title}</p>
+      `;
+      cardsContainer.appendChild(cardDiv);
+    });
+  }
+
+  // Render Custom Navigation Items
+  const dropdown = document.getElementById("typesDropdown");
+  if (dropdown && config.navLinks && config.navLinks.length > 0) {
+    config.navLinks.forEach(item => {
+      const navA = document.createElement("a");
+      navA.href = item.link;
+      navA.textContent = item.text;
+      dropdown.appendChild(navA);
+    });
+  }
+}
+
+function initCreatorModeSystem() {
+  const isUnlocked = localStorage.getItem("creatorModeUnlocked") === "true";
+  const isActive = localStorage.getItem("creatorModeActive") === "true";
+
+  if (!isUnlocked || !isActive) {
+    document.body.classList.remove("creator-mode-active");
+    return;
+  }
+
+  document.body.classList.add("creator-mode-active");
+  document.getElementById("creatorBar").style.display = "flex";
+  document.getElementById("creatorPanel").style.display = "block";
+
+  // Mark editable elements
+  const editables = document.querySelectorAll("#mainTitle, #mainDescription, #gamesTitle, .card, .logo a");
+  editables.forEach(el => {
+    el.setAttribute("data-creator-editable", "true");
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      selectElementForEdit(el);
+    });
+  });
+}
+
+function toggleCreatorMode(enable) {
+  localStorage.setItem("creatorModeActive", enable ? "true" : "false");
   renderSettings();
+  location.reload();
+}
+
+function selectElementForEdit(el) {
+  if (currentSelectedElement) {
+    currentSelectedElement.classList.remove("creator-active-element");
+  }
+  currentSelectedElement = el;
+  currentSelectedElement.classList.add("creator-active-element");
+
+  const tagInput = document.getElementById("creatorSelectedTag");
+  const textInput = document.getElementById("creatorTextInput");
+
+  if (el.classList.contains("card")) {
+    const cardId = el.getAttribute("data-card-id");
+    const config = getSiteConfig();
+    const cardData = config.cards.find(c => c.id === cardId);
+    tagInput.value = `🎮 Card: ${cardData ? cardData.title : 'Selected'}`;
+    textInput.value = cardData ? cardData.title : el.querySelector("p").textContent;
+    
+    if (cardData) {
+      document.getElementById("cardTitleInput").value = cardData.title;
+      document.getElementById("cardImgInput").value = cardData.img;
+      document.getElementById("cardLinkInput").value = cardData.link;
+    }
+  } else {
+    tagInput.value = `<${el.tagName.toLowerCase()}> Element`;
+    textInput.value = el.textContent.trim();
+  }
+}
+
+function applySelectedTextEdit() {
+  if (!currentSelectedElement) {
+    alert("Please click an element on the page first to edit it!");
+    return;
+  }
+  const val = document.getElementById("creatorTextInput").value;
+  const config = getSiteConfig();
+
+  if (currentSelectedElement.id === "mainTitle") {
+    config.heroTitle = val;
+    currentSelectedElement.textContent = val;
+  } else if (currentSelectedElement.id === "mainDescription") {
+    config.heroDesc = val;
+    currentSelectedElement.textContent = val;
+  } else if (currentSelectedElement.id === "gamesTitle") {
+    config.gamesTitle = val;
+    currentSelectedElement.textContent = val;
+  } else if (currentSelectedElement.classList.contains("card")) {
+    const cardId = currentSelectedElement.getAttribute("data-card-id");
+    const card = config.cards.find(c => c.id === cardId);
+    if (card) {
+      card.title = val;
+      const p = currentSelectedElement.querySelector("p");
+      if (p) p.textContent = val;
+    }
+  } else {
+    currentSelectedElement.textContent = val;
+  }
+
+  saveSiteConfig(config);
+}
+
+function addNewCard() {
+  const title = document.getElementById("cardTitleInput").value.trim();
+  const img = document.getElementById("cardImgInput").value.trim();
+  const link = document.getElementById("cardLinkInput").value.trim();
+
+  if (!title || !img || !link) {
+    alert("Please fill in Card Title, Image URL, and Link URL!");
+    return;
+  }
+
+  const config = getSiteConfig();
+  const newId = "card-" + Date.now();
+  config.cards.push({ id: newId, title, img, link });
+  saveSiteConfig(config);
+  loadWebsiteConfig();
+  initCreatorModeSystem();
+
+  document.getElementById("cardTitleInput").value = "";
+  document.getElementById("cardImgInput").value = "";
+  document.getElementById("cardLinkInput").value = "";
+}
+
+function deleteSelectedCard() {
+  if (!currentSelectedElement || !currentSelectedElement.classList.contains("card")) {
+    alert("Please click on a Card to select it first before deleting!");
+    return;
+  }
+
+  const cardId = currentSelectedElement.getAttribute("data-card-id");
+  let config = getSiteConfig();
+  config.cards = config.cards.filter(c => c.id !== cardId);
+  saveSiteConfig(config);
+  loadWebsiteConfig();
+  initCreatorModeSystem();
+  currentSelectedElement = null;
+}
+
+function addNavItem() {
+  const text = document.getElementById("navTextInput").value.trim();
+  const link = document.getElementById("navUrlInput").value.trim();
+
+  if (!text || !link) {
+    alert("Please provide both Link Text and Link URL!");
+    return;
+  }
+
+  const config = getSiteConfig();
+  config.navLinks.push({ text, link });
+  saveSiteConfig(config);
+  loadWebsiteConfig();
+
+  document.getElementById("navTextInput").value = "";
+  document.getElementById("navUrlInput").value = "";
+}
+
+function updateBgColor(color) {
+  document.body.style.background = `radial-gradient(circle at top, ${color}, #000000)`;
+  const config = getSiteConfig();
+  config.bgColor = color;
+  saveSiteConfig(config);
+}
+
+function updateAccentColor(color) {
+  const config = getSiteConfig();
+  config.accentColor = color;
+  saveSiteConfig(config);
+}
+
+function saveCreatorData() {
+  alert("✅ All changes saved persistently!");
+}
+
+function resetCreatorData() {
+  if (confirm("Are you sure you want to reset all custom Creator Mode edits back to default?")) {
+    localStorage.removeItem("spaceSiteConfig");
+    location.reload();
+  }
 }
 </script>
 
