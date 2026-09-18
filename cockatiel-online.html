@@ -1,13 +1,14 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cockatiel Bird Online List - Eyad Nintendo Ali</title>
+<title>Cockatiel Bird Online</title>
 
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" href="Bird_01.png">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 * {
@@ -25,688 +26,497 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     background:
-        radial-gradient(circle at 20% 20%, rgba(90, 80, 255, 0.20), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.12), transparent 30%),
-        linear-gradient(180deg, #03030d 0%, #08051c 50%, #02020a 100%);
+        radial-gradient(circle at 20% 20%, rgba(70, 90, 180, .18), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(150, 70, 180, .14), transparent 30%),
+        linear-gradient(180deg, #03040c, #080b18 45%, #03040c);
     overflow-x: hidden;
 }
 
-/* =========================
-   STARS
-========================= */
-
-body::before,
-body::after {
+/* STARS */
+body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.85) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.45) 1px, transparent 1px);
+    background-size: 110px 110px, 170px 170px;
+    background-position: 10px 20px, 70px 80px;
+    opacity: .28;
     z-index: -1;
 }
 
-body::before {
-    background-image:
-        radial-gradient(circle, white 1px, transparent 1px),
-        radial-gradient(circle, white 1px, transparent 1px),
-        radial-gradient(circle, white 1px, transparent 1px);
-    background-size: 90px 90px, 140px 140px, 210px 210px;
-    background-position: 10px 20px, 40px 80px, 100px 30px;
-    opacity: 0.35;
-}
-
-body::after {
-    background:
-        radial-gradient(circle at 50% 50%, rgba(90, 70, 255, 0.10), transparent 60%);
-}
-
-/* =========================
-   TOP BAR
-========================= */
-
+/* TOP BAR */
 .topbar {
     position: sticky;
     top: 0;
-    z-index: 100;
-    min-height: 64px;
+    z-index: 1000;
+    height: 68px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 18px;
-    background: rgba(5, 5, 20, 0.92);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(12px);
+    justify-content: space-between;
+    padding: 0 22px;
+    background: rgba(5, 7, 18, .92);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(14px);
 }
 
-.logo {
-    margin-right: auto;
-    font-size: 18px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.top-button {
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 12px;
-    padding: 10px 14px;
-    color: white;
-    background: rgba(255, 255, 255, 0.08);
-    cursor: pointer;
-    font-weight: 700;
-    transition: 0.2s;
-}
-
-.top-button:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.top-button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.gift-button {
-    position: relative;
-}
-
-.gift-badge {
-    display: inline-flex;
-    min-width: 20px;
-    height: 20px;
+.brand {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 5px;
-    padding: 0 5px;
-    border-radius: 999px;
-    background: #ff3f72;
-    color: white;
-    font-size: 12px;
+    gap: 12px;
+    font-size: 21px;
+    font-weight: bold;
 }
 
-/* =========================
-   MAIN
-========================= */
+.brand img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
 
-main {
-    width: min(1400px, calc(100% - 30px));
+.top-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+button,
+select,
+input {
+    font-family: inherit;
+}
+
+.top-btn,
+.action-btn {
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,.07);
+    color: white;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.top-btn:hover,
+.action-btn:hover {
+    background: rgba(255,255,255,.15);
+    transform: translateY(-1px);
+}
+
+.home-btn {
+    text-decoration: none;
+    color: white;
+}
+
+/* MAIN */
+.container {
+    width: min(1180px, calc(100% - 28px));
     margin: 0 auto;
-    padding: 35px 0 60px;
+    padding: 30px 0 60px;
 }
 
 .hero {
     text-align: center;
-    margin-bottom: 24px;
+    padding: 30px 15px 20px;
+}
+
+.hero img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 25px rgba(255,255,255,.22));
+    animation: floatBird 3s ease-in-out infinite;
+}
+
+@keyframes floatBird {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-9px);
+    }
 }
 
 .hero h1 {
-    margin: 0;
-    font-size: clamp(30px, 5vw, 56px);
-    text-shadow: 0 0 25px rgba(130, 120, 255, 0.55);
+    margin: 8px 0;
+    font-size: clamp(30px, 5vw, 50px);
 }
 
 .hero p {
-    margin: 10px 0 14px;
-    color: #bfc4e8;
+    color: #b9c1d9;
+    margin: 8px 0;
 }
 
-.online-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
+/* STATUS */
+.status {
+    width: fit-content;
+    max-width: 100%;
+    margin: 15px auto;
+    padding: 9px 15px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
-    color: #bfc4e8;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    color: #dfe6ff;
     font-size: 14px;
 }
 
-.status-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #777;
+.status.error {
+    color: #ff9d9d;
 }
 
-.status-dot.online {
-    background: #39ff88;
-    box-shadow: 0 0 12px #39ff88;
+.status.success {
+    color: #9dffbd;
 }
 
-.status-dot.error {
-    background: #ff394f;
-    box-shadow: 0 0 12px #ff394f;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
-.content-grid {
-    display: grid;
-    grid-template-columns: minmax(280px, 0.9fr) minmax(400px, 1.4fr);
-    gap: 22px;
-}
-
+/* CARDS */
 .card {
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 22px;
-    background: rgba(10, 10, 30, 0.76);
-    box-shadow: 0 15px 60px rgba(0, 0, 0, 0.30);
-    backdrop-filter: blur(14px);
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(13, 17, 35, .84);
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 15px 45px rgba(0,0,0,.25);
+    backdrop-filter: blur(10px);
 }
 
-/* =========================
-   BIRD CARD
-========================= */
-
-.bird-card {
-    padding: 24px;
-    text-align: center;
+.card h2,
+.card h3 {
+    margin-top: 0;
 }
 
-.bird-card img {
-    display: block;
-    width: min(100%, 330px);
-    max-height: 330px;
-    object-fit: contain;
-    margin: 5px auto 20px;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
-}
-
-.bird-card h2 {
-    margin: 5px 0;
-}
-
-.bird-card p {
-    color: #aeb4d9;
-    line-height: 1.6;
-}
-
-/* =========================
-   PLAYER LIST
-========================= */
-
-.players-card {
-    padding: 20px;
-}
-
-.section-title {
-    margin: 0 0 15px;
-    font-size: 22px;
-}
-
-.search-row {
+/* PLAYER NAME */
+.name-row {
     display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.search-input,
-.name-input,
-.creator-input,
-.creator-select,
-.creator-textarea,
-.creator-file {
-    width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 12px 13px;
-    outline: none;
+.name-row input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.13);
+    background: rgba(0,0,0,.25);
     color: white;
-    background: rgba(0, 0, 0, 0.30);
+    outline: none;
 }
 
-.search-input:focus,
-.name-input:focus,
-.creator-input:focus,
-.creator-select:focus,
-.creator-textarea:focus {
-    border-color: rgba(120, 150, 255, 0.7);
+.name-row input:focus {
+    border-color: #7c8cff;
 }
 
-.creator-select option {
+/* CONTROLS */
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 10px;
+}
+
+.controls input,
+.controls select,
+.creator-grid input,
+.creator-grid select,
+.creator-grid textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.13);
+    background: rgba(0,0,0,.25);
+    color: white;
+    outline: none;
+}
+
+select option {
     color: black;
 }
 
-.creator-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.sort-button {
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 11px;
-    padding: 10px 12px;
-    color: white;
-    background: rgba(255, 255, 255, 0.07);
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.sort-button.active {
-    background: rgba(90, 110, 255, 0.35);
-}
-
-.player-list {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    max-height: 560px;
-    overflow-y: auto;
-    padding-right: 3px;
-}
-
-.player-row {
+/* PLAYER LIST */
+.players {
     display: grid;
-    grid-template-columns: 44px 1fr auto;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 14px;
+    border-radius: 13px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.07);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.player:hover {
+    background: rgba(255,255,255,.1);
+    transform: translateX(2px);
+}
+
+.player-left {
+    display: flex;
     align-items: center;
     gap: 12px;
-    padding: 11px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.045);
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.player-row:hover {
-    background: rgba(255, 255, 255, 0.10);
-    transform: translateX(2px);
+    min-width: 0;
 }
 
 .player-avatar {
     width: 44px;
     height: 44px;
-    border-radius: 12px;
+    border-radius: 50%;
     object-fit: contain;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(255,255,255,.08);
+    padding: 5px;
 }
 
 .player-name {
-    font-weight: 800;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-weight: bold;
+    word-break: break-word;
 }
 
 .player-character {
-    color: #9fa6ce;
-    font-size: 12px;
+    color: #9fa9c5;
+    font-size: 13px;
     margin-top: 3px;
 }
 
 .player-score {
-    font-weight: 900;
-    color: #ffe27a;
+    font-weight: bold;
+    color: #ffe28a;
+    white-space: nowrap;
 }
 
-.empty {
-    padding: 25px;
-    text-align: center;
-    color: #999fca;
-}
-
-/* =========================
-   RIGHT SIDE
-========================= */
-
-.right-column {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-.welcome-card {
-    padding: 24px;
-}
-
-.welcome-card h2 {
-    margin-top: 0;
-}
-
-.signin-row {
-    display: flex;
+/* LEADERBOARD */
+.leaderboard {
+    display: grid;
     gap: 10px;
 }
 
-.primary-button,
-.danger-button,
-.secondary-button {
-    border: 0;
+.rank {
+    display: grid;
+    grid-template-columns: 55px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
     border-radius: 12px;
-    padding: 12px 16px;
-    color: white;
+    background: rgba(255,255,255,.05);
+}
+
+.rank-number {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.rank-score {
+    color: #ffe28a;
+    font-weight: bold;
+}
+
+/* GIFT BUTTON */
+.gift-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 900;
+    width: 62px;
+    height: 62px;
+    border: 0;
+    border-radius: 50%;
     cursor: pointer;
-    font-weight: 800;
+    background: linear-gradient(135deg, #ff4e91, #8c5cff);
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.4);
+    transition: .2s;
 }
 
-.primary-button {
-    background: linear-gradient(135deg, #5e62ff, #8c55ff);
+.gift-float:hover {
+    transform: scale(1.08);
 }
 
-.secondary-button {
-    background: rgba(255, 255, 255, 0.10);
-}
-
-.danger-button {
-    background: #c52f4c;
-}
-
-.primary-button:hover,
-.secondary-button:hover,
-.danger-button:hover {
-    filter: brightness(1.12);
-}
-
-.saved-message {
-    min-height: 20px;
-    margin-top: 9px;
-    color: #72ffae;
-    font-size: 13px;
-}
-
-/* =========================
-   LEADERBOARD
-========================= */
-
-.leaderboard-card {
-    padding: 20px;
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 12px 10px;
-    text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-th {
-    color: #aeb4d9;
-    font-size: 13px;
-}
-
-td {
-    font-size: 14px;
-}
-
-/* =========================
-   CREATOR MODE
-========================= */
-
-.creator-card {
+/* CREATOR */
+.creator {
     display: none;
-    padding: 22px;
-    border: 1px solid rgba(255, 207, 75, 0.35);
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255, 191, 46, 0.08),
-            rgba(94, 98, 255, 0.08)
-        ),
-        rgba(10, 10, 30, 0.82);
 }
 
-.creator-card.enabled {
+.creator.active {
     display: block;
 }
 
-.creator-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-}
-
-.creator-header h2 {
-    margin: 0;
-}
-
-.creator-on {
-    padding: 5px 9px;
+.creator-badge {
+    display: inline-block;
+    padding: 7px 11px;
     border-radius: 999px;
-    background: rgba(52, 255, 130, 0.14);
-    color: #5dff9d;
-    font-size: 12px;
-    font-weight: 800;
+    background: rgba(255, 207, 73, .12);
+    color: #ffe28a;
+    border: 1px solid rgba(255,207,73,.2);
+    font-size: 13px;
+    margin-bottom: 14px;
 }
 
 .creator-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-.creator-section {
-    padding: 17px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.045);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+.creator-grid textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
-.creator-section h3 {
-    margin-top: 0;
+.full {
+    grid-column: 1 / -1;
 }
 
-.field {
-    margin-bottom: 11px;
+.creator-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
 }
 
-.field label {
-    display: block;
-    margin-bottom: 6px;
-    color: #b7bddf;
-    font-size: 13px;
-}
-
-.file-label {
-    display: block;
-    padding: 12px;
-    border: 1px dashed rgba(255, 255, 255, 0.25);
-    border-radius: 12px;
-    cursor: pointer;
-    color: #c5cae8;
-}
-
-.creator-file {
-    padding: 8px;
-}
-
-.creator-status {
+.creator-result {
+    margin-top: 12px;
     min-height: 20px;
-    margin-top: 10px;
-    font-size: 13px;
+    color: #aeb8d5;
 }
 
-.creator-status.success {
-    color: #69ffa1;
-}
-
-.creator-status.error {
-    color: #ff6d7e;
-}
-
-/* =========================
-   MODALS
-========================= */
-
-.modal-overlay {
+/* MODAL */
+.modal {
+    display: none;
     position: fixed;
     inset: 0;
-    z-index: 500;
-    display: none;
+    z-index: 2000;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.75);
+    padding: 18px;
+    background: rgba(0,0,0,.72);
     backdrop-filter: blur(8px);
 }
 
-.modal-overlay.show {
+.modal.show {
     display: flex;
 }
 
-.modal {
-    width: min(720px, 100%);
+.modal-box {
+    width: min(600px, 100%);
     max-height: 90vh;
     overflow-y: auto;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: #0b0b22;
-    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.60);
+    border-radius: 18px;
+    background: #0c1020;
+    border: 1px solid rgba(255,255,255,.13);
+    box-shadow: 0 30px 90px rgba(0,0,0,.55);
     padding: 22px;
 }
 
 .modal-header {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     gap: 10px;
-    margin-bottom: 15px;
+    align-items: center;
 }
 
-.modal-header h2 {
-    margin: 0;
-    margin-right: auto;
-}
-
-.close-button {
-    width: 38px;
-    height: 38px;
+.close-btn {
     border: 0;
-    border-radius: 50%;
+    background: rgba(255,255,255,.08);
     color: white;
-    background: rgba(255, 255, 255, 0.10);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
 }
 
-.gift-card,
-.mission-card {
-    margin-bottom: 12px;
-    padding: 15px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.055);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+.gift-item,
+.mission-item,
+.notification-item {
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.07);
+    margin-top: 10px;
 }
 
-.gift-card h3,
-.mission-card h3 {
-    margin: 0 0 7px;
+.gift-item strong,
+.mission-item strong {
+    display: block;
+    margin-bottom: 6px;
 }
 
-.gift-meta,
-.mission-meta {
-    color: #969dc3;
-    font-size: 12px;
-    margin-bottom: 8px;
-}
-
-.gift-message {
-    color: #e1e4f4;
-    line-height: 1.55;
+.gift-content {
+    color: #c7cde0;
     white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .gift-link {
     display: inline-block;
-    margin-top: 10px;
-    color: #83a7ff;
+    margin-top: 8px;
+    color: #8db6ff;
     word-break: break-all;
 }
 
-.mission-complete {
-    color: #63ff9d;
-    font-weight: 800;
+.file-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: #9dffbd;
 }
 
-.mission-progress {
-    color: #ffe37d;
-    font-weight: 800;
+/* NOTIFICATION */
+.notification-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff557c;
+    margin-left: 5px;
+    vertical-align: middle;
 }
 
-/* =========================
-   PLAYER MODAL
-========================= */
-
-.player-modal-content {
+.empty {
+    padding: 20px;
     text-align: center;
+    color: #8f98b2;
 }
 
-.player-modal-content img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
+footer {
+    text-align: center;
+    color: #727b95;
+    padding: 25px;
+    font-size: 13px;
 }
 
-.player-modal-score {
-    font-size: 35px;
-    font-weight: 900;
-    color: #ffe27a;
-    margin: 10px 0;
-}
-
-.player-modal-info {
-    color: #aeb4d9;
-    line-height: 1.7;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 950px) {
-    .content-grid {
-        grid-template-columns: 1fr;
+/* MOBILE */
+@media (max-width: 700px) {
+    .topbar {
+        padding: 0 12px;
     }
 
+    .brand span {
+        display: none;
+    }
+
+    .controls,
     .creator-grid {
         grid-template-columns: 1fr;
     }
-}
 
-@media (max-width: 650px) {
-    .topbar {
-        flex-wrap: wrap;
+    .full {
+        grid-column: auto;
     }
 
-    .logo {
-        width: 100%;
-        margin-right: 0;
+    .player {
+        align-items: flex-start;
     }
 
-    .top-button {
-        flex: 1;
-    }
-
-    main {
-        width: min(100% - 18px, 1400px);
-        padding-top: 20px;
-    }
-
-    .signin-row {
-        flex-direction: column;
-    }
-
-    .search-row {
-        flex-wrap: wrap;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-
-    .sort-button {
-        flex: 1;
-    }
-
-    .player-row {
-        grid-template-columns: 40px 1fr auto;
+    .player-score {
+        font-size: 13px;
     }
 }
 </style>
@@ -714,743 +524,338 @@ td {
 
 <body>
 
-<!-- =========================
-     TOP BAR
-========================= -->
-
-<div class="topbar">
-
-    <div class="logo">
-        🚀 Eyad Nintendo Ali
+<header class="topbar">
+    <div class="brand">
+        <img src="Bird_01.png" alt="Cockatiel">
+        <span>Cockatiel Bird Online</span>
     </div>
 
-    <button
-        id="muteButton"
-        class="top-button"
-        type="button"
-        onclick="toggleMute()">
-        🔊 Music
-    </button>
+    <div class="top-buttons">
+        <button class="top-btn" onclick="toggleMusic()" id="musicButton">🔊</button>
 
-    <button
-        id="giftsButton"
-        class="top-button gift-button"
-        type="button"
-        onclick="openGiftsModal()"
-        disabled>
-        🎁 Gifts
-        <span id="giftBadge" class="gift-badge">0</span>
-    </button>
+        <button class="top-btn" onclick="openGifts()">
+            🎁
+            <span id="giftCount"></span>
+        </button>
 
-    <button
-        class="top-button"
-        type="button"
-        onclick="window.location.href='index.html'">
-        🏠 Home
-    </button>
+        <a class="top-btn home-btn" href="index.html">🏠 Home</a>
+    </div>
+</header>
 
-</div>
-
-
-<!-- =========================
-     MUSIC
-========================= -->
-
-<audio
-    id="backgroundMusic"
-    preload="auto"
-    loop>
-    <source src="./intro%20Music.MP3" type="audio/mpeg">
-</audio>
-
-
-<main>
-
-    <!-- =========================
-         HERO
-    ========================= -->
+<main class="container">
 
     <section class="hero">
+        <img src="Bird_01.png" alt="Cockatiel Bird">
 
         <h1>🐦 Cockatiel Bird Online</h1>
 
         <p>
-            Online Players • High Scores • Characters
+            Play, save your score, see other players and compete on the online leaderboard.
         </p>
 
-        <div class="online-status">
+        <div class="status" id="connectionStatus">
+            🟡 Connecting to Supabase...
+        </div>
+    </section>
 
-            <span
-                id="statusDot"
-                class="status-dot">
-            </span>
+    <section class="card">
+        <h2>👤 Your Player</h2>
 
-            <span id="onlineStatus">
-                Connecting to Supabase...
-            </span>
+        <div class="name-row">
+            <input
+                id="playerName"
+                type="text"
+                maxlength="30"
+                placeholder="Enter your player name..."
+            >
+
+            <button class="action-btn" onclick="savePlayerName()">
+                💾 Save Name
+            </button>
+        </div>
+
+        <p id="welcomeText" style="color:#9fa9c5;"></p>
+    </section>
+
+    <section class="card">
+        <h2>🌐 Online Players</h2>
+
+        <div class="controls">
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="🔎 Search players..."
+                oninput="renderPlayers()"
+            >
+
+            <select id="sortSelect" onchange="renderPlayers()">
+                <option value="score">Highest Score</option>
+                <option value="name">Name A-Z</option>
+                <option value="newest">Recently Updated</option>
+            </select>
+        </div>
+
+        <div class="players" id="playersList">
+            <div class="empty">Loading players...</div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>🏆 Leaderboard</h2>
+
+        <div class="leaderboard" id="leaderboard">
+            <div class="empty">Loading leaderboard...</div>
+        </div>
+    </section>
+
+    <!-- CREATOR MODE -->
+    <section class="card creator" id="creatorPanel">
+
+        <div class="creator-badge">
+            👑 Creator Mode Enabled
+        </div>
+
+        <h2>🛠️ Creator Control Panel</h2>
+
+        <div class="creator-grid">
+
+            <div>
+                <label>Player</label>
+                <select id="creatorPlayer"></select>
+            </div>
+
+            <div>
+                <label>Gift Type</label>
+                <select id="giftType" onchange="updateGiftInputs()">
+                    <option value="text">💬 Text</option>
+                    <option value="link">🔗 Link</option>
+                    <option value="file">📁 File</option>
+                    <option value="photo">🖼️ Photo</option>
+                </select>
+            </div>
+
+            <div class="full">
+                <label>Gift title</label>
+                <input
+                    id="giftTitle"
+                    type="text"
+                    placeholder="Gift title..."
+                >
+            </div>
+
+            <div class="full">
+                <label>Message / Text</label>
+                <textarea
+                    id="giftText"
+                    placeholder="Write the message for the player..."
+                ></textarea>
+            </div>
+
+            <div class="full" id="giftLinkBox" style="display:none;">
+                <label>Link</label>
+                <input
+                    id="giftLink"
+                    type="url"
+                    placeholder="https://..."
+                >
+            </div>
+
+            <div class="full" id="giftFileBox" style="display:none;">
+                <label>File / Photo</label>
+                <input
+                    id="giftFile"
+                    type="file"
+                >
+            </div>
 
         </div>
+
+        <div class="creator-actions">
+            <button class="action-btn" onclick="sendGift()">
+                🎁 Send Gift
+            </button>
+
+            <button class="action-btn" onclick="refreshAll()">
+                🔄 Refresh
+            </button>
+        </div>
+
+        <hr style="border-color:rgba(255,255,255,.08); margin:22px 0;">
+
+        <h3>🎯 Mission</h3>
+
+        <div class="creator-grid">
+
+            <div>
+                <label>Mission title</label>
+                <input
+                    id="missionTitle"
+                    type="text"
+                    placeholder="Example: Reach 1000 points"
+                >
+            </div>
+
+            <div>
+                <label>Required score</label>
+                <input
+                    id="missionScore"
+                    type="number"
+                    min="1"
+                    placeholder="1000"
+                >
+            </div>
+
+            <div class="full">
+                <label>Mission description</label>
+                <textarea
+                    id="missionDescription"
+                    placeholder="Describe what the player needs to do..."
+                ></textarea>
+            </div>
+
+        </div>
+
+        <div class="creator-actions">
+            <button class="action-btn" onclick="createMission()">
+                🎯 Give Mission
+            </button>
+
+            <button class="action-btn" onclick="loadMissions()">
+                📋 View Missions
+            </button>
+        </div>
+
+        <hr style="border-color:rgba(255,255,255,.08); margin:22px 0;">
+
+        <h3>✏️ Player Score</h3>
+
+        <div class="creator-grid">
+
+            <div>
+                <label>Player</label>
+                <select id="scorePlayer"></select>
+            </div>
+
+            <div>
+                <label>New High Score</label>
+                <input
+                    id="newScore"
+                    type="number"
+                    min="0"
+                    placeholder="0"
+                >
+            </div>
+
+        </div>
+
+        <div class="creator-actions">
+            <button class="action-btn" onclick="updatePlayerScore()">
+                💯 Update Score
+            </button>
+
+            <button class="action-btn" onclick="deletePlayer()">
+                🗑️ Delete Player
+            </button>
+        </div>
+
+        <div class="creator-result" id="creatorResult"></div>
 
     </section>
 
-
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
-
-    <div class="content-grid">
-
-        <!-- =========================
-             LEFT
-        ========================= -->
-
-        <div>
-
-            <section class="card bird-card">
-
-                <img
-                    src="Bird_01.png"
-                    alt="Cockatiel Bird">
-
-                <h2>Cockatiel Bird Online</h2>
-
-                <p>
-                    See players, characters and high scores
-                    from the online leaderboard.
-                </p>
-
-            </section>
-
-
-            <section class="card players-card">
-
-                <h2 class="section-title">
-                    👥 Players
-                </h2>
-
-                <div class="search-row">
-
-                    <input
-                        id="searchInput"
-                        class="search-input"
-                        type="text"
-                        placeholder="Search players..."
-                        autocomplete="off">
-
-                    <button
-                        id="sortBest"
-                        class="sort-button active"
-                        type="button"
-                        onclick="setSort('best')">
-                        🏆 Best
-                    </button>
-
-                    <button
-                        id="sortName"
-                        class="sort-button"
-                        type="button"
-                        onclick="setSort('name')">
-                        🔤 Name
-                    </button>
-
-                </div>
-
-                <div
-                    id="players"
-                    class="player-list">
-
-                    <div class="empty">
-                        Loading players...
-                    </div>
-
-                </div>
-
-            </section>
-
-        </div>
-
-
-        <!-- =========================
-             RIGHT
-        ========================= -->
-
-        <div class="right-column">
-
-            <section class="card welcome-card">
-
-                <h2>
-                    👋 Welcome!
-                </h2>
-
-                <p>
-                    Enter your player name so you can receive
-                    gifts and missions from Creator Mode.
-                </p>
-
-                <div class="signin-row">
-
-                    <input
-                        id="nameInput"
-                        class="name-input"
-                        type="text"
-                        maxlength="32"
-                        placeholder="Your player name..."
-                        autocomplete="off">
-
-                    <button
-                        id="saveName"
-                        class="primary-button"
-                        type="button">
-                        Save Name
-                    </button>
-
-                </div>
-
-                <div
-                    id="savedMessage"
-                    class="saved-message">
-                </div>
-
-            </section>
-
-
-            <!-- =========================
-                 LEADERBOARD
-            ========================= -->
-
-            <section class="card leaderboard-card">
-
-                <h2 class="section-title">
-                    🏆 Leaderboard
-                </h2>
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Character</th>
-                            <th>High Score</th>
-                            <th>Last Score</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="leaderboardBody">
-
-                    </tbody>
-
-                </table>
-
-            </section>
-
-
-            <!-- =========================
-                 CREATOR MODE
-            ========================= -->
-
-            <section
-                id="creatorCard"
-                class="card creator-card">
-
-                <div class="creator-header">
-
-                    <h2>
-                        👑 Creator Mode
-                    </h2>
-
-                    <span class="creator-on">
-                        ON
-                    </span>
-
-                </div>
-
-                <p>
-                    Creator Mode is enabled from your saved
-                    Creator Mode setting on index.html.
-                </p>
-
-
-                <div class="creator-grid">
-
-                    <!-- =========================
-                         SEND GIFT
-                    ========================= -->
-
-                    <div class="creator-section">
-
-                        <h3>
-                            🎁 Give Gift
-                        </h3>
-
-                        <div class="field">
-
-                            <label>
-                                Player
-                            </label>
-
-                            <select
-                                id="giftPlayer"
-                                class="creator-select">
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Gift Type
-                            </label>
-
-                            <select
-                                id="giftType"
-                                class="creator-select">
-
-                                <option value="text">
-                                    📝 Text
-                                </option>
-
-                                <option value="link">
-                                    🔗 Link
-                                </option>
-
-                                <option value="file">
-                                    📁 File
-                                </option>
-
-                                <option value="photo">
-                                    🖼️ Photo
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Title
-                            </label>
-
-                            <input
-                                id="giftTitle"
-                                class="creator-input"
-                                type="text"
-                                maxlength="100"
-                                placeholder="Gift title">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Message
-                            </label>
-
-                            <textarea
-                                id="giftMessage"
-                                class="creator-textarea"
-                                maxlength="3000"
-                                placeholder="Gift message..."></textarea>
-
-                        </div>
-
-
-                        <div
-                            id="giftLinkField"
-                            class="field"
-                            style="display:none;">
-
-                            <label>
-                                Link
-                            </label>
-
-                            <input
-                                id="giftUrl"
-                                class="creator-input"
-                                type="url"
-                                placeholder="https://...">
-
-                        </div>
-
-
-                        <div
-                            id="giftFileField"
-                            class="field"
-                            style="display:none;">
-
-                            <label>
-                                File / Photo
-                            </label>
-
-                            <input
-                                id="giftFile"
-                                class="creator-file"
-                                type="file">
-
-                        </div>
-
-
-                        <button
-                            id="sendGiftButton"
-                            class="primary-button"
-                            type="button"
-                            onclick="sendCreatorGift()">
-                            🎁 Send Gift
-                        </button>
-
-                        <div
-                            id="giftCreatorStatus"
-                            class="creator-status">
-                        </div>
-
-                    </div>
-
-
-                    <!-- =========================
-                         CREATE MISSION
-                    ========================= -->
-
-                    <div class="creator-section">
-
-                        <h3>
-                            🎯 Create Mission
-                        </h3>
-
-                        <div class="field">
-
-                            <label>
-                                Player
-                            </label>
-
-                            <select
-                                id="missionPlayer"
-                                class="creator-select">
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Mission Title
-                            </label>
-
-                            <input
-                                id="missionTitle"
-                                class="creator-input"
-                                type="text"
-                                maxlength="100"
-                                placeholder="Example: Score Challenge">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Required Score
-                            </label>
-
-                            <input
-                                id="missionScore"
-                                class="creator-input"
-                                type="number"
-                                min="0"
-                                step="1"
-                                placeholder="1000">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Mission Description
-                            </label>
-
-                            <textarea
-                                id="missionDescription"
-                                class="creator-textarea"
-                                maxlength="2000"
-                                placeholder="Get this score or higher and I will give you a gift!"></textarea>
-
-                        </div>
-
-
-                        <button
-                            class="primary-button"
-                            type="button"
-                            onclick="createMission()">
-                            🎯 Create Mission
-                        </button>
-
-                        <div
-                            id="missionCreatorStatus"
-                            class="creator-status">
-                        </div>
-
-                    </div>
-
-
-                    <!-- =========================
-                         EDIT PLAYER
-                    ========================= -->
-
-                    <div class="creator-section">
-
-                        <h3>
-                            🛠️ Edit Player
-                        </h3>
-
-                        <div class="field">
-
-                            <label>
-                                Player
-                            </label>
-
-                            <select
-                                id="editPlayer"
-                                class="creator-select">
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Character
-                            </label>
-
-                            <select
-                                id="editCharacter"
-                                class="creator-select">
-
-                                <option value="Bondock">
-                                    Bondock
-                                </option>
-
-                                <option value="Bosbos">
-                                    Bosbos
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                High Score
-                            </label>
-
-                            <input
-                                id="editHighScore"
-                                class="creator-input"
-                                type="number"
-                                min="0"
-                                step="1">
-
-                        </div>
-
-
-                        <div class="field">
-
-                            <label>
-                                Last Score
-                            </label>
-
-                            <input
-                                id="editLastScore"
-                                class="creator-input"
-                                type="number"
-                                min="0"
-                                step="1">
-
-                        </div>
-
-
-                        <button
-                            class="primary-button"
-                            type="button"
-                            onclick="savePlayerEdit()">
-                            💾 Save Player
-                        </button>
-
-                        <button
-                            class="danger-button"
-                            type="button"
-                            onclick="deleteSelectedPlayer()"
-                            style="margin-top:8px;">
-                            🗑️ Delete Player
-                        </button>
-
-                        <div
-                            id="editCreatorStatus"
-                            class="creator-status">
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </div>
-
-    </div>
-
 </main>
 
+<footer>
+    🐦 Cockatiel Bird Online • Eyad Nintendo Ali
+</footer>
 
-<!-- =========================
-     PLAYER MODAL
-========================= -->
+<!-- GIFT FLOATING BUTTON -->
+<button class="gift-float" onclick="openGifts()" title="Gifts">
+    🎁
+</button>
 
-<div
-    id="playerModal"
-    class="modal-overlay">
-
-    <div class="modal player-modal-content">
+<!-- PLAYER MODAL -->
+<div class="modal" id="playerModal">
+    <div class="modal-box">
 
         <div class="modal-header">
+            <h2 id="modalPlayerName">Player</h2>
 
-            <h2>
-                Player
-            </h2>
-
-            <button
-                class="close-button"
-                type="button"
-                onclick="closePlayerModal()">
-                ×
+            <button class="close-btn" onclick="closeModal('playerModal')">
+                ✕
             </button>
-
         </div>
 
-        <img
-            id="modalCharacterImage"
-            src="Bird_01.png"
-            alt="Character">
+        <div id="playerModalContent"></div>
 
-        <h2 id="modalPlayerName">
-            Player
-        </h2>
+    </div>
+</div>
 
-        <div
-            id="modalCharacter"
-            class="player-modal-info">
-            Character
+<!-- GIFTS MODAL -->
+<div class="modal" id="giftModal">
+    <div class="modal-box">
+
+        <div class="modal-header">
+            <h2>🎁 My Gifts</h2>
+
+            <button class="close-btn" onclick="closeModal('giftModal')">
+                ✕
+            </button>
         </div>
 
-        <div
-            id="modalStatus"
-            class="player-modal-info">
-            Status
-        </div>
-
-        <div
-            id="modalHighScore"
-            class="player-modal-score">
-            0
-        </div>
-
-        <div class="player-modal-info">
-            High Score
-        </div>
-
-        <div
-            id="modalLastScore"
-            class="player-modal-info">
-            Last Score: 0
+        <div id="giftsContent">
+            <div class="empty">Loading gifts...</div>
         </div>
 
     </div>
-
 </div>
 
-
-<!-- =========================
-     GIFTS / MISSIONS MODAL
-========================= -->
-
-<div
-    id="giftsModal"
-    class="modal-overlay">
-
-    <div class="modal">
+<!-- MISSIONS MODAL -->
+<div class="modal" id="missionModal">
+    <div class="modal-box">
 
         <div class="modal-header">
+            <h2>🎯 My Missions</h2>
 
-            <h2>
-                🎁 Your Gifts & Missions
-            </h2>
-
-            <button
-                class="close-button"
-                type="button"
-                onclick="closeGiftsModal()">
-                ×
+            <button class="close-btn" onclick="closeModal('missionModal')">
+                ✕
             </button>
-
         </div>
 
-        <div id="giftModalPlayer"
-             class="gift-meta">
-        </div>
-
-
-        <h3>
-            🎁 Gifts
-        </h3>
-
-        <div id="giftList">
-
-            <div class="empty">
-                Loading gifts...
-            </div>
-
-        </div>
-
-
-        <h3>
-            🎯 Missions
-        </h3>
-
-        <div id="missionList">
-
-            <div class="empty">
-                Loading missions...
-            </div>
-
+        <div id="missionsContent">
+            <div class="empty">Loading missions...</div>
         </div>
 
     </div>
-
 </div>
 
+<audio id="backgroundMusic" loop>
+    <source src="./intro%20Music.MP3" type="audio/mpeg">
+</audio>
 
 <script>
-"use strict";
 
 /* =========================================================
    SUPABASE CONNECTION
-   THIS IS THE WORKING PROJECT CONFIGURATION
-========================================================= */
+   ========================================================= */
 
 const SUPABASE_URL =
     "https://gknwpvegzjhgpypjvkkv.supabase.co";
 
-const SUPABASE_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrbndwdWVnempoZ3B5cGp2a2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzk0MzIsImV4cCI6MjEwNTA1NTQzMn0.b0zyXjMSJjNP3WKfYNFuKTAMFKN8xJzIorVygpzaakw";
+const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrbndwdWVnemhncHlwamt2a2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzk0MzIsImV4cCI6MjEwNTA1NTQzMn0.b0zyXjMSJjNP3WKfYNFuKTAMFKN8xJzIorVygpzaakw";
+
+/*
+ * Supabase JS client.
+ */
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+/* =========================================================
+   TABLE URLS
+   ========================================================= */
 
 const PLAYERS_URL =
     SUPABASE_URL + "/rest/v1/players";
@@ -1464,340 +869,69 @@ const MISSIONS_URL =
 const NOTIFICATIONS_URL =
     SUPABASE_URL + "/rest/v1/creator_notifications";
 
-const STORAGE_BUCKET =
-    "creator-gifts";
-
-
 /* =========================================================
-   APP STATE
-========================================================= */
+   STATE
+   ========================================================= */
 
-let players = [];
-let currentSort = "best";
-let playersLoading = false;
-
+let allPlayers = [];
 let currentPlayerName =
-    localStorage.getItem("CockatielPlayerName") || "";
+    localStorage.getItem("cockatiel_player_name") || "";
 
-let creatorModeEnabled = false;
+let creatorMode =
+    localStorage.getItem("creator_mode") === "true" ||
+    localStorage.getItem("creatorMode") === "true" ||
+    localStorage.getItem("isCreator") === "true";
 
+let musicPlaying = false;
 
 /* =========================================================
    SUPABASE HEADERS
-========================================================= */
+   ========================================================= */
 
 function supabaseHeaders(extra = {}) {
-
     return {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY,
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
         "Content-Type": "application/json",
         ...extra
     };
-
 }
-
 
 /* =========================================================
-   HTML ESCAPE
-========================================================= */
+   STATUS
+   ========================================================= */
 
-function escapeHTML(value) {
+function setConnectionStatus(message, type = "") {
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    const element =
+        document.getElementById("connectionStatus");
 
+    element.textContent = message;
+
+    element.className =
+        "status" + (type ? " " + type : "");
 }
-
-
-/* =========================================================
-   CREATOR MODE
-   READ THE SAME BROWSER-SAVED CREATOR MODE FROM INDEX.HTML
-========================================================= */
-
-const CREATOR_MODE_KEYS = [
-    "CreatorModeEnabled",
-    "creatorMode",
-    "CreatorMode",
-    "EyadCreatorMode",
-    "creator_mode",
-    "CreatorModeState",
-    "creator_mode_enabled"
-];
-
-function isCreatorModeEnabled() {
-
-    for (const key of CREATOR_MODE_KEYS) {
-
-        const value =
-            localStorage.getItem(key);
-
-        if (!value) {
-            continue;
-        }
-
-        const normalized =
-            value.trim().toLowerCase();
-
-        if (
-            normalized === "true" ||
-            normalized === "on" ||
-            normalized === "enabled" ||
-            normalized === "1" ||
-            normalized === "20112015"
-        ) {
-            return true;
-        }
-
-    }
-
-
-    /*
-       Also detect a Creator Mode key created by
-       the existing index.html even if its exact
-       key name is slightly different.
-    */
-
-    for (
-        let i = 0;
-        i < localStorage.length;
-        i++
-    ) {
-
-        const key =
-            localStorage.key(i);
-
-        if (!key) {
-            continue;
-        }
-
-        const value =
-            localStorage.getItem(key) || "";
-
-        if (
-            /creator.*mode|mode.*creator/i.test(key)
-        ) {
-
-            const normalized =
-                value.trim().toLowerCase();
-
-            if (
-                normalized === "true" ||
-                normalized === "on" ||
-                normalized === "enabled" ||
-                normalized === "1" ||
-                normalized === "20112015"
-            ) {
-                return true;
-            }
-
-        }
-
-    }
-
-    return false;
-}
-
-
-function refreshCreatorModeUI() {
-
-    creatorModeEnabled =
-        isCreatorModeEnabled();
-
-    const card =
-        document.getElementById("creatorCard");
-
-    if (card) {
-
-        card.classList.toggle(
-            "enabled",
-            creatorModeEnabled
-        );
-
-    }
-
-    updateCreatorPlayerSelectors();
-
-}
-
-
-window.addEventListener(
-    "storage",
-    refreshCreatorModeUI
-);
-
-window.addEventListener(
-    "focus",
-    refreshCreatorModeUI
-);
-
-
-/* =========================================================
-   MUSIC
-========================================================= */
-
-const backgroundMusic =
-    document.getElementById("backgroundMusic");
-
-const muteButton =
-    document.getElementById("muteButton");
-
-let musicMuted =
-    localStorage.getItem("CockatielMusicMuted") === "true";
-
-
-function updateMusicButton() {
-
-    if (!muteButton) {
-        return;
-    }
-
-    muteButton.textContent =
-        musicMuted
-            ? "🔇 Music"
-            : "🔊 Music";
-
-}
-
-
-function loadMusicState() {
-
-    backgroundMusic.muted =
-        musicMuted;
-
-    updateMusicButton();
-
-}
-
-
-function toggleMute() {
-
-    musicMuted =
-        !musicMuted;
-
-    backgroundMusic.muted =
-        musicMuted;
-
-    localStorage.setItem(
-        "CockatielMusicMuted",
-        String(musicMuted)
-    );
-
-    updateMusicButton();
-
-}
-
-
-document.addEventListener(
-    "click",
-    function () {
-
-        if (
-            !musicMuted &&
-            backgroundMusic.paused
-        ) {
-
-            backgroundMusic.play()
-                .catch(() => {});
-
-        }
-
-    },
-    { once: true }
-);
-
-
-/* =========================================================
-   SUPABASE CONNECTION TEST
-========================================================= */
-
-async function testSupabaseConnection() {
-
-    try {
-
-        const response =
-            await fetch(
-                PLAYERS_URL +
-                "?select=id&limit=1",
-                {
-                    method: "GET",
-                    headers: supabaseHeaders()
-                }
-            );
-
-
-        if (!response.ok) {
-
-            const text =
-                await response.text();
-
-            throw new Error(
-                "HTTP " +
-                response.status +
-                ": " +
-                text
-            );
-
-        }
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "Supabase connection error:",
-            error
-        );
-
-        return false;
-
-    }
-
-}
-
 
 /* =========================================================
    LOAD PLAYERS
-========================================================= */
+   ========================================================= */
 
 async function loadPlayers() {
 
-    if (playersLoading) {
-        return;
-    }
-
-    playersLoading = true;
-
-    const status =
-        document.getElementById("onlineStatus");
-
-    const statusDot =
-        document.getElementById("statusDot");
-
+    setConnectionStatus(
+        "🟡 Connecting to Supabase..."
+    );
 
     try {
 
-        status.textContent =
-            "Connecting to Supabase...";
-
-        statusDot.className =
-            "status-dot";
-
-
-        const response =
-            await fetch(
-                PLAYERS_URL +
-                "?select=id,player_name,character,high_score,last_score,updated_at&order=high_score.desc",
-                {
-                    method: "GET",
-                    headers: supabaseHeaders()
-                }
-            );
-
+        const response = await fetch(
+            PLAYERS_URL +
+            "?select=id,player_name,character,high_score,last_score,updated_at&order=high_score.desc",
+            {
+                method: "GET",
+                headers: supabaseHeaders()
+            }
+        );
 
         if (!response.ok) {
 
@@ -1810,1035 +944,780 @@ async function loadPlayers() {
                 ": " +
                 errorText
             );
-
         }
 
-
-        const data =
+        allPlayers =
             await response.json();
 
-
-        players =
-            Array.isArray(data)
-                ? data.map(player => ({
-                    ...player,
-                    high_score:
-                        Number(player.high_score) || 0,
-                    last_score:
-                        Number(player.last_score) || 0
-                }))
-                : [];
-
-
-        status.textContent =
-            "🟢 Connected to Supabase";
-
-        statusDot.className =
-            "status-dot online";
-
+        setConnectionStatus(
+            "🟢 Connected to Supabase",
+            "success"
+        );
 
         renderPlayers();
         renderLeaderboard();
-        updateCreatorPlayerSelectors();
-        updateGiftButton();
-
-
-        await updateGiftBadge();
-
+        updateCreatorPlayers();
 
     } catch (error) {
 
         console.error(
-            "Could not connect to Supabase:",
+            "Supabase connection error:",
             error
         );
 
-
-        status.textContent =
-            "🔴 Could not connect to Supabase";
-
-
-        statusDot.className =
-            "status-dot error";
-
-
-        const container =
-            document.getElementById("players");
-
-        container.innerHTML = `
-            <div class="empty">
-                🔴 Could not connect to Supabase.<br><br>
-                <small>${escapeHTML(error.message)}</small>
-            </div>
-        `;
-
-    } finally {
-
-        playersLoading = false;
-
-    }
-
-}
-
-
-/* =========================================================
-   PLAYER SORT
-========================================================= */
-
-function setSort(sort) {
-
-    currentSort =
-        sort;
-
-    document
-        .getElementById("sortBest")
-        .classList.toggle(
-            "active",
-            sort === "best"
+        setConnectionStatus(
+            "🔴 Could not connect to Supabase",
+            "error"
         );
 
-    document
-        .getElementById("sortName")
-        .classList.toggle(
-            "active",
-            sort === "name"
-        );
+        document.getElementById("playersList").innerHTML =
+            `<div class="empty">
+                ❌ Could not load players.<br><br>
+                <small>${escapeHtml(error.message)}</small>
+            </div>`;
 
-    renderPlayers();
-
+        document.getElementById("leaderboard").innerHTML =
+            `<div class="empty">
+                ❌ Leaderboard unavailable.
+            </div>`;
+    }
 }
 
-
 /* =========================================================
-   FILTERED PLAYERS
-========================================================= */
-
-function getFilteredPlayers() {
-
-    const search =
-        document
-            .getElementById("searchInput")
-            .value
-            .trim()
-            .toLowerCase();
-
-
-    let list =
-        players.filter(player => {
-
-            return String(
-                player.player_name || ""
-            )
-            .toLowerCase()
-            .includes(search);
-
-        });
-
-
-    if (currentSort === "name") {
-
-        list.sort((a, b) =>
-            String(a.player_name || "")
-                .localeCompare(
-                    String(b.player_name || "")
-                )
-        );
-
-    } else {
-
-        list.sort(
-            (a, b) =>
-                Number(b.high_score || 0) -
-                Number(a.high_score || 0)
-        );
-
-    }
-
-
-    return list;
-
-}
-
-
-/* =========================================================
-   PLAYER ONLINE STATUS
-========================================================= */
-
-function isPlayerOnline(updatedAt) {
-
-    if (!updatedAt) {
-        return false;
-    }
-
-    const time =
-        new Date(updatedAt).getTime();
-
-    if (Number.isNaN(time)) {
-        return false;
-    }
-
-    return (
-        Date.now() - time <= 60000
-    );
-
-}
-
-
-/* =========================================================
-   CHARACTER IMAGE
-========================================================= */
-
-function getCharacterImage(character) {
-
-    if (
-        String(character).toLowerCase() ===
-        "bosbos"
-    ) {
-
-        return "Bird_01 - Bosbos.png";
-
-    }
-
-    return "Bird_01.png";
-
-}
-
-
-/* =========================================================
-   RENDER PLAYER LIST
-========================================================= */
+   RENDER PLAYERS
+   ========================================================= */
 
 function renderPlayers() {
 
     const container =
-        document.getElementById("players");
+        document.getElementById("playersList");
 
-    const list =
-        getFilteredPlayers();
+    const search =
+        document.getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
 
+    const sort =
+        document.getElementById("sortSelect")
+            .value;
 
-    if (!list.length) {
+    let players =
+        allPlayers.filter(player =>
+            String(player.player_name || "")
+                .toLowerCase()
+                .includes(search)
+        );
 
-        container.innerHTML = `
-            <div class="empty">
+    if (sort === "score") {
+
+        players.sort(
+            (a,b) =>
+                Number(b.high_score || 0) -
+                Number(a.high_score || 0)
+        );
+
+    } else if (sort === "name") {
+
+        players.sort(
+            (a,b) =>
+                String(a.player_name || "")
+                    .localeCompare(
+                        String(b.player_name || "")
+                    )
+        );
+
+    } else if (sort === "newest") {
+
+        players.sort(
+            (a,b) =>
+                new Date(b.updated_at || 0) -
+                new Date(a.updated_at || 0)
+        );
+    }
+
+    if (!players.length) {
+
+        container.innerHTML =
+            `<div class="empty">
                 No players found.
-            </div>
-        `;
+            </div>`;
 
         return;
     }
 
-
     container.innerHTML =
-        list.map(player => {
+        players.map(player => {
 
-            const online =
-                isPlayerOnline(
-                    player.updated_at
+            const name =
+                escapeHtml(
+                    player.player_name || "Unknown"
                 );
 
+            const character =
+                escapeHtml(
+                    player.character || "Cockatiel"
+                );
+
+            const score =
+                Number(player.high_score || 0);
 
             return `
                 <div
-                    class="player-row"
-                    onclick="openPlayerModal(${Number(player.id)})">
+                    class="player"
+                    onclick="openPlayer('${escapeJs(player.player_name || "")}')"
+                >
 
-                    <img
-                        class="player-avatar"
-                        src="${escapeHTML(
-                            getCharacterImage(
-                                player.character
-                            )
-                        )}"
-                        alt="">
+                    <div class="player-left">
 
-                    <div>
+                        <img
+                            class="player-avatar"
+                            src="Bird_01.png"
+                            alt=""
+                        >
 
-                        <div class="player-name">
-                            ${escapeHTML(
-                                player.player_name
-                            )}
-                        </div>
+                        <div>
+                            <div class="player-name">
+                                ${name}
+                            </div>
 
-                        <div class="player-character">
-                            ${escapeHTML(
-                                player.character || "Bondock"
-                            )}
-                            •
-                            ${online ? "🟢 Online" : "⚪ Offline"}
+                            <div class="player-character">
+                                ${character}
+                            </div>
                         </div>
 
                     </div>
 
                     <div class="player-score">
-                        ${Number(
-                            player.high_score || 0
-                        ).toLocaleString()}
+                        ${score.toLocaleString()} 🏆
                     </div>
 
                 </div>
             `;
 
         }).join("");
-
 }
 
-
 /* =========================================================
-   RENDER LEADERBOARD
-========================================================= */
+   LEADERBOARD
+   ========================================================= */
 
 function renderLeaderboard() {
 
-    const body =
-        document.getElementById(
-            "leaderboardBody"
-        );
+    const container =
+        document.getElementById("leaderboard");
 
-
-    const list =
-        [...players]
+    const players =
+        [...allPlayers]
             .sort(
-                (a, b) =>
+                (a,b) =>
                     Number(b.high_score || 0) -
                     Number(a.high_score || 0)
             )
-            .slice(0, 50);
+            .slice(0, 20);
 
+    if (!players.length) {
 
-    if (!list.length) {
-
-        body.innerHTML = `
-            <tr>
-                <td colspan="5">
-                    No players yet.
-                </td>
-            </tr>
-        `;
+        container.innerHTML =
+            `<div class="empty">
+                No scores yet.
+            </div>`;
 
         return;
     }
 
+    container.innerHTML =
+        players.map((player, index) => {
 
-    body.innerHTML =
-        list.map((player, index) => {
+            let medal = "";
+
+            if (index === 0) medal = "🥇";
+            else if (index === 1) medal = "🥈";
+            else if (index === 2) medal = "🥉";
+            else medal = "#" + (index + 1);
 
             return `
-                <tr>
+                <div class="rank">
 
-                    <td>
-                        ${index + 1}
-                    </td>
+                    <div class="rank-number">
+                        ${medal}
+                    </div>
 
-                    <td>
-                        ${escapeHTML(
-                            player.player_name
-                        )}
-                    </td>
+                    <div>
+                        <strong>
+                            ${escapeHtml(player.player_name || "Unknown")}
+                        </strong>
 
-                    <td>
-                        ${escapeHTML(
-                            player.character
-                        )}
-                    </td>
+                        <div style="color:#8f98b2;font-size:13px;">
+                            ${escapeHtml(player.character || "Cockatiel")}
+                        </div>
+                    </div>
 
-                    <td>
-                        ${Number(
-                            player.high_score || 0
-                        ).toLocaleString()}
-                    </td>
+                    <div class="rank-score">
+                        ${Number(player.high_score || 0).toLocaleString()}
+                    </div>
 
-                    <td>
-                        ${Number(
-                            player.last_score || 0
-                        ).toLocaleString()}
-                    </td>
-
-                </tr>
+                </div>
             `;
 
         }).join("");
-
 }
-
 
 /* =========================================================
-   SEARCH
-========================================================= */
-
-document
-    .getElementById("searchInput")
-    .addEventListener(
-        "input",
-        renderPlayers
-    );
-
-
-/* =========================================================
-   PLAYER MODAL
-========================================================= */
-
-function openPlayerModal(id) {
-
-    const player =
-        players.find(
-            p => Number(p.id) === Number(id)
-        );
-
-
-    if (!player) {
-        return;
-    }
-
-
-    document
-        .getElementById("modalCharacterImage")
-        .src =
-        getCharacterImage(
-            player.character
-        );
-
-
-    document
-        .getElementById("modalPlayerName")
-        .textContent =
-        player.player_name || "Player";
-
-
-    document
-        .getElementById("modalCharacter")
-        .textContent =
-        "Character: " +
-        (player.character || "Bondock");
-
-
-    document
-        .getElementById("modalStatus")
-        .textContent =
-        isPlayerOnline(player.updated_at)
-            ? "🟢 Online"
-            : "⚪ Offline";
-
-
-    document
-        .getElementById("modalHighScore")
-        .textContent =
-        Number(
-            player.high_score || 0
-        ).toLocaleString();
-
-
-    document
-        .getElementById("modalLastScore")
-        .textContent =
-        "Last Score: " +
-        Number(
-            player.last_score || 0
-        ).toLocaleString();
-
-
-    document
-        .getElementById("playerModal")
-        .classList.add("show");
-
-}
-
-
-function closePlayerModal() {
-
-    document
-        .getElementById("playerModal")
-        .classList.remove("show");
-
-}
-
-
-/* =========================================================
-   NAME SYSTEM
-========================================================= */
-
-function loadName() {
-
-    const input =
-        document.getElementById("nameInput");
-
-    if (currentPlayerName) {
-
-        input.value =
-            currentPlayerName;
-
-        document
-            .getElementById("savedMessage")
-            .textContent =
-            "✅ Name saved: " +
-            currentPlayerName;
-
-    }
-
-    updateGiftButton();
-
-}
-
-
-document
-    .getElementById("saveName")
-    .addEventListener(
-        "click",
-        savePlayerName
-    );
-
+   SAVE PLAYER NAME
+   ========================================================= */
 
 function savePlayerName() {
 
     const input =
-        document.getElementById("nameInput");
+        document.getElementById("playerName");
 
     const name =
         input.value.trim();
 
-
     if (!name) {
 
-        document
-            .getElementById("savedMessage")
-            .textContent =
-            "❌ Please type your name first.";
+        alert("Please enter your player name.");
 
         return;
-
     }
 
-
-    currentPlayerName =
-        name;
-
+    currentPlayerName = name;
 
     localStorage.setItem(
-        "CockatielPlayerName",
-        currentPlayerName
+        "cockatiel_player_name",
+        name
     );
 
+    updateWelcome();
 
-    document
-        .getElementById("savedMessage")
+    updateGiftCount();
+
+    alert(
+        "Player name saved: " + name
+    );
+}
+
+/* =========================================================
+   WELCOME
+   ========================================================= */
+
+function updateWelcome() {
+
+    const welcome =
+        document.getElementById("welcomeText");
+
+    if (!currentPlayerName) {
+
+        welcome.textContent =
+            "Enter your name to receive gifts and missions.";
+
+        return;
+    }
+
+    welcome.textContent =
+        "Welcome back, " +
+        currentPlayerName +
+        "! 🐦";
+}
+
+/* =========================================================
+   PLAYER MODAL
+   ========================================================= */
+
+function openPlayer(name) {
+
+    const player =
+        allPlayers.find(
+            p =>
+                String(p.player_name || "") ===
+                String(name)
+        );
+
+    if (!player) return;
+
+    document.getElementById("modalPlayerName")
         .textContent =
-        "✅ Name saved: " +
-        currentPlayerName;
+            player.player_name || "Player";
 
+    document.getElementById("playerModalContent")
+        .innerHTML = `
+            <div class="gift-item">
+                <strong>🐦 Character</strong>
+                <div class="gift-content">
+                    ${escapeHtml(player.character || "Cockatiel")}
+                </div>
+            </div>
 
-    updateGiftButton();
-    updateGiftBadge();
+            <div class="gift-item">
+                <strong>🏆 High Score</strong>
+                <div class="gift-content">
+                    ${Number(player.high_score || 0).toLocaleString()}
+                </div>
+            </div>
 
+            <div class="gift-item">
+                <strong>📅 Last Updated</strong>
+                <div class="gift-content">
+                    ${formatDate(player.updated_at)}
+                </div>
+            </div>
+        `;
+
+    openModal("playerModal");
 }
 
-
 /* =========================================================
-   GIFT BUTTON
-========================================================= */
+   GIFTS
+   ========================================================= */
 
-function updateGiftButton() {
+async function openGifts() {
 
-    const button =
-        document.getElementById(
-            "giftsButton"
+    if (!currentPlayerName) {
+
+        alert(
+            "Enter and save your player name first."
         );
 
+        document.getElementById("playerName")
+            .focus();
 
-    if (!button) {
         return;
     }
 
+    openModal("giftModal");
 
-    const hasName =
-        Boolean(
-            currentPlayerName.trim()
-        );
+    document.getElementById("giftsContent").innerHTML =
+        `<div class="empty">Loading gifts...</div>`;
 
+    try {
 
-    button.disabled =
-        !hasName;
+        const response =
+            await fetch(
+                GIFTS_URL +
+                "?select=*&player_name=eq." +
+                encodeURIComponent(currentPlayerName) +
+                "&order=created_at.desc",
+                {
+                    headers: supabaseHeaders()
+                }
+            );
 
+        if (!response.ok) {
 
-    button.title =
-        hasName
-            ? "Open your gifts and missions"
-            : "Type and save your name first";
-
-}
-
-
-/* =========================================================
-   GIFT TYPE UI
-========================================================= */
-
-document
-    .getElementById("giftType")
-    .addEventListener(
-        "change",
-        updateGiftTypeFields
-    );
-
-
-function updateGiftTypeFields() {
-
-    const type =
-        document
-            .getElementById("giftType")
-            .value;
-
-
-    document
-        .getElementById("giftLinkField")
-        .style.display =
-        type === "link"
-            ? "block"
-            : "none";
-
-
-    document
-        .getElementById("giftFileField")
-        .style.display =
-        (
-            type === "file" ||
-            type === "photo"
-        )
-            ? "block"
-            : "none";
-
-
-    const file =
-        document.getElementById("giftFile");
-
-
-    if (type === "photo") {
-
-        file.accept =
-            "image/*";
-
-    } else if (type === "file") {
-
-        file.accept =
-            "";
-
-    }
-
-}
-
-
-/* =========================================================
-   CREATOR PLAYER SELECTORS
-========================================================= */
-
-function updateCreatorPlayerSelectors() {
-
-    if (!creatorModeEnabled) {
-        return;
-    }
-
-
-    const selects = [
-        document.getElementById("giftPlayer"),
-        document.getElementById("missionPlayer"),
-        document.getElementById("editPlayer")
-    ];
-
-
-    for (const select of selects) {
-
-        if (!select) {
-            continue;
+            throw new Error(
+                "HTTP " +
+                response.status +
+                ": " +
+                await response.text()
+            );
         }
 
+        const gifts =
+            await response.json();
+
+        renderGifts(gifts);
+
+        markGiftsRead(gifts);
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("giftsContent").innerHTML =
+            `<div class="empty">
+                ❌ Could not load gifts.<br>
+                <small>${escapeHtml(error.message)}</small>
+            </div>`;
+    }
+}
+
+/* =========================================================
+   RENDER GIFTS
+   ========================================================= */
+
+function renderGifts(gifts) {
+
+    const container =
+        document.getElementById("giftsContent");
+
+    if (!gifts.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                🎁 You don't have any gifts yet.
+            </div>`;
+
+        document.getElementById("giftCount")
+            .textContent = "";
+
+        return;
+    }
+
+    document.getElementById("giftCount")
+        .textContent = "";
+
+    container.innerHTML =
+        gifts.map(gift => {
+
+            const type =
+                escapeHtml(gift.gift_type || gift.type || "text");
+
+            const title =
+                escapeHtml(gift.title || "Gift");
+
+            const text =
+                escapeHtml(
+                    gift.message ||
+                    gift.content ||
+                    ""
+                );
+
+            const link =
+                gift.link ||
+                gift.url ||
+                "";
+
+            const file =
+                gift.file_url ||
+                gift.file ||
+                "";
+
+            let extra = "";
+
+            if (type === "link" && link) {
+
+                extra =
+                    `<a
+                        class="gift-link"
+                        href="${safeUrl(link)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        🔗 Open Link
+                    </a>`;
+
+            } else if (
+                (type === "file" || type === "photo") &&
+                file
+            ) {
+
+                extra =
+                    `<a
+                        class="file-link"
+                        href="${safeUrl(file)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        📁 Open Gift File
+                    </a>`;
+            }
+
+            return `
+                <div class="gift-item">
+
+                    <strong>
+                        🎁 ${title}
+                    </strong>
+
+                    <div style="font-size:12px;color:#7f89a5;margin-bottom:8px;">
+                        ${type} • ${formatDate(gift.created_at)}
+                    </div>
+
+                    <div class="gift-content">
+                        ${text}
+                    </div>
+
+                    ${extra}
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+/* =========================================================
+   GIFT COUNT
+   ========================================================= */
+
+async function updateGiftCount() {
+
+    if (!currentPlayerName) return;
+
+    try {
+
+        const response =
+            await fetch(
+                GIFTS_URL +
+                "?select=id&player_name=eq." +
+                encodeURIComponent(currentPlayerName),
+                {
+                    headers: supabaseHeaders()
+                }
+            );
+
+        if (!response.ok) return;
+
+        const gifts =
+            await response.json();
+
+        const count =
+            document.getElementById("giftCount");
+
+        if (gifts.length) {
+
+            count.textContent =
+                "(" + gifts.length + ")";
+
+        } else {
+
+            count.textContent = "";
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Gift count unavailable:",
+            error
+        );
+    }
+}
+
+/* =========================================================
+   MARK GIFTS READ
+   ========================================================= */
+
+async function markGiftsRead(gifts) {
+
+    /*
+     * Only attempt this when the table has a read/opened field.
+     * A failure here must never stop the gifts from displaying.
+     */
+
+    for (const gift of gifts) {
+
+        if (!gift.id) continue;
+
+        try {
+
+            await fetch(
+                GIFTS_URL +
+                "?id=eq." +
+                encodeURIComponent(gift.id),
+                {
+                    method: "PATCH",
+                    headers: supabaseHeaders({
+                        "Prefer": "return=minimal"
+                    }),
+                    body: JSON.stringify({
+                        opened: true
+                    })
+                }
+            );
+
+        } catch (_) {}
+    }
+}
+
+/* =========================================================
+   CREATOR MODE
+   ========================================================= */
+
+function initializeCreatorMode() {
+
+    /*
+     * Creator Mode is controlled by the browser state
+     * used by the main website.
+     */
+
+    const enabled =
+        localStorage.getItem("creator_mode") === "true" ||
+        localStorage.getItem("creatorMode") === "true" ||
+        localStorage.getItem("isCreator") === "true";
+
+    creatorMode = enabled;
+
+    const panel =
+        document.getElementById("creatorPanel");
+
+    if (enabled) {
+
+        panel.classList.add("active");
+
+        updateCreatorPlayers();
+
+    } else {
+
+        panel.classList.remove("active");
+    }
+}
+
+/* =========================================================
+   CREATOR PLAYER LISTS
+   ========================================================= */
+
+function updateCreatorPlayers() {
+
+    if (!creatorMode) return;
+
+    const selects = [
+        document.getElementById("creatorPlayer"),
+        document.getElementById("scorePlayer")
+    ];
+
+    selects.forEach(select => {
+
+        if (!select) return;
 
         const oldValue =
             select.value;
 
-
         select.innerHTML =
-            players.map(player => {
-
-                return `
-                    <option value="${escapeHTML(
-                        String(player.id)
-                    )}">
-                        ${escapeHTML(
-                            player.player_name
-                        )}
-                    </option>
-                `;
-
-            }).join("");
-
+            `<option value="">Choose player...</option>` +
+            allPlayers.map(player => `
+                <option value="${escapeHtml(player.player_name || "")}">
+                    ${escapeHtml(player.player_name || "Unknown")}
+                </option>
+            `).join("");
 
         if (
+            oldValue &&
             [...select.options]
-                .some(
-                    option =>
-                        option.value === oldValue
-                )
+                .some(option => option.value === oldValue)
         ) {
-
-            select.value =
-                oldValue;
-
+            select.value = oldValue;
         }
-
-    }
-
-
-    updateEditFields();
-
+    });
 }
-
 
 /* =========================================================
-   EDIT PLAYER SELECT
-========================================================= */
+   GIFT INPUTS
+   ========================================================= */
 
-document
-    .getElementById("editPlayer")
-    .addEventListener(
-        "change",
-        updateEditFields
-    );
-
-
-function getSelectedEditPlayer() {
-
-    const id =
-        document
-            .getElementById("editPlayer")
-            .value;
-
-
-    return players.find(
-        player =>
-            String(player.id) ===
-            String(id)
-    );
-
-}
-
-
-function updateEditFields() {
-
-    const player =
-        getSelectedEditPlayer();
-
-
-    if (!player) {
-        return;
-    }
-
-
-    document
-        .getElementById("editCharacter")
-        .value =
-        player.character || "Bondock";
-
-
-    document
-        .getElementById("editHighScore")
-        .value =
-        Number(player.high_score || 0);
-
-
-    document
-        .getElementById("editLastScore")
-        .value =
-        Number(player.last_score || 0);
-
-}
-
-
-/* =========================================================
-   CREATOR: UPLOAD FILE
-========================================================= */
-
-async function uploadCreatorFile(file) {
-
-    if (!file) {
-        throw new Error(
-            "Please select a file."
-        );
-    }
-
-
-    const maxSize =
-        50 * 1024 * 1024;
-
-
-    if (file.size > maxSize) {
-
-        throw new Error(
-            "File is too large. Maximum size is 50 MB."
-        );
-
-    }
-
-
-    const safeName =
-        file.name
-            .replace(
-                /[^a-zA-Z0-9._-]/g,
-                "_"
-            );
-
-
-    const uniqueName =
-        Date.now() +
-        "-" +
-        (
-            crypto.randomUUID
-                ? crypto.randomUUID()
-                : Math.random()
-                    .toString(36)
-                    .slice(2)
-        ) +
-        "-" +
-        safeName;
-
-
-    const storagePath =
-        uniqueName;
-
-
-    const uploadUrl =
-        SUPABASE_URL +
-        "/storage/v1/object/" +
-        STORAGE_BUCKET +
-        "/" +
-        encodeURIComponent(
-            storagePath
-        );
-
-
-    const response =
-        await fetch(
-            uploadUrl,
-            {
-                method: "POST",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization":
-                        "Bearer " +
-                        SUPABASE_KEY,
-                    "Content-Type":
-                        file.type ||
-                        "application/octet-stream",
-                    "x-upsert": "false"
-                },
-                body: file
-            }
-        );
-
-
-    if (!response.ok) {
-
-        const errorText =
-            await response.text();
-
-        throw new Error(
-            "File upload failed: " +
-            errorText
-        );
-
-    }
-
-
-    const publicUrl =
-        SUPABASE_URL +
-        "/storage/v1/object/public/" +
-        STORAGE_BUCKET +
-        "/" +
-        encodeURIComponent(
-            storagePath
-        );
-
-
-    return {
-        storagePath,
-        publicUrl
-    };
-
-}
-
-
-/* =========================================================
-   CREATOR: SEND GIFT
-========================================================= */
-
-async function sendCreatorGift() {
-
-    if (!creatorModeEnabled) {
-
-        setCreatorStatus(
-            "giftCreatorStatus",
-            "Creator Mode is not enabled.",
-            true
-        );
-
-        return;
-
-    }
-
-
-    const playerId =
-        document
-            .getElementById("giftPlayer")
-            .value;
-
-
-    const player =
-        players.find(
-            p =>
-                String(p.id) ===
-                String(playerId)
-        );
-
-
-    if (!player) {
-
-        setCreatorStatus(
-            "giftCreatorStatus",
-            "Please select a player.",
-            true
-        );
-
-        return;
-
-    }
-
+function updateGiftInputs() {
 
     const type =
-        document
-            .getElementById("giftType")
+        document.getElementById("giftType")
             .value;
 
+    const linkBox =
+        document.getElementById("giftLinkBox");
+
+    const fileBox =
+        document.getElementById("giftFileBox");
+
+    linkBox.style.display =
+        type === "link"
+            ? "block"
+            : "none";
+
+    fileBox.style.display =
+        type === "file" ||
+        type === "photo"
+            ? "block"
+            : "none";
+}
+
+/* =========================================================
+   SEND GIFT
+   ========================================================= */
+
+async function sendGift() {
+
+    if (!creatorMode) {
+
+        alert("Creator Mode is not enabled.");
+
+        return;
+    }
+
+    const player =
+        document.getElementById("creatorPlayer")
+            .value;
+
+    const type =
+        document.getElementById("giftType")
+            .value;
 
     const title =
-        document
-            .getElementById("giftTitle")
+        document.getElementById("giftTitle")
             .value
             .trim();
-
 
     const message =
-        document
-            .getElementById("giftMessage")
+        document.getElementById("giftText")
             .value
             .trim();
 
+    const link =
+        document.getElementById("giftLink")
+            .value
+            .trim();
+
+    const fileInput =
+        document.getElementById("giftFile");
+
+    if (!player) {
+
+        alert("Choose a player first.");
+
+        return;
+    }
 
     if (!title) {
 
-        setCreatorStatus(
-            "giftCreatorStatus",
-            "Please enter a gift title.",
-            true
-        );
+        alert("Enter a gift title.");
 
         return;
-
     }
 
+    if (type === "text" && !message) {
 
-    const button =
-        document.getElementById(
-            "sendGiftButton"
-        );
+        alert("Enter a message.");
 
+        return;
+    }
 
-    button.disabled = true;
+    if (type === "link" && !link) {
 
+        alert("Enter a link.");
+
+        return;
+    }
+
+    const result =
+        document.getElementById("creatorResult");
+
+    result.textContent =
+        "Sending gift...";
 
     try {
 
-        let url = null;
-        let storagePath = null;
-        let fileName = null;
-        let mimeType = null;
-
-
-        if (type === "link") {
-
-            url =
-                document
-                    .getElementById("giftUrl")
-                    .value
-                    .trim();
-
-
-            if (!url) {
-                throw new Error(
-                    "Please enter a link."
-                );
-            }
-
-
-            try {
-                new URL(url);
-            } catch {
-                throw new Error(
-                    "Please enter a valid URL."
-                );
-            }
-
-        }
-
+        let fileUrl = null;
 
         if (
-            type === "file" ||
-            type === "photo"
+            (type === "file" || type === "photo") &&
+            fileInput.files.length
         ) {
 
-            const file =
-                document
-                    .getElementById("giftFile")
-                    .files[0];
-
-
-            if (!file) {
-
-                throw new Error(
-                    "Please select a file."
+            fileUrl =
+                await uploadGiftFile(
+                    fileInput.files[0]
                 );
-
-            }
-
-
-            if (
-                type === "photo" &&
-                !file.type.startsWith("image/")
-            ) {
-
-                throw new Error(
-                    "Please select an image."
-                );
-
-            }
-
-
-            const uploaded =
-                await uploadCreatorFile(
-                    file
-                );
-
-
-            url =
-                uploaded.publicUrl;
-
-            storagePath =
-                uploaded.storagePath;
-
-            fileName =
-                file.name;
-
-            mimeType =
-                file.type || null;
-
         }
 
+        const payload = {
+            player_name: player,
+            gift_type: type,
+            type: type,
+            title: title,
+            message: message,
+            content: message,
+            link: type === "link" ? link : null,
+            url: type === "link" ? link : null,
+            file_url: fileUrl,
+            created_at: new Date().toISOString()
+        };
 
         const response =
             await fetch(
@@ -2846,201 +1725,208 @@ async function sendCreatorGift() {
                 {
                     method: "POST",
                     headers: supabaseHeaders({
-                        "Prefer":
-                            "return=representation"
+                        "Prefer": "return=minimal"
                     }),
-                    body: JSON.stringify({
-                        recipient_player_id:
-                            Number(player.id),
-
-                        recipient_player_name:
-                            player.player_name,
-
-                        type,
-
-                        title,
-
-                        message:
-                            message || null,
-
-                        url,
-
-                        storage_path:
-                            storagePath,
-
-                        file_name:
-                            fileName,
-
-                        mime_type:
-                            mimeType,
-
-                        creator_name:
-                            "Creator"
-                    })
+                    body: JSON.stringify(payload)
                 }
             );
 
-
         if (!response.ok) {
 
-            const text =
-                await response.text();
-
             throw new Error(
-                "Gift could not be saved: " +
-                text
+                "HTTP " +
+                response.status +
+                ": " +
+                await response.text()
             );
-
         }
 
+        result.textContent =
+            "✅ Gift sent successfully!";
+
+        document.getElementById("giftTitle")
+            .value = "";
+
+        document.getElementById("giftText")
+            .value = "";
+
+        document.getElementById("giftLink")
+            .value = "";
+
+        fileInput.value = "";
 
         await createCreatorNotification(
-            player.player_name,
-            "🎁 You received a new gift from Creator!"
+            player,
+            "🎁 You received a new gift!"
         );
-
-
-        document
-            .getElementById("giftTitle")
-            .value = "";
-
-
-        document
-            .getElementById("giftMessage")
-            .value = "";
-
-
-        document
-            .getElementById("giftUrl")
-            .value = "";
-
-
-        document
-            .getElementById("giftFile")
-            .value = "";
-
-
-        setCreatorStatus(
-            "giftCreatorStatus",
-            "✅ Gift sent successfully!",
-            false
-        );
-
-
-        await updateGiftBadge();
-
 
     } catch (error) {
 
-        console.error(
-            "Send gift error:",
-            error
-        );
+        console.error(error);
 
-
-        setCreatorStatus(
-            "giftCreatorStatus",
-            "❌ " + error.message,
-            true
-        );
-
-    } finally {
-
-        button.disabled = false;
-
+        result.textContent =
+            "❌ Gift failed: " +
+            error.message;
     }
-
 }
 
+/* =========================================================
+   UPLOAD GIFT FILE
+   ========================================================= */
+
+async function uploadGiftFile(file) {
+
+    if (!file) return null;
+
+    const safeName =
+        file.name.replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+        );
+
+    const path =
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2) +
+        "_" +
+        safeName;
+
+    const uploadUrl =
+        SUPABASE_URL +
+        "/storage/v1/object/creator-gifts/" +
+        encodeURIComponent(path);
+
+    const response =
+        await fetch(
+            uploadUrl,
+            {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_ANON_KEY,
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_ANON_KEY,
+                    "Content-Type":
+                        file.type ||
+                        "application/octet-stream"
+                },
+                body: file
+            }
+        );
+
+    if (!response.ok) {
+
+        throw new Error(
+            "File upload failed: HTTP " +
+            response.status +
+            " - " +
+            await response.text()
+        );
+    }
+
+    return (
+        SUPABASE_URL +
+        "/storage/v1/object/public/creator-gifts/" +
+        encodeURIComponent(path)
+    );
+}
 
 /* =========================================================
-   CREATOR: CREATE MISSION
-========================================================= */
+   CREATOR NOTIFICATION
+   ========================================================= */
+
+async function createCreatorNotification(
+    playerName,
+    message
+) {
+
+    try {
+
+        await fetch(
+            NOTIFICATIONS_URL,
+            {
+                method: "POST",
+                headers: supabaseHeaders({
+                    "Prefer": "return=minimal"
+                }),
+                body: JSON.stringify({
+                    player_name: playerName,
+                    message: message,
+                    created_at: new Date().toISOString()
+                })
+            }
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Notification could not be created:",
+            error
+        );
+    }
+}
+
+/* =========================================================
+   CREATE MISSION
+   ========================================================= */
 
 async function createMission() {
 
-    if (!creatorModeEnabled) {
+    if (!creatorMode) {
+
+        alert("Creator Mode is not enabled.");
+
         return;
     }
-
-
-    const playerId =
-        document
-            .getElementById("missionPlayer")
-            .value;
-
 
     const player =
-        players.find(
-            p =>
-                String(p.id) ===
-                String(playerId)
-        );
-
-
-    if (!player) {
-
-        setCreatorStatus(
-            "missionCreatorStatus",
-            "Please select a player.",
-            true
-        );
-
-        return;
-
-    }
-
+        document.getElementById("creatorPlayer")
+            .value;
 
     const title =
-        document
-            .getElementById("missionTitle")
+        document.getElementById("missionTitle")
             .value
             .trim();
 
+    const description =
+        document.getElementById("missionDescription")
+            .value
+            .trim();
 
-    const score =
+    const requiredScore =
         Number(
-            document
-                .getElementById("missionScore")
+            document.getElementById("missionScore")
                 .value
         );
 
+    if (!player) {
 
-    const description =
-        document
-            .getElementById("missionDescription")
-            .value
-            .trim();
+        alert("Choose a player.");
 
+        return;
+    }
 
     if (!title) {
 
-        setCreatorStatus(
-            "missionCreatorStatus",
-            "Please enter a mission title.",
-            true
-        );
+        alert("Enter a mission title.");
 
         return;
-
     }
 
+    if (!requiredScore) {
 
-    if (
-        !Number.isFinite(score) ||
-        score < 0
-    ) {
-
-        setCreatorStatus(
-            "missionCreatorStatus",
-            "Please enter a valid required score.",
-            true
-        );
+        alert("Enter the required score.");
 
         return;
-
     }
 
+    const result =
+        document.getElementById("creatorResult");
+
+    result.textContent =
+        "Creating mission...";
 
     try {
 
@@ -3050,1215 +1936,536 @@ async function createMission() {
                 {
                     method: "POST",
                     headers: supabaseHeaders({
-                        "Prefer":
-                            "return=representation"
+                        "Prefer": "return=minimal"
                     }),
                     body: JSON.stringify({
-                        player_id:
-                            Number(player.id),
-
-                        player_name:
-                            player.player_name,
-
-                        title,
-
-                        description:
-                            description ||
-                            "Get that score or higher and I will give you a gift!",
-
-                        required_score:
-                            Math.floor(score),
-
-                        completed:
-                            false
+                        player_name: player,
+                        title: title,
+                        description: description,
+                        required_score: requiredScore,
+                        completed: false,
+                        created_at:
+                            new Date().toISOString()
                     })
                 }
             );
 
-
         if (!response.ok) {
 
-            const text =
-                await response.text();
-
             throw new Error(
-                "Mission could not be created: " +
-                text
+                "HTTP " +
+                response.status +
+                ": " +
+                await response.text()
             );
-
         }
 
+        result.textContent =
+            "✅ Mission sent!";
+
+        document.getElementById("missionTitle")
+            .value = "";
+
+        document.getElementById("missionDescription")
+            .value = "";
+
+        document.getElementById("missionScore")
+            .value = "";
 
         await createCreatorNotification(
-            player.player_name,
-            "🎯 Creator gave you a new mission: " +
-            title
-        );
-
-
-        document
-            .getElementById("missionTitle")
-            .value = "";
-
-
-        document
-            .getElementById("missionScore")
-            .value = "";
-
-
-        document
-            .getElementById("missionDescription")
-            .value = "";
-
-
-        setCreatorStatus(
-            "missionCreatorStatus",
-            "✅ Mission created!",
-            false
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Create mission error:",
-            error
-        );
-
-
-        setCreatorStatus(
-            "missionCreatorStatus",
-            "❌ " + error.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CREATOR: UPDATE PLAYER
-========================================================= */
-
-async function savePlayerEdit() {
-
-    if (!creatorModeEnabled) {
-        return;
-    }
-
-
-    const player =
-        getSelectedEditPlayer();
-
-
-    if (!player) {
-        return;
-    }
-
-
-    const character =
-        document
-            .getElementById("editCharacter")
-            .value;
-
-
-    const highScore =
-        Number(
-            document
-                .getElementById("editHighScore")
-                .value
-        );
-
-
-    const lastScore =
-        Number(
-            document
-                .getElementById("editLastScore")
-                .value
-        );
-
-
-    if (
-        !Number.isFinite(highScore) ||
-        highScore < 0 ||
-        !Number.isFinite(lastScore) ||
-        lastScore < 0
-    ) {
-
-        setCreatorStatus(
-            "editCreatorStatus",
-            "Scores must be 0 or higher.",
-            true
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                PLAYERS_URL +
-                "?id=eq." +
-                encodeURIComponent(
-                    String(player.id)
-                ),
-                {
-                    method: "PATCH",
-                    headers: supabaseHeaders({
-                        "Prefer":
-                            "return=minimal"
-                    }),
-                    body: JSON.stringify({
-                        character,
-
-                        high_score:
-                            Math.floor(highScore),
-
-                        last_score:
-                            Math.floor(lastScore)
-                    })
-                }
-            );
-
-
-        if (!response.ok) {
-
-            const text =
-                await response.text();
-
-            throw new Error(
-                "Player update failed: " +
-                text
-            );
-
-        }
-
-
-        setCreatorStatus(
-            "editCreatorStatus",
-            "✅ Player updated!",
-            false
-        );
-
-
-        await loadPlayers();
-
-
-    } catch (error) {
-
-        console.error(
-            "Player update error:",
-            error
-        );
-
-
-        setCreatorStatus(
-            "editCreatorStatus",
-            "❌ " + error.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CREATOR: DELETE PLAYER
-========================================================= */
-
-async function deleteSelectedPlayer() {
-
-    if (!creatorModeEnabled) {
-        return;
-    }
-
-
-    const player =
-        getSelectedEditPlayer();
-
-
-    if (!player) {
-        return;
-    }
-
-
-    const confirmed =
-        window.confirm(
-            "Delete player \"" +
-            player.player_name +
-            "\"?\n\n" +
-            "This will also delete their gifts and missions."
-        );
-
-
-    if (!confirmed) {
-        return;
-    }
-
-
-    try {
-
-        const response =
-            await fetch(
-                PLAYERS_URL +
-                "?id=eq." +
-                encodeURIComponent(
-                    String(player.id)
-                ),
-                {
-                    method: "DELETE",
-                    headers: supabaseHeaders({
-                        "Prefer":
-                            "return=minimal"
-                    })
-                }
-            );
-
-
-        if (!response.ok) {
-
-            const text =
-                await response.text();
-
-            throw new Error(
-                "Player delete failed: " +
-                text
-            );
-
-        }
-
-
-        setCreatorStatus(
-            "editCreatorStatus",
-            "✅ Player deleted.",
-            false
-        );
-
-
-        await loadPlayers();
-
-
-    } catch (error) {
-
-        console.error(
-            "Delete player error:",
-            error
-        );
-
-
-        setCreatorStatus(
-            "editCreatorStatus",
-            "❌ " + error.message,
-            true
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CREATOR NOTIFICATION
-========================================================= */
-
-async function createCreatorNotification(
-    playerName,
-    message
-) {
-
-    try {
-
-        const response =
-            await fetch(
-                NOTIFICATIONS_URL,
-                {
-                    method: "POST",
-                    headers: supabaseHeaders({
-                        "Prefer":
-                            "return=minimal"
-                    }),
-                    body: JSON.stringify({
-                        message,
-                        type: "creator",
-                        recipient_player_name:
-                            playerName
-                    })
-                }
-            );
-
-
-        if (!response.ok) {
-
-            console.warn(
-                "Notification could not be created:",
-                await response.text()
-            );
-
-        }
-
-    } catch (error) {
-
-        console.warn(
-            "Notification error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   GIFT MODAL
-========================================================= */
-
-async function openGiftsModal() {
-
-    if (!currentPlayerName.trim()) {
-
-        document
-            .getElementById("savedMessage")
-            .textContent =
-            "❌ Type and save your name first.";
-
-        document
-            .getElementById("nameInput")
-            .focus();
-
-        return;
-
-    }
-
-
-    document
-        .getElementById("giftModalPlayer")
-        .textContent =
-        "Player: " +
-        currentPlayerName;
-
-
-    document
-        .getElementById("giftsModal")
-        .classList.add("show");
-
-
-    document
-        .getElementById("giftList")
-        .innerHTML =
-        `<div class="empty">Loading gifts...</div>`;
-
-
-    document
-        .getElementById("missionList")
-        .innerHTML =
-        `<div class="empty">Loading missions...</div>`;
-
-
-    await Promise.all([
-        loadPlayerGifts(),
-        loadPlayerMissions()
-    ]);
-
-}
-
-
-/* =========================================================
-   CLOSE GIFT MODAL
-========================================================= */
-
-function closeGiftsModal() {
-
-    document
-        .getElementById("giftsModal")
-        .classList.remove("show");
-
-}
-
-
-/* =========================================================
-   LOAD PLAYER GIFTS
-========================================================= */
-
-async function loadPlayerGifts() {
-
-    try {
-
-        const query =
-            "?select=*" +
-            "&recipient_player_name=eq." +
-            encodeURIComponent(
-                currentPlayerName
-            ) +
-            "&order=created_at.desc";
-
-
-        const response =
-            await fetch(
-                GIFTS_URL + query,
-                {
-                    method: "GET",
-                    headers: supabaseHeaders()
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                await response.text()
-            );
-
-        }
-
-
-        const gifts =
-            await response.json();
-
-
-        const container =
-            document.getElementById(
-                "giftList"
-            );
-
-
-        if (!gifts.length) {
-
-            container.innerHTML = `
-                <div class="empty">
-                    No gifts yet.
-                </div>
-            `;
-
-            return;
-
-        }
-
-
-        container.innerHTML =
-            gifts.map(
-                renderGift
-            ).join("");
-
-
-        /*
-           Mark gifts as read after displaying them.
-        */
-
-        for (const gift of gifts) {
-
-            if (!gift.read_at) {
-
-                markGiftRead(
-                    gift.id
-                );
-
-            }
-
-        }
-
-
-        await updateGiftBadge();
-
-
-    } catch (error) {
-
-        console.error(
-            "Load gifts error:",
-            error
-        );
-
-
-        document
-            .getElementById("giftList")
-            .innerHTML = `
-                <div class="empty">
-                    ❌ Could not load gifts.
-                    <br>
-                    <small>
-                        ${escapeHTML(error.message)}
-                    </small>
-                </div>
-            `;
-
-    }
-
-}
-
-
-/* =========================================================
-   RENDER GIFT
-========================================================= */
-
-function renderGift(gift) {
-
-    const date =
-        gift.created_at
-            ? new Date(
-                gift.created_at
-            ).toLocaleString()
-            : "";
-
-
-    let content = "";
-
-
-    if (gift.type === "link") {
-
-        content = `
-            ${
-                gift.message
-                    ? `
-                        <div class="gift-message">
-                            ${escapeHTML(
-                                gift.message
-                            )}
-                        </div>
-                    `
-                    : ""
-            }
-
-            ${
-                gift.url
-                    ? `
-                        <a
-                            class="gift-link"
-                            href="${escapeHTML(
-                                gift.url
-                            )}"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            🔗 Open Gift Link
-                        </a>
-                    `
-                    : ""
-            }
-        `;
-
-    } else if (
-        gift.type === "photo"
-    ) {
-
-        content = `
-            ${
-                gift.message
-                    ? `
-                        <div class="gift-message">
-                            ${escapeHTML(
-                                gift.message
-                            )}
-                        </div>
-                    `
-                    : ""
-            }
-
-            ${
-                gift.url
-                    ? `
-                        <div style="margin-top:10px;">
-                            <img
-                                src="${escapeHTML(
-                                    gift.url
-                                )}"
-                                alt="Gift photo"
-                                style="
-                                    max-width:100%;
-                                    max-height:350px;
-                                    border-radius:14px;
-                                ">
-                        </div>
-                    `
-                    : ""
-            }
-        `;
-
-    } else if (
-        gift.type === "file"
-    ) {
-
-        content = `
-            ${
-                gift.message
-                    ? `
-                        <div class="gift-message">
-                            ${escapeHTML(
-                                gift.message
-                            )}
-                        </div>
-                    `
-                    : ""
-            }
-
-            ${
-                gift.url
-                    ? `
-                        <a
-                            class="gift-link"
-                            href="${escapeHTML(
-                                gift.url
-                            )}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            download>
-                            📁 ${
-                                escapeHTML(
-                                    gift.file_name ||
-                                    "Open Gift File"
-                                )
-                            }
-                        </a>
-                    `
-                    : ""
-            }
-        `;
-
-    } else {
-
-        content = `
-            <div class="gift-message">
-                ${escapeHTML(
-                    gift.message ||
-                    "You received a gift!"
-                )}
-            </div>
-        `;
-
-    }
-
-
-    return `
-        <div class="gift-card">
-
-            <h3>
-                🎁 ${escapeHTML(
-                    gift.title
-                )}
-            </h3>
-
-            <div class="gift-meta">
-                ${escapeHTML(
-                    gift.creator_name ||
-                    "Creator"
-                )}
-                •
-                ${escapeHTML(date)}
-            </div>
-
-            ${content}
-
-        </div>
-    `;
-
-}
-
-
-/* =========================================================
-   MARK GIFT READ
-========================================================= */
-
-async function markGiftRead(id) {
-
-    try {
-
-        await fetch(
-            GIFTS_URL +
-            "?id=eq." +
-            encodeURIComponent(
-                String(id)
-            ),
-            {
-                method: "PATCH",
-                headers: supabaseHeaders({
-                    "Prefer":
-                        "return=minimal"
-                }),
-                body: JSON.stringify({
-                    read_at:
-                        new Date().toISOString()
-                })
-            }
+            player,
+            "🎯 You received a new mission!"
         );
 
     } catch (error) {
 
-        console.warn(
-            "Could not mark gift read:",
-            error
-        );
+        console.error(error);
 
+        result.textContent =
+            "❌ Mission failed: " +
+            error.message;
     }
-
 }
-
 
 /* =========================================================
    LOAD MISSIONS
-========================================================= */
+   ========================================================= */
 
-async function loadPlayerMissions() {
+async function loadMissions() {
+
+    if (!currentPlayerName) {
+
+        alert(
+            "Enter and save your player name first."
+        );
+
+        return;
+    }
+
+    openModal("missionModal");
+
+    document.getElementById("missionsContent")
+        .innerHTML =
+        `<div class="empty">Loading missions...</div>`;
 
     try {
 
-        const query =
-            "?select=*" +
-            "&player_name=eq." +
-            encodeURIComponent(
-                currentPlayerName
-            ) +
-            "&order=created_at.desc";
-
-
         const response =
             await fetch(
-                MISSIONS_URL + query,
+                MISSIONS_URL +
+                "?select=*&player_name=eq." +
+                encodeURIComponent(currentPlayerName) +
+                "&order=created_at.desc",
                 {
-                    method: "GET",
                     headers: supabaseHeaders()
                 }
             );
 
-
         if (!response.ok) {
 
             throw new Error(
+                "HTTP " +
+                response.status +
+                ": " +
                 await response.text()
             );
-
         }
-
 
         const missions =
             await response.json();
 
+        renderMissions(missions);
 
-        const container =
-            document.getElementById(
-                "missionList"
-            );
+    } catch (error) {
 
+        console.error(error);
 
-        if (!missions.length) {
+        document.getElementById("missionsContent")
+            .innerHTML =
+            `<div class="empty">
+                ❌ Could not load missions.<br>
+                <small>${escapeHtml(error.message)}</small>
+            </div>`;
+    }
+}
 
-            container.innerHTML = `
-                <div class="empty">
-                    No missions yet.
-                </div>
-            `;
+/* =========================================================
+   RENDER MISSIONS
+   ========================================================= */
 
-            return;
+function renderMissions(missions) {
 
-        }
+    const container =
+        document.getElementById("missionsContent");
 
+    if (!missions.length) {
 
         container.innerHTML =
-            missions
-                .map(
-                    renderMission
-                )
-                .join("");
+            `<div class="empty">
+                🎯 You don't have any missions yet.
+            </div>`;
 
+        return;
+    }
 
-        /*
-           Automatically mark a mission complete
-           when the player's current high score
-           reaches the required score.
-        */
+    container.innerHTML =
+        missions.map(mission => {
 
-        for (const mission of missions) {
+            const completed =
+                mission.completed === true;
 
-            const player =
-                players.find(
-                    p =>
-                        String(p.id) ===
-                        String(mission.player_id)
-                );
+            return `
+                <div class="mission-item">
 
-
-            if (
-                player &&
-                !mission.completed &&
-                Number(player.high_score) >=
-                    Number(mission.required_score)
-            ) {
-
-                await completeMission(
-                    mission.id
-                );
-
-            }
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Load missions error:",
-            error
-        );
-
-
-        document
-            .getElementById("missionList")
-            .innerHTML = `
-                <div class="empty">
-                    ❌ Could not load missions.
-                    <br>
-                    <small>
-                        ${escapeHTML(
-                            error.message
+                    <strong>
+                        ${completed ? "✅" : "🎯"}
+                        ${escapeHtml(
+                            mission.title ||
+                            "Mission"
                         )}
-                    </small>
+                    </strong>
+
+                    <div class="gift-content">
+                        ${escapeHtml(
+                            mission.description || ""
+                        )}
+                    </div>
+
+                    <div style="
+                        margin-top:8px;
+                        color:#ffe28a;
+                        font-size:13px;
+                    ">
+                        Required score:
+                        ${Number(
+                            mission.required_score || 0
+                        ).toLocaleString()}
+                    </div>
+
+                    <div style="
+                        margin-top:5px;
+                        color:${completed ? "#9dffbd" : "#9fa9c5"};
+                        font-size:13px;
+                    ">
+                        ${completed ? "Completed" : "Not completed"}
+                    </div>
+
                 </div>
             `;
 
-    }
-
+        }).join("");
 }
 
-
 /* =========================================================
-   RENDER MISSION
-========================================================= */
+   UPDATE PLAYER SCORE
+   ========================================================= */
 
-function renderMission(mission) {
+async function updatePlayerScore() {
+
+    if (!creatorMode) {
+
+        alert("Creator Mode is not enabled.");
+
+        return;
+    }
 
     const player =
-        players.find(
-            p =>
-                String(p.id) ===
-                String(mission.player_id)
-        );
+        document.getElementById("scorePlayer")
+            .value;
 
-
-    const currentScore =
-        player
-            ? Number(
-                player.high_score || 0
-            )
-            : 0;
-
-
-    const required =
+    const score =
         Number(
-            mission.required_score || 0
+            document.getElementById("newScore")
+                .value
         );
 
+    if (!player) {
 
-    const completed =
-        Boolean(mission.completed) ||
-        currentScore >= required;
+        alert("Choose a player.");
 
-
-    return `
-        <div class="mission-card">
-
-            <h3>
-                🎯 ${escapeHTML(
-                    mission.title
-                )}
-            </h3>
-
-            <div class="mission-meta">
-                Required score:
-                <strong>
-                    ${required.toLocaleString()}
-                </strong>
-            </div>
-
-            <div class="gift-message">
-                ${escapeHTML(
-                    mission.description ||
-                    "Get that score or higher and I will give you a gift!"
-                )}
-            </div>
-
-            <div style="margin-top:10px;">
-
-                ${
-                    completed
-                        ? `
-                            <span class="mission-complete">
-                                🎉 Mission completed!
-                            </span>
-                        `
-                        : `
-                            <span class="mission-progress">
-                                Current score:
-                                ${currentScore.toLocaleString()}
-                            </span>
-                        `
-                }
-
-            </div>
-
-        </div>
-    `;
-
-}
-
-
-/* =========================================================
-   COMPLETE MISSION
-========================================================= */
-
-async function completeMission(id) {
-
-    try {
-
-        await fetch(
-            MISSIONS_URL +
-            "?id=eq." +
-            encodeURIComponent(
-                String(id)
-            ),
-            {
-                method: "PATCH",
-                headers: supabaseHeaders({
-                    "Prefer":
-                        "return=minimal"
-                }),
-                body: JSON.stringify({
-                    completed: true,
-                    completed_at:
-                        new Date().toISOString()
-                })
-            }
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Could not complete mission:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   GIFT BADGE
-========================================================= */
-
-async function updateGiftBadge() {
-
-    const badge =
-        document.getElementById(
-            "giftBadge"
-        );
-
-
-    if (!badge) {
         return;
     }
 
+    if (Number.isNaN(score)) {
 
-    if (!currentPlayerName.trim()) {
+        alert("Enter a valid score.");
 
-        badge.textContent = "0";
         return;
-
     }
 
+    const result =
+        document.getElementById("creatorResult");
+
+    result.textContent =
+        "Updating score...";
 
     try {
-
-        const query =
-            "?select=id" +
-            "&recipient_player_name=eq." +
-            encodeURIComponent(
-                currentPlayerName
-            ) +
-            "&read_at=is.null";
-
 
         const response =
             await fetch(
-                GIFTS_URL + query,
+                PLAYERS_URL +
+                "?player_name=eq." +
+                encodeURIComponent(player),
                 {
-                    method: "GET",
-                    headers: supabaseHeaders()
+                    method: "PATCH",
+                    headers: supabaseHeaders({
+                        "Prefer": "return=minimal"
+                    }),
+                    body: JSON.stringify({
+                        high_score: score,
+                        last_score: score,
+                        updated_at:
+                            new Date().toISOString()
+                    })
                 }
             );
 
-
         if (!response.ok) {
-            return;
-        }
 
-
-        const gifts =
-            await response.json();
-
-
-        badge.textContent =
-            String(
-                Array.isArray(gifts)
-                    ? gifts.length
-                    : 0
+            throw new Error(
+                "HTTP " +
+                response.status +
+                ": " +
+                await response.text()
             );
-
-    } catch (error) {
-
-        console.warn(
-            "Gift badge error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   CREATOR STATUS
-========================================================= */
-
-function setCreatorStatus(
-    elementId,
-    message,
-    error
-) {
-
-    const element =
-        document.getElementById(
-            elementId
-        );
-
-
-    if (!element) {
-        return;
-    }
-
-
-    element.textContent =
-        message;
-
-
-    element.className =
-        "creator-status " +
-        (
-            error
-                ? "error"
-                : "success"
-        );
-
-}
-
-
-/* =========================================================
-   CLOSE MODALS WHEN CLICKING BACKGROUND
-========================================================= */
-
-document
-    .getElementById("playerModal")
-    .addEventListener(
-        "click",
-        function (event) {
-
-            if (
-                event.target ===
-                this
-            ) {
-
-                closePlayerModal();
-
-            }
-
-        }
-    );
-
-
-document
-    .getElementById("giftsModal")
-    .addEventListener(
-        "click",
-        function (event) {
-
-            if (
-                event.target ===
-                this
-            ) {
-
-                closeGiftsModal();
-
-            }
-
-        }
-    );
-
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (event.key === "Escape") {
-
-            closePlayerModal();
-            closeGiftsModal();
-
         }
 
-    }
-);
-
-
-/* =========================================================
-   INITIALIZATION
-========================================================= */
-
-async function initializePage() {
-
-    loadMusicState();
-
-    loadName();
-
-    refreshCreatorModeUI();
-
-    updateGiftTypeFields();
-
-    await loadPlayers();
-
-}
-
-
-initializePage();
-
-
-/* =========================================================
-   AUTO REFRESH
-========================================================= */
-
-setInterval(
-    async function () {
+        result.textContent =
+            "✅ Player score updated.";
 
         await loadPlayers();
 
-        refreshCreatorModeUI();
+    } catch (error) {
 
-    },
-    10000
+        console.error(error);
+
+        result.textContent =
+            "❌ Score update failed: " +
+            error.message;
+    }
+}
+
+/* =========================================================
+   DELETE PLAYER
+   ========================================================= */
+
+async function deletePlayer() {
+
+    if (!creatorMode) {
+
+        alert("Creator Mode is not enabled.");
+
+        return;
+    }
+
+    const player =
+        document.getElementById("scorePlayer")
+            .value;
+
+    if (!player) {
+
+        alert("Choose a player.");
+
+        return;
+    }
+
+    if (
+        !confirm(
+            "Delete player '" +
+            player +
+            "'?"
+        )
+    ) {
+        return;
+    }
+
+    const result =
+        document.getElementById("creatorResult");
+
+    result.textContent =
+        "Deleting player...";
+
+    try {
+
+        const response =
+            await fetch(
+                PLAYERS_URL +
+                "?player_name=eq." +
+                encodeURIComponent(player),
+                {
+                    method: "DELETE",
+                    headers: supabaseHeaders({
+                        "Prefer": "return=minimal"
+                    })
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status +
+                ": " +
+                await response.text()
+            );
+        }
+
+        result.textContent =
+            "✅ Player deleted.";
+
+        await loadPlayers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        result.textContent =
+            "❌ Delete failed: " +
+            error.message;
+    }
+}
+
+/* =========================================================
+   MUSIC
+   ========================================================= */
+
+function toggleMusic() {
+
+    const audio =
+        document.getElementById("backgroundMusic");
+
+    const button =
+        document.getElementById("musicButton");
+
+    if (audio.paused) {
+
+        audio.play()
+            .then(() => {
+
+                musicPlaying = true;
+                button.textContent = "🔊";
+
+            })
+            .catch(() => {
+
+                alert(
+                    "The browser blocked automatic audio. Click again to start it."
+                );
+
+            });
+
+    } else {
+
+        audio.pause();
+
+        musicPlaying = false;
+
+        button.textContent = "🔇";
+    }
+}
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+function openModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.add("show");
+}
+
+function closeModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.remove("show");
+}
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target.classList.contains("modal")
+        ) {
+
+            event.target.classList.remove("show");
+        }
+    }
 );
 
+/* =========================================================
+   REFRESH
+   ========================================================= */
 
-/*
-   Keep Creator Mode synchronized with index.html
-   if the user changes the saved browser state.
-*/
+async function refreshAll() {
 
-setInterval(
-    refreshCreatorModeUI,
-    2000
+    await loadPlayers();
+
+    await updateGiftCount();
+}
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function escapeJs(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/\r/g, "\\r")
+        .replace(/\n/g, "\\n");
+}
+
+function safeUrl(value) {
+
+    try {
+
+        const url =
+            new URL(value);
+
+        if (
+            url.protocol !== "http:" &&
+            url.protocol !== "https:"
+        ) {
+            return "#";
+        }
+
+        return escapeHtml(
+            url.href
+        );
+
+    } catch (_) {
+
+        return "#";
+    }
+}
+
+function formatDate(value) {
+
+    if (!value) return "Unknown";
+
+    const date =
+        new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "Unknown";
+    }
+
+    return date.toLocaleString();
+}
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        document.getElementById("playerName")
+            .value =
+                currentPlayerName;
+
+        updateWelcome();
+
+        initializeCreatorMode();
+
+        updateGiftCount();
+
+        await loadPlayers();
+
+        /*
+         * Keep the online list updated.
+         */
+        setInterval(
+            loadPlayers,
+            30000
+        );
+
+        /*
+         * Keep the gift counter updated.
+         */
+        setInterval(
+            updateGiftCount,
+            30000
+        );
+    }
 );
 
 </script>
 
 </body>
 </html>
-```
