@@ -1853,7 +1853,6 @@ body::before {
         <div class="tab-container">
             <button id="tabGiftsBtn" class="tab-btn active" onclick="switchGiftTab('gifts')">🎁 Gifts</button>
             <button id="tabMissionsBtn" class="tab-btn" onclick="switchGiftTab('missions')">🎯 Missions</button>
-            <button id="tabHistoryBtn" class="tab-btn" onclick="switchGiftTab('history')">📜 History</button>
         </div>
 
         <div id="tabGiftsContent">
@@ -1864,10 +1863,6 @@ body::before {
         <div id="tabMissionsContent" style="display: none;">
             <p id="noMissionsText" style="color:#9aadd2;">Loading missions...</p>
             <div id="missionsContainer"></div>
-        </div>
-
-        <div id="tabHistoryContent" style="display: none;">
-            <div id="historyContainer"></div>
         </div>
     </div>
 </div>
@@ -1955,7 +1950,6 @@ body::before {
 const SUPABASE_URL = "https://gknwpvegzjhgpypjvkkv.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrbndwdmVnempoZ3B5cGp2a2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzkzODkxMTUsImV4cCI6MjA1NDk2NTExNX0.gYyDqDInp9HjS4P63V7d3wY4tA8QZ38734h637482_E";
 const CREATOR_STORAGE_BUCKET = "creator-files";
-const CREATOR_SECRET_CODE = "20112015";
 
 /* =========================================================
    STATE VARIABLES
@@ -1964,8 +1958,6 @@ const CREATOR_SECRET_CODE = "20112015";
 let allPlayers = [];
 let filteredPlayers = [];
 let selectedSort = 'best';
-let selectedPlayer = null;
-let currentSelectedPlayerId = null;
 
 let isCreatorUnlocked = false;
 let isCreatorActive = false;
@@ -1984,12 +1976,10 @@ window.addEventListener('DOMContentLoaded', () => {
     fetchPlayers();
     fetchNotifications();
 
-    // Search input handler
     document.getElementById('searchInput').addEventListener('input', (e) => {
         filterAndRenderPlayers(e.target.value);
     });
 
-    // Auto-refresh every 10s
     setInterval(() => {
         fetchPlayers(true);
         if (isCreatorActive) fetchNotifications();
@@ -2081,7 +2071,7 @@ async function uploadToStorage(file) {
 
     if (!response.ok) {
         const err = await response.json();
-        throw new Error(`Storage Upload Failed: ${err.message || 'Check bucket permissions or existence.'}`);
+        throw new Error(`Storage Upload Failed: ${err.message || 'Check bucket permissions.'}`);
     }
 
     const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${CREATOR_STORAGE_BUCKET}/${filePath}`;
@@ -2089,7 +2079,7 @@ async function uploadToStorage(file) {
 }
 
 /* =========================================================
-   PLAYERS & LEADERBOARD DATA
+   PLAYERS & LEADERBOARD DATA (MAPPED TO player_name SCHEMA)
 ========================================================= */
 
 async function fetchPlayers(silent = false) {
@@ -2121,15 +2111,20 @@ async function fetchPlayers(silent = false) {
 function filterAndRenderPlayers(query = '') {
     const q = query.toLowerCase().trim();
 
-    filteredPlayers = allPlayers.filter(p =>
-        (p.name && p.name.toLowerCase().includes(q)) ||
-        (p.character && p.character.toLowerCase().includes(q))
-    );
+    filteredPlayers = allPlayers.filter(p => {
+        const pName = p.player_name || p.name || '';
+        const pChar = p.character || '';
+        return pName.toLowerCase().includes(q) || pChar.toLowerCase().includes(q);
+    });
 
     if (selectedSort === 'best') {
         filteredPlayers.sort((a, b) => (b.high_score || 0) - (a.high_score || 0));
     } else if (selectedSort === 'name') {
-        filteredPlayers.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        filteredPlayers.sort((a, b) => {
+            const nameA = a.player_name || a.name || '';
+            const nameB = b.player_name || b.name || '';
+            return nameA.localeCompare(nameB);
+        });
     }
 
     renderPlayersList();
@@ -2146,7 +2141,7 @@ function setSort(type) {
 function isPlayerOnline(lastSeen) {
     if (!lastSeen) return false;
     const diff = (new Date() - new Date(lastSeen)) / 1000;
-    return diff < 60; // Online if active in last 60 seconds
+    return diff < 60;
 }
 
 function renderPlayersList() {
@@ -2157,12 +2152,14 @@ function renderPlayersList() {
     }
 
     container.innerHTML = filteredPlayers.map((p, index) => {
-        const online = isPlayerOnline(p.updated_at || p.last_seen);
+        const online = isPlayerOnline(p.updated_at);
+        const name = p.player_name || p.name || 'Unknown';
+
         return `
             <div class="player" onclick="openPlayerModalById('${p.id}')">
                 <div class="rank">#${index + 1}</div>
                 <div class="player-info">
-                    <div class="player-name">${escapeHtml(p.name || 'Unknown')}</div>
+                    <div class="player-name">${escapeHtml(name)}</div>
                     <div class="player-character">${escapeHtml(p.character || 'Bondock')}</div>
                     <div class="player-status ${online ? 'online' : 'offline'}">
                         ${online ? '🟢 Online' : '⚪ Offline'}
@@ -2182,11 +2179,13 @@ function renderLeaderboard() {
     }
 
     tbody.innerHTML = filteredPlayers.map((p, index) => {
-        const online = isPlayerOnline(p.updated_at || p.last_seen);
+        const online = isPlayerOnline(p.updated_at);
+        const name = p.player_name || p.name || 'Unknown';
+
         return `
             <tr onclick="openPlayerModalById('${p.id}')">
                 <td>#${index + 1}</td>
-                <td><strong>${escapeHtml(p.name || 'Unknown')}</strong></td>
+                <td><strong>${escapeHtml(name)}</strong></td>
                 <td>${escapeHtml(p.character || 'Bondock')}</td>
                 <td><span class="${online ? 'status-online' : 'status-offline'}">${online ? '🟢 Online' : '⚪ Offline'}</span></td>
                 <td class="score">${p.high_score || 0}</td>
@@ -2226,10 +2225,11 @@ function saveName() {
 ========================================================= */
 
 function openPlayerModalById(id) {
-    const p = allPlayers.find(item => item.id === id);
+    const p = allPlayers.find(item => String(item.id) === String(id));
     if (!p) return;
 
-    document.getElementById('modalPlayerName').innerText = p.name || 'Player';
+    const name = p.player_name || p.name || 'Player';
+    document.getElementById('modalPlayerName').innerText = name;
     document.getElementById('modalCharacter').innerText = p.character || 'Bondock';
 
     const img = document.getElementById('modalCharacterImage');
@@ -2239,7 +2239,7 @@ function openPlayerModalById(id) {
         img.src = 'Bird_01.png';
     }
 
-    const online = isPlayerOnline(p.updated_at || p.last_seen);
+    const online = isPlayerOnline(p.updated_at);
     document.getElementById('modalStatus').innerText = online ? 'Online 🟢' : 'Offline ⚪';
     document.getElementById('modalScore').innerText = p.high_score || 0;
     document.getElementById('modalLastScore').innerText = p.last_score || 0;
@@ -2260,7 +2260,10 @@ function populateCreatorPlayerSelect() {
     const currentVal = select.value;
 
     select.innerHTML = `<option value="">-- Choose a Player --</option>` +
-        allPlayers.map(p => `<option value="${p.id}">${escapeHtml(p.name || 'Unnamed')} (${p.high_score || 0} pts)</option>`).join('');
+        allPlayers.map(p => {
+            const name = p.player_name || p.name || 'Unnamed';
+            return `<option value="${p.id}">${escapeHtml(name)} (${p.high_score || 0} pts)</option>`;
+        }).join('');
 
     select.value = currentVal;
     if (selectedCreatorPlayerId) {
@@ -2281,20 +2284,20 @@ async function onCreatorSelectPlayer() {
         return;
     }
 
-    const p = allPlayers.find(item => item.id === id);
+    const p = allPlayers.find(item => String(item.id) === String(id));
     if (!p) return;
 
     detailsBox.style.display = 'block';
     actionsBox.style.display = 'flex';
 
-    document.getElementById('cpName').innerText = p.name || 'Unknown';
+    const name = p.player_name || p.name || 'Unknown';
+    document.getElementById('cpName').innerText = name;
     document.getElementById('cpChar').innerText = p.character || 'Bondock';
-    const online = isPlayerOnline(p.updated_at || p.last_seen);
+    const online = isPlayerOnline(p.updated_at);
     document.getElementById('cpStatus').innerText = online ? 'Online 🟢' : 'Offline ⚪';
     document.getElementById('cpHighScore').innerText = p.high_score || 0;
     document.getElementById('cpLastScore').innerText = p.last_score || 0;
 
-    // Fetch Player's gifts & missions counts for details
     try {
         const gifts = await supabaseFetch(`creator_gifts?recipient_player_id=eq.${id}&read_at=is.null`);
         const missions = await supabaseFetch(`creator_missions?player_id=eq.${id}&completed=eq.false`);
@@ -2308,10 +2311,12 @@ async function onCreatorSelectPlayer() {
 
 async function creatorEditPlayer() {
     if (!selectedCreatorPlayerId) return;
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
-    const newScore = prompt(`Enter High Score for ${p.name}:`, p.high_score || 0);
+    const name = p.player_name || p.name || 'Player';
+
+    const newScore = prompt(`Enter High Score for ${name}:`, p.high_score || 0);
     if (newScore === null) return;
     const scoreVal = parseInt(newScore, 10);
     if (isNaN(scoreVal) || scoreVal < 0) {
@@ -2319,7 +2324,7 @@ async function creatorEditPlayer() {
         return;
     }
 
-    const newLastScore = prompt(`Enter Last Score for ${p.name}:`, p.last_score || 0);
+    const newLastScore = prompt(`Enter Last Score for ${name}:`, p.last_score || 0);
     if (newLastScore === null) return;
     const lastScoreVal = parseInt(newLastScore, 10);
     if (isNaN(lastScoreVal) || lastScoreVal < 0) {
@@ -2333,7 +2338,7 @@ async function creatorEditPlayer() {
             body: JSON.stringify({ high_score: scoreVal, last_score: lastScoreVal })
         });
 
-        await addNotification(`📊 Updated score for ${p.name}: High ${scoreVal}, Last ${lastScoreVal}`);
+        await addNotification(`📊 Updated score for ${name}: High ${scoreVal}, Last ${lastScoreVal}`);
         alert('Player scores updated successfully!');
         await fetchPlayers();
     } catch (err) {
@@ -2343,13 +2348,14 @@ async function creatorEditPlayer() {
 
 async function creatorChangeCharacter() {
     if (!selectedCreatorPlayerId) return;
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
+    const name = p.player_name || p.name || 'Player';
     const currentChar = p.character || 'Bondock';
     const newChar = currentChar === 'Bondock' ? 'Bosbos' : 'Bondock';
 
-    if (!confirm(`Switch character for ${p.name} from "${currentChar}" to "${newChar}"?`)) return;
+    if (!confirm(`Switch character for ${name} from "${currentChar}" to "${newChar}"?`)) return;
 
     try {
         await supabaseFetch(`players?id=eq.${p.id}`, {
@@ -2357,7 +2363,7 @@ async function creatorChangeCharacter() {
             body: JSON.stringify({ character: newChar })
         });
 
-        await addNotification(`🐦 Changed ${p.name}'s character to ${newChar}`);
+        await addNotification(`🐦 Changed ${name}'s character to ${newChar}`);
         alert('Character updated successfully!');
         await fetchPlayers();
     } catch (err) {
@@ -2367,17 +2373,18 @@ async function creatorChangeCharacter() {
 
 async function creatorDeletePlayer() {
     if (!selectedCreatorPlayerId) return;
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
-    if (!confirm(`Are you sure you want to delete ${p.name}? This will permanently remove their record.`)) return;
+    const name = p.player_name || p.name || 'Player';
+    if (!confirm(`Are you sure you want to delete ${name}? This will permanently remove their record.`)) return;
 
     try {
         await supabaseFetch(`players?id=eq.${p.id}`, {
             method: 'DELETE'
         });
 
-        await addNotification(`🗑️ Player deleted: ${p.name}`);
+        await addNotification(`🗑️ Player deleted: ${name}`);
         alert('Player deleted successfully!');
         selectedCreatorPlayerId = null;
         document.getElementById('creatorPlayerSelect').value = '';
@@ -2393,10 +2400,11 @@ async function creatorDeletePlayer() {
 
 function creatorOpenGiftModal() {
     if (!selectedCreatorPlayerId) return;
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
-    document.getElementById('giftRecipientName').innerText = p.name;
+    const name = p.player_name || p.name || 'Player';
+    document.getElementById('giftRecipientName').innerText = name;
     document.getElementById('creatorGiftModal').classList.add('show');
 }
 
@@ -2412,9 +2420,10 @@ function onGiftTypeChange() {
 }
 
 async function submitSendGift() {
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
+    const name = p.player_name || p.name || 'Player';
     const type = document.getElementById('giftTypeSelect').value;
     const title = document.getElementById('giftTitleInput').value.trim();
     const message = document.getElementById('giftMessageInput').value.trim();
@@ -2449,7 +2458,7 @@ async function submitSendGift() {
 
     const payload = {
         recipient_player_id: p.id,
-        recipient_player_name: p.name,
+        recipient_player_name: name,
         type,
         title,
         message,
@@ -2465,7 +2474,7 @@ async function submitSendGift() {
             body: JSON.stringify(payload)
         });
 
-        await addNotification(`🎁 Gift sent to ${p.name}: "${title}"`);
+        await addNotification(`🎁 Gift sent to ${name}: "${title}"`);
         alert('Gift sent successfully!');
         closeCreatorGiftModal();
         onCreatorSelectPlayer();
@@ -2476,10 +2485,11 @@ async function submitSendGift() {
 
 function creatorOpenMissionModal() {
     if (!selectedCreatorPlayerId) return;
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
-    document.getElementById('missionRecipientName').innerText = p.name;
+    const name = p.player_name || p.name || 'Player';
+    document.getElementById('missionRecipientName').innerText = name;
     document.getElementById('creatorMissionModal').classList.add('show');
 }
 
@@ -2488,9 +2498,10 @@ function closeCreatorMissionModal() {
 }
 
 async function submitCreateMission() {
-    const p = allPlayers.find(item => item.id === selectedCreatorPlayerId);
+    const p = allPlayers.find(item => String(item.id) === String(selectedCreatorPlayerId));
     if (!p) return;
 
+    const name = p.player_name || p.name || 'Player';
     const title = document.getElementById('missionTitleInput').value.trim();
     const scoreVal = parseInt(document.getElementById('missionScoreInput').value, 10);
     const desc = document.getElementById('missionDescInput').value.trim();
@@ -2502,11 +2513,11 @@ async function submitCreateMission() {
 
     const payload = {
         player_id: p.id,
-        player_name: p.name,
+        player_name: name,
         title,
         required_score: scoreVal,
         description: desc,
-        completed: (p.high_score >= scoreVal)
+        completed: ((p.high_score || 0) >= scoreVal)
     };
 
     try {
@@ -2515,7 +2526,7 @@ async function submitCreateMission() {
             body: JSON.stringify(payload)
         });
 
-        await addNotification(`🎯 Mission created for ${p.name}: "${title}"`);
+        await addNotification(`🎯 Mission created for ${name}: "${title}"`);
         alert('Mission created successfully!');
         closeCreatorMissionModal();
         onCreatorSelectPlayer();
@@ -2597,15 +2608,12 @@ function closeGiftsModal() {
 function switchGiftTab(tab) {
     document.getElementById('tabGiftsBtn').classList.toggle('active', tab === 'gifts');
     document.getElementById('tabMissionsBtn').classList.toggle('active', tab === 'missions');
-    document.getElementById('tabHistoryBtn').classList.toggle('active', tab === 'history');
 
     document.getElementById('tabGiftsContent').style.display = tab === 'gifts' ? 'block' : 'none';
     document.getElementById('tabMissionsContent').style.display = tab === 'missions' ? 'block' : 'none';
-    document.getElementById('tabHistoryContent').style.display = tab === 'history' ? 'block' : 'none';
 }
 
 async function loadPlayerGiftsAndMissions(playerName) {
-    // 1. Fetch Gifts
     try {
         playerGifts = await supabaseFetch(`creator_gifts?recipient_player_name=eq.${encodeURIComponent(playerName)}&order=created_at.desc`);
         renderPlayerGifts();
@@ -2613,7 +2621,6 @@ async function loadPlayerGiftsAndMissions(playerName) {
         document.getElementById('noGiftsText').innerText = 'Failed to load gifts.';
     }
 
-    // 2. Fetch Missions
     try {
         playerMissions = await supabaseFetch(`creator_missions?player_name=eq.${encodeURIComponent(playerName)}&order=created_at.desc`);
         renderPlayerMissions();
@@ -2677,7 +2684,7 @@ function renderPlayerMissions() {
 
     noText.style.display = 'none';
     const playerName = localStorage.getItem('CockatielPlayerName');
-    const playerObj = allPlayers.find(p => p.name === playerName);
+    const playerObj = allPlayers.find(p => (p.player_name || p.name) === playerName);
     const currentScore = playerObj ? (playerObj.high_score || 0) : 0;
 
     container.innerHTML = playerMissions.map(m => {
@@ -2705,7 +2712,7 @@ async function evaluatePlayerMissions() {
     const playerName = localStorage.getItem('CockatielPlayerName');
     if (!playerName) return;
 
-    const playerObj = allPlayers.find(p => p.name === playerName);
+    const playerObj = allPlayers.find(p => (p.player_name || p.name) === playerName);
     if (!playerObj) return;
 
     try {
@@ -2718,7 +2725,8 @@ async function evaluatePlayerMissions() {
                     method: 'PATCH',
                     body: JSON.stringify({ completed: true, completed_at: new Date().toISOString() })
                 });
-                await addNotification(`🏆 Player ${playerObj.name} completed mission: "${m.title}"`);
+                const name = playerObj.player_name || playerObj.name;
+                await addNotification(`🏆 Player ${name} completed mission: "${m.title}"`);
             }
         }
     } catch (e) {
