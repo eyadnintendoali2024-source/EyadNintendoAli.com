@@ -1,1616 +1,1527 @@
-now on that html if that html saw the save on browser on index the cerator mode is on its let me edit here too like give gifts to players and add new button with gift icon when pass it open overpage menu with notficion from creator if he open it he saw give it like text or link or file or photo and the creator is uplood that to him and gifits button only work if he type his name frist and can creator give him a mission like get that score or higher and i will give you a gifit and the creator he will select player to give him and can creator edit on scorese or delete or delete players \<!DOCTYPE html>
-\<html lang="en">
-\<head>
-\<meta charset="UTF-8">
-\<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-\<title>Cockatiel Bird Online List - Eyad Nintendo Ali\</title>
+<title>Cockatiel Bird Online List - Eyad Nintendo Ali</title>
 
-\<style>
+<link rel="icon" type="image/png" href="Bird_01.png">
 
-\* {
-&#x20;   box-sizing: border-box;
+<style>
+* {
+    box-sizing: border-box;
 }
 
 html,
 body {
-&#x20;   margin: 0;
-&#x20;   padding: 0;
-&#x20;   width: 100%;
-&#x20;   min-height: 100%;
-&#x20;   font-family: Arial, Helvetica, sans-serif;
-&#x20;   color: white;
-&#x20;   overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
 }
 
 body {
-&#x20;   min-height: 100vh;
-
-&#x20;   background:
-&#x20;       radial-gradient(
-&#x20;           circle at 20% 20%,
-&#x20;           rgba(90, 70, 180, 0.25),
-&#x20;           transparent 30%
-&#x20;       ),
-&#x20;       radial-gradient(
-&#x20;           circle at 80% 70%,
-&#x20;           rgba(0, 150, 255, 0.15),
-&#x20;           transparent 30%
-&#x20;       ),
-&#x20;       linear-gradient(
-&#x20;           180deg,
-&#x20;           \#030414 0%,
-&#x20;           \#08051d 50%,
-&#x20;           \#02030d 100%
-&#x20;       );
-
-&#x20;   position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(75, 0, 130, 0.25), transparent 35%),
+        radial-gradient(circle at 80% 30%, rgba(0, 110, 255, 0.18), transparent 35%),
+        radial-gradient(circle at 50% 100%, rgba(0, 255, 200, 0.10), transparent 40%),
+        #03030d;
+    overflow-x: hidden;
 }
 
+/* Stars */
 body::before {
-&#x20;   content: "";
-
-&#x20;   position: fixed;
-
-&#x20;   inset: 0;
-
-&#x20;   pointer-events: none;
-
-&#x20;   z-index: -1;
-
-&#x20;   background-image:
-&#x20;       radial-gradient(
-&#x20;           circle,
-&#x20;           white 1px,
-&#x20;           transparent 1px
-&#x20;       ),
-&#x20;       radial-gradient(
-&#x20;           circle,
-&#x20;           white 1px,
-&#x20;           transparent 1px
-&#x20;       ),
-&#x20;       radial-gradient(
-&#x20;           circle,
-&#x20;           white 2px,
-&#x20;           transparent 2px
-&#x20;       );
-
-&#x20;   background-size:
-&#x20;       100px 100px,
-&#x20;       170px 170px,
-&#x20;       260px 260px;
-
-&#x20;   background-position:
-&#x20;       20px 30px,
-&#x20;       70px 100px,
-&#x20;       120px 50px;
-
-&#x20;   opacity: 0.55;
-
-&#x20;   animation:
-&#x20;       starsMove 30s linear infinite;
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 90px 90px, 150px 150px;
+    background-position: 0 0, 35px 50px;
+    opacity: .35;
 }
 
-@keyframes starsMove {
-
-&#x20;   from {
-&#x20;       transform: translateY(0);
-&#x20;   }
-
-&#x20;   to {
-&#x20;       transform: translateY(-150px);
-&#x20;   }
-
-}
-
-
-/\* =========================================================
-&#x20;  TOP BAR
-\========================================================= \*/
-
+/* Top bar */
 .topbar {
+    width: 100%;
+    min-height: 68px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
 
-&#x20;   width: 100%;
-
-&#x20;   min-height: 75px;
-
-&#x20;   display: flex;
-
-&#x20;   align-items: center;
-
-&#x20;   justify-content: space-between;
-
-&#x20;   padding: 12px 25px;
-
-&#x20;   background:
-&#x20;       rgba(5, 5, 25, 0.78);
-
-&#x20;   backdrop-filter: blur(12px);
-
-&#x20;   border-bottom:
-&#x20;       1px solid rgba(255,255,255,0.12);
-
-&#x20;   position: sticky;
-
-&#x20;   top: 0;
-
-&#x20;   z-index: 100;
+    background: rgba(5, 5, 25, .88);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
-
-&#x20;   font-size: 25px;
-
-&#x20;   font-weight: bold;
-
-&#x20;   text-shadow:
-&#x20;       0 0 10px rgba(100,180,255,0.8),
-&#x20;       0 0 25px rgba(100,100,255,0.5);
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 .top-buttons {
-
-&#x20;   display: flex;
-
-&#x20;   gap: 10px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
-.top-button {
-
-&#x20;   border: none;
-
-&#x20;   padding: 10px 17px;
-
-&#x20;   border-radius: 12px;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.1);
-
-&#x20;   color: white;
-
-&#x20;   cursor: pointer;
-
-&#x20;   font-size: 15px;
-
-&#x20;   transition:
-&#x20;       transform 0.2s,
-&#x20;       background 0.2s,
-&#x20;       box-shadow 0.2s;
+button {
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: bold;
+    color: white;
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.12);
+    cursor: pointer;
+    transition: .2s;
 }
 
-.top-button:hover {
-
-&#x20;   transform:
-&#x20;       translateY(-2px);
-
-&#x20;   background:
-&#x20;       rgba(80,150,255,0.3);
-
-&#x20;   box-shadow:
-&#x20;       0 0 15px
-&#x20;       rgba(80,150,255,0.5);
+button:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,.18);
 }
 
-
-/\* =========================================================
-&#x20;  MAIN
-\========================================================= \*/
-
-.main {
-
-&#x20;   width: 100%;
-
-&#x20;   max-width: 1500px;
-
-&#x20;   margin: auto;
-
-&#x20;   padding:
-&#x20;       35px 25px 70px;
+button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none;
 }
 
-.title {
-
-&#x20;   text-align: center;
-
-&#x20;   font-size:
-&#x20;       clamp(30px, 5vw, 55px);
-
-&#x20;   margin:
-&#x20;       10px 0 8px;
-
-&#x20;   text-shadow:
-&#x20;       0 0 10px #ffffff,
-&#x20;       0 0 30px rgba(80,150,255,0.9);
+.home-button {
+    background: linear-gradient(135deg, #1877ff, #6d35ff);
 }
 
-.subtitle {
-
-&#x20;   text-align: center;
-
-&#x20;   color: #c8d7ff;
-
-&#x20;   margin-bottom: 35px;
+.gift-button {
+    background: linear-gradient(135deg, #ff4db8, #ff8a00);
+    position: relative;
 }
 
+.creator-button {
+    background: linear-gradient(135deg, #00a86b, #0077ff);
+}
 
-/\* =========================================================
-&#x20;  ONLINE STATUS
-\========================================================= \*/
+.notification-count {
+    display: none;
+    min-width: 20px;
+    height: 20px;
+    padding: 2px 6px;
+    border-radius: 20px;
+    background: #ff3131;
+    font-size: 12px;
+    line-height: 16px;
+    position: absolute;
+    top: -7px;
+    right: -7px;
+}
+
+/* Main */
+main {
+    width: min(1450px, calc(100% - 30px));
+    margin: 0 auto;
+    padding: 35px 0 60px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(30px, 5vw, 55px);
+    text-shadow: 0 0 25px rgba(0,170,255,.4);
+}
+
+.hero p {
+    margin: 8px 0 15px;
+    color: #aeb8d9;
+}
 
 .online-status {
-
-&#x20;   width: fit-content;
-
-&#x20;   margin:
-&#x20;       0 auto 25px;
-
-&#x20;   padding:
-&#x20;       8px 15px;
-
-&#x20;   border-radius: 999px;
-
-&#x20;   background:
-&#x20;       rgba(60,255,130,0.08);
-
-&#x20;   border:
-&#x20;       1px solid rgba(60,255,130,0.25);
-
-&#x20;   color:
-&#x20;       \#8fffa5;
-
-&#x20;   font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 13px;
+    border-radius: 30px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.10);
+    color: #b9c3df;
+    font-size: 13px;
 }
 
-.online-status.loading {
-
-&#x20;   color:
-&#x20;       \#ffd86b;
-
-&#x20;   background:
-&#x20;       rgba(255,216,107,0.08);
-
-&#x20;   border-color:
-&#x20;       rgba(255,216,107,0.25);
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #777;
 }
 
-.online-status.error {
-
-&#x20;   color:
-&#x20;       \#ff9b9b;
-
-&#x20;   background:
-&#x20;       rgba(255,80,80,0.08);
-
-&#x20;   border-color:
-&#x20;       rgba(255,80,80,0.25);
+.status-dot.online {
+    background: #00ff88;
+    box-shadow: 0 0 12px #00ff88;
 }
 
-
-/\* =========================================================
-&#x20;  LAYOUT
-\========================================================= \*/
-
-.content {
-
-&#x20;   display: grid;
-
-&#x20;   grid-template-columns:
-&#x20;       390px 1fr;
-
-&#x20;   gap: 30px;
-
-&#x20;   align-items: start;
+/* Main grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 390px) minmax(0, 1fr);
+    gap: 22px;
 }
 
-.left-panel {
-
-&#x20;   display: flex;
-
-&#x20;   flex-direction: column;
-
-&#x20;   gap: 20px;
+.card {
+    background: rgba(10, 10, 35, .75);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 15px 50px rgba(0,0,0,.28);
+    backdrop-filter: blur(12px);
 }
-
-
-/\* =========================================================
-&#x20;  BIRD
-\========================================================= \*/
 
 .bird-card {
-
-&#x20;   min-height: 450px;
-
-&#x20;   display: flex;
-
-&#x20;   align-items: center;
-
-&#x20;   justify-content: center;
-
-&#x20;   padding: 15px;
-
-&#x20;   border-radius: 25px;
-
-&#x20;   background:
-&#x20;       rgba(10, 10, 35, 0.68);
-
-&#x20;   border:
-&#x20;       1px solid rgba(255,255,255,0.12);
-
-&#x20;   box-shadow:
-&#x20;       0 0 35px
-&#x20;       rgba(50,100,255,0.18),
-
-&#x20;       inset
-&#x20;       0 0 30px
-&#x20;       rgba(255,255,255,0.03);
-
-&#x20;   overflow: hidden;
+    text-align: center;
 }
 
-.character-image {
-
-&#x20;   width: auto;
-
-&#x20;   height: auto;
-
-&#x20;   max-width: 100%;
-
-&#x20;   max-height: 430px;
-
-&#x20;   object-fit: contain;
-
-&#x20;   display: block;
-
-&#x20;   image-rendering: pixelated;
-
-&#x20;   image-rendering: crisp-edges;
-
-&#x20;   filter: none;
-
-&#x20;   user-select: none;
-
-&#x20;   -webkit-user-drag: none;
-
-&#x20;   animation:
-&#x20;       birdFloat 4s ease-in-out infinite;
+.bird-card h2 {
+    margin-top: 0;
 }
 
-@keyframes birdFloat {
-
-&#x20;   0%,
-&#x20;   100% {
-
-&#x20;       transform:
-&#x20;           translateY(0)
-&#x20;           rotate(0deg);
-&#x20;   }
-
-&#x20;   50% {
-
-&#x20;       transform:
-&#x20;           translateY(-12px)
-&#x20;           rotate(1deg);
-&#x20;   }
+.bird-image {
+    width: min(100%, 290px);
+    height: 290px;
+    object-fit: contain;
+    display: block;
+    margin: 10px auto;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,.4));
 }
 
-
-/\* =========================================================
-&#x20;  PLAYER LIST
-\========================================================= \*/
-
-.player-list-panel {
-
-&#x20;   background:
-&#x20;       rgba(10, 10, 35, 0.72);
-
-&#x20;   border:
-&#x20;       1px solid rgba(255,255,255,0.12);
-
-&#x20;   border-radius: 22px;
-
-&#x20;   padding: 20px;
-
-&#x20;   box-shadow:
-&#x20;       0 0 30px
-&#x20;       rgba(50,100,255,0.15);
+.character-name {
+    color: #aab5d9;
 }
 
-.panel-title {
-
-&#x20;   font-size: 23px;
-
-&#x20;   font-weight: bold;
-
-&#x20;   margin-bottom: 15px;
+/* Search */
+.search-row {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0;
 }
 
-.search-box {
-
-&#x20;   width: 100%;
-
-&#x20;   padding:
-&#x20;       13px 15px;
-
-&#x20;   border: none;
-
-&#x20;   outline: none;
-
-&#x20;   border-radius: 12px;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.1);
-
-&#x20;   color: white;
-
-&#x20;   font-size: 15px;
-
-&#x20;   margin-bottom: 12px;
+.search-row input {
+    flex: 1;
 }
 
-.search-box::placeholder {
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 11px;
+    border: 1px solid rgba(255,255,255,.14);
+    outline: none;
+    color: white;
+    background: rgba(0,0,0,.28);
+}
 
-&#x20;   color: #aeb9d5;
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(0,170,255,.7);
+    box-shadow: 0 0 0 3px rgba(0,170,255,.10);
+}
+
+select option {
+    color: #111;
 }
 
 .sort-row {
-
-&#x20;   display: flex;
-
-&#x20;   gap: 8px;
-
-&#x20;   margin-bottom: 15px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
-.sort-button {
-
-&#x20;   flex: 1;
-
-&#x20;   border: none;
-
-&#x20;   border-radius: 10px;
-
-&#x20;   padding: 10px;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.08);
-
-&#x20;   color: white;
-
-&#x20;   cursor: pointer;
-
-&#x20;   transition:
-&#x20;       background 0.2s,
-&#x20;       box-shadow 0.2s;
+.sort-row button.active {
+    background: #176dff;
 }
 
-.sort-button.active,
-.sort-button:hover {
-
-&#x20;   background:
-&#x20;       rgba(80,140,255,0.35);
-
-&#x20;   box-shadow:
-&#x20;       0 0 12px
-&#x20;       rgba(80,140,255,0.25);
+/* Player list */
+.player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 560px;
+    overflow-y: auto;
+    padding-right: 3px;
 }
 
-.players {
-
-&#x20;   display: flex;
-
-&#x20;   flex-direction: column;
-
-&#x20;   gap: 8px;
-
-&#x20;   max-height: 500px;
-
-&#x20;   overflow-y: auto;
+.player-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.055);
+    border: 1px solid rgba(255,255,255,.06);
+    cursor: pointer;
+    transition: .18s;
 }
 
-
-/\* =========================================================
-&#x20;  PLAYER
-\========================================================= \*/
-
-.player {
-
-&#x20;   width: 100%;
-
-&#x20;   display: flex;
-
-&#x20;   align-items: center;
-
-&#x20;   gap: 12px;
-
-&#x20;   padding: 12px;
-
-&#x20;   border-radius: 13px;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.055);
-
-&#x20;   border:
-&#x20;       1px solid transparent;
-
-&#x20;   cursor: pointer;
-
-&#x20;   transition:
-&#x20;       transform 0.2s,
-&#x20;       background 0.2s,
-&#x20;       border 0.2s;
+.player-item:hover {
+    background: rgba(255,255,255,.11);
+    transform: translateX(2px);
 }
 
-.player:hover {
-
-&#x20;   transform:
-&#x20;       translateX(5px);
-
-&#x20;   background:
-&#x20;       rgba(70,130,255,0.18);
-
-&#x20;   border-color:
-&#x20;       rgba(100,170,255,0.3);
-}
-
-.rank {
-
-&#x20;   min-width: 30px;
-
-&#x20;   font-weight: bold;
-
-&#x20;   color: #8bb8ff;
+.player-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: rgba(0,0,0,.2);
 }
 
 .player-info {
-
-&#x20;   flex: 1;
-
-&#x20;   min-width: 0;
+    flex: 1;
+    min-width: 0;
 }
 
 .player-name {
-
-&#x20;   font-weight: bold;
-
-&#x20;   overflow: hidden;
-
-&#x20;   white-space: nowrap;
-
-&#x20;   text-overflow: ellipsis;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .player-character {
-
-&#x20;   color: #9caed3;
-
-&#x20;   font-size: 12px;
-
-&#x20;   margin-top: 3px;
+    font-size: 12px;
+    color: #8994b8;
+    margin-top: 3px;
 }
 
 .player-score {
-
-&#x20;   font-weight: bold;
-
-&#x20;   color: #ffd86b;
+    text-align: right;
+    font-weight: bold;
 }
 
-
-/\* =========================================================
-&#x20;  RIGHT
-\========================================================= \*/
-
-.right-panel {
-
-&#x20;   min-width: 0;
+.online-label {
+    font-size: 11px;
+    color: #00ff88;
+    margin-top: 3px;
 }
 
-.welcome-card {
-
-&#x20;   background:
-&#x20;       rgba(10,10,35,0.72);
-
-&#x20;   border:
-&#x20;       1px solid rgba(255,255,255,0.12);
-
-&#x20;   border-radius: 25px;
-
-&#x20;   padding: 30px;
-
-&#x20;   margin-bottom: 20px;
-
-&#x20;   box-shadow:
-&#x20;       0 0 35px
-&#x20;       rgba(50,100,255,0.15);
+/* Right side */
+.welcome {
+    margin-bottom: 20px;
 }
 
-.welcome-card h2 {
-
-&#x20;   margin-top: 0;
-
-&#x20;   font-size: 30px;
+.welcome h2 {
+    margin-top: 0;
 }
 
-.welcome-card p {
-
-&#x20;   color: #c5d0ea;
-
-&#x20;   line-height: 1.6;
+.signin-box {
+    padding: 15px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.08);
 }
 
-
-/\* =========================================================
-&#x20;  NAME
-\========================================================= \*/
-
-.signin {
-
-&#x20;   background:
-&#x20;       rgba(10,10,35,0.72);
-
-&#x20;   border:
-&#x20;       1px solid rgba(255,255,255,0.12);
-
-&#x20;   border-radius: 25px;
-
-&#x20;   padding: 25px;
-
-&#x20;   box-shadow:
-&#x20;       0 0 35px
-&#x20;       rgba(50,100,255,0.15);
-}
-
-.signin h2 {
-
-&#x20;   margin-top: 0;
-}
-
-.name-row {
-
-&#x20;   display: flex;
-
-&#x20;   gap: 10px;
-}
-
-.name-input {
-
-&#x20;   flex: 1;
-
-&#x20;   min-width: 0;
-
-&#x20;   padding: 14px;
-
-&#x20;   border: none;
-
-&#x20;   outline: none;
-
-&#x20;   border-radius: 12px;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.1);
-
-&#x20;   color: white;
-
-&#x20;   font-size: 16px;
-}
-
-.name-input::placeholder {
-
-&#x20;   color: #aeb9d5;
-}
-
-.save-button {
-
-&#x20;   border: none;
-
-&#x20;   padding:
-&#x20;       14px 20px;
-
-&#x20;   border-radius: 12px;
-
-&#x20;   background:
-&#x20;       linear-gradient(
-&#x20;           135deg,
-&#x20;           \#477eff,
-&#x20;           \#7254ff
-&#x20;       );
-
-&#x20;   color: white;
-
-&#x20;   font-weight: bold;
-
-&#x20;   cursor: pointer;
-
-&#x20;   transition:
-&#x20;       transform 0.2s;
-}
-
-.save-button:hover {
-
-&#x20;   transform:
-&#x20;       translateY(-2px);
+.signin-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
 }
 
 .saved-message {
-
-&#x20;   min-height: 20px;
-
-&#x20;   margin-top: 10px;
-
-&#x20;   color: #8fffa5;
-
-&#x20;   font-size: 14px;
+    color: #00ff88;
+    font-size: 13px;
+    margin-top: 8px;
+    min-height: 18px;
 }
 
-
-/\* =========================================================
-&#x20;  LEADERBOARD
-\========================================================= \*/
-
-.leaderboard {
-
-&#x20;   margin-top: 20px;
-
-&#x20;   background:
-&#x20;       rgba(10,10,35,0.72);
-
-&#x20;   border:
-&#x20;       1px solid rgba(255,255,255,0.12);
-
-&#x20;   border-radius: 25px;
-
-&#x20;   padding: 25px;
-
-&#x20;   box-shadow:
-&#x20;       0 0 35px
-&#x20;       rgba(50,100,255,0.15);
-
-&#x20;   overflow-x: auto;
+/* Leaderboard */
+.table-wrap {
+    overflow-x: auto;
 }
 
-.leaderboard h2 {
-
-&#x20;   margin-top: 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.table {
-
-&#x20;   width: 100%;
-
-&#x20;   border-collapse: collapse;
+th,
+td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.table th,
-.table td {
-
-&#x20;   padding: 13px;
-
-&#x20;   text-align: left;
-
-&#x20;   border-bottom:
-&#x20;       1px solid rgba(255,255,255,0.08);
+th {
+    color: #8e9ac2;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
-.table th {
-
-&#x20;   color: #9db7e8;
+td {
+    font-size: 14px;
 }
 
-.table tbody tr {
-
-&#x20;   cursor: pointer;
-
-&#x20;   transition:
-&#x20;       background 0.2s;
+.rank {
+    width: 55px;
+    color: #7fa8ff;
+    font-weight: bold;
 }
 
-.table tbody tr:hover {
-
-&#x20;   background:
-&#x20;       rgba(80,140,255,0.12);
+.no-data {
+    color: #7883a7;
+    text-align: center;
+    padding: 25px;
 }
 
-.score {
-
-&#x20;   color: #ffd86b;
-
-&#x20;   font-weight: bold;
-}
-
-
-/\* =========================================================
-&#x20;  MODAL
-\========================================================= \*/
-
+/* Modal */
 .modal {
-
-&#x20;   position: fixed;
-
-&#x20;   inset: 0;
-
-&#x20;   z-index: 1000;
-
-&#x20;   display: none;
-
-&#x20;   align-items: center;
-
-&#x20;   justify-content: center;
-
-&#x20;   padding: 20px;
-
-&#x20;   background:
-&#x20;       rgba(0,0,15,0.78);
-
-&#x20;   backdrop-filter:
-&#x20;       blur(12px);
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    z-index: 500;
 }
 
 .modal.show {
-
-&#x20;   display: flex;
-
-&#x20;   animation:
-&#x20;       modalFade 0.2s ease;
-}
-
-@keyframes modalFade {
-
-&#x20;   from {
-&#x20;       opacity: 0;
-&#x20;   }
-
-&#x20;   to {
-&#x20;       opacity: 1;
-&#x20;   }
+    display: flex;
 }
 
 .modal-box {
-
-&#x20;   width:
-&#x20;       min(600px, 100%);
-
-&#x20;   background:
-&#x20;       linear-gradient(
-&#x20;           145deg,
-&#x20;           rgba(25,30,70,0.97),
-&#x20;           rgba(7,8,28,0.98)
-&#x20;       );
-
-&#x20;   border:
-&#x20;       1px solid
-&#x20;       rgba(130,180,255,0.3);
-
-&#x20;   border-radius: 28px;
-
-&#x20;   padding: 30px;
-
-&#x20;   position: relative;
-
-&#x20;   box-shadow:
-&#x20;       0 0 60px
-&#x20;       rgba(50,120,255,0.3);
-
-&#x20;   animation:
-&#x20;       modalPop 0.25s ease;
+    width: min(650px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 22px;
+    background: #08081c;
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 30px 100px rgba(0,0,0,.65);
+    padding: 22px;
+    position: relative;
 }
 
-@keyframes modalPop {
-
-&#x20;   from {
-
-&#x20;       transform:
-&#x20;           scale(0.9);
-
-&#x20;       opacity: 0;
-&#x20;   }
-
-&#x20;   to {
-
-&#x20;       transform:
-&#x20;           scale(1);
-
-&#x20;       opacity: 1;
-&#x20;   }
+.close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
 }
 
-.close-modal {
-
-&#x20;   position: absolute;
-
-&#x20;   top: 15px;
-
-&#x20;   right: 18px;
-
-&#x20;   width: 40px;
-
-&#x20;   height: 40px;
-
-&#x20;   border: none;
-
-&#x20;   border-radius: 50%;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.1);
-
-&#x20;   color: white;
-
-&#x20;   font-size: 23px;
-
-&#x20;   cursor: pointer;
+.modal-character {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    display: block;
+    margin: 10px auto;
 }
 
-.close-modal:hover {
-
-&#x20;   background:
-&#x20;       rgba(255,70,70,0.3);
+.modal-title {
+    text-align: center;
 }
 
-.modal-content {
-
-&#x20;   display: grid;
-
-&#x20;   grid-template-columns:
-&#x20;       220px 1fr;
-
-&#x20;   gap: 25px;
-
-&#x20;   align-items: center;
-}
-
-.modal-character-image {
-
-&#x20;   width: 220px;
-
-&#x20;   height: 220px;
-
-&#x20;   object-fit: contain;
-
-&#x20;   display: block;
-
-&#x20;   image-rendering: pixelated;
-
-&#x20;   image-rendering: crisp-edges;
-
-&#x20;   filter: none;
-
-&#x20;   user-select: none;
-
-&#x20;   -webkit-user-drag: none;
-}
-
-.modal-player-name {
-
-&#x20;   font-size: 32px;
-
-&#x20;   font-weight: bold;
-
-&#x20;   margin-bottom: 20px;
-
-&#x20;   word-break: break-word;
+.modal-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 18px;
 }
 
 .detail {
-
-&#x20;   margin:
-&#x20;       12px 0;
-
-&#x20;   padding: 13px;
-
-&#x20;   border-radius: 12px;
-
-&#x20;   background:
-&#x20;       rgba(255,255,255,0.06);
+    padding: 13px;
+    border-radius: 13px;
+    background: rgba(255,255,255,.055);
 }
 
 .detail-label {
-
-&#x20;   color: #9eafd2;
-
-&#x20;   font-size: 13px;
+    color: #7884a9;
+    font-size: 12px;
 }
 
 .detail-value {
-
-&#x20;   font-size: 19px;
-
-&#x20;   font-weight: bold;
-
-&#x20;   margin-top: 3px;
+    margin-top: 4px;
+    font-weight: bold;
 }
 
-.modal-score {
-
-&#x20;   color: #ffd86b;
+/* Gifts */
+.gift-list,
+.mission-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
 }
 
-
-/\* =========================================================
-&#x20;  FOOTER
-\========================================================= \*/
-
-.footer {
-
-&#x20;   text-align: center;
-
-&#x20;   color: #8290b1;
-
-&#x20;   margin-top: 40px;
-
-&#x20;   padding: 20px;
+.gift-card,
+.mission-card {
+    border-radius: 16px;
+    padding: 15px;
+    background: linear-gradient(
+        135deg,
+        rgba(255,72,176,.10),
+        rgba(38,111,255,.09)
+    );
+    border: 1px solid rgba(255,255,255,.10);
 }
 
+.gift-card.unread {
+    border-color: rgba(255,105,190,.65);
+    box-shadow: 0 0 22px rgba(255,70,170,.10);
+}
 
-/\* =========================================================
-&#x20;  MOBILE
-\========================================================= \*/
+.gift-card h3,
+.mission-card h3 {
+    margin: 0 0 7px;
+}
 
+.gift-meta {
+    color: #8d99bd;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.gift-message {
+    white-space: pre-wrap;
+    line-height: 1.5;
+    color: #e8ebff;
+}
+
+.gift-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #72b7ff;
+    word-break: break-all;
+}
+
+.mission-target {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffd166;
+    margin: 8px 0;
+}
+
+.mission-completed {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.mission-waiting {
+    color: #aab5d9;
+}
+
+/* Creator */
+.creator-panel {
+    display: none;
+    margin-top: 22px;
+}
+
+.creator-panel.show {
+    display: block;
+}
+
+.creator-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.creator-badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: rgba(0,255,136,.10);
+    color: #00ff88;
+    border: 1px solid rgba(0,255,136,.2);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.creator-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.creator-tab.active {
+    background: linear-gradient(135deg, #0077ff, #7b35ff);
+}
+
+.creator-section {
+    display: none;
+}
+
+.creator-section.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 13px;
+}
+
+.form-group label {
+    display: block;
+    color: #aeb8d9;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.primary {
+    background: linear-gradient(135deg, #147bff, #7135ff);
+}
+
+.success {
+    background: linear-gradient(135deg, #00a86b, #00c88a);
+}
+
+.danger {
+    background: linear-gradient(135deg, #d82245, #ff3b63);
+}
+
+.warning {
+    background: linear-gradient(135deg, #e99400, #ffb300);
+}
+
+.form-message {
+    min-height: 20px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.form-message.success-text {
+    color: #00ff88;
+}
+
+.form-message.error-text {
+    color: #ff6d7d;
+}
+
+.upload-note {
+    color: #7783a7;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.creator-player-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.creator-mission-reward {
+    margin-top: 15px;
+}
+
+/* Empty states */
+.empty {
+    text-align: center;
+    color: #7e89ac;
+    padding: 20px;
+}
+
+/* Toast */
+.toast-container {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: min(380px, calc(100% - 36px));
+}
+
+.toast {
+    padding: 13px 15px;
+    border-radius: 13px;
+    background: rgba(10,10,30,.95);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 15px 45px rgba(0,0,0,.35);
+    animation: toastIn .2s ease;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
 @media (max-width: 900px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
 
-&#x20;   .content {
-
-&#x20;       grid-template-columns:
-&#x20;           1fr;
-&#x20;   }
-
-&#x20;   .left-panel {
-
-&#x20;       order: 1;
-&#x20;   }
-
-&#x20;   .right-panel {
-
-&#x20;       order: 2;
-&#x20;   }
-
-&#x20;   .bird-card {
-
-&#x20;       min-height: 350px;
-&#x20;   }
-
-&#x20;   .character-image {
-
-&#x20;       max-height: 330px;
-&#x20;   }
+    .bird-image {
+        height: 240px;
+    }
 }
 
 @media (max-width: 600px) {
+    main {
+        width: min(100% - 18px, 1450px);
+        padding-top: 22px;
+    }
 
-&#x20;   .topbar {
+    .topbar {
+        padding: 10px;
+    }
 
-&#x20;       padding:
-&#x20;           10px 15px;
-&#x20;   }
+    .logo {
+        font-size: 16px;
+    }
 
-&#x20;   .logo {
+    .top-buttons {
+        width: 100%;
+        justify-content: stretch;
+    }
 
-&#x20;       font-size: 18px;
-&#x20;   }
+    .top-buttons button {
+        flex: 1;
+        min-width: 0;
+        font-size: 12px;
+        padding: 9px 8px;
+    }
 
-&#x20;   .top-button {
+    .signin-row {
+        flex-direction: column;
+    }
 
-&#x20;       padding:
-&#x20;           9px 12px;
-&#x20;   }
+    .creator-player-grid,
+    .modal-details {
+        grid-template-columns: 1fr;
+    }
 
-&#x20;   .main {
+    .sort-row {
+        flex-wrap: wrap;
+    }
 
-&#x20;       padding:
-&#x20;           20px 12px 50px;
-&#x20;   }
+    .sort-row button {
+        flex: 1;
+    }
+}
+</style>
+</head>
 
-&#x20;   .name-row {
+<body>
 
-&#x20;       flex-direction:
-&#x20;           column;
-&#x20;   }
+<header class="topbar">
+    <div class="logo">🚀 Eyad Nintendo Ali</div>
 
-&#x20;   .modal-content {
+    <div class="top-buttons">
+        <button id="muteButton" onclick="toggleMute()">🔊 Music</button>
 
-&#x20;       grid-template-columns:
-&#x20;           1fr;
+        <button
+            id="giftButton"
+            class="gift-button"
+            onclick="openGiftModal()"
+            disabled
+            title="Save your player name first"
+        >
+            🎁 Gifts
+            <span id="notificationCount" class="notification-count">0</span>
+        </button>
 
-&#x20;       text-align: center;
-&#x20;   }
+        <button
+            id="creatorButton"
+            class="creator-button"
+            onclick="toggleCreatorPanel()"
+            style="display:none;"
+        >
+            🛠️ Creator
+        </button>
 
-&#x20;   .modal-character-image {
+        <button
+            class="home-button"
+            onclick="window.location.href='index.html'"
+        >
+            🏠 Home
+        </button>
+    </div>
+</header>
 
-&#x20;       width: 180px;
+<main>
 
-&#x20;       height: 180px;
+    <section class="hero">
+        <h1>🐦 Cockatiel Bird Online</h1>
 
-&#x20;       margin:
-&#x20;           auto;
-&#x20;   }
+        <p>
+            Online Players • High Scores • Characters
+        </p>
 
-&#x20;   .table th,
-&#x20;   .table td {
+        <div class="online-status">
+            <span id="statusDot" class="status-dot"></span>
+            <span id="onlineStatus">Checking online players...</span>
+        </div>
+    </section>
 
-&#x20;       padding:
-&#x20;           9px 5px;
+    <section class="content-grid">
 
-&#x20;       font-size:
-&#x20;           13px;
-&#x20;   }
+        <!-- LEFT -->
+        <div>
+
+            <div class="card bird-card">
+                <h2>🐦 Cockatiel Bird</h2>
+
+                <img
+                    id="mainBirdImage"
+                    class="bird-image"
+                    src="Bird_01.png"
+                    alt="Cockatiel Bird"
+                    onerror="this.style.display='none';"
+                >
+
+                <div class="character-name">
+                    Bondock
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:22px;">
+
+                <h2>👥 Players</h2>
+
+                <div class="search-row">
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search player..."
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="sort-row">
+                    <button
+                        id="sortBest"
+                        class="active"
+                        onclick="setSort('best')"
+                    >
+                        🏆 Best
+                    </button>
+
+                    <button
+                        id="sortName"
+                        onclick="setSort('name')"
+                    >
+                        🔤 Name
+                    </button>
+                </div>
+
+                <div id="players" class="player-list">
+                    <div class="empty">
+                        Loading players...
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+
+            <div class="card welcome">
+
+                <h2>👋 Welcome to Cockatiel Online</h2>
+
+                <p style="color:#aeb8d9;">
+                    Enter your player name so you can receive gifts,
+                    missions and creator notifications.
+                </p>
+
+                <div class="signin-box">
+
+                    <label for="nameInput">
+                        Your player name
+                    </label>
+
+                    <div class="signin-row">
+
+                        <input
+                            id="nameInput"
+                            type="text"
+                            maxlength="32"
+                            placeholder="Enter your name..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            class="primary"
+                            onclick="saveName()"
+                        >
+                            Save
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="savedMessage"
+                        class="saved-message"
+                    ></div>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h2>🏆 Leaderboard</h2>
+
+                <div class="table-wrap">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Player</th>
+                                <th>Character</th>
+                                <th>Best</th>
+                                <th>Last</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="leaderboardBody">
+                            <tr>
+                                <td
+                                    colspan="5"
+                                    class="no-data"
+                                >
+                                    Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- CREATOR PANEL -->
+            <div
+                id="creatorPanel"
+                class="card creator-panel"
+            >
+
+                <div class="creator-header">
+                    <div>
+                        <h2 style="margin:0;">
+                            🛠️ Creator Mode
+                        </h2>
+
+                        <div style="color:#8994b8;margin-top:4px;">
+                            Manage Cockatiel players, gifts and missions.
+                        </div>
+                    </div>
+
+                    <div class="creator-badge">
+                        CREATOR MODE ON
+                    </div>
+                </div>
+
+                <div class="creator-tabs">
+
+                    <button
+                        id="tabGift"
+                        class="creator-tab active"
+                        onclick="showCreatorTab('gift')"
+                    >
+                        🎁 Send Gift
+                    </button>
+
+                    <button
+                        id="tabMission"
+                        class="creator-tab"
+                        onclick="showCreatorTab('mission')"
+                    >
+                        🎯 Mission
+                    </button>
+
+                    <button
+                        id="tabPlayer"
+                        class="creator-tab"
+                        onclick="showCreatorTab('player')"
+                    >
+                        👤 Edit Player
+                    </button>
+
+                </div>
+
+                <!-- SEND GIFT -->
+                <div
+                    id="creatorGiftSection"
+                    class="creator-section active"
+                >
+
+                    <div class="form-group">
+                        <label>Player</label>
+
+                        <select id="giftPlayerSelect">
+                            <option value="">
+                                Select a player...
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gift type</label>
+
+                        <select
+                            id="giftType"
+                            onchange="updateGiftTypeFields()"
+                        >
+                            <option value="text">
+                                📝 Text
+                            </option>
+
+                            <option value="link">
+                                🔗 Link
+                            </option>
+
+                            <option value="file">
+                                📁 File
+                            </option>
+
+                            <option value="photo">
+                                🖼️ Photo
+                            </option>
+                        </select>
+                    </div>
+
+                    <div
+                        id="giftTitleGroup"
+                        class="form-group"
+                    >
+                        <label>Gift title</label>
+
+                        <input
+                            id="giftTitle"
+                            type="text"
+                            maxlength="120"
+                            placeholder="Example: Welcome gift!"
+                        >
+                    </div>
+
+                    <div
+                        id="giftMessageGroup"
+                        class="form-group"
+                    >
+                        <label>Message / text</label>
+
+                        <textarea
+                            id="giftMessage"
+                            maxlength="5000"
+                            placeholder="Write the gift message..."
+                        ></textarea>
+                    </div>
+
+                    <div
+                        id="giftLinkGroup"
+                        class="form-group"
+                        style="display:none;"
+                    >
+                        <label>Link</label>
+
+                        <input
+                            id="giftLink"
+                            type="url"
+                            placeholder="https://example.com"
+                        >
+                    </div>
+
+                    <div
+                        id="giftFileGroup"
+                        class="form-group"
+                        style="display:none;"
+                    >
+                        <label>Upload file</label>
+
+                        <input
+                            id="giftFile"
+                            type="file"
+                        >
+
+                        <div class="upload-note">
+                            Files are uploaded to the Supabase creator-gifts bucket.
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button
+                            class="success"
+                            onclick="sendCreatorGift()"
+                        >
+                            🎁 Send Gift
+                        </button>
+
+                        <button
+                            onclick="clearGiftForm()"
+                        >
+                            Clear
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="giftFormMessage"
+                        class="form-message"
+                    ></div>
+
+                </div>
+
+                <!-- MISSION -->
+                <div
+                    id="creatorMissionSection"
+                    class="creator-section"
+                >
+
+                    <div class="form-group">
+                        <label>Player</label>
+
+                        <select id="missionPlayerSelect">
+                            <option value="">
+                                Select a player...
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Required score
+                        </label>
+
+                        <input
+                            id="missionTargetScore"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="Example: 1000"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mission title</label>
+
+                        <input
+                            id="missionTitle"
+                            type="text"
+                            maxlength="150"
+                            placeholder="Example: Score Challenge"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mission message</label>
+
+                        <textarea
+                            id="missionMessage"
+                            maxlength="5000"
+                            placeholder="Example: Get this score or higher and I will give you a gift!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Reward promise</label>
+
+                        <textarea
+                            id="missionReward"
+                            maxlength="5000"
+                            placeholder="Example: A special photo and a surprise gift!"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button
+                            class="warning"
+                            onclick="createMission()"
+                        >
+                            🎯 Create Mission
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="missionFormMessage"
+                        class="form-message"
+                    ></div>
+
+                </div>
+
+                <!-- EDIT PLAYER -->
+                <div
+                    id="creatorPlayerSection"
+                    class="creator-section"
+                >
+
+                    <div class="form-group">
+                        <label>Player</label>
+
+                        <select
+                            id="editPlayerSelect"
+                            onchange="loadPlayerIntoEditor()"
+                        >
+                            <option value="">
+                                Select a player...
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="creator-player-grid">
+
+                        <div class="form-group">
+                            <label>High score</label>
+
+                            <input
+                                id="editHighScore"
+                                type="number"
+                                min="0"
+                                step="1"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last score</label>
+
+                            <input
+                                id="editLastScore"
+                                type="number"
+                                min="0"
+                                step="1"
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Character</label>
+
+                        <select id="editCharacter">
+
+                            <option value="Bondock">
+                                Bondock
+                            </option>
+
+                            <option value="Bosbos">
+                                Bosbos
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button
+                            class="primary"
+                            onclick="updateSelectedPlayer()"
+                        >
+                            💾 Save Player
+                        </button>
+
+                        <button
+                            class="danger"
+                            onclick="deleteSelectedPlayer()"
+                        >
+                            🗑️ Delete Player
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="playerFormMessage"
+                        class="form-message"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- PLAYER MODAL -->
+<div
+    id="playerModal"
+    class="modal"
+    onclick="closeModalOnBackground(event)"
+>
+    <div class="modal-box">
+
+        <button
+            class="close-button"
+            onclick="closePlayerModal()"
+        >
+            ✕
+        </button>
+
+        <img
+            id="modalCharacterImage"
+            class="modal-character"
+            src="Bird_01.png"
+            alt="Character"
+        >
+
+        <div class="modal-title">
+
+            <h2 id="modalPlayerName">
+                Player
+            </h2>
+
+            <div id="modalCharacter">
+                Character
+            </div>
+
+        </div>
+
+        <div class="modal-details">
+
+            <div class="detail">
+                <div class="detail-label">
+                    Status
+                </div>
+
+                <div
+                    id="modalStatus"
+                    class="detail-value"
+                >
+                    Offline
+                </div>
+            </div>
+
+            <div class="detail">
+                <div class="detail-label">
+                    Character
+                </div>
+
+                <div
+                    id="modalCharacterDetail"
+                    class="detail-value"
+                >
+                    Bondock
+                </div>
+            </div>
+
+            <div class="detail">
+                <div class="detail-label">
+                    High Score
+                </div>
+
+                <div
+                    id="modalHighScore"
+                    class="detail-value"
+                >
+                    0
+                </div>
+            </div>
+
+            <div class="detail">
+                <div class="detail-label">
+                    Last Score
+                </div>
+
+                <div
+                    id="modalLastScore"
+                    class="detail-value"
+                >
+                    0
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- GIFTS MODAL -->
+<div
+    id="giftModal"
+    class="modal"
+    onclick="closeGiftModalOnBackground(event)"
+>
+    <div class="modal-box">
+
+        <button
+            class="close-button"
+            onclick="closeGiftModal()"
+        >
+            ✕
+        </button>
+
+        <h2>🎁 Your Gifts & Missions</h2>
+
+        <p style="color:#8e99ba;">
+            Gifts and missions sent to your saved player name.
+        </p>
+
+        <h3>🎁 Gifts</h3>
+
+        <div
+            id="giftList"
+            class="gift-list"
+        >
+            <div class="empty">
+                Loading gifts...
+            </div>
+        </div>
+
+        <h3 style="margin-top:28px;">
+            🎯 Missions
+        </h3>
+
+        <div
+            id="missionList"
+            class="mission-list"
+        >
+            <div class="empty">
+                Loading missions...
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div
+    id="toastContainer"
+    class="toast-container"
+></div>
+
+<audio
+    id="backgroundMusic"
+    preload="auto"
+    loop
+>
+    <source
+        src="./intro%20Music.MP3"
+        type="audio/mpeg"
+    >
+</audio>
+
+<script>
+"use strict";
+
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
+const SUPABASE_URL =
+    "https://gknwpvegzjhgpypjvkkv.supabase.co";
+
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrbndwdmVnempoZ3B5cGp2a2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzk0MzIsImV4cCI6MjEwNTA1NTQzMn0.b0zyXjMSJjNP3WKfYNFuKTAMFKN8xJzIorVygpzaakw";
+
+const PLAYERS_URL =
+    SUPABASE_URL + "/rest/v1/players";
+
+/*
+ IMPORTANT:
+ These table names are used by this page.
+
+ creator_gifts
+ creator_missions
+
+ Storage bucket:
+ creator-gifts
+*/
+
+const GIFTS_URL =
+    SUPABASE_URL + "/rest/v1/creator_gifts";
+
+const MISSIONS_URL =
+    SUPABASE_URL + "/rest/v1/creator_missions";
+
+const STORAGE_BUCKET =
+    "creator-gifts";
+
+
+/* =========================================================
+   CREATOR MODE
+   ========================================================= */
+
+/*
+ The Creator Mode code is still:
+
+ 20112015
+
+ The Cockatiel page reads the saved Creator Mode state.
+
+ Because the exact localStorage key can differ between versions
+ of index.html, this checks the common keys used by the site.
+ If your index.html uses another key, add that exact key here.
+*/
+
+const CREATOR_MODE_STORAGE_KEYS = [
+    "CreatorModeEnabled",
+    "EyadCreatorMode",
+    "creatorMode",
+    "CreatorMode",
+    "creator_mode"
+];
+
+function isCreatorModeEnabled() {
+
+    for (const key of CREATOR_MODE_STORAGE_KEYS) {
+
+        const value = localStorage.getItem(key);
+
+        if (
+            value === "true" ||
+            value === "1" ||
+            value === "on" ||
+            value === "enabled"
+        ) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
-/\* =========================================================
-&#x20;  ONLINE PLAYER STATUS
-\========================================================= \*/
 
-.player-status {
-&#x20;   font-size: 12px;
-&#x20;   margin-top: 4px;
-&#x20;   white-space: nowrap;
-}
-
-.player-status.online {
-&#x20;   color: #72ff9b;
-}
-
-.player-status.offline {
-&#x20;   color: #aeb9d5;
-}
-
-.status-online {
-&#x20;   color: #72ff9b;
-}
-
-.status-offline {
-&#x20;   color: #aeb9d5;
-}
-
-.modal-character-image {
-&#x20;   image-rendering: pixelated;
-&#x20;   image-rendering: crisp-edges;
-}
-
-\</style>
-\</head>
-
-
-\<body>
-
-
-\<!-- =========================================================
-&#x20;    MUSIC
-\========================================================= -->
-
-\<audio
-&#x20;   id="backgroundMusic"
-&#x20;   preload="auto"
-&#x20;   loop>
-
-&#x20;   \<source
-&#x20;       src="./intro%20Music.MP3"
-&#x20;       type="audio/mpeg">
-
-\</audio>
-
-
-\<!-- =========================================================
-&#x20;    TOP BAR
-\========================================================= -->
-
-\<header class="topbar">
-
-&#x20;   \<div class="logo">
-&#x20;       🚀 Eyad Nintendo Ali
-&#x20;   \</div>
-
-&#x20;   \<div class="top-buttons">
-
-&#x20;       \<button
-&#x20;           class="top-button"
-&#x20;           id="muteButton"
-&#x20;           type="button"
-&#x20;           onclick="toggleMute()">
-
-&#x20;           🔊 Music
-
-&#x20;       \</button>
-
-&#x20;       \<button
-&#x20;           class="top-button"
-&#x20;           type="button"
-&#x20;           onclick="window\.location.href='index.html'">
-
-&#x20;           🏠 Home
-
-&#x20;       \</button>
-
-&#x20;   \</div>
-
-\</header>
-
-
-\<!-- =========================================================
-&#x20;    MAIN
-\========================================================= -->
-
-\<main class="main">
-
-&#x20;   \<h1 class="title">
-&#x20;       🐦 Cockatiel Bird Online
-&#x20;   \</h1>
-
-&#x20;   \<p class="subtitle">
-&#x20;       Online Players • High Scores • Characters
-&#x20;   \</p>
-
-
-&#x20;   \<div
-&#x20;       id="onlineStatus"
-&#x20;       class="online-status loading">
-
-&#x20;       🟡 Connecting to online leaderboard...
-
-&#x20;   \</div>
-
-
-&#x20;   \<div class="content">
-
-
-&#x20;       \<!-- =================================================
-&#x20;            LEFT SIDE
-&#x20;       \================================================= -->
-
-&#x20;       \<section class="left-panel">
-
-
-&#x20;           \<div class="bird-card">
-
-&#x20;               \<img
-&#x20;                   src="Bird\_01.png"
-&#x20;                   alt="Bondock"
-&#x20;                   class="character-image"
-&#x20;                   draggable="false">
-
-&#x20;           \</div>
-
-
-&#x20;           \<div class="player-list-panel">
-
-&#x20;               \<div class="panel-title">
-&#x20;                   👥 Players
-&#x20;               \</div>
-
-
-&#x20;               \<input
-&#x20;                   id="searchInput"
-&#x20;                   class="search-box"
-&#x20;                   type="text"
-&#x20;                   placeholder="🔎 Search players..."
-&#x20;                   autocomplete="off">
-
-
-&#x20;               \<div class="sort-row">
-
-&#x20;                   \<button
-&#x20;                       id="bestButton"
-&#x20;                       class="sort-button active"
-&#x20;                       type="button"
-&#x20;                       onclick="setSort('best')">
-
-&#x20;                       🏆 Best
-
-&#x20;                   \</button>
-
-
-&#x20;                   \<button
-&#x20;                       id="nameButton"
-&#x20;                       class="sort-button"
-&#x20;                       type="button"
-&#x20;                       onclick="setSort('name')">
-
-&#x20;                       🔤 Name
-
-&#x20;                   \</button>
-
-&#x20;               \</div>
-
-
-&#x20;               \<div
-&#x20;                   id="players"
-&#x20;                   class="players">
-
-&#x20;                   \<div style="
-&#x20;                       text-align:center;
-&#x20;                       padding:25px;
-&#x20;                       color:#9eafd2;
-&#x20;                   ">
-
-&#x20;                       Loading online players...
-
-&#x20;                   \</div>
-
-&#x20;               \</div>
-
-&#x20;           \</div>
-
-&#x20;       \</section>
-
-
-&#x20;       \<!-- =================================================
-&#x20;            RIGHT SIDE
-&#x20;       \================================================= -->
-
-&#x20;       \<section class="right-panel">
-
-
-&#x20;           \<div class="welcome-card">
-
-&#x20;               \<h2>
-&#x20;                   🐦 Cockatiel Bird Online List
-&#x20;               \</h2>
-
-
-&#x20;               \<p>
-&#x20;                   See the real online players,
-&#x20;                   search for players,
-&#x20;                   and click a player to see
-&#x20;                   their character and high score.
-&#x20;               \</p>
-
-
-&#x20;               \<p>
-&#x20;                   Scores are loaded directly
-&#x20;                   from the Cockatiel Online
-&#x20;                   Supabase database.
-&#x20;               \</p>
-
-
-&#x20;               \<p>
-&#x20;                   Your player name is automatically
-&#x20;                   saved in this browser.
-&#x20;               \</p>
-
-&#x20;           \</div>
-
-
-&#x20;           \<div class="signin">
-
-&#x20;               \<h2>
-&#x20;                   👤 Your Player Name
-&#x20;               \</h2>
-
-
-&#x20;               \<div class="name-row">
-
-&#x20;                   \<input
-&#x20;                       id="nameInput"
-&#x20;                       class="name-input"
-&#x20;                       type="text"
-&#x20;                       maxlength="20"
-&#x20;                       placeholder="Enter your name..."
-&#x20;                       autocomplete="off">
-
-
-&#x20;                   \<button
-&#x20;                       class="save-button"
-&#x20;                       type="button"
-&#x20;                       onclick="saveName()">
-
-&#x20;                       Save
-
-&#x20;                   \</button>
-
-&#x20;               \</div>
-
-
-&#x20;               \<div
-&#x20;                   id="savedMessage"
-&#x20;                   class="saved-message">
-&#x20;               \</div>
-
-&#x20;           \</div>
-
-
-&#x20;           \<div class="leaderboard">
-
-&#x20;               \<h2>
-&#x20;                   🏆 Best Players
-&#x20;               \</h2>
-
-
-&#x20;               \<table class="table">
-
-&#x20;                   \<thead>
-
-&#x20;                       \<tr>
-
-&#x20;                           \<th>#\</th>
-
-&#x20;                           \<th>Player\</th>
-
-&#x20;                           \<th>Character\</th>
-
-&#x20;                           \<th>Status\</th>
-
-&#x20;                           \<th>High Score\</th>
-
-&#x20;                           \<th>Last Score\</th>
-
-&#x20;                       \</tr>
-
-&#x20;                   \</thead>
-
-
-&#x20;                   \<tbody
-&#x20;                       id="leaderboardBody">
-
-&#x20;                   \</tbody>
-
-&#x20;               \</table>
-
-&#x20;           \</div>
-
-&#x20;       \</section>
-
-&#x20;   \</div>
-
-
-&#x20;   \<footer class="footer">
-
-&#x20;       © Eyad Nintendo Ali • Cockatiel Bird Online
-
-&#x20;   \</footer>
-
-\</main>
-
-
-\<!-- =========================================================
-&#x20;    PLAYER POPUP
-\========================================================= -->
-
-\<div
-&#x20;   id="playerModal"
-&#x20;   class="modal">
-
-&#x20;   \<div class="modal-box">
-
-&#x20;       \<button
-&#x20;           class="close-modal"
-&#x20;           type="button"
-&#x20;           onclick="closePlayerModal()">
-
-&#x20;           ×
-
-&#x20;       \</button>
-
-
-&#x20;       \<div class="modal-content">
-
-
-&#x20;           \<img
-&#x20;               id="modalCharacterImage"
-&#x20;               class="modal-character-image"
-&#x20;               src="Bird\_01.png"
-&#x20;               alt="Character"
-&#x20;               draggable="false">
-
-
-&#x20;           \<div>
-
-&#x20;               \<div
-&#x20;                   id="modalPlayerName"
-&#x20;                   class="modal-player-name">
-
-&#x20;                   Player
-
-&#x20;               \</div>
-
-
-&#x20;               \<div class="detail">
-
-&#x20;                   \<div class="detail-label">
-&#x20;                       Character
-&#x20;                   \</div>
-
-&#x20;                   \<div
-&#x20;                       id="modalCharacter"
-&#x20;                       class="detail-value">
-
-&#x20;                       Bondock
-
-&#x20;                   \</div>
-
-&#x20;               \</div>
-
-
-&#x20;               \<div class="detail">
-
-&#x20;                   \<div class="detail-label">
-&#x20;                       Status
-&#x20;                   \</div>
-
-&#x20;                   \<div
-&#x20;                       id="modalStatus"
-&#x20;                       class="detail-value">
-
-&#x20;                       Offline
-
-&#x20;                   \</div>
-
-&#x20;               \</div>
-
-
-&#x20;               \<div class="detail">
-
-&#x20;                   \<div class="detail-label">
-&#x20;                       High Score
-&#x20;                   \</div>
-
-&#x20;                   \<div
-&#x20;                       id="modalScore"
-&#x20;                       class="detail-value modal-score">
-
-&#x20;                       0
-
-&#x20;                   \</div>
-
-&#x20;               \</div>
-
-
-&#x20;               \<div class="detail">
-
-&#x20;                   \<div class="detail-label">
-&#x20;                       Last Score
-&#x20;                   \</div>
-
-&#x20;                   \<div
-&#x20;                       id="modalLastScore"
-&#x20;                       class="detail-value">
-
-&#x20;                       0
-
-&#x20;                   \</div>
-
-&#x20;               \</div>
-
-&#x20;           \</div>
-
-&#x20;       \</div>
-
-&#x20;   \</div>
-
-\</div>
-
-
-\<script>
-
-/\* =========================================================
-&#x20;   CONFIGURATION
-\========================================================= \*/
-
-const SUPABASE\_URL =
-&#x20;   "[https://gknwpvegzjhgpypjvkkv.supabase.co](https://gknwpvegzjhgpypjvkkv.supabase.co)";
-
-
-/\*
-&#x20;   \========================================================
-&#x20;   IMPORTANT
-&#x20;   \========================================================
-
-&#x20;   Put your PUBLIC Supabase anon key here.
-
-&#x20;   Use the SAME public anon key that is already working
-&#x20;   in your Unity SupabaseLeaderboard.cs.
-
-&#x20;   NEVER put a service\_role or secret key here.
-\*/
-
-const SUPABASE\_KEY =
-&#x20;   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdrbndwdmVnempoZ3B5cGp2a2t2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzk0MzIsImV4cCI6MjEwNTA1NTQzMn0.b0zyXjMSJjNP3WKfYNFuKTAMFKN8xJzIorVygpzaakw";
-
-
-const PLAYERS\_URL =
-&#x20;   SUPABASE\_URL +
-&#x20;   "/rest/v1/players";
-
-
-/\* =========================================================
-&#x20;  PLAYER DATA
-\========================================================= \*/
+/* =========================================================
+   STATE
+   ========================================================= */
 
 let players = [];
 
@@ -1618,948 +1529,2494 @@ let currentSort = "best";
 
 let playersLoading = false;
 
+let currentCreatorTab = "gift";
 
-/\* =========================================================
-&#x20;  ONLINE STATUS
-\========================================================= \*/
-
-const onlineStatus =
-&#x20;   document.getElementById(
-&#x20;       "onlineStatus"
-&#x20;   );
+let musicMuted = false;
 
 
-function setOnlineStatus(
-&#x20;   type,
-&#x20;   text
-)
-{
-&#x20;   onlineStatus.className =
-&#x20;       "online-status " +
-&#x20;       type;
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
-&#x20;   onlineStatus.textContent =
-&#x20;       text;
+function supabaseHeaders(extra = {}) {
+
+    return {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY,
+        "Content-Type": "application/json",
+        ...extra
+    };
 }
 
 
-/\* =========================================================
-&#x20;  MUSIC
-\========================================================= \*/
+function escapeHTML(value) {
 
-const music =
-&#x20;   document.getElementById(
-&#x20;       "backgroundMusic"
-&#x20;   );
-
-/\* GitHub Pages safely handles the space-encoded filename. \*/
-if (music)
-{
-&#x20;   music.src = "./intro%20Music.MP3";
-&#x20;   music.load();
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
-const muteButton =
-&#x20;   document.getElementById(
-&#x20;       "muteButton"
-&#x20;   );
+function escapeURL(value) {
 
+    try {
 
-let musicStarted = false;
+        const url = new URL(value);
 
+        if (
+            url.protocol !== "http:" &&
+            url.protocol !== "https:"
+        ) {
+            return "";
+        }
 
-/\*
-&#x20;   Load saved mute state.
-\*/
+        return url.href;
 
-function loadMusicState()
-{
-&#x20;   if (!music || !muteButton) return;
+    } catch {
 
-&#x20;   const savedMute =
-&#x20;       localStorage.getItem(
-&#x20;           "CockatielMusicMuted"
-&#x20;       );
-
-
-&#x20;   if (savedMute === "true")
-&#x20;   {
-&#x20;       music.muted = true;
-&#x20;   }
-&#x20;   else
-&#x20;   {
-&#x20;       music.muted = false;
-&#x20;   }
-
-
-&#x20;   music.volume = 0.5;
-
-&#x20;   updateMuteButton();
+        return "";
+    }
 }
 
 
-/\*
-&#x20;   Update music button.
-\*/
+function getPlayerName() {
 
-function updateMuteButton()
-{
-&#x20;   if (music.muted)
-&#x20;   {
-&#x20;       muteButton.textContent =
-&#x20;           "🔇 Music";
-&#x20;   }
-&#x20;   else
-&#x20;   {
-&#x20;       muteButton.textContent =
-&#x20;           "🔊 Music";
-&#x20;   }
+    return (
+        localStorage.getItem("CockatielPlayerName") ||
+        ""
+    ).trim();
 }
 
 
-/\*
-&#x20;   Start music.
+function getCharacterImage(character) {
 
-&#x20;   Browsers can block autoplay.
-
-&#x20;   The first user interaction will
-&#x20;   attempt to start it.
-\*/
-
-async function startMusic()
-{
-&#x20;   if (!music) return;
-
-&#x20;   if (music.muted)
-&#x20;   {
-&#x20;       return;
-&#x20;   }
-
-
-&#x20;   try
-&#x20;   {
-&#x20;       music.volume = 0.5;
-
-&#x20;       await music.play();
-
-&#x20;       musicStarted = true;
-
-&#x20;       console.log(
-&#x20;           "Music started: intro Music.MP3"
-&#x20;       );
-&#x20;   }
-&#x20;   catch (error)
-&#x20;   {
-&#x20;       musicStarted = false;
-
-&#x20;       console.log(
-&#x20;           "Music is waiting for user interaction."
-&#x20;       );
-
-&#x20;       console.log(error);
-&#x20;   }
+    return String(character).toLowerCase() === "bosbos"
+        ? "Bird_01%20-%20Bosbos.png"
+        : "Bird_01.png";
 }
 
 
-/\*
-&#x20;   Start music on first interaction.
-\*/
+function isPlayerOnline(updatedAt) {
 
-async function firstUserInteraction()
-{
-&#x20;   if (musicStarted)
-&#x20;   {
-&#x20;       return;
-&#x20;   }
+    if (!updatedAt) {
+        return false;
+    }
 
+    const time =
+        new Date(updatedAt).getTime();
 
-&#x20;   if (music.muted)
-&#x20;   {
-&#x20;       return;
-&#x20;   }
+    if (Number.isNaN(time)) {
+        return false;
+    }
 
-
-&#x20;   await startMusic();
+    return Date.now() - time <= 60000;
 }
 
 
-/\*
-&#x20;   Capture the user's first click/touch.
-\*/
+function showToast(message) {
 
-document.addEventListener(
-&#x20;   "pointerdown",
-&#x20;   firstUserInteraction,
-&#x20;   true
-);
+    const container =
+        document.getElementById("toastContainer");
 
+    const toast =
+        document.createElement("div");
 
-/\*
-&#x20;   Also allow keyboard interaction.
-\*/
+    toast.className = "toast";
 
-document.addEventListener(
-&#x20;   "keydown",
-&#x20;   firstUserInteraction,
-&#x20;   true
-);
+    toast.textContent = message;
 
+    container.appendChild(toast);
 
-/\*
-&#x20;   Music button.
-\*/
-
-async function toggleMute()
-{
-&#x20;   if (!music) return;
-
-&#x20;   if (music.muted)
-&#x20;   {
-&#x20;       music.muted = false;
-
-&#x20;       localStorage.setItem(
-&#x20;           "CockatielMusicMuted",
-&#x20;           "false"
-&#x20;       );
-
-&#x20;       updateMuteButton();
-
-
-&#x20;       try
-&#x20;       {
-&#x20;           music.volume = 0.5;
-
-&#x20;           await music.play();
-
-&#x20;           musicStarted = true;
-
-&#x20;           console.log(
-&#x20;               "Music started from button."
-&#x20;           );
-&#x20;       }
-&#x20;       catch (error)
-&#x20;       {
-&#x20;           console.error(
-&#x20;               "Music could not start:",
-&#x20;               error
-&#x20;           );
-&#x20;       }
-&#x20;   }
-&#x20;   else
-&#x20;   {
-&#x20;       music.muted = true;
-
-&#x20;       localStorage.setItem(
-&#x20;           "CockatielMusicMuted",
-&#x20;           "true"
-&#x20;       );
-
-&#x20;       updateMuteButton();
-&#x20;   }
+    setTimeout(() => {
+        toast.remove();
+    }, 4000);
 }
 
 
-/\*
-&#x20;   Music error diagnostics.
-\*/
+/* =========================================================
+   MUSIC
+   ========================================================= */
 
-if (music) music.addEventListener(
-&#x20;   "error",
-&#x20;   function()
-&#x20;   {
-&#x20;       console.error(
-&#x20;           "========================================"
-&#x20;       );
+function loadMusicState() {
 
-&#x20;       console.error(
-&#x20;           "MUSIC ERROR"
-&#x20;       );
+    musicMuted =
+        localStorage.getItem(
+            "CockatielMusicMuted"
+        ) === "true";
 
-&#x20;       console.error(
-&#x20;           "Could not load: intro Music.MP3"
-&#x20;       );
+    const music =
+        document.getElementById(
+            "backgroundMusic"
+        );
 
-&#x20;       console.error(
-&#x20;           "Make sure the file is in the same folder as cockatiel-online.html."
-&#x20;       );
+    music.muted = musicMuted;
 
-&#x20;       console.error(
-&#x20;           "========================================"
-&#x20;       );
-&#x20;   }
-);
-
-
-/\*
-&#x20;   Confirm that browser loaded the audio.
-\*/
-
-if (music) music.addEventListener(
-&#x20;   "canplay",
-&#x20;   function()
-&#x20;   {
-&#x20;       console.log(
-&#x20;           "intro Music.MP3 loaded successfully."
-&#x20;       );
-&#x20;   }
-);
-
-
-/\* =========================================================
-&#x20;  SUPABASE LOAD PLAYERS
-\========================================================= \*/
-
-async function loadPlayers()
-{
-&#x20;   if (playersLoading)
-&#x20;   {
-&#x20;       return;
-&#x20;   }
-
-&#x20;   playersLoading = true;
-
-&#x20;   const container = document.getElementById("players");
-
-&#x20;   try
-&#x20;   {
-&#x20;       setOnlineStatus("loading", "🟡 Connecting to Supabase...");
-
-&#x20;       if (!SUPABASE\_KEY || SUPABASE\_KEY === "PASTE\_YOUR\_PUBLIC\_SUPABASE\_ANON\_KEY\_HERE")
-&#x20;       {
-&#x20;           throw new Error("Supabase public anon key is missing.");
-&#x20;       }
-
-&#x20;       const query =
-&#x20;           "?select=id,player\_name,character,high\_score,last\_score,updated\_at" +
-&#x20;           "&order=high\_score.desc";
-
-&#x20;       const response = await fetch(
-&#x20;           PLAYERS\_URL + query,
-&#x20;           {
-&#x20;               method: "GET",
-&#x20;               headers: {
-&#x20;                   "apikey": SUPABASE\_KEY,
-&#x20;                   "Authorization": "Bearer " + SUPABASE\_KEY,
-&#x20;                   "Accept": "application/json"
-&#x20;               },
-&#x20;               cache: "no-store"
-&#x20;           }
-&#x20;       );
-
-&#x20;       const responseText = await response.text();
-
-&#x20;       if (!response.ok)
-&#x20;       {
-&#x20;           throw new Error(
-&#x20;               "Supabase HTTP " + response.status + ": " + responseText
-&#x20;           );
-&#x20;       }
-
-&#x20;       let data;
-
-&#x20;       try
-&#x20;       {
-&#x20;           data = JSON.parse(responseText);
-&#x20;       }
-&#x20;       catch (error)
-&#x20;       {
-&#x20;           throw new Error("Supabase returned invalid JSON.");
-&#x20;       }
-
-&#x20;       if (!Array.isArray(data))
-&#x20;       {
-&#x20;           throw new Error("Supabase did not return an array.");
-&#x20;       }
-
-&#x20;       players = data
-&#x20;           .map(function(player)
-&#x20;           {
-&#x20;               return {
-&#x20;                   id: player.id,
-&#x20;                   name: String(player.player\_name || "").trim(),
-&#x20;                   character: player.character === "Bosbos" ? "Bosbos" : "Bondock",
-&#x20;                   score: Number(player.high\_score) || 0,
-&#x20;                   lastScore: Number(player.last\_score) || 0,
-&#x20;                   updated\_at: player.updated\_at || null
-&#x20;               };
-&#x20;           })
-&#x20;           .filter(function(player)
-&#x20;           {
-&#x20;               return player.name.length > 0;
-&#x20;           });
-
-&#x20;       setOnlineStatus(
-&#x20;           "online",
-&#x20;           "🟢 Supabase Online • " + players.length +
-&#x20;           " player" + (players.length === 1 ? "" : "s")
-&#x20;       );
-
-&#x20;       renderPlayers();
-&#x20;   }
-&#x20;   catch (error)
-&#x20;   {
-&#x20;       console.error("Supabase leaderboard error:", error);
-
-&#x20;       /\*
-&#x20;          Do NOT erase already-loaded players when a refresh fails.
-&#x20;          This prevents a temporary network error from destroying the page.
-&#x20;       \*/
-&#x20;       if (players.length > 0)
-&#x20;       {
-&#x20;           setOnlineStatus(
-&#x20;               "error",
-&#x20;               "🟠 Refresh failed • Showing last data"
-&#x20;           );
-&#x20;           renderPlayers();
-&#x20;       }
-&#x20;       else
-&#x20;       {
-&#x20;           setOnlineStatus(
-&#x20;               "error",
-&#x20;               "🔴 Could not connect to Supabase"
-&#x20;           );
-
-&#x20;           container.innerHTML = \`
-&#x20;               \<div style="text-align:center;padding:25px;color:#ffb0b0;">
-&#x20;                   \<div style="font-size:20px;margin-bottom:10px;">
-&#x20;                       ⚠️ Could not load players
-&#x20;                   \</div>
-&#x20;                   \<div style="font-size:13px;color:#aeb9d5;line-height:1.6;">
-&#x20;                       Please refresh the page and try again.
-&#x20;                   \</div>
-&#x20;               \</div>
-&#x20;           \`;
-
-&#x20;           renderLeaderboard([]);
-&#x20;       }
-&#x20;   }
-&#x20;   finally
-&#x20;   {
-&#x20;       playersLoading = false;
-&#x20;   }
-}
-
-/\*
-&#x20;   Refresh every 10 seconds.
-
-&#x20;   This means a new score from Unity
-&#x20;   appears automatically.
-\*/
-
-setInterval(
-&#x20;   function()
-&#x20;   {
-&#x20;       loadPlayers();
-&#x20;   },
-&#x20;   10000
-);
-
-
-/\* =========================================================
-&#x20;  NAME
-\========================================================= \*/
-
-const nameInput =
-&#x20;   document.getElementById(
-&#x20;       "nameInput"
-&#x20;   );
-
-
-const savedMessage =
-&#x20;   document.getElementById(
-&#x20;       "savedMessage"
-&#x20;   );
-
-
-function loadName()
-{
-&#x20;   const savedName =
-&#x20;       localStorage.getItem(
-&#x20;           "CockatielPlayerName"
-&#x20;       );
-
-
-&#x20;   if (savedName)
-&#x20;   {
-&#x20;       nameInput.value =
-&#x20;           savedName;
-
-
-&#x20;       savedMessage.textContent =
-&#x20;           "✓ Your name is saved as " +
-&#x20;           savedName;
-&#x20;   }
+    updateMusicButton();
 }
 
 
-function saveName()
-{
-&#x20;   const name =
-&#x20;       nameInput.value.trim();
+function updateMusicButton() {
 
+    const button =
+        document.getElementById(
+            "muteButton"
+        );
 
-&#x20;   if (!name)
-&#x20;   {
-&#x20;       savedMessage.textContent =
-&#x20;           "Please enter a name.";
-
-&#x20;       return;
-&#x20;   }
-
-
-&#x20;   localStorage.setItem(
-&#x20;       "CockatielPlayerName",
-&#x20;       name
-&#x20;   );
-
-
-&#x20;   savedMessage.textContent =
-&#x20;       "✓ Your name is saved as " +
-&#x20;       name;
+    button.textContent =
+        musicMuted
+            ? "🔇 Music"
+            : "🔊 Music";
 }
 
 
-if (nameInput) nameInput.addEventListener(
-&#x20;   "keydown",
-&#x20;   function(event)
-&#x20;   {
-&#x20;       if (
-&#x20;           event.key ===
-&#x20;           "Enter"
-&#x20;       )
-&#x20;       {
-&#x20;           saveName();
-&#x20;       }
-&#x20;   }
-);
+function toggleMute() {
 
+    musicMuted = !musicMuted;
 
-/\* =========================================================
-&#x20;  SEARCH
-\========================================================= \*/
+    localStorage.setItem(
+        "CockatielMusicMuted",
+        String(musicMuted)
+    );
 
-const searchInput = document.getElementById("searchInput");
-if (searchInput)
-{
-&#x20;   searchInput.addEventListener("input", renderPlayers);
+    const music =
+        document.getElementById(
+            "backgroundMusic"
+        );
+
+    music.muted = musicMuted;
+
+    if (!musicMuted) {
+
+        music.play().catch(() => {});
+
+    }
+
+    updateMusicButton();
 }
 
 
-/\* =========================================================
-&#x20;  SORT
-\========================================================= \*/
+/* =========================================================
+   NAME
+   ========================================================= */
 
-function setSort(type)
-{
-&#x20;   currentSort =
-&#x20;       type;
+function loadName() {
 
+    const savedName =
+        getPlayerName();
 
-&#x20;   document
-&#x20;       .getElementById(
-&#x20;           "bestButton"
-&#x20;       )
-&#x20;       .classList.remove(
-&#x20;           "active"
-&#x20;       );
+    const input =
+        document.getElementById(
+            "nameInput"
+        );
 
+    if (savedName) {
 
-&#x20;   document
-&#x20;       .getElementById(
-&#x20;           "nameButton"
-&#x20;       )
-&#x20;       .classList.remove(
-&#x20;           "active"
-&#x20;       );
+        input.value = savedName;
 
+        document.getElementById(
+            "savedMessage"
+        ).textContent =
+            "✅ Saved as " + savedName;
 
-&#x20;   if (
-&#x20;       type ===
-&#x20;       "best"
-&#x20;   )
-&#x20;   {
-&#x20;       document
-&#x20;           .getElementById(
-&#x20;               "bestButton"
-&#x20;           )
-&#x20;           .classList.add(
-&#x20;               "active"
-&#x20;           );
-&#x20;   }
-&#x20;   else
-&#x20;   {
-&#x20;       document
-&#x20;           .getElementById(
-&#x20;               "nameButton"
-&#x20;           )
-&#x20;           .classList.add(
-&#x20;               "active"
-&#x20;           );
-&#x20;   }
+        updateGiftButton();
 
+        loadPlayerGifts();
 
-&#x20;   renderPlayers();
+        loadPlayerMissions();
+
+    } else {
+
+        updateGiftButton();
+    }
 }
 
 
-/\* =========================================================
-&#x20;  ONLINE STATUS HELPERS
-\========================================================= \*/
+function saveName() {
 
-const ONLINE\_TIMEOUT\_MS = 60 \* 1000;
+    const input =
+        document.getElementById(
+            "nameInput"
+        );
 
-function isPlayerOnline(player)
-{
-&#x20;   if (!player.updated\_at)
-&#x20;   {
-&#x20;       return false;
-&#x20;   }
+    const name =
+        input.value.trim();
 
-&#x20;   const time = Date.parse(player.updated\_at);
+    if (!name) {
 
-&#x20;   if (!Number.isFinite(time))
-&#x20;   {
-&#x20;       return false;
-&#x20;   }
+        showToast(
+            "Please enter your player name first."
+        );
 
-&#x20;   return (Date.now() - time) <= ONLINE\_TIMEOUT\_MS;
-}
+        input.focus();
 
-function getPlayerStatusText(player)
-{
-&#x20;   return isPlayerOnline(player) ? "🟢 Online" : "⚪ Offline";
-}
+        return;
+    }
 
-/\* =========================================================
-&#x20;  FILTER
-\========================================================= \*/
+    if (name.length < 1 || name.length > 32) {
 
-function getFilteredPlayers()
-{
-&#x20;   const search =
-&#x20;       document
-&#x20;           .getElementById(
-&#x20;               "searchInput"
-&#x20;           )
-&#x20;           .value
-&#x20;           .toLowerCase()
-&#x20;           .trim();
+        showToast(
+            "Player name must be between 1 and 32 characters."
+        );
 
+        return;
+    }
 
-&#x20;   let result =
-&#x20;       players.filter(
-&#x20;           function(player)
-&#x20;           {
-&#x20;               return (
-&#x20;                   player.name
-&#x20;                       .toLowerCase()
-&#x20;                       .includes(
-&#x20;                           search
-&#x20;                       )
-&#x20;               );
-&#x20;           }
-&#x20;       );
+    localStorage.setItem(
+        "CockatielPlayerName",
+        name
+    );
 
+    document.getElementById(
+        "savedMessage"
+    ).textContent =
+        "✅ Saved as " + name;
 
-&#x20;   if (
-&#x20;       currentSort ===
-&#x20;       "best"
-&#x20;   )
-&#x20;   {
-&#x20;       result.sort(
-&#x20;           function(a, b)
-&#x20;           {
-&#x20;               return (
-&#x20;                   b.score -
-&#x20;                   a.score
-&#x20;               );
-&#x20;           }
-&#x20;       );
-&#x20;   }
-&#x20;   else
-&#x20;   {
-&#x20;       result.sort(
-&#x20;           function(a, b)
-&#x20;           {
-&#x20;               return a.name.localeCompare(
-&#x20;                   b.name
-&#x20;               );
-&#x20;           }
-&#x20;       );
-&#x20;   }
+    updateGiftButton();
 
+    loadPlayerGifts();
 
-&#x20;   return result;
+    loadPlayerMissions();
+
+    showToast(
+        "Player name saved!"
+    );
 }
 
 
-/\* =========================================================
-&#x20;  PLAYER LIST
-\========================================================= \*/
+function updateGiftButton() {
 
-function renderPlayers()
-{
-&#x20;   const container = document.getElementById("players");
-&#x20;   container.innerHTML = "";
+    const button =
+        document.getElementById(
+            "giftButton"
+        );
 
-&#x20;   const filtered = getFilteredPlayers();
+    const hasName =
+        Boolean(getPlayerName());
 
-&#x20;   if (filtered.length === 0)
-&#x20;   {
-&#x20;       container.innerHTML = \`
-&#x20;           \<div style="text-align:center;padding:20px;color:#9eafd2;">
-&#x20;               No players found.
-&#x20;           \</div>
-&#x20;       \`;
+    button.disabled =
+        !hasName;
 
-&#x20;       renderLeaderboard([]);
-&#x20;       return;
-&#x20;   }
-
-&#x20;   filtered.forEach(function(player, index)
-&#x20;   {
-&#x20;       const element = document.createElement("div");
-&#x20;       const online = isPlayerOnline(player);
-
-&#x20;       element.className = "player";
-
-&#x20;       element.innerHTML = \`
-&#x20;           \<div class="rank">#${index + 1}\</div>
-
-&#x20;           \<div class="player-info">
-&#x20;               \<div class="player-name">
-&#x20;                   ${escapeHTML(player.name)}
-&#x20;               \</div>
-
-&#x20;               \<div class="player-character">
-&#x20;                   ${escapeHTML(player.character)}
-&#x20;               \</div>
-
-&#x20;               \<div class="player-status ${online ? "online" : "offline"}">
-&#x20;                   ${online ? "🟢 Online" : "⚪ Offline"}
-&#x20;               \</div>
-&#x20;           \</div>
-
-&#x20;           \<div class="player-score">
-&#x20;               ${player.score.toLocaleString()}
-&#x20;           \</div>
-&#x20;       \`;
-
-&#x20;       element.addEventListener("click", function()
-&#x20;       {
-&#x20;           openPlayerModal(player);
-&#x20;       });
-
-&#x20;       container.appendChild(element);
-&#x20;   });
-
-&#x20;   renderLeaderboard(filtered);
-}
-
-/\* =========================================================
-&#x20;  LEADERBOARD
-\========================================================= \*/
-
-function renderLeaderboard(list)
-{
-&#x20;   const body = document.getElementById("leaderboardBody");
-&#x20;   body.innerHTML = "";
-
-&#x20;   list.forEach(function(player, index)
-&#x20;   {
-&#x20;       const row = document.createElement("tr");
-&#x20;       const online = isPlayerOnline(player);
-
-&#x20;       row\.innerHTML = \`
-&#x20;           \<td>${index + 1}\</td>
-&#x20;           \<td>${escapeHTML(player.name)}\</td>
-&#x20;           \<td>${escapeHTML(player.character)}\</td>
-&#x20;           \<td class="${online ? "status-online" : "status-offline"}">
-&#x20;               ${online ? "🟢 Online" : "⚪ Offline"}
-&#x20;           \</td>
-&#x20;           \<td class="score">
-&#x20;               ${player.score.toLocaleString()}
-&#x20;           \</td>
-&#x20;           \<td class="score">
-&#x20;               ${player.lastScore.toLocaleString()}
-&#x20;           \</td>
-&#x20;       \`;
-
-&#x20;       row\.addEventListener("click", function()
-&#x20;       {
-&#x20;           openPlayerModal(player);
-&#x20;       });
-
-&#x20;       body.appendChild(row);
-&#x20;   });
-}
-
-/\* =========================================================
-&#x20;  PLAYER POPUP
-\========================================================= \*/
-
-function openPlayerModal(
-&#x20;   player
-)
-{
-&#x20;   const modal =
-&#x20;       document.getElementById(
-&#x20;           "playerModal"
-&#x20;       );
-
-
-&#x20;   document.getElementById(
-&#x20;       "modalPlayerName"
-&#x20;   ).textContent =
-&#x20;       player.name;
-
-
-&#x20;   document.getElementById(
-&#x20;       "modalCharacter"
-&#x20;   ).textContent =
-&#x20;       player.character;
-
-
-&#x20;   document.getElementById(
-&#x20;       "modalStatus"
-&#x20;   ).textContent =
-&#x20;       getPlayerStatusText(player);
-
-&#x20;   document.getElementById(
-&#x20;       "modalStatus"
-&#x20;   ).className =
-&#x20;       "detail-value " +
-&#x20;       (isPlayerOnline(player) ? "status-online" : "status-offline");
-
-&#x20;   document.getElementById(
-&#x20;       "modalScore"
-&#x20;   ).textContent =
-&#x20;       player.score.toLocaleString();
-
-&#x20;   document.getElementById(
-&#x20;       "modalLastScore"
-&#x20;   ).textContent =
-&#x20;       player.lastScore.toLocaleString();
-
-
-&#x20;   const image =
-&#x20;       document.getElementById(
-&#x20;           "modalCharacterImage"
-&#x20;       );
-
-
-&#x20;   if (
-&#x20;       player.character ===
-&#x20;       "Bosbos"
-&#x20;   )
-&#x20;   {
-&#x20;       image.src =
-&#x20;           "Bird\_01 - Bosbos.png";
-
-&#x20;       image.alt =
-&#x20;           "Bosbos";
-&#x20;   }
-&#x20;   else
-&#x20;   {
-&#x20;       image.src =
-&#x20;           "Bird\_01.png";
-
-&#x20;       image.alt =
-&#x20;           "Bondock";
-&#x20;   }
-
-
-&#x20;   modal.classList.add(
-&#x20;       "show"
-&#x20;   );
+    button.title =
+        hasName
+            ? "Open your gifts and missions"
+            : "Save your player name first";
 }
 
 
-/\* =========================================================
-&#x20;  CLOSE MODAL
-\========================================================= \*/
+/* =========================================================
+   PLAYERS
+   ========================================================= */
 
-function closePlayerModal()
-{
-&#x20;   document
-&#x20;       .getElementById(
-&#x20;           "playerModal"
-&#x20;       )
-&#x20;       .classList.remove(
-&#x20;           "show"
-&#x20;       );
+async function loadPlayers() {
+
+    if (playersLoading) {
+        return;
+    }
+
+    playersLoading = true;
+
+    try {
+
+        const url =
+            PLAYERS_URL +
+            "?select=id,player_name,character,high_score,last_score,updated_at" +
+            "&order=high_score.desc";
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:
+                        supabaseHeaders()
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Players request failed: " +
+                response.status
+            );
+        }
+
+        const data =
+            await response.json();
+
+        players =
+            Array.isArray(data)
+                ? data.map(player => ({
+                    ...player,
+
+                    high_score:
+                        Number(player.high_score) || 0,
+
+                    last_score:
+                        Number(player.last_score) || 0,
+
+                    character:
+                        player.character ||
+                        "Bondock"
+                }))
+                : [];
+
+        renderPlayers();
+
+        renderLeaderboard();
+
+        updateOnlineStatus();
+
+        populateCreatorPlayers();
+
+        checkCompletedMissions();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById(
+            "players"
+        ).innerHTML = `
+            <div class="empty">
+                ❌ Could not load players.
+            </div>
+        `;
+
+    } finally {
+
+        playersLoading = false;
+    }
 }
 
+
+function setSort(sort) {
+
+    currentSort = sort;
+
+    document
+        .getElementById("sortBest")
+        .classList.toggle(
+            "active",
+            sort === "best"
+        );
+
+    document
+        .getElementById("sortName")
+        .classList.toggle(
+            "active",
+            sort === "name"
+        );
+
+    renderPlayers();
+}
+
+
+function getFilteredPlayers() {
+
+    const search =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+    let list =
+        players.filter(player =>
+            String(
+                player.player_name || ""
+            )
+            .toLowerCase()
+            .includes(search)
+        );
+
+    if (currentSort === "name") {
+
+        list.sort((a, b) =>
+            String(a.player_name)
+                .localeCompare(
+                    String(b.player_name)
+                )
+        );
+
+    } else {
+
+        list.sort(
+            (a, b) =>
+                b.high_score - a.high_score
+        );
+    }
+
+    return list;
+}
+
+
+function renderPlayers() {
+
+    const container =
+        document.getElementById(
+            "players"
+        );
+
+    const list =
+        getFilteredPlayers();
+
+    if (!list.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No players found.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        list.map(player => {
+
+            const online =
+                isPlayerOnline(
+                    player.updated_at
+                );
+
+            return `
+                <div
+                    class="player-item"
+                    onclick="openPlayerModal(${JSON.stringify(
+                        String(player.id)
+                    )})"
+                >
+
+                    <img
+                        class="player-avatar"
+                        src="${getCharacterImage(player.character)}"
+                        alt=""
+                        onerror="this.style.display='none';"
+                    >
+
+                    <div class="player-info">
+
+                        <div class="player-name">
+                            ${escapeHTML(player.player_name)}
+                        </div>
+
+                        <div class="player-character">
+                            ${escapeHTML(player.character)}
+                        </div>
+
+                        ${
+                            online
+                                ? `
+                                <div class="online-label">
+                                    ● Online
+                                </div>
+                                `
+                                : ""
+                        }
+
+                    </div>
+
+                    <div class="player-score">
+                        ${player.high_score}
+                    </div>
+
+                </div>
+            `;
+
+        })
+        .join("");
+}
+
+
+function renderLeaderboard() {
+
+    const body =
+        document.getElementById(
+            "leaderboardBody"
+        );
+
+    const list =
+        [...players]
+            .sort(
+                (a, b) =>
+                    b.high_score - a.high_score
+            );
+
+    if (!list.length) {
+
+        body.innerHTML = `
+            <tr>
+                <td
+                    colspan="5"
+                    class="no-data"
+                >
+                    No players yet.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    body.innerHTML =
+        list.map(
+            (player, index) => `
+                <tr>
+
+                    <td class="rank">
+                        #${index + 1}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(player.player_name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(player.character)}
+                    </td>
+
+                    <td>
+                        <strong>
+                            ${player.high_score}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${player.last_score}
+                    </td>
+
+                </tr>
+            `
+        ).join("");
+}
+
+
+function updateOnlineStatus() {
+
+    const onlineCount =
+        players.filter(
+            player =>
+                isPlayerOnline(
+                    player.updated_at
+                )
+        ).length;
+
+    const status =
+        document.getElementById(
+            "onlineStatus"
+        );
+
+    const dot =
+        document.getElementById(
+            "statusDot"
+        );
+
+    status.textContent =
+        onlineCount +
+        (
+            onlineCount === 1
+                ? " player online"
+                : " players online"
+        );
+
+    dot.classList.toggle(
+        "online",
+        onlineCount > 0
+    );
+}
+
+
+/* =========================================================
+   PLAYER MODAL
+   ========================================================= */
+
+function openPlayerModal(id) {
+
+    const player =
+        players.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    if (!player) {
+        return;
+    }
+
+    document.getElementById(
+        "modalCharacterImage"
+    ).src =
+        getCharacterImage(
+            player.character
+        );
+
+    document.getElementById(
+        "modalPlayerName"
+    ).textContent =
+        player.player_name;
+
+    document.getElementById(
+        "modalCharacter"
+    ).textContent =
+        player.character;
+
+    document.getElementById(
+        "modalCharacterDetail"
+    ).textContent =
+        player.character;
+
+    const online =
+        isPlayerOnline(
+            player.updated_at
+        );
+
+    document.getElementById(
+        "modalStatus"
+    ).textContent =
+        online
+            ? "🟢 Online"
+            : "⚫ Offline";
+
+    document.getElementById(
+        "modalHighScore"
+    ).textContent =
+        player.high_score;
+
+    document.getElementById(
+        "modalLastScore"
+    ).textContent =
+        player.last_score;
+
+    document
+        .getElementById("playerModal")
+        .classList.add("show");
+}
+
+
+function closePlayerModal() {
+
+    document
+        .getElementById("playerModal")
+        .classList.remove("show");
+}
+
+
+function closeModalOnBackground(event) {
+
+    if (
+        event.target.id ===
+        "playerModal"
+    ) {
+        closePlayerModal();
+    }
+}
+
+
+/* =========================================================
+   GIFTS
+   ========================================================= */
+
+function openGiftModal() {
+
+    if (!getPlayerName()) {
+
+        showToast(
+            "Save your player name first."
+        );
+
+        return;
+    }
+
+    document
+        .getElementById("giftModal")
+        .classList.add("show");
+
+    loadPlayerGifts();
+
+    loadPlayerMissions();
+}
+
+
+function closeGiftModal() {
+
+    document
+        .getElementById("giftModal")
+        .classList.remove("show");
+}
+
+
+function closeGiftModalOnBackground(event) {
+
+    if (
+        event.target.id ===
+        "giftModal"
+    ) {
+        closeGiftModal();
+    }
+}
+
+
+async function loadPlayerGifts() {
+
+    const playerName =
+        getPlayerName();
+
+    const container =
+        document.getElementById(
+            "giftList"
+        );
+
+    if (!playerName) {
+
+        container.innerHTML = `
+            <div class="empty">
+                Save your player name first.
+            </div>
+        `;
+
+        return;
+    }
+
+    try {
+
+        const url =
+            GIFTS_URL +
+            "?select=*" +
+            "&player_name=eq." +
+            encodeURIComponent(playerName) +
+            "&order=created_at.desc";
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:
+                        supabaseHeaders()
+                }
+            );
+
+        if (!response.ok) {
+
+            /*
+             If the table has not been created yet,
+             show a useful message instead of breaking
+             the entire page.
+            */
+
+            if (response.status === 404) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        Creator gifts table is not set up yet.
+                    </div>
+                `;
+
+                return;
+            }
+
+            throw new Error(
+                "Gift request failed"
+            );
+        }
+
+        const gifts =
+            await response.json();
+
+        renderGifts(gifts);
+
+        const unread =
+            gifts.filter(
+                gift =>
+                    gift.opened !== true
+            ).length;
+
+        updateNotificationCount(
+            unread
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty">
+                Could not load gifts.
+            </div>
+        `;
+    }
+}
+
+
+function renderGifts(gifts) {
+
+    const container =
+        document.getElementById(
+            "giftList"
+        );
+
+    if (!gifts.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                🎁 No gifts yet.
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        gifts.map(gift => {
+
+            let content = "";
+
+            if (gift.gift_type === "link") {
+
+                const safeUrl =
+                    escapeURL(
+                        gift.link_url
+                    );
+
+                content = safeUrl
+                    ? `
+                        <a
+                            class="gift-link"
+                            href="${escapeHTML(safeUrl)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            🔗 Open gift link
+                        </a>
+                    `
+                    : `
+                        <div class="gift-message">
+                            Invalid link.
+                        </div>
+                    `;
+
+            } else if (
+                gift.gift_type === "file" ||
+                gift.gift_type === "photo"
+            ) {
+
+                const safeUrl =
+                    escapeURL(
+                        gift.file_url
+                    );
+
+                content = safeUrl
+                    ? `
+                        <a
+                            class="gift-link"
+                            href="${escapeHTML(safeUrl)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download
+                        >
+                            ${
+                                gift.gift_type === "photo"
+                                    ? "🖼️ Open photo"
+                                    : "📁 Download file"
+                            }
+                        </a>
+                    `
+                    : `
+                        <div class="gift-message">
+                            File is unavailable.
+                        </div>
+                    `;
+
+            } else {
+
+                content = `
+                    <div class="gift-message">
+                        ${escapeHTML(gift.message || "")}
+                    </div>
+                `;
+            }
+
+            return `
+                <div
+                    class="gift-card ${
+                        gift.opened
+                            ? ""
+                            : "unread"
+                    }"
+                >
+
+                    <h3>
+                        🎁 ${escapeHTML(
+                            gift.title ||
+                            "Gift"
+                        )}
+                    </h3>
+
+                    <div class="gift-meta">
+                        From Creator
+                        ${
+                            gift.created_at
+                                ? " • " +
+                                  formatDate(
+                                      gift.created_at
+                                  )
+                                : ""
+                        }
+                    </div>
+
+                    ${content}
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+function updateNotificationCount(count) {
+
+    const badge =
+        document.getElementById(
+            "notificationCount"
+        );
+
+    if (count > 0) {
+
+        badge.textContent =
+            count > 99
+                ? "99+"
+                : String(count);
+
+        badge.style.display =
+            "inline-block";
+
+    } else {
+
+        badge.style.display =
+            "none";
+    }
+}
+
+
+function formatDate(date) {
+
+    try {
+
+        return new Date(date)
+            .toLocaleString();
+
+    } catch {
+
+        return "";
+    }
+}
+
+
+/* =========================================================
+   MISSIONS
+   ========================================================= */
+
+async function loadPlayerMissions() {
+
+    const playerName =
+        getPlayerName();
+
+    const container =
+        document.getElementById(
+            "missionList"
+        );
+
+    if (!playerName) {
+
+        container.innerHTML = `
+            <div class="empty">
+                Save your player name first.
+            </div>
+        `;
+
+        return;
+    }
+
+    try {
+
+        const url =
+            MISSIONS_URL +
+            "?select=*" +
+            "&player_name=eq." +
+            encodeURIComponent(playerName) +
+            "&order=created_at.desc";
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:
+                        supabaseHeaders()
+                }
+            );
+
+        if (!response.ok) {
+
+            if (response.status === 404) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        Creator missions table is not set up yet.
+                    </div>
+                `;
+
+                return;
+            }
+
+            throw new Error(
+                "Mission request failed"
+            );
+        }
+
+        const missions =
+            await response.json();
+
+        renderMissions(missions);
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty">
+                Could not load missions.
+            </div>
+        `;
+    }
+}
+
+
+function renderMissions(missions) {
+
+    const container =
+        document.getElementById(
+            "missionList"
+        );
+
+    if (!missions.length) {
+
+        container.innerHTML = `
+            <div class="empty">
+                🎯 No missions yet.
+            </div>
+        `;
+
+        return;
+    }
+
+    const player =
+        players.find(
+            item =>
+                String(item.player_name)
+                    .toLowerCase() ===
+                getPlayerName()
+                    .toLowerCase()
+        );
+
+    const score =
+        player
+            ? Number(player.high_score) || 0
+            : 0;
+
+    container.innerHTML =
+        missions.map(mission => {
+
+            const target =
+                Number(
+                    mission.target_score
+                ) || 0;
+
+            const completed =
+                mission.completed === true ||
+                score >= target;
+
+            return `
+                <div class="mission-card">
+
+                    <h3>
+                        🎯 ${escapeHTML(
+                            mission.title ||
+                            "Mission"
+                        )}
+                    </h3>
+
+                    <div class="gift-meta">
+                        ${
+                            mission.created_at
+                                ? formatDate(
+                                    mission.created_at
+                                )
+                                : ""
+                        }
+                    </div>
+
+                    <div class="mission-target">
+                        ${target} points
+                    </div>
+
+                    <div class="gift-message">
+                        ${escapeHTML(
+                            mission.message || ""
+                        )}
+                    </div>
+
+                    <div
+                        style="margin-top:12px;"
+                        class="${
+                            completed
+                                ? "mission-completed"
+                                : "mission-waiting"
+                        }"
+                    >
+                        ${
+                            completed
+                                ? "✅ Mission completed!"
+                                : "⏳ Keep playing to reach the target."
+                        }
+                    </div>
+
+                    ${
+                        mission.reward_message
+                            ? `
+                                <div
+                                    style="
+                                        margin-top:10px;
+                                        color:#ffd166;
+                                    "
+                                >
+                                    🎁 Reward:
+                                    ${escapeHTML(
+                                        mission.reward_message
+                                    )}
+                                </div>
+                            `
+                            : ""
+                    }
+
+                </div>
+            `;
+
+        }).join("");
+}
+
+
+/*
+ Mark missions completed when the player's current
+ high score reaches the target.
+*/
+async function checkCompletedMissions() {
+
+    const playerName =
+        getPlayerName();
+
+    if (!playerName) {
+        return;
+    }
+
+    const player =
+        players.find(
+            item =>
+                String(item.player_name)
+                    .toLowerCase() ===
+                playerName.toLowerCase()
+        );
+
+    if (!player) {
+        return;
+    }
+
+    const score =
+        Number(player.high_score) || 0;
+
+    try {
+
+        const url =
+            MISSIONS_URL +
+            "?select=*" +
+            "&player_name=eq." +
+            encodeURIComponent(playerName) +
+            "&completed=eq.false";
+
+        const response =
+            await fetch(
+                url,
+                {
+                    headers:
+                        supabaseHeaders()
+                }
+            );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const missions =
+            await response.json();
+
+        for (const mission of missions) {
+
+            const target =
+                Number(
+                    mission.target_score
+                ) || 0;
+
+            if (score >= target) {
+
+                await fetch(
+                    MISSIONS_URL +
+                    "?id=eq." +
+                    encodeURIComponent(
+                        String(mission.id)
+                    ),
+                    {
+                        method: "PATCH",
+
+                        headers:
+                            supabaseHeaders({
+                                "Prefer":
+                                    "return=minimal"
+                            }),
+
+                        body: JSON.stringify({
+                            completed: true,
+                            completed_at:
+                                new Date().toISOString()
+                        })
+                    }
+                );
+            }
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Mission completion check:",
+            error
+        );
+    }
+}
+
+
+/* =========================================================
+   CREATOR PANEL
+   ========================================================= */
+
+function initializeCreatorMode() {
+
+    const enabled =
+        isCreatorModeEnabled();
+
+    const button =
+        document.getElementById(
+            "creatorButton"
+        );
+
+    const panel =
+        document.getElementById(
+            "creatorPanel"
+        );
+
+    if (enabled) {
+
+        button.style.display =
+            "inline-block";
+
+        panel.classList.add("show");
+
+        populateCreatorPlayers();
+
+    } else {
+
+        button.style.display =
+            "none";
+
+        panel.classList.remove("show");
+    }
+}
+
+
+function toggleCreatorPanel() {
+
+    if (!isCreatorModeEnabled()) {
+
+        showToast(
+            "Creator Mode is OFF."
+        );
+
+        return;
+    }
+
+    const panel =
+        document.getElementById(
+            "creatorPanel"
+        );
+
+    panel.classList.toggle("show");
+}
+
+
+function showCreatorTab(tab) {
+
+    if (!isCreatorModeEnabled()) {
+        return;
+    }
+
+    currentCreatorTab = tab;
+
+    const tabs = {
+        gift: "tabGift",
+        mission: "tabMission",
+        player: "tabPlayer"
+    };
+
+    const sections = {
+        gift: "creatorGiftSection",
+        mission: "creatorMissionSection",
+        player: "creatorPlayerSection"
+    };
+
+    Object.keys(tabs).forEach(key => {
+
+        document
+            .getElementById(tabs[key])
+            .classList.toggle(
+                "active",
+                key === tab
+            );
+
+        document
+            .getElementById(sections[key])
+            .classList.toggle(
+                "active",
+                key === tab
+            );
+    });
+
+    populateCreatorPlayers();
+}
+
+
+function populateCreatorPlayers() {
+
+    if (!isCreatorModeEnabled()) {
+        return;
+    }
+
+    const selects = [
+        document.getElementById(
+            "giftPlayerSelect"
+        ),
+        document.getElementById(
+            "missionPlayerSelect"
+        ),
+        document.getElementById(
+            "editPlayerSelect"
+        )
+    ];
+
+    selects.forEach(select => {
+
+        if (!select) {
+            return;
+        }
+
+        const oldValue =
+            select.value;
+
+        select.innerHTML = `
+            <option value="">
+                Select a player...
+            </option>
+        `;
+
+        players.forEach(player => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                String(player.id);
+
+            option.textContent =
+                player.player_name +
+                " • " +
+                player.high_score;
+
+            select.appendChild(option);
+        });
+
+        if (
+            oldValue &&
+            players.some(
+                player =>
+                    String(player.id) ===
+                    oldValue
+            )
+        ) {
+            select.value =
+                oldValue;
+        }
+    });
+}
+
+
+/* =========================================================
+   CREATOR GIFT FORM
+   ========================================================= */
+
+function updateGiftTypeFields() {
+
+    const type =
+        document.getElementById(
+            "giftType"
+        ).value;
+
+    const message =
+        document.getElementById(
+            "giftMessageGroup"
+        );
+
+    const link =
+        document.getElementById(
+            "giftLinkGroup"
+        );
+
+    const file =
+        document.getElementById(
+            "giftFileGroup"
+        );
+
+    message.style.display =
+        type === "text"
+            ? "block"
+            : "none";
+
+    link.style.display =
+        type === "link"
+            ? "block"
+            : "none";
+
+    file.style.display =
+        (
+            type === "file" ||
+            type === "photo"
+        )
+            ? "block"
+            : "none";
+}
+
+
+function clearGiftForm() {
+
+    document.getElementById(
+        "giftPlayerSelect"
+    ).value = "";
+
+    document.getElementById(
+        "giftTitle"
+    ).value = "";
+
+    document.getElementById(
+        "giftMessage"
+    ).value = "";
+
+    document.getElementById(
+        "giftLink"
+    ).value = "";
+
+    document.getElementById(
+        "giftFile"
+    ).value = "";
+
+    document.getElementById(
+        "giftType"
+    ).value = "text";
+
+    updateGiftTypeFields();
+
+    setFormMessage(
+        "giftFormMessage",
+        "",
+        ""
+    );
+}
+
+
+async function sendCreatorGift() {
+
+    if (!isCreatorModeEnabled()) {
+
+        showToast(
+            "Creator Mode is OFF."
+        );
+
+        return;
+    }
+
+    const playerId =
+        document.getElementById(
+            "giftPlayerSelect"
+        ).value;
+
+    if (!playerId) {
+
+        setFormMessage(
+            "giftFormMessage",
+            "Select a player first.",
+            "error"
+        );
+
+        return;
+    }
+
+    const player =
+        players.find(
+            item =>
+                String(item.id) ===
+                String(playerId)
+        );
+
+    if (!player) {
+
+        setFormMessage(
+            "giftFormMessage",
+            "Player not found.",
+            "error"
+        );
+
+        return;
+    }
+
+    const type =
+        document.getElementById(
+            "giftType"
+        ).value;
+
+    const title =
+        document.getElementById(
+            "giftTitle"
+        ).value.trim();
+
+    if (!title) {
+
+        setFormMessage(
+            "giftFormMessage",
+            "Enter a gift title.",
+            "error"
+        );
+
+        return;
+    }
+
+    const payload = {
+        player_id:
+            String(player.id),
+
+        player_name:
+            player.player_name,
+
+        gift_type:
+            type,
+
+        title:
+            title,
+
+        message:
+            "",
+
+        link_url:
+            null,
+
+        file_url:
+            null,
+
+        file_path:
+            null,
+
+        file_name:
+            null,
+
+        mime_type:
+            null,
+
+        opened:
+            false
+    };
+
+    if (type === "text") {
+
+        const message =
+            document.getElementById(
+                "giftMessage"
+            ).value.trim();
+
+        if (!message) {
+
+            setFormMessage(
+                "giftFormMessage",
+                "Enter the gift message.",
+                "error"
+            );
+
+            return;
+        }
+
+        payload.message =
+            message;
+    }
+
+
+    if (type === "link") {
+
+        const rawLink =
+            document.getElementById(
+                "giftLink"
+            ).value.trim();
+
+        const safeLink =
+            escapeURL(rawLink);
+
+        if (!safeLink) {
+
+            setFormMessage(
+                "giftFormMessage",
+                "Enter a valid http:// or https:// link.",
+                "error"
+            );
+
+            return;
+        }
+
+        payload.link_url =
+            safeLink;
+    }
+
+
+    if (
+        type === "file" ||
+        type === "photo"
+    ) {
+
+        const fileInput =
+            document.getElementById(
+                "giftFile"
+            );
+
+        const file =
+            fileInput.files[0];
+
+        if (!file) {
+
+            setFormMessage(
+                "giftFormMessage",
+                "Choose a file first.",
+                "error"
+            );
+
+            return;
+        }
+
+        setFormMessage(
+            "giftFormMessage",
+            "Uploading file...",
+            ""
+        );
+
+        try {
+
+            const uploaded =
+                await uploadGiftFile(
+                    file,
+                    player.player_name
+                );
+
+            payload.file_url =
+                uploaded.url;
+
+            payload.file_path =
+                uploaded.path;
+
+            payload.file_name =
+                file.name;
+
+            payload.mime_type =
+                file.type || "application/octet-stream";
+
+        } catch (error) {
+
+            console.error(error);
+
+            setFormMessage(
+                "giftFormMessage",
+                "Upload failed: " +
+                error.message,
+                "error"
+            );
+
+            return;
+        }
+    }
+
+
+    try {
+
+        setFormMessage(
+            "giftFormMessage",
+            "Sending gift...",
+            ""
+        );
+
+        const response =
+            await fetch(
+                GIFTS_URL,
+                {
+                    method: "POST",
+
+                    headers:
+                        supabaseHeaders({
+                            "Prefer":
+                                "return=representation"
+                        }),
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+                }
+            );
+
+        if (!response.ok) {
+
+            const text =
+                await response.text();
+
+            throw new Error(
+                text ||
+                "Could not send gift."
+            );
+        }
+
+        setFormMessage(
+            "giftFormMessage",
+            "✅ Gift sent to " +
+            player.player_name + "!",
+            "success"
+        );
+
+        clearGiftForm();
+
+        showToast(
+            "Gift sent successfully!"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        setFormMessage(
+            "giftFormMessage",
+            "Could not send gift: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* =========================================================
+   FILE UPLOAD
+   ========================================================= */
+
+async function uploadGiftFile(
+    file,
+    playerName
+) {
+
+    const safeName =
+        file.name
+            .replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+    const randomPart =
+        crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now());
+
+    const path =
+        "gifts/" +
+        randomPart +
+        "-" +
+        safeName;
+
+    const uploadUrl =
+        SUPABASE_URL +
+        "/storage/v1/object/" +
+        STORAGE_BUCKET +
+        "/" +
+        path;
+
+    const response =
+        await fetch(
+            uploadUrl,
+            {
+                method: "POST",
+
+                headers: {
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_KEY,
+
+                    "Content-Type":
+                        file.type ||
+                        "application/octet-stream"
+                },
+
+                body:
+                    file
+            }
+        );
+
+    if (!response.ok) {
+
+        const text =
+            await response.text();
+
+        throw new Error(
+            text ||
+            "Storage upload failed."
+        );
+    }
+
+    const publicUrl =
+        SUPABASE_URL +
+        "/storage/v1/object/public/" +
+        STORAGE_BUCKET +
+        "/" +
+        path;
+
+    return {
+        path,
+        url: publicUrl
+    };
+}
+
+
+/* =========================================================
+   CREATOR MISSION
+   ========================================================= */
+
+async function createMission() {
+
+    if (!isCreatorModeEnabled()) {
+
+        showToast(
+            "Creator Mode is OFF."
+        );
+
+        return;
+    }
+
+    const playerId =
+        document.getElementById(
+            "missionPlayerSelect"
+        ).value;
+
+    if (!playerId) {
+
+        setFormMessage(
+            "missionFormMessage",
+            "Select a player first.",
+            "error"
+        );
+
+        return;
+    }
+
+    const player =
+        players.find(
+            item =>
+                String(item.id) ===
+                String(playerId)
+        );
+
+    if (!player) {
+        return;
+    }
+
+    const target =
+        Number(
+            document.getElementById(
+                "missionTargetScore"
+            ).value
+        );
+
+    if (
+        !Number.isFinite(target) ||
+        target < 0
+    ) {
+
+        setFormMessage(
+            "missionFormMessage",
+            "Enter a valid target score.",
+            "error"
+        );
+
+        return;
+    }
+
+    const title =
+        document.getElementById(
+            "missionTitle"
+        ).value.trim();
+
+    const message =
+        document.getElementById(
+            "missionMessage"
+        ).value.trim();
+
+    const reward =
+        document.getElementById(
+            "missionReward"
+        ).value.trim();
+
+    if (!title) {
+
+        setFormMessage(
+            "missionFormMessage",
+            "Enter a mission title.",
+            "error"
+        );
+
+        return;
+    }
+
+    if (!message) {
+
+        setFormMessage(
+            "missionFormMessage",
+            "Enter a mission message.",
+            "error"
+        );
+
+        return;
+    }
+
+    if (!reward) {
+
+        setFormMessage(
+            "missionFormMessage",
+            "Enter the reward promise.",
+            "error"
+        );
+
+        return;
+    }
+
+    const payload = {
+
+        player_id:
+            String(player.id),
+
+        player_name:
+            player.player_name,
+
+        title:
+            title,
+
+        message:
+            message,
+
+        target_score:
+            target,
+
+        reward_message:
+            reward,
+
+        completed:
+            false,
+
+        completed_at:
+            null
+    };
+
+    try {
+
+        setFormMessage(
+            "missionFormMessage",
+            "Creating mission...",
+            ""
+        );
+
+        const response =
+            await fetch(
+                MISSIONS_URL,
+                {
+                    method: "POST",
+
+                    headers:
+                        supabaseHeaders({
+                            "Prefer":
+                                "return=representation"
+                        }),
+
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+                }
+            );
+
+        if (!response.ok) {
+
+            const text =
+                await response.text();
+
+            throw new Error(
+                text ||
+                "Mission creation failed."
+            );
+        }
+
+        setFormMessage(
+            "missionFormMessage",
+            "✅ Mission created for " +
+            player.player_name + "!",
+            "success"
+        );
+
+        document.getElementById(
+            "missionTargetScore"
+        ).value = "";
+
+        document.getElementById(
+            "missionTitle"
+        ).value = "";
+
+        document.getElementById(
+            "missionMessage"
+        ).value = "";
+
+        document.getElementById(
+            "missionReward"
+        ).value = "";
+
+        showToast(
+            "Mission created!"
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        setFormMessage(
+            "missionFormMessage",
+            "Could not create mission: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* =========================================================
+   CREATOR PLAYER EDITOR
+   ========================================================= */
+
+function loadPlayerIntoEditor() {
+
+    const id =
+        document.getElementById(
+            "editPlayerSelect"
+        ).value;
+
+    const player =
+        players.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    if (!player) {
+        return;
+    }
+
+    document.getElementById(
+        "editHighScore"
+    ).value =
+        player.high_score;
+
+    document.getElementById(
+        "editLastScore"
+    ).value =
+        player.last_score;
+
+    document.getElementById(
+        "editCharacter"
+    ).value =
+        player.character === "Bosbos"
+            ? "Bosbos"
+            : "Bondock";
+}
+
+
+async function updateSelectedPlayer() {
+
+    if (!isCreatorModeEnabled()) {
+        return;
+    }
+
+    const id =
+        document.getElementById(
+            "editPlayerSelect"
+        ).value;
+
+    if (!id) {
+
+        setFormMessage(
+            "playerFormMessage",
+            "Select a player first.",
+            "error"
+        );
+
+        return;
+    }
+
+    const highScore =
+        Number(
+            document.getElementById(
+                "editHighScore"
+            ).value
+        );
+
+    const lastScore =
+        Number(
+            document.getElementById(
+                "editLastScore"
+            ).value
+        );
+
+    const character =
+        document.getElementById(
+            "editCharacter"
+        ).value;
+
+    if (
+        !Number.isFinite(highScore) ||
+        !Number.isFinite(lastScore)
+    ) {
+
+        setFormMessage(
+            "playerFormMessage",
+            "Scores must be valid numbers.",
+            "error"
+        );
+
+        return;
+    }
+
+    try {
+
+        setFormMessage(
+            "playerFormMessage",
+            "Saving player...",
+            ""
+        );
+
+        const url =
+            PLAYERS_URL +
+            "?id=eq." +
+            encodeURIComponent(id);
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "PATCH",
+
+                    headers:
+                        supabaseHeaders({
+                            "Prefer":
+                                "return=representation"
+                        }),
+
+                    body:
+                        JSON.stringify({
+                            high_score:
+                                Math.max(
+                                    0,
+                                    Math.floor(
+                                        highScore
+                                    )
+                                ),
+
+                            last_score:
+                                Math.max(
+                                    0,
+                                    Math.floor(
+                                        lastScore
+                                    )
+                                ),
+
+                            character:
+                                character,
+
+                            updated_at:
+                                new Date()
+                                    .toISOString()
+                        })
+                }
+            );
+
+        if (!response.ok) {
+
+            const text =
+                await response.text();
+
+            throw new Error(
+                text ||
+                "Player update failed."
+            );
+        }
+
+        setFormMessage(
+            "playerFormMessage",
+            "✅ Player updated.",
+            "success"
+        );
+
+        await loadPlayers();
+
+        showToast(
+            "Player updated."
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        setFormMessage(
+            "playerFormMessage",
+            "Could not update player: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+async function deleteSelectedPlayer() {
+
+    if (!isCreatorModeEnabled()) {
+        return;
+    }
+
+    const id =
+        document.getElementById(
+            "editPlayerSelect"
+        ).value;
+
+    if (!id) {
+
+        setFormMessage(
+            "playerFormMessage",
+            "Select a player first.",
+            "error"
+        );
+
+        return;
+    }
+
+    const player =
+        players.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+    if (!player) {
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            "Delete player \"" +
+            player.player_name +
+            "\"?\n\nThis removes the player from the players table."
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        setFormMessage(
+            "playerFormMessage",
+            "Deleting player...",
+            ""
+        );
+
+        const url =
+            PLAYERS_URL +
+            "?id=eq." +
+            encodeURIComponent(id);
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "DELETE",
+
+                    headers:
+                        supabaseHeaders()
+                }
+            );
+
+        if (!response.ok) {
+
+            const text =
+                await response.text();
+
+            throw new Error(
+                text ||
+                "Delete failed."
+            );
+        }
+
+        setFormMessage(
+            "playerFormMessage",
+            "✅ Player deleted.",
+            "success"
+        );
+
+        await loadPlayers();
+
+        showToast(
+            "Player deleted."
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        setFormMessage(
+            "playerFormMessage",
+            "Could not delete player: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* =========================================================
+   FORM MESSAGE
+   ========================================================= */
+
+function setFormMessage(
+    elementId,
+    message,
+    type
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+    element.textContent =
+        message;
+
+    element.className =
+        "form-message";
+
+    if (type === "success") {
+
+        element.classList.add(
+            "success-text"
+        );
+
+    } else if (type === "error") {
+
+        element.classList.add(
+            "error-text"
+        );
+    }
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
 
 document
-&#x20;   .getElementById(
-&#x20;       "playerModal"
-&#x20;   )
-&#x20;   .addEventListener(
-&#x20;       "click",
-&#x20;       function(event)
-&#x20;       {
-&#x20;           if (
-&#x20;               event.target ===
-&#x20;               this
-&#x20;           )
-&#x20;           {
-&#x20;               closePlayerModal();
-&#x20;           }
-&#x20;       }
-&#x20;   );
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        renderPlayers
+    );
 
 
-document.addEventListener(
-&#x20;   "keydown",
-&#x20;   function(event)
-&#x20;   {
-&#x20;       if (
-&#x20;           event.key ===
-&#x20;           "Escape"
-&#x20;       )
-&#x20;       {
-&#x20;           closePlayerModal();
-&#x20;       }
-&#x20;   }
+/* =========================================================
+   AUTO REFRESH
+   ========================================================= */
+
+setInterval(
+    async () => {
+
+        await loadPlayers();
+
+        if (getPlayerName()) {
+
+            await loadPlayerGifts();
+
+            await loadPlayerMissions();
+        }
+
+    },
+    10000
 );
 
 
-/\* =========================================================
-&#x20;  HTML ESCAPE
-\========================================================= \*/
+/* =========================================================
+   START
+   ========================================================= */
 
-function escapeHTML(
-&#x20;   text
-)
-{
-&#x20;   const div =
-&#x20;       document.createElement(
-&#x20;           "div"
-&#x20;       );
+async function initializePage() {
 
+    loadMusicState();
 
-&#x20;   div.textContent =
-&#x20;       text;
+    loadName();
 
+    initializeCreatorMode();
 
-&#x20;   return div.innerHTML;
+    updateGiftTypeFields();
+
+    await loadPlayers();
+
+    if (getPlayerName()) {
+
+        await loadPlayerGifts();
+
+        await loadPlayerMissions();
+    }
 }
 
+initializePage();
+</script>
 
-/\* =========================================================
-&#x20;  INITIALIZE
-\========================================================= \*/
-
-loadMusicState();
-
-loadName();
-
-loadPlayers();
-
-\</script>
-
-
-\</body>
-\</html>
+</body>
+</html>
