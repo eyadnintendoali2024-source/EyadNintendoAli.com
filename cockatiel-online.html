@@ -2314,7 +2314,19 @@ async function loadPlayers() {
 
         updateGiftButton();
 
-        loadPlayerNotifications();
+        await loadPlayerNotifications();
+
+        const missionMonitor =
+            document.getElementById(
+                "missionMonitorModal"
+            );
+
+        if (
+            missionMonitor &&
+            missionMonitor.classList.contains("show")
+        ) {
+            loadMissionMonitor();
+        }
 
     } catch (error) {
 
@@ -2646,8 +2658,149 @@ async function loadPlayerNotifications() {
         currentMissions = [];
     }
 
+    await checkAndCompleteMissions(currentMissions, players);
+
     renderNotifications();
     updateGiftButton();
+}
+
+/* =========================================================
+   AUTOMATIC MISSION COMPLETION
+========================================================= */
+
+async function checkAndCompleteMissions(missionsList, playersList) {
+
+    if (!Array.isArray(missionsList) || missionsList.length === 0) {
+        return false;
+    }
+
+    const playerRows =
+        Array.isArray(playersList) ? playersList : [];
+
+    let changed = false;
+
+    for (const mission of missionsList) {
+
+        if (!mission || mission.completed === true) {
+            continue;
+        }
+
+        if (mission.status === "declined") {
+            continue;
+        }
+
+        const target = Number(mission.required_score);
+
+        if (!Number.isFinite(target)) {
+            continue;
+        }
+
+        const player =
+            playerRows.find(function(item) {
+                return String(item.id) === String(mission.player_id);
+            }) ||
+            playerRows.find(function(item) {
+                const name =
+                    item.name !== undefined
+                        ? item.name
+                        : item.player_name;
+
+                return String(name || "").trim().toLowerCase() ===
+                    String(mission.player_name || "").trim().toLowerCase();
+            });
+
+        if (!player) {
+            continue;
+        }
+
+        const score = Number(
+            player.high_score !== undefined
+                ? player.high_score
+                : player.score
+        ) || 0;
+
+        if (score < target) {
+            continue;
+        }
+
+        const completedAt =
+            mission.completed_at ||
+            new Date().toISOString();
+
+        try {
+
+            const response =
+                await supabaseFetch(
+                    MISSIONS_URL +
+                    "?id=eq." +
+                    encodeURIComponent(mission.id),
+                    {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Prefer": "return=minimal"
+                        },
+                        body: JSON.stringify({
+                            status: "completed",
+                            completed: true,
+                            completed_at: completedAt,
+                            working_on_mission: false,
+                            last_active_at: new Date().toISOString()
+                        })
+                    }
+                );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Supabase HTTP " +
+                    response.status +
+                    ": " +
+                    await response.text()
+                );
+            }
+
+            mission.status = "completed";
+            mission.completed = true;
+            mission.completed_at = completedAt;
+            mission.working_on_mission = false;
+            mission.last_active_at = new Date().toISOString();
+            changed = true;
+
+            const savedName = getSavedPlayerName();
+
+            if (
+                savedName &&
+                String(mission.player_name).trim().toLowerCase() ===
+                    String(savedName).trim().toLowerCase()
+            ) {
+                const noticeKey =
+                    "CockatielMissionCompletedNotified_" +
+                    String(mission.id);
+
+                if (!localStorage.getItem(noticeKey)) {
+                    localStorage.setItem(noticeKey, "1");
+                    alert(
+                        "🏆 Mission completed!\n\n" +
+                        "You reached " +
+                        score.toLocaleString() +
+                        " points.\n" +
+                        "Required: " +
+                        target.toLocaleString() +
+                        " points."
+                    );
+                }
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Automatic mission completion failed:",
+                error
+            );
+        }
+    }
+
+    return changed;
 }
 
 /* =========================================================
@@ -3909,7 +4062,9 @@ async function createMission() {
                 null,
 
             status:
-                "pending",
+                player.score >= targetScore
+                    ? "completed"
+                    : "pending",
 
             accepted_at:
                 null,
@@ -4231,6 +4386,11 @@ async function heartbeatAcceptedMissions() {
         return;
     }
 
+    await checkAndCompleteMissions(
+        currentMissions,
+        players
+    );
+
     const accepted =
         currentMissions.filter(
             mission =>
@@ -4515,7 +4675,7 @@ async function loadMissionMonitor() {
         const playerResponse =
             await supabaseFetch(
                 PLAYERS_URL +
-                "?select=id,player_name,last_seen_at,updated_at",
+                "?select=id,player_name,high_score,last_score,last_seen_at,updated_at",
                 {
                     cache: "no-store"
                 }
@@ -4538,6 +4698,11 @@ async function loadMissionMonitor() {
                     ]
                 )
             );
+
+        await checkAndCompleteMissions(
+            missions,
+            playerRows
+        );
 
         list.innerHTML = "";
 
@@ -4572,6 +4737,13 @@ async function loadMissionMonitor() {
 
                 if (
                     mission.status ===
+                    "completed" ||
+                    mission.completed
+                ) {
+                    statusText =
+                        "🏆 Completed";
+                } else if (
+                    mission.status ===
                     "accepted"
                 ) {
                     statusText =
@@ -4582,13 +4754,6 @@ async function loadMissionMonitor() {
                 ) {
                     statusText =
                         "❌ Declined";
-                } else if (
-                    mission.status ===
-                    "completed" ||
-                    mission.completed
-                ) {
-                    statusText =
-                        "🏆 Completed";
                 }
 
                 const card =
