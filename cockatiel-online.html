@@ -1280,6 +1280,14 @@ body::before {
                         🟢 Creator Mode ON
                     </div>
 
+                    <button
+                        class="creator-action purple"
+                        type="button"
+                        onclick="openMissionMonitor()"
+                        style="margin-left:auto;">
+                        📋 Mission Status
+                    </button>
+
                 </div>
 
                 <div class="creator-grid">
@@ -1726,6 +1734,53 @@ body::before {
 
 </div>
 
+
+<!-- =========================================================
+     CREATOR MISSION STATUS OVERLAY
+========================================================= -->
+
+<div
+    id="missionMonitorModal"
+    class="modal">
+
+    <div
+        class="modal-box"
+        style="max-width:1100px; width:calc(100% - 30px);">
+
+        <button
+            class="close-modal"
+            type="button"
+            onclick="closeMissionMonitor()">
+            ×
+        </button>
+
+        <div class="gift-header">
+            <h2>📋 Mission Status</h2>
+            <p>
+                See who accepted or declined, who is online,
+                and who is currently working on the mission.
+            </p>
+        </div>
+
+        <div
+            id="missionMonitorList"
+            style="
+                display:grid;
+                gap:14px;
+                margin-top:20px;
+            ">
+            <div style="
+                text-align:center;
+                padding:30px;
+                color:#9eafd2;
+            ">
+                Loading mission status...
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <!-- =========================================================
      GIFTS / MISSIONS OVERLAY
 ========================================================= -->
@@ -2145,7 +2200,7 @@ async function loadPlayers() {
         );
 
         const query =
-            "?select=id,player_name,character,high_score,last_score,updated_at" +
+            "?select=id,player_name,character,high_score,last_score,updated_at,last_seen_at" +
             "&order=high_score.desc";
 
         const response =
@@ -2228,7 +2283,10 @@ async function loadPlayers() {
                             ) || 0,
 
                         updated_at:
-                            player.updated_at || null
+                            player.updated_at || null,
+
+                        last_seen_at:
+                            player.last_seen_at || null
                     };
 
                 })
@@ -2525,118 +2583,72 @@ async function supabaseFetch(
 
 async function loadPlayerNotifications() {
 
-    const playerName =
-        getSavedPlayerName();
+    const playerName = getSavedPlayerName();
 
     if (!playerName) {
-
         updateGiftButton();
-
         return;
     }
 
-    const giftList =
-        document.getElementById(
-            "giftList"
+    try {
+        const encodedName = encodeURIComponent(playerName);
+
+        const giftsResponse = await supabaseFetch(
+            GIFTS_URL +
+            "?select=*&recipient_player_name=eq." +
+            encodedName +
+            "&order=created_at.desc",
+            { cache: "no-store" }
         );
 
-    try {
-
-        const encodedName =
-            encodeURIComponent(
-                playerName
+        if (!giftsResponse.ok) {
+            throw new Error(
+                "Could not load gifts: HTTP " +
+                giftsResponse.status
             );
-
-        const giftsResponse =
-            await supabaseFetch(
-                GIFTS_URL +
-                "?select=*&player_name=eq." +
-                encodedName +
-                "&order=created_at.desc",
-                {
-                    cache: "no-store"
-                }
-            );
-
-        if (giftsResponse.ok) {
-
-            const gifts =
-                await giftsResponse.json();
-
-            currentGifts =
-                Array.isArray(gifts)
-                    ? gifts
-                    : [];
-
-        } else {
-
-            /*
-               If the new table does not exist yet,
-               keep the rest of the website working.
-            */
-
-            currentGifts = [];
         }
 
+        const gifts = await giftsResponse.json();
+
+        currentGifts =
+            Array.isArray(gifts) ? gifts : [];
+
     } catch (error) {
-
-        console.error(
-            "Could not load gifts:",
-            error
-        );
-
+        console.error("Could not load gifts:", error);
         currentGifts = [];
     }
 
-
     try {
+        const encodedName = encodeURIComponent(playerName);
 
-        const encodedName =
-            encodeURIComponent(
-                playerName
-            );
-
-        const missionsResponse =
-            await supabaseFetch(
-                MISSIONS_URL +
-                "?select=*&player_name=eq." +
-                encodedName +
-                "&order=created_at.desc",
-                {
-                    cache: "no-store"
-                }
-            );
-
-        if (missionsResponse.ok) {
-
-            const missions =
-                await missionsResponse.json();
-
-            currentMissions =
-                Array.isArray(missions)
-                    ? missions
-                    : [];
-
-        } else {
-
-            currentMissions = [];
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Could not load missions:",
-            error
+        const missionsResponse = await supabaseFetch(
+            MISSIONS_URL +
+            "?select=*&player_name=eq." +
+            encodedName +
+            "&order=created_at.desc",
+            { cache: "no-store" }
         );
 
+        if (!missionsResponse.ok) {
+            throw new Error(
+                "Could not load missions: HTTP " +
+                missionsResponse.status
+            );
+        }
+
+        const missions = await missionsResponse.json();
+
+        currentMissions =
+            Array.isArray(missions) ? missions : [];
+
+    } catch (error) {
+        console.error("Could not load missions:", error);
         currentMissions = [];
     }
 
     renderNotifications();
-
     updateGiftButton();
 }
-
 
 /* =========================================================
    RENDER GIFTS
@@ -2645,19 +2657,20 @@ async function loadPlayerNotifications() {
 function renderNotifications() {
 
     const list =
-        document.getElementById(
-            "giftList"
-        );
+        document.getElementById("giftList");
 
     const playerName =
         getSavedPlayerName();
 
-    document.getElementById(
-        "giftWelcome"
-    ).textContent =
-        playerName
-            ? "Welcome, " + playerName + "! 🎉"
-            : "Enter your player name first.";
+    const welcome =
+        document.getElementById("giftWelcome");
+
+    if (welcome) {
+        welcome.textContent =
+            playerName
+                ? "Welcome, " + playerName + "! 🎉"
+                : "Enter your player name first.";
+    }
 
     list.innerHTML = "";
 
@@ -2665,196 +2678,258 @@ function renderNotifications() {
         currentGifts.length === 0 &&
         currentMissions.length === 0
     ) {
-
         list.innerHTML = `
             <div style="
                 text-align:center;
                 padding:35px;
                 color:#9eafd2;
             ">
-
                 🎁 No gifts or missions yet.
-
             </div>
         `;
-
         return;
     }
 
-    currentGifts.forEach(
-        function(gift) {
+    currentGifts.forEach(function(gift) {
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+        const card =
+            document.createElement("div");
 
-            card.className =
-                "gift-card " +
-                (
-                    gift.is_read
-                        ? ""
-                        : "unread"
-                );
+        card.className =
+            "gift-card " +
+            (
+                gift.read_at
+                    ? ""
+                    : "unread"
+            );
 
-            let content = "";
+        let content = "";
 
-            if (gift.title) {
+        content +=
+            `<h3>🎁 ${
+                escapeHTML(
+                    gift.title ||
+                    "Gift from Creator"
+                )
+            }</h3>`;
 
-                content +=
-                    `<h3>🎁 ${escapeHTML(gift.title)}</h3>`;
-
-            } else {
-
-                content +=
-                    `<h3>🎁 Gift from Creator</h3>`;
-            }
-
-            if (gift.created_at) {
-
-                content +=
-                    `<div class="gift-meta">
-                        ${formatDate(gift.created_at)}
-                    </div>`;
-
-            }
-
-            if (gift.message) {
-
-                content +=
-                    `<div class="gift-message">
-                        ${escapeHTML(gift.message)}
-                    </div>`;
-
-            }
-
-            if (
-                gift.gift_type === "link" &&
-                gift.link_url
-            ) {
-
-                const safeURL =
-                    safeExternalURL(
-                        gift.link_url
-                    );
-
-                if (safeURL) {
-
-                    content +=
-                        `<a
-                            class="gift-link"
-                            href="${escapeAttribute(safeURL)}"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            🔗 Open Link
-                        </a>`;
-                }
-
-            }
-
-            if (
-                (
-                    gift.gift_type === "file" ||
-                    gift.gift_type === "photo"
-                ) &&
-                gift.url
-            ) {
-
-                const safeURL =
-                    safeExternalURL(
-                        gift.url
-                    );
-
-                if (safeURL) {
-
-                    content +=
-                        `<a
-                            class="gift-link"
-                            href="${escapeAttribute(safeURL)}"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            ${
-                                gift.gift_type === "photo"
-                                    ? "🖼️ Open Photo"
-                                    : "📁 Open File"
-                            }
-                        </a>`;
-                }
-            }
-
-            card.innerHTML =
-                content;
-
-            list.appendChild(card);
+        if (gift.created_at) {
+            content +=
+                `<div class="gift-meta">
+                    ${formatDate(gift.created_at)}
+                </div>`;
         }
-    );
 
+        if (gift.message) {
+            content +=
+                `<div class="gift-message">
+                    ${escapeHTML(gift.message)}
+                </div>`;
+        }
 
-    currentMissions.forEach(
-        function(mission) {
+        if (
+            gift.type === "link" &&
+            gift.url
+        ) {
+            const safeURL =
+                safeExternalURL(gift.url);
 
-            const player =
-                findCurrentPlayer();
+            if (safeURL) {
+                content +=
+                    `<a
+                        class="gift-link"
+                        href="${escapeAttribute(safeURL)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        🔗 Open Link
+                    </a>`;
+            }
+        }
 
-            const currentScore =
-                player
-                    ? player.score
-                    : 0;
+        if (
+            (
+                gift.type === "file" ||
+                gift.type === "photo"
+            ) &&
+            gift.url
+        ) {
+            const safeURL =
+                safeExternalURL(gift.url);
 
-            const target =
-                Number(
-                    mission.required_score
-                ) || 0;
+            if (safeURL) {
+                content +=
+                    `<a
+                        class="gift-link"
+                        href="${escapeAttribute(safeURL)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        ${
+                            gift.type === "photo"
+                                ? "🖼️ Open Photo"
+                                : "📁 Open File"
+                        }
+                    </a>`;
+            }
+        }
 
-            const completed =
-                mission.completed ||
-                currentScore >= target;
+        card.innerHTML = content;
+        list.appendChild(card);
+    });
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+    currentMissions.forEach(function(mission) {
 
-            card.className =
-                "mission-card " +
-                (
+        const player =
+            findCurrentPlayer();
+
+        const currentScore =
+            player ? player.score : 0;
+
+        const target =
+            Number(
+                mission.required_score
+            ) || 0;
+
+        const completed =
+            Boolean(mission.completed) ||
+            currentScore >= target;
+
+        const status =
+            mission.status || "pending";
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "mission-card " +
+            (
+                completed
+                    ? "completed"
+                    : ""
+            );
+
+        let statusHTML = "";
+
+        if (completed) {
+            statusHTML =
+                `<div style="
+                    margin-top:12px;
+                    padding:10px;
+                    border-radius:10px;
+                    background:rgba(70,220,120,.12);
+                    color:#79f0a0;
+                    font-weight:bold;">
+                    ✅ Mission completed
+                </div>`;
+        } else if (status === "accepted") {
+            statusHTML =
+                `<div style="
+                    margin-top:12px;
+                    padding:10px;
+                    border-radius:10px;
+                    background:rgba(90,160,255,.12);
+                    color:#8ec5ff;
+                    font-weight:bold;">
+                    ✅ Accepted • Mission active
+                </div>`;
+        } else if (status === "declined") {
+            statusHTML =
+                `<div style="
+                    margin-top:12px;
+                    padding:10px;
+                    border-radius:10px;
+                    background:rgba(255,90,90,.12);
+                    color:#ff9a9a;
+                    font-weight:bold;">
+                    ❌ You declined this mission
+                </div>`;
+        } else {
+            statusHTML =
+                `<div style="
+                    margin-top:12px;
+                    padding:10px;
+                    border-radius:10px;
+                    background:rgba(255,210,80,.10);
+                    color:#ffd86b;
+                    font-weight:bold;">
+                    ⏳ Waiting for your answer
+                </div>`;
+        }
+
+        card.innerHTML = `
+            <h3>
+                ${
                     completed
-                        ? "completed"
-                        : ""
-                );
+                        ? "✅ Mission Completed!"
+                        : "🎯 Creator Mission"
+                }
+            </h3>
 
-            card.innerHTML = `
+            <div class="mission-score">
+                Get ${target.toLocaleString()} points or higher
+            </div>
 
-                <h3>
-                    ${
-                        completed
-                            ? "✅ Mission Completed!"
-                            : "🎯 Creator Mission"
-                    }
-                </h3>
+            <p style="
+                color:#cbd6ef;
+                line-height:1.6;
+            ">
+                ${escapeHTML(
+                    mission.description ||
+                    "Reach the required score and you will receive a gift!"
+                )}
+            </p>
 
-                <div class="mission-score">
-                    Get ${target.toLocaleString()} points or higher
-                </div>
+            ${
+                mission.reward_message
+                    ? `
+                        <div style="
+                            margin-top:10px;
+                            padding:12px;
+                            border-radius:10px;
+                            background:rgba(255,255,255,0.06);
+                            color:#ffd86b;
+                        ">
+                            🎁 Reward:
+                            ${escapeHTML(
+                                mission.reward_message
+                            )}
+                        </div>
+                    `
+                    : ""
+            }
 
-                <p style="
-                    color:#cbd6ef;
-                    line-height:1.6;
-                ">
-                    ${escapeHTML(
-                        mission.description ||
-                        "Reach the required score and you will receive a gift!"
-                    )}
-                </p>
+            ${statusHTML}
 
-            `;
+            ${
+                !completed &&
+                status === "pending"
+                    ? `
+                        <div style="
+                            display:flex;
+                            gap:10px;
+                            flex-wrap:wrap;
+                            margin-top:15px;">
+                            <button
+                                class="creator-action green"
+                                type="button"
+                                onclick="acceptMission('${escapeAttribute(mission.id)}')">
+                                ✅ Accept
+                            </button>
 
-            list.appendChild(card);
+                            <button
+                                class="creator-action red"
+                                type="button"
+                                onclick="declineMission('${escapeAttribute(mission.id)}')">
+                                ❌ Decline
+                            </button>
+                        </div>
+                    `
+                    : ""
+            }
+        `;
 
-        }
-    );
+        list.appendChild(card);
+    });
 }
-
 
 /* =========================================================
    MARK GIFTS READ
@@ -2869,7 +2944,7 @@ async function markGiftsAsRead() {
 
     const unread =
         currentGifts.filter(
-            gift => !gift.is_read
+            gift => !gift.read_at
         );
 
     for (const gift of unread) {
@@ -2877,31 +2952,25 @@ async function markGiftsAsRead() {
         if (!gift.id) continue;
 
         try {
-
             await supabaseFetch(
                 GIFTS_URL +
                 "?id=eq." +
-                encodeURIComponent(
-                    gift.id
-                ),
+                encodeURIComponent(gift.id),
                 {
                     method: "PATCH",
-
                     headers: {
                         "Content-Type":
                             "application/json",
                         "Prefer":
                             "return=minimal"
                     },
-
                     body: JSON.stringify({
-                        is_read: true
+                        read_at:
+                            new Date().toISOString()
                     })
                 }
             );
-
         } catch (error) {
-
             console.error(
                 "Could not mark gift read:",
                 error
@@ -2909,15 +2978,14 @@ async function markGiftsAsRead() {
         }
     }
 
-    currentGifts.forEach(
-        gift => {
-            gift.is_read = true;
-        }
-    );
+    currentGifts.forEach(function(gift) {
+        gift.read_at =
+            gift.read_at ||
+            new Date().toISOString();
+    });
 
     updateGiftButton();
 }
-
 
 /* =========================================================
    GIFT COUNT
@@ -2926,31 +2994,32 @@ async function markGiftsAsRead() {
 function updateGiftButtonCount() {
 
     const countElement =
-        document.getElementById(
-            "giftCount"
-        );
+        document.getElementById("giftCount");
 
     if (!countElement) return;
 
-    const unread =
+    const unreadGifts =
         currentGifts.filter(
-            gift => !gift.is_read
+            gift => !gift.read_at
         ).length;
 
-    if (unread > 0) {
+    const pendingMissions =
+        currentMissions.filter(
+            mission =>
+                !mission.completed &&
+                (!mission.status ||
+                 mission.status === "pending")
+        ).length;
 
-        countElement.style.display =
-            "flex";
+    const total =
+        unreadGifts + pendingMissions;
 
+    if (total > 0) {
+        countElement.style.display = "flex";
         countElement.textContent =
-            unread > 99
-                ? "99+"
-                : String(unread);
-
+            total > 99 ? "99+" : String(total);
     } else {
-
-        countElement.style.display =
-            "none";
+        countElement.style.display = "none";
     }
 }
 
@@ -3530,7 +3599,10 @@ async function uploadGiftFile(
         "/" +
         path;
 
-    return publicURL;
+    return {
+        url: publicURL,
+        path: path
+    };
 }
 
 
@@ -3541,18 +3613,12 @@ async function uploadGiftFile(
 async function sendGift() {
 
     if (!isCreatorModeEnabled()) {
-
-        alert(
-            "Creator Mode is not enabled."
-        );
-
+        alert("Creator Mode is not enabled.");
         return;
     }
 
     const player =
-        getSelectedPlayer(
-            "giftPlayer"
-        );
+        getSelectedPlayer("giftPlayer");
 
     const status =
         document.getElementById(
@@ -3560,10 +3626,8 @@ async function sendGift() {
         );
 
     if (!player) {
-
         status.textContent =
             "Please select a player.";
-
         return;
     }
 
@@ -3594,32 +3658,30 @@ async function sendGift() {
 
         let fileURL = null;
         let fileName = null;
+        let storagePath = null;
+        let mimeType = null;
 
         if (
             type === "text" &&
             !message
         ) {
-
             throw new Error(
                 "Write a gift message first."
             );
         }
 
-        if (
-            type === "link"
-        ) {
+        if (type === "link") {
 
             const safeURL =
-                safeExternalURL(
-                    link
-                );
+                safeExternalURL(link);
 
             if (!safeURL) {
-
                 throw new Error(
                     "Please enter a valid http or https link."
                 );
             }
+
+            fileURL = safeURL;
         }
 
         if (
@@ -3631,7 +3693,6 @@ async function sendGift() {
                 fileInput.files[0];
 
             if (!file) {
-
                 throw new Error(
                     "Please choose a file/photo first."
                 );
@@ -3641,20 +3702,28 @@ async function sendGift() {
                 type === "photo" &&
                 !file.type.startsWith("image/")
             ) {
-
                 throw new Error(
                     "Please select an image for a photo gift."
                 );
             }
 
-            fileURL =
+            const uploaded =
                 await uploadGiftFile(
                     file,
                     player.name
                 );
 
+            fileURL =
+                uploaded.url;
+
+            storagePath =
+                uploaded.path;
+
             fileName =
                 file.name;
+
+            mimeType =
+                file.type || null;
         }
 
         const giftData = {
@@ -3677,18 +3746,16 @@ async function sendGift() {
                     : "",
 
             url:
-                type === "link"
-                    ? link
-                    : fileURL,
+                fileURL,
 
             storage_path:
-                null,
+                storagePath,
 
             file_name:
                 fileName,
 
             mime_type:
-                null,
+                mimeType,
 
             creator_name:
                 "Creator",
@@ -3702,15 +3769,12 @@ async function sendGift() {
                 GIFTS_URL,
                 {
                     method: "POST",
-
                     headers: {
                         "Content-Type":
                             "application/json",
-
                         "Prefer":
                             "return=minimal"
                     },
-
                     body:
                         JSON.stringify(
                             giftData
@@ -3722,7 +3786,6 @@ async function sendGift() {
             await response.text();
 
         if (!response.ok) {
-
             throw new Error(
                 "Supabase HTTP " +
                 response.status +
@@ -3733,7 +3796,8 @@ async function sendGift() {
 
         status.textContent =
             "✓ Gift sent to " +
-            player.name + "! 🎁";
+            player.name +
+            "! 🎁";
 
         document.getElementById(
             "giftMessage"
@@ -3757,7 +3821,6 @@ async function sendGift() {
     }
 }
 
-
 /* =========================================================
    CREATE MISSION
 ========================================================= */
@@ -3765,18 +3828,12 @@ async function sendGift() {
 async function createMission() {
 
     if (!isCreatorModeEnabled()) {
-
-        alert(
-            "Creator Mode is not enabled."
-        );
-
+        alert("Creator Mode is not enabled.");
         return;
     }
 
     const player =
-        getSelectedPlayer(
-            "missionPlayer"
-        );
+        getSelectedPlayer("missionPlayer");
 
     const status =
         document.getElementById(
@@ -3784,10 +3841,8 @@ async function createMission() {
         );
 
     if (!player) {
-
         status.textContent =
             "Please select a player.";
-
         return;
     }
 
@@ -3812,18 +3867,14 @@ async function createMission() {
         !Number.isFinite(targetScore) ||
         targetScore < 0
     ) {
-
         status.textContent =
             "Enter a valid required score.";
-
         return;
     }
 
     if (!message) {
-
         status.textContent =
             "Write the mission message.";
-
         return;
     }
 
@@ -3844,27 +3895,45 @@ async function createMission() {
                 "Creator Mission",
 
             description:
-                message +
-                (
-                    reward
-                        ? "\n\n🎁 Reward: " + reward
-                        : ""
-                ),
+                message,
 
             required_score:
-                Math.floor(targetScore),
+                Math.floor(
+                    targetScore
+                ),
+
+            reward_message:
+                reward,
 
             reward_gift_id:
                 null,
 
+            status:
+                "pending",
+
+            accepted_at:
+                null,
+
+            declined_at:
+                null,
+
+            last_active_at:
+                null,
+
+            working_on_mission:
+                false,
+
             completed:
-                player.score >= targetScore,
+                player.score >=
+                targetScore,
 
             created_at:
-                new Date().toISOString(),
+                new Date()
+                    .toISOString(),
 
             completed_at:
-                player.score >= targetScore
+                player.score >=
+                targetScore
                     ? new Date().toISOString()
                     : null
         };
@@ -3874,15 +3943,12 @@ async function createMission() {
                 MISSIONS_URL,
                 {
                     method: "POST",
-
                     headers: {
                         "Content-Type":
                             "application/json",
-
                         "Prefer":
                             "return=minimal"
                     },
-
                     body:
                         JSON.stringify(
                             missionData
@@ -3894,7 +3960,6 @@ async function createMission() {
             await response.text();
 
         if (!response.ok) {
-
             throw new Error(
                 "Supabase HTTP " +
                 response.status +
@@ -3927,6 +3992,732 @@ async function createMission() {
         status.textContent =
             "❌ " +
             error.message;
+    }
+}
+
+/* =========================================================
+   MISSION PLAYER ACTIONS
+========================================================= */
+
+const ANDROID_GAME_PACKAGE =
+    "com.EyadNintendoAli.cockatielbird";
+
+let missionHeartbeatTimer = null;
+
+async function updateMissionStatus(
+    missionId,
+    status,
+    working
+) {
+
+    const playerName =
+        getSavedPlayerName();
+
+    if (!playerName || !missionId) {
+        return false;
+    }
+
+    const payload = {
+        status:
+            status,
+
+        working_on_mission:
+            Boolean(working),
+
+        last_active_at:
+            new Date().toISOString()
+    };
+
+    if (status === "accepted") {
+        payload.accepted_at =
+            new Date().toISOString();
+        payload.declined_at = null;
+    }
+
+    if (status === "declined") {
+        payload.declined_at =
+            new Date().toISOString();
+        payload.working_on_mission = false;
+    }
+
+    try {
+
+        const response =
+            await supabaseFetch(
+                MISSIONS_URL +
+                "?id=eq." +
+                encodeURIComponent(
+                    missionId
+                ) +
+                "&player_name=eq." +
+                encodeURIComponent(
+                    playerName
+                ),
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                        "Prefer":
+                            "return=minimal"
+                    },
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+                }
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                await response.text()
+            );
+        }
+
+        return true;
+
+    } catch (error) {
+
+        console.error(
+            "Mission status update failed:",
+            error
+        );
+
+        return false;
+    }
+}
+
+function isAndroidDevice() {
+
+    return /Android/i.test(
+        navigator.userAgent
+    );
+}
+
+function openCockatielBirdGame() {
+
+    if (!isAndroidDevice()) {
+
+        alert(
+            "✅ Mission accepted!\n\n" +
+            "Please open Cockatiel Bird from the game."
+        );
+
+        return;
+    }
+
+    const intentURL =
+        "intent://#Intent;" +
+        "package=" +
+        ANDROID_GAME_PACKAGE +
+        ";" +
+        "scheme=cockatielbird;" +
+        "end";
+
+    window.location.href =
+        intentURL;
+
+    setTimeout(function() {
+
+        alert(
+            "✅ Mission accepted!\n\n" +
+            "Opening Cockatiel Bird...\n\n" +
+            "If the game did not open, please open it manually."
+        );
+
+    }, 1800);
+}
+
+async function acceptMission(missionId) {
+
+    const mission =
+        currentMissions.find(
+            item =>
+                String(item.id) ===
+                String(missionId)
+        );
+
+    if (!mission) {
+        return;
+    }
+
+    const success =
+        await updateMissionStatus(
+            missionId,
+            "accepted",
+            true
+        );
+
+    if (!success) {
+
+        alert(
+            "Could not accept the mission. Please try again."
+        );
+
+        return;
+    }
+
+    mission.status =
+        "accepted";
+
+    mission.accepted_at =
+        new Date().toISOString();
+
+    mission.working_on_mission =
+        true;
+
+    mission.last_active_at =
+        new Date().toISOString();
+
+    renderNotifications();
+    updateGiftButton();
+
+    openCockatielBirdGame();
+
+    startMissionHeartbeat();
+}
+
+async function declineMission(missionId) {
+
+    const mission =
+        currentMissions.find(
+            item =>
+                String(item.id) ===
+                String(missionId)
+        );
+
+    if (!mission) {
+        return;
+    }
+
+    const success =
+        await updateMissionStatus(
+            missionId,
+            "declined",
+            false
+        );
+
+    if (!success) {
+
+        alert(
+            "Could not decline the mission. Please try again."
+        );
+
+        return;
+    }
+
+    mission.status =
+        "declined";
+
+    mission.declined_at =
+        new Date().toISOString();
+
+    mission.working_on_mission =
+        false;
+
+    renderNotifications();
+    updateGiftButton();
+}
+
+async function heartbeatAcceptedMissions() {
+
+    const playerName =
+        getSavedPlayerName();
+
+    if (!playerName) {
+        return;
+    }
+
+    const accepted =
+        currentMissions.filter(
+            mission =>
+                mission.status ===
+                    "accepted" &&
+                !mission.completed
+        );
+
+    for (const mission of accepted) {
+
+        try {
+
+            await supabaseFetch(
+                MISSIONS_URL +
+                "?id=eq." +
+                encodeURIComponent(
+                    mission.id
+                ) +
+                "&player_name=eq." +
+                encodeURIComponent(
+                    playerName
+                ),
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                        "Prefer":
+                            "return=minimal"
+                    },
+                    body:
+                        JSON.stringify({
+                            last_active_at:
+                                new Date().toISOString(),
+
+                            working_on_mission:
+                                true
+                        })
+                }
+            );
+
+            mission.last_active_at =
+                new Date().toISOString();
+
+            mission.working_on_mission =
+                true;
+
+        } catch (error) {
+
+            console.error(
+                "Mission heartbeat failed:",
+                error
+            );
+        }
+    }
+}
+
+function startMissionHeartbeat() {
+
+    if (missionHeartbeatTimer) {
+        return;
+    }
+
+    heartbeatAcceptedMissions();
+
+    missionHeartbeatTimer =
+        setInterval(
+            heartbeatAcceptedMissions,
+            30000
+        );
+}
+
+function stopMissionHeartbeat() {
+
+    if (!missionHeartbeatTimer) {
+        return;
+    }
+
+    clearInterval(
+        missionHeartbeatTimer
+    );
+
+    missionHeartbeatTimer =
+        null;
+}
+
+
+/* =========================================================
+   PLAYER WEBSITE ONLINE HEARTBEAT
+========================================================= */
+
+async function updatePlayerWebsitePresence() {
+
+    const playerName =
+        getSavedPlayerName();
+
+    if (!playerName) {
+        return;
+    }
+
+    try {
+
+        await supabaseFetch(
+            PLAYERS_URL +
+            "?player_name=eq." +
+            encodeURIComponent(
+                playerName
+            ),
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type":
+                        "application/json",
+                    "Prefer":
+                        "return=minimal"
+                },
+                body:
+                    JSON.stringify({
+                        last_seen_at:
+                            new Date().toISOString()
+                    })
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Presence update failed:",
+            error
+        );
+    }
+}
+
+
+/* =========================================================
+   CREATOR MISSION MONITOR
+========================================================= */
+
+function openMissionMonitor() {
+
+    if (!isCreatorModeEnabled()) {
+        alert(
+            "Creator Mode is not enabled."
+        );
+        return;
+    }
+
+    document
+        .getElementById(
+            "missionMonitorModal"
+        )
+        .classList.add("show");
+
+    loadMissionMonitor();
+}
+
+function closeMissionMonitor() {
+
+    document
+        .getElementById(
+            "missionMonitorModal"
+        )
+        .classList.remove("show");
+}
+
+function missionPlayerOnline(
+    player,
+    mission
+) {
+
+    const seen =
+        player &&
+        player.last_seen_at
+            ? Date.parse(
+                player.last_seen_at
+            )
+            : NaN;
+
+    if (Number.isFinite(seen)) {
+
+        return (
+            Date.now() - seen <=
+            90000
+        );
+    }
+
+    const active =
+        mission &&
+        mission.last_active_at
+            ? Date.parse(
+                mission.last_active_at
+            )
+            : NaN;
+
+    return Number.isFinite(active) &&
+        Date.now() - active <=
+        90000;
+}
+
+function missionWorking(mission) {
+
+    if (
+        !mission ||
+        mission.status !== "accepted" ||
+        !mission.working_on_mission
+    ) {
+        return false;
+    }
+
+    if (!mission.last_active_at) {
+        return false;
+    }
+
+    const last =
+        Date.parse(
+            mission.last_active_at
+        );
+
+    return (
+        Number.isFinite(last) &&
+        Date.now() - last <=
+            90000
+    );
+}
+
+async function loadMissionMonitor() {
+
+    const list =
+        document.getElementById(
+            "missionMonitorList"
+        );
+
+    list.innerHTML = `
+        <div style="
+            text-align:center;
+            padding:30px;
+            color:#9eafd2;">
+            Loading mission status...
+        </div>
+    `;
+
+    try {
+
+        const response =
+            await supabaseFetch(
+                MISSIONS_URL +
+                "?select=*&order=created_at.desc",
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (!response.ok) {
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                await response.text()
+            );
+        }
+
+        const missions =
+            await response.json();
+
+        if (
+            !Array.isArray(missions) ||
+            missions.length === 0
+        ) {
+
+            list.innerHTML = `
+                <div style="
+                    text-align:center;
+                    padding:30px;
+                    color:#9eafd2;">
+                    🎯 No missions have been created yet.
+                </div>
+            `;
+
+            return;
+        }
+
+        const playerResponse =
+            await supabaseFetch(
+                PLAYERS_URL +
+                "?select=id,player_name,last_seen_at,updated_at",
+                {
+                    cache: "no-store"
+                }
+            );
+
+        const playerRows =
+            playerResponse.ok
+                ? await playerResponse.json()
+                : [];
+
+        const playerMap =
+            new Map(
+                (Array.isArray(playerRows)
+                    ? playerRows
+                    : []
+                ).map(
+                    player => [
+                        String(player.id),
+                        player
+                    ]
+                )
+            );
+
+        list.innerHTML = "";
+
+        missions.forEach(
+            function(mission) {
+
+                const player =
+                    playerMap.get(
+                        String(
+                            mission.player_id
+                        )
+                    ) ||
+                    playerRows.find(
+                        item =>
+                            item.player_name ===
+                            mission.player_name
+                    );
+
+                const online =
+                    missionPlayerOnline(
+                        player,
+                        mission
+                    );
+
+                const working =
+                    missionWorking(
+                        mission
+                    );
+
+                let statusText =
+                    "⏳ Waiting";
+
+                if (
+                    mission.status ===
+                    "accepted"
+                ) {
+                    statusText =
+                        "✅ Accepted";
+                } else if (
+                    mission.status ===
+                    "declined"
+                ) {
+                    statusText =
+                        "❌ Declined";
+                } else if (
+                    mission.status ===
+                    "completed" ||
+                    mission.completed
+                ) {
+                    statusText =
+                        "🏆 Completed";
+                }
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+                card.style.cssText =
+                    `
+                    padding:18px;
+                    border-radius:16px;
+                    background:rgba(255,255,255,.05);
+                    border:1px solid rgba(255,255,255,.08);
+                    `;
+
+                card.innerHTML = `
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:15px;
+                        flex-wrap:wrap;">
+
+                        <div>
+                            <h3 style="
+                                margin:0 0 8px;">
+                                🎯 ${
+                                    escapeHTML(
+                                        mission.title ||
+                                        "Creator Mission"
+                                    )
+                                }
+                            </h3>
+
+                            <div style="
+                                color:#9eafd2;">
+                                Player:
+                                <strong>
+                                    ${escapeHTML(
+                                        mission.player_name
+                                    )}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div style="
+                            font-weight:bold;">
+                            ${statusText}
+                        </div>
+
+                    </div>
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:
+                            repeat(auto-fit,minmax(160px,1fr));
+                        gap:10px;
+                        margin-top:15px;">
+
+                        <div>
+                            👤 Player:
+                            ${
+                                online
+                                    ? "🟢 Online"
+                                    : "⚪ Offline"
+                            }
+                        </div>
+
+                        <div>
+                            🛠️ Working:
+                            ${
+                                working
+                                    ? "🟢 Making mission"
+                                    : "⚪ Not working"
+                            }
+                        </div>
+
+                        <div>
+                            🎯 Required:
+                            ${Number(
+                                mission.required_score || 0
+                            ).toLocaleString()}
+                        </div>
+
+                        <div>
+                            🕒 Last activity:
+                            ${
+                                mission.last_active_at
+                                    ? escapeHTML(
+                                        formatDate(
+                                            mission.last_active_at
+                                        )
+                                    )
+                                    : "No activity yet"
+                            }
+                        </div>
+
+                    </div>
+
+                    <div style="
+                        margin-top:12px;
+                        color:#cbd6ef;">
+                        ${
+                            escapeHTML(
+                                mission.description ||
+                                ""
+                            )
+                        }
+                    </div>
+                `;
+
+                list.appendChild(card);
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Could not load mission monitor:",
+            error
+        );
+
+        list.innerHTML = `
+            <div style="
+                color:#ff9a9a;
+                padding:20px;">
+                ❌ Could not load mission status.<br>
+                ${escapeHTML(error.message)}
+            </div>
+        `;
     }
 }
 
@@ -4551,6 +5342,24 @@ setInterval(
 /* =========================================================
    INITIALIZE
 ========================================================= */
+
+
+/* =========================================================
+   START WEBSITE PRESENCE
+========================================================= */
+
+setTimeout(function() {
+
+    updatePlayerWebsitePresence();
+
+    setInterval(
+        updatePlayerWebsitePresence,
+        30000
+    );
+
+    startMissionHeartbeat();
+
+}, 1500);
 
 loadMusicState();
 
