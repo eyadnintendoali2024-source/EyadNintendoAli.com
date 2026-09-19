@@ -2757,12 +2757,12 @@ function renderNotifications() {
                     gift.gift_type === "file" ||
                     gift.gift_type === "photo"
                 ) &&
-                gift.file_url
+                gift.url
             ) {
 
                 const safeURL =
                     safeExternalURL(
-                        gift.file_url
+                        gift.url
                     );
 
                 if (safeURL) {
@@ -2803,7 +2803,7 @@ function renderNotifications() {
 
             const target =
                 Number(
-                    mission.target_score
+                    mission.required_score
                 ) || 0;
 
             const completed =
@@ -2842,29 +2842,10 @@ function renderNotifications() {
                     line-height:1.6;
                 ">
                     ${escapeHTML(
-                        mission.message ||
+                        mission.description ||
                         "Reach the required score and you will receive a gift!"
                     )}
                 </p>
-
-                ${
-                    mission.reward_message
-                        ? `
-                            <div style="
-                                margin-top:10px;
-                                padding:12px;
-                                border-radius:10px;
-                                background:rgba(255,255,255,0.06);
-                                color:#ffd86b;
-                            ">
-                                🎁 Reward:
-                                ${escapeHTML(
-                                    mission.reward_message
-                                )}
-                            </div>
-                        `
-                        : ""
-                }
 
             `;
 
@@ -3678,36 +3659,42 @@ async function sendGift() {
 
         const giftData = {
 
-            player_name:
+            recipient_player_name:
                 player.name,
 
-            player_id:
-                String(player.id),
+            recipient_player_id:
+                Number(player.id),
+
+            type:
+                type,
 
             title:
                 "Gift from Creator",
-
-            gift_type:
-                type,
 
             message:
                 type === "text"
                     ? message
                     : "",
 
-            link_url:
+            url:
                 type === "link"
                     ? link
-                    : null,
+                    : fileURL,
 
-            file_url:
-                fileURL,
+            storage_path:
+                null,
 
             file_name:
                 fileName,
 
-            is_read:
-                false
+            mime_type:
+                null,
+
+            creator_name:
+                "Creator",
+
+            read_at:
+                null
         };
 
         const response =
@@ -3851,23 +3838,4607 @@ async function createMission() {
                 player.name,
 
             player_id:
-                String(player.id),
+                Number(player.id),
 
-            target_score:
-                Math.floor(
-                    targetScore
+            title:
+                "Creator Mission",
+
+            description:
+                message +
+                (
+                    reward
+                        ? "
+
+🎁 Reward: " + reward
+                        : ""
                 ),
 
-            reward_message:
-                reward,
+            required_score:
+                Math.floor(targetScore),
+
+            reward_gift_id:
+                null,
 
             completed:
-                player.score >=
-                targetScore,
+                player.score >= targetScore,
 
             created_at:
-                new Date()
-                    .toISOString()
+                new Date().toISOString(),
+
+            completed_at:
+                player.score >= targetScore
+                    ? new Date().toISOString()
+                    : null
+        };
+
+        const response =
+            await supabaseFetch(
+                MISSIONS_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            missionData
+                        )
+                }
+            );
+
+        const text =
+            await response.text();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                text
+            );
+        }
+
+        status.textContent =
+            "✓ Mission created for " +
+            player.name +
+            "! 🎯";
+
+        document.getElementById(
+            "missionScore"
+        ).value = "";
+
+        document.getElementById(
+            "missionMessage"
+        ).value = "";
+
+        document.getElementById(
+            "missionReward"
+        ).value = "";
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "❌ " +
+            error.message;
+    }
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        renderPlayers
+    );
+}
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
+function setSort(type) {
+
+    currentSort =
+        type;
+
+    document
+        .getElementById(
+            "bestButton"
+        )
+        .classList.remove(
+            "active"
+        );
+
+    document
+        .getElementById(
+            "nameButton"
+        )
+        .classList.remove(
+            "active"
+        );
+
+    if (type === "best") {
+
+        document
+            .getElementById(
+                "bestButton"
+            )
+            .classList.add(
+                "active"
+            );
+
+    } else {
+
+        document
+            .getElementById(
+                "nameButton"
+            )
+            .classList.add(
+                "active"
+            );
+    }
+
+    renderPlayers();
+}
+
+
+/* =========================================================
+   ONLINE STATUS HELPERS
+========================================================= */
+
+const ONLINE_TIMEOUT_MS =
+    60 * 1000;
+
+function isPlayerOnline(player) {
+
+    if (!player.updated_at) {
+        return false;
+    }
+
+    const time =
+        Date.parse(
+            player.updated_at
+        );
+
+    if (!Number.isFinite(time)) {
+        return false;
+    }
+
+    return (
+        Date.now() - time
+    ) <= ONLINE_TIMEOUT_MS;
+}
+
+function getPlayerStatusText(player) {
+
+    return isPlayerOnline(player)
+        ? "🟢 Online"
+        : "⚪ Offline";
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function getFilteredPlayers() {
+
+    const search =
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+    let result =
+        players.filter(
+            function(player) {
+
+                return player.name
+                    .toLowerCase()
+                    .includes(search);
+
+            }
+        );
+
+    if (currentSort === "best") {
+
+        result.sort(
+            function(a, b) {
+
+                return b.score - a.score;
+
+            }
+        );
+
+    } else {
+
+        result.sort(
+            function(a, b) {
+
+                return a.name.localeCompare(
+                    b.name
+                );
+
+            }
+        );
+    }
+
+    return result;
+}
+
+
+/* =========================================================
+   PLAYER LIST
+========================================================= */
+
+function renderPlayers() {
+
+    const container =
+        document.getElementById(
+            "players"
+        );
+
+    container.innerHTML = "";
+
+    const filtered =
+        getFilteredPlayers();
+
+    if (filtered.length === 0) {
+
+        container.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:20px;
+                color:#9eafd2;
+            ">
+                No players found.
+            </div>
+        `;
+
+        renderLeaderboard([]);
+
+        return;
+    }
+
+    filtered.forEach(
+        function(player, index) {
+
+            const element =
+                document.createElement(
+                    "div"
+                );
+
+            const online =
+                isPlayerOnline(
+                    player
+                );
+
+            element.className =
+                "player";
+
+            element.innerHTML = `
+
+                <div class="rank">
+                    #${index + 1}
+                </div>
+
+                <div class="player-info">
+
+                    <div class="player-name">
+                        ${escapeHTML(player.name)}
+                    </div>
+
+                    <div class="player-character">
+                        ${escapeHTML(player.character)}
+                    </div>
+
+                    <div class="player-status ${
+                        online
+                            ? "online"
+                            : "offline"
+                    }">
+
+                        ${
+                            online
+                                ? "🟢 Online"
+                                : "⚪ Offline"
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="player-score">
+                    ${player.score.toLocaleString()}
+                </div>
+
+            `;
+
+            element.addEventListener(
+                "click",
+                function() {
+
+                    openPlayerModal(
+                        player
+                    );
+
+                }
+            );
+
+            container.appendChild(
+                element
+            );
+        }
+    );
+
+    renderLeaderboard(
+        filtered
+    );
+}
+
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+function renderLeaderboard(list) {
+
+    const body =
+        document.getElementById(
+            "leaderboardBody"
+        );
+
+    body.innerHTML = "";
+
+    list.forEach(
+        function(player, index) {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+            const online =
+                isPlayerOnline(
+                    player
+                );
+
+            row.innerHTML = `
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${escapeHTML(player.name)}
+                </td>
+
+                <td>
+                    ${escapeHTML(player.character)}
+                </td>
+
+                <td class="${
+                    online
+                        ? "status-online"
+                        : "status-offline"
+                }">
+
+                    ${
+                        online
+                            ? "🟢 Online"
+                            : "⚪ Offline"
+                    }
+
+                </td>
+
+                <td class="score">
+                    ${player.score.toLocaleString()}
+                </td>
+
+                <td class="score">
+                    ${player.lastScore.toLocaleString()}
+                </td>
+
+            `;
+
+            row.addEventListener(
+                "click",
+                function() {
+
+                    openPlayerModal(
+                        player
+                    );
+
+                }
+            );
+
+            body.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+/* =========================================================
+   PLAYER POPUP
+========================================================= */
+
+function openPlayerModal(player) {
+
+    const modal =
+        document.getElementById(
+            "playerModal"
+        );
+
+    document.getElementById(
+        "modalPlayerName"
+    ).textContent =
+        player.name;
+
+    document.getElementById(
+        "modalCharacter"
+    ).textContent =
+        player.character;
+
+    document.getElementById(
+        "modalStatus"
+    ).textContent =
+        getPlayerStatusText(
+            player
+        );
+
+    document.getElementById(
+        "modalStatus"
+    ).className =
+        "detail-value " +
+        (
+            isPlayerOnline(player)
+                ? "status-online"
+                : "status-offline"
+        );
+
+    document.getElementById(
+        "modalScore"
+    ).textContent =
+        player.score.toLocaleString();
+
+    document.getElementById(
+        "modalLastScore"
+    ).textContent =
+        player.lastScore.toLocaleString();
+
+    const image =
+        document.getElementById(
+            "modalCharacterImage"
+        );
+
+    if (
+        player.character ===
+        "Bosbos"
+    ) {
+
+        image.src =
+            "Bird_01 - Bosbos.png";
+
+        image.alt =
+            "Bosbos";
+
+    } else {
+
+        image.src =
+            "Bird_01.png";
+
+        image.alt =
+            "Bondock";
+    }
+
+    modal.classList.add(
+        "show"
+    );
+}
+
+
+/* =========================================================
+   CLOSE PLAYER MODAL
+========================================================= */
+
+function closePlayerModal() {
+
+    document
+        .getElementById(
+            "playerModal"
+        )
+        .classList.remove(
+            "show"
+        );
+}
+
+document
+    .getElementById(
+        "playerModal"
+    )
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closePlayerModal();
+
+            }
+
+        }
+    );
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closePlayerModal();
+
+            closeGifts();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SAFE URL
+========================================================= */
+
+function safeExternalURL(url) {
+
+    if (!url) {
+        return null;
+    }
+
+    try {
+
+        const parsed =
+            new URL(
+                url,
+                window.location.href
+            );
+
+        if (
+            parsed.protocol !==
+                "http:" &&
+            parsed.protocol !==
+                "https:"
+        ) {
+
+            return null;
+        }
+
+        return parsed.href;
+
+    } catch (error) {
+
+        return null;
+    }
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        String(
+            text ?? ""
+        );
+
+    return div.innerHTML;
+}
+
+function escapeAttribute(text) {
+
+    return escapeHTML(
+        text
+    ).replace(
+        /"/g,
+        "&quot;"
+    );
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    const date =
+        new Date(value);
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+    }
+
+    return date.toLocaleString();
+}
+
+
+/* =========================================================
+   CREATOR MODE AUTO REFRESH
+========================================================= */
+
+window.addEventListener(
+    "storage",
+    function(event) {
+
+        if (
+            !event.key ||
+            event.key
+                .toLowerCase()
+                .includes("creator") ||
+            event.key
+                .toLowerCase()
+                .includes("mode")
+        ) {
+
+            updateCreatorModeUI();
+
+        }
+
+    }
+);
+
+
+/*
+   If Creator Mode is enabled/disabled by the index
+   page in another tab, check it periodically too.
+*/
+
+setInterval(
+    function() {
+
+        updateCreatorModeUI();
+
+    },
+    2000
+);
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+loadMusicState();
+
+loadName();
+
+updateGiftButton();
+
+updateCreatorModeUI();
+
+loadPlayers();
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cockatiel Bird Online List - Eyad Nintendo Ali</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(90, 70, 180, 0.25),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(0, 150, 255, 0.15),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #030414 0%,
+            #08051d 50%,
+            #02030d 100%
+        );
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, white 2px, transparent 2px);
+    background-size:
+        100px 100px,
+        170px 170px,
+        260px 260px;
+    background-position:
+        20px 30px,
+        70px 100px,
+        120px 50px;
+    opacity: 0.55;
+    animation: starsMove 30s linear infinite;
+}
+
+@keyframes starsMove {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-150px);
+    }
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+    width: 100%;
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 25px;
+    background: rgba(5, 5, 25, 0.78);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow:
+        0 0 10px rgba(100,180,255,0.8),
+        0 0 25px rgba(100,100,255,0.5);
+}
+
+.top-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.top-button {
+    border: none;
+    padding: 10px 17px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+.top-button:hover {
+    transform: translateY(-2px);
+    background: rgba(80,150,255,0.3);
+    box-shadow: 0 0 15px rgba(80,150,255,0.5);
+}
+
+.gift-button {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        rgba(255,90,180,0.22),
+        rgba(130,80,255,0.28)
+    );
+}
+
+.gift-button.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.gift-count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 20px;
+    height: 20px;
+    padding: 2px 5px;
+    border-radius: 999px;
+    background: #ff3d81;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #08051d;
+}
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    width: 100%;
+    max-width: 1500px;
+    margin: auto;
+    padding: 35px 25px 70px;
+}
+
+.title {
+    text-align: center;
+    font-size: clamp(30px, 5vw, 55px);
+    margin: 10px 0 8px;
+    text-shadow:
+        0 0 10px #ffffff,
+        0 0 30px rgba(80,150,255,0.9);
+}
+
+.subtitle {
+    text-align: center;
+    color: #c8d7ff;
+    margin-bottom: 35px;
+}
+
+/* =========================================================
+   ONLINE STATUS
+========================================================= */
+
+.online-status {
+    width: fit-content;
+    margin: 0 auto 25px;
+    padding: 8px 15px;
+    border-radius: 999px;
+    background: rgba(60,255,130,0.08);
+    border: 1px solid rgba(60,255,130,0.25);
+    color: #8fffa5;
+    font-size: 14px;
+}
+
+.online-status.loading {
+    color: #ffd86b;
+    background: rgba(255,216,107,0.08);
+    border-color: rgba(255,216,107,0.25);
+}
+
+.online-status.error {
+    color: #ff9b9b;
+    background: rgba(255,80,80,0.08);
+    border-color: rgba(255,80,80,0.25);
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.content {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* =========================================================
+   BIRD
+========================================================= */
+
+.bird-card {
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 25px;
+    background: rgba(10, 10, 35, 0.68);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow:
+        0 0 35px rgba(50,100,255,0.18),
+        inset 0 0 30px rgba(255,255,255,0.03);
+    overflow: hidden;
+}
+
+.character-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 430px;
+    object-fit: contain;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    filter: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    animation: birdFloat 4s ease-in-out infinite;
+}
+
+@keyframes birdFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(1deg);
+    }
+}
+
+/* =========================================================
+   PLAYER LIST
+========================================================= */
+
+.player-list-panel {
+    background: rgba(10, 10, 35, 0.72);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 0 30px rgba(50,100,255,0.15);
+}
+
+.panel-title {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 13px 15px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.search-box::placeholder {
+    color: #aeb9d5;
+}
+
+.sort-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.sort-button {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+.sort-button.active,
+.sort-button:hover {
+    background: rgba(80,140,255,0.35);
+    box-shadow: 0 0 12px rgba(80,140,255,0.25);
+}
+
+.players {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+.player {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 13px;
+    background: rgba(255,255,255,0.055);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        background 0.2s,
+        border 0.2s;
+}
+
+.player:hover {
+    transform: translateX(5px);
+    background: rgba(70,130,255,0.18);
+    border-color: rgba(100,170,255,0.3);
+}
+
+.rank {
+    min-width: 30px;
+    font-weight: bold;
+    color: #8bb8ff;
+}
+
+.player-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-name {
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.player-character {
+    color: #9caed3;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.player-score {
+    font-weight: bold;
+    color: #ffd86b;
+}
+
+/* =========================================================
+   RIGHT
+========================================================= */
+
+.right-panel {
+    min-width: 0;
+}
+
+.welcome-card {
+    background: rgba(10,10,35,0.72);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 25px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 35px rgba(50,100,255,0.15);
+}
+
+.welcome-card h2 {
+    margin-top: 0;
+    font-size: 30px;
+}
+
+.welcome-card p {
+    color: #c5d0ea;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.signin {
+    background: rgba(10,10,35,0.72);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 0 35px rgba(50,100,255,0.15);
+}
+
+.signin h2 {
+    margin-top: 0;
+}
+
+.name-row {
+    display: flex;
+    gap: 10px;
+}
+
+.name-input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.name-input::placeholder {
+    color: #aeb9d5;
+}
+
+.save-button {
+    border: none;
+    padding: 14px 20px;
+    border-radius: 12px;
+    background: linear-gradient(
+        135deg,
+        #477eff,
+        #7254ff
+    );
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.save-button:hover {
+    transform: translateY(-2px);
+}
+
+.saved-message {
+    min-height: 20px;
+    margin-top: 10px;
+    color: #8fffa5;
+    font-size: 14px;
+}
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+.leaderboard {
+    margin-top: 20px;
+    background: rgba(10,10,35,0.72);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 0 35px rgba(50,100,255,0.15);
+    overflow-x: auto;
+}
+
+.leaderboard h2 {
+    margin-top: 0;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.table th {
+    color: #9db7e8;
+}
+
+.table tbody tr {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.table tbody tr:hover {
+    background: rgba(80,140,255,0.12);
+}
+
+.score {
+    color: #ffd86b;
+    font-weight: bold;
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0,0,15,0.78);
+    backdrop-filter: blur(12px);
+}
+
+.modal.show {
+    display: flex;
+    animation: modalFade 0.2s ease;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-box {
+    width: min(700px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: linear-gradient(
+        145deg,
+        rgba(25,30,70,0.97),
+        rgba(7,8,28,0.98)
+    );
+    border: 1px solid rgba(130,180,255,0.3);
+    border-radius: 28px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 0 60px rgba(50,120,255,0.3);
+    animation: modalPop 0.25s ease;
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.close-modal:hover {
+    background: rgba(255,70,70,0.3);
+}
+
+.modal-content {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 25px;
+    align-items: center;
+}
+
+.modal-character-image {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.modal-player-name {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    word-break: break-word;
+}
+
+.detail {
+    margin: 12px 0;
+    padding: 13px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.06);
+}
+
+.detail-label {
+    color: #9eafd2;
+    font-size: 13px;
+}
+
+.detail-value {
+    font-size: 19px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.modal-score {
+    color: #ffd86b;
+}
+
+/* =========================================================
+   GIFTS
+========================================================= */
+
+.gift-modal-box {
+    width: min(850px, 100%);
+}
+
+.gift-header {
+    padding-right: 45px;
+    margin-bottom: 20px;
+}
+
+.gift-header h2 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.gift-header p {
+    color: #aeb9d5;
+    margin: 0;
+}
+
+.gift-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
+.gift-card {
+    padding: 18px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,90,180,0.10),
+            rgba(100,100,255,0.12)
+        );
+    border: 1px solid rgba(255,150,220,0.18);
+}
+
+.gift-card.unread {
+    border-color: rgba(255,100,190,0.55);
+    box-shadow: 0 0 20px rgba(255,80,180,0.12);
+}
+
+.gift-card h3 {
+    margin: 0 0 8px;
+}
+
+.gift-meta {
+    color: #9eafd2;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.gift-message {
+    color: #eef3ff;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.gift-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    background: rgba(80,130,255,0.3);
+}
+
+.gift-link:hover {
+    background: rgba(80,130,255,0.5);
+}
+
+.mission-card {
+    padding: 18px;
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,190,70,0.10),
+            rgba(255,100,100,0.08)
+        );
+    border: 1px solid rgba(255,210,100,0.22);
+}
+
+.mission-card.completed {
+    border-color: rgba(100,255,150,0.5);
+    background: rgba(50,255,130,0.08);
+}
+
+.mission-card h3 {
+    margin: 0 0 8px;
+}
+
+.mission-score {
+    color: #ffd86b;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* =========================================================
+   CREATOR MODE
+========================================================= */
+
+.creator-section {
+    display: none;
+    margin-top: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(80,50,150,0.22),
+            rgba(10,10,40,0.82)
+        );
+    border: 1px solid rgba(180,130,255,0.3);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow:
+        0 0 35px rgba(130,70,255,0.14);
+}
+
+.creator-section.show {
+    display: block;
+}
+
+.creator-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.creator-title h2 {
+    margin: 0;
+}
+
+.creator-badge {
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(100,255,150,0.12);
+    border: 1px solid rgba(100,255,150,0.3);
+    color: #8fffa5;
+    font-size: 13px;
+}
+
+.creator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.creator-card {
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 18px;
+    padding: 18px;
+}
+
+.creator-card.full {
+    grid-column: 1 / -1;
+}
+
+.creator-card h3 {
+    margin-top: 0;
+}
+
+.creator-label {
+    display: block;
+    color: #aeb9d5;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.creator-input,
+.creator-select,
+.creator-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 11px;
+    outline: none;
+    background: rgba(0,0,0,0.28);
+    color: white;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.creator-select option {
+    background: #101126;
+    color: white;
+}
+
+.creator-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.creator-file {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    color: white;
+    margin-bottom: 12px;
+}
+
+.creator-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.creator-action {
+    border: none;
+    border-radius: 11px;
+    padding: 11px 15px;
+    color: white;
+    background: rgba(90,130,255,0.28);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.creator-action:hover {
+    background: rgba(90,130,255,0.45);
+}
+
+.creator-action.green {
+    background: rgba(50,200,110,0.25);
+}
+
+.creator-action.red {
+    background: rgba(255,70,80,0.22);
+}
+
+.creator-action.purple {
+    background: rgba(170,90,255,0.25);
+}
+
+.creator-status {
+    min-height: 20px;
+    margin-top: 10px;
+    color: #9eb7e8;
+    font-size: 13px;
+}
+
+.creator-player-info {
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 12px;
+    color: #c9d6f4;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    text-align: center;
+    color: #8290b1;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+/* =========================================================
+   ONLINE PLAYER STATUS
+========================================================= */
+
+.player-status {
+    font-size: 12px;
+    margin-top: 4px;
+    white-space: nowrap;
+}
+
+.player-status.online {
+    color: #72ff9b;
+}
+
+.player-status.offline {
+    color: #aeb9d5;
+}
+
+.status-online {
+    color: #72ff9b;
+}
+
+.status-offline {
+    color: #aeb9d5;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .left-panel {
+        order: 1;
+    }
+
+    .right-panel {
+        order: 2;
+    }
+
+    .bird-card {
+        min-height: 350px;
+    }
+
+    .character-image {
+        max-height: 330px;
+    }
+
+    .creator-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-card.full {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 10px 15px;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .top-buttons {
+        gap: 5px;
+    }
+
+    .top-button {
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+    .main {
+        padding: 20px 12px 50px;
+    }
+
+    .name-row {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .modal-character-image {
+        width: 180px;
+        height: 180px;
+        margin: auto;
+    }
+
+    .table th,
+    .table td {
+        padding: 9px 5px;
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     MUSIC
+========================================================= -->
+
+<audio id="backgroundMusic" preload="auto" loop>
+    <source src="./intro%20Music.MP3" type="audio/mpeg">
+</audio>
+
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+        🚀 Eyad Nintendo Ali
+    </div>
+
+    <div class="top-buttons">
+
+        <button
+            class="top-button gift-button disabled"
+            id="giftButton"
+            type="button"
+            onclick="openGifts()">
+
+            🎁 Gifts
+
+            <span id="giftCount" class="gift-count">0</span>
+
+        </button>
+
+        <button
+            class="top-button"
+            id="muteButton"
+            type="button"
+            onclick="toggleMute()">
+
+            🔊 Music
+
+        </button>
+
+        <button
+            class="top-button"
+            type="button"
+            onclick="window.location.href='index.html'">
+
+            🏠 Home
+
+        </button>
+
+    </div>
+
+</header>
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="main">
+
+    <h1 class="title">
+        🐦 Cockatiel Bird Online
+    </h1>
+
+    <p class="subtitle">
+        Online Players • High Scores • Characters
+    </p>
+
+    <div
+        id="onlineStatus"
+        class="online-status loading">
+
+        🟡 Connecting to online leaderboard...
+
+    </div>
+
+    <div class="content">
+
+        <!-- =================================================
+             LEFT SIDE
+        ================================================= -->
+
+        <section class="left-panel">
+
+            <div class="bird-card">
+
+                <img
+                    src="Bird_01.png"
+                    alt="Bondock"
+                    class="character-image"
+                    draggable="false">
+
+            </div>
+
+            <div class="player-list-panel">
+
+                <div class="panel-title">
+                    👥 Players
+                </div>
+
+                <input
+                    id="searchInput"
+                    class="search-box"
+                    type="text"
+                    placeholder="🔎 Search players..."
+                    autocomplete="off">
+
+                <div class="sort-row">
+
+                    <button
+                        id="bestButton"
+                        class="sort-button active"
+                        type="button"
+                        onclick="setSort('best')">
+
+                        🏆 Best
+
+                    </button>
+
+                    <button
+                        id="nameButton"
+                        class="sort-button"
+                        type="button"
+                        onclick="setSort('name')">
+
+                        🔤 Name
+
+                    </button>
+
+                </div>
+
+                <div
+                    id="players"
+                    class="players">
+
+                    <div style="
+                        text-align:center;
+                        padding:25px;
+                        color:#9eafd2;
+                    ">
+
+                        Loading online players...
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+             RIGHT SIDE
+        ================================================= -->
+
+        <section class="right-panel">
+
+            <div class="welcome-card">
+
+                <h2>
+                    🐦 Cockatiel Bird Online List
+                </h2>
+
+                <p>
+                    See the real online players,
+                    search for players,
+                    and click a player to see
+                    their character and high score.
+                </p>
+
+                <p>
+                    Scores are loaded directly
+                    from the Cockatiel Online
+                    Supabase database.
+                </p>
+
+                <p>
+                    Your player name is automatically
+                    saved in this browser.
+                </p>
+
+            </div>
+
+            <div class="signin">
+
+                <h2>
+                    👤 Your Player Name
+                </h2>
+
+                <div class="name-row">
+
+                    <input
+                        id="nameInput"
+                        class="name-input"
+                        type="text"
+                        maxlength="20"
+                        placeholder="Enter your name..."
+                        autocomplete="off">
+
+                    <button
+                        class="save-button"
+                        type="button"
+                        onclick="saveName()">
+
+                        Save
+
+                    </button>
+
+                </div>
+
+                <div
+                    id="savedMessage"
+                    class="saved-message">
+                </div>
+
+            </div>
+
+            <!-- =================================================
+                 CREATOR MODE
+            ================================================= -->
+
+            <section
+                id="creatorSection"
+                class="creator-section">
+
+                <div class="creator-title">
+
+                    <h2>
+                        🛠️ Creator Mode
+                    </h2>
+
+                    <div class="creator-badge">
+                        🟢 Creator Mode ON
+                    </div>
+
+                </div>
+
+                <div class="creator-grid">
+
+                    <!-- SEND GIFT -->
+
+                    <div class="creator-card">
+
+                        <h3>
+                            🎁 Give Player a Gift
+                        </h3>
+
+                        <label class="creator-label">
+                            Select Player
+                        </label>
+
+                        <select
+                            id="giftPlayer"
+                            class="creator-select">
+                        </select>
+
+                        <label class="creator-label">
+                            Gift Type
+                        </label>
+
+                        <select
+                            id="giftType"
+                            class="creator-select"
+                            onchange="updateGiftTypeUI()">
+
+                            <option value="text">
+                                📝 Text
+                            </option>
+
+                            <option value="link">
+                                🔗 Link
+                            </option>
+
+                            <option value="file">
+                                📁 File
+                            </option>
+
+                            <option value="photo">
+                                🖼️ Photo
+                            </option>
+
+                        </select>
+
+                        <div id="giftTextArea">
+
+                            <label class="creator-label">
+                                Message
+                            </label>
+
+                            <textarea
+                                id="giftMessage"
+                                class="creator-textarea"
+                                placeholder="Write the gift message...">
+                            </textarea>
+
+                        </div>
+
+                        <div
+                            id="giftLinkArea"
+                            style="display:none;">
+
+                            <label class="creator-label">
+                                Link
+                            </label>
+
+                            <input
+                                id="giftLink"
+                                class="creator-input"
+                                type="url"
+                                placeholder="https://example.com">
+
+                        </div>
+
+                        <div
+                            id="giftFileArea"
+                            style="display:none;">
+
+                            <label class="creator-label">
+                                Upload File / Photo
+                            </label>
+
+                            <input
+                                id="giftFile"
+                                class="creator-file"
+                                type="file">
+
+                        </div>
+
+                        <div class="creator-actions">
+
+                            <button
+                                class="creator-action purple"
+                                type="button"
+                                onclick="sendGift()">
+
+                                🎁 Send Gift
+
+                            </button>
+
+                        </div>
+
+                        <div
+                            id="giftCreatorStatus"
+                            class="creator-status">
+                        </div>
+
+                    </div>
+
+                    <!-- CREATE MISSION -->
+
+                    <div class="creator-card">
+
+                        <h3>
+                            🎯 Create Mission
+                        </h3>
+
+                        <label class="creator-label">
+                            Select Player
+                        </label>
+
+                        <select
+                            id="missionPlayer"
+                            class="creator-select">
+                        </select>
+
+                        <label class="creator-label">
+                            Required Score
+                        </label>
+
+                        <input
+                            id="missionScore"
+                            class="creator-input"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="Example: 1000">
+
+                        <label class="creator-label">
+                            Mission Message
+                        </label>
+
+                        <textarea
+                            id="missionMessage"
+                            class="creator-textarea"
+                            placeholder="Get this score or higher and I will give you a gift!">
+                        </textarea>
+
+                        <label class="creator-label">
+                            Reward Message
+                        </label>
+
+                        <input
+                            id="missionReward"
+                            class="creator-input"
+                            type="text"
+                            maxlength="500"
+                            placeholder="Example: You earned a special gift!">
+
+                        <div class="creator-actions">
+
+                            <button
+                                class="creator-action green"
+                                type="button"
+                                onclick="createMission()">
+
+                                🎯 Create Mission
+
+                            </button>
+
+                        </div>
+
+                        <div
+                            id="missionCreatorStatus"
+                            class="creator-status">
+                        </div>
+
+                    </div>
+
+                    <!-- EDIT PLAYER -->
+
+                    <div class="creator-card full">
+
+                        <h3>
+                            ✏️ Edit Player
+                        </h3>
+
+                        <label class="creator-label">
+                            Select Player
+                        </label>
+
+                        <select
+                            id="editPlayer"
+                            class="creator-select"
+                            onchange="loadCreatorPlayer()">
+                        </select>
+
+                        <div
+                            id="creatorPlayerInfo"
+                            class="creator-player-info">
+
+                            Select a player.
+
+                        </div>
+
+                        <div class="creator-grid">
+
+                            <div>
+
+                                <label class="creator-label">
+                                    High Score
+                                </label>
+
+                                <input
+                                    id="editHighScore"
+                                    class="creator-input"
+                                    type="number"
+                                    min="0"
+                                    step="1">
+
+                            </div>
+
+                            <div>
+
+                                <label class="creator-label">
+                                    Last Score
+                                </label>
+
+                                <input
+                                    id="editLastScore"
+                                    class="creator-input"
+                                    type="number"
+                                    min="0"
+                                    step="1">
+
+                            </div>
+
+                            <div>
+
+                                <label class="creator-label">
+                                    Character
+                                </label>
+
+                                <select
+                                    id="editCharacter"
+                                    class="creator-select">
+
+                                    <option value="Bondock">
+                                        Bondock
+                                    </option>
+
+                                    <option value="Bosbos">
+                                        Bosbos
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="creator-actions">
+
+                            <button
+                                class="creator-action"
+                                type="button"
+                                onclick="savePlayerEdit()">
+
+                                💾 Save Player
+
+                            </button>
+
+                            <button
+                                class="creator-action red"
+                                type="button"
+                                onclick="deleteSelectedPlayer()">
+
+                                🗑️ Delete Player
+
+                            </button>
+
+                        </div>
+
+                        <div
+                            id="editCreatorStatus"
+                            class="creator-status">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="leaderboard">
+
+                <h2>
+                    🏆 Best Players
+                </h2>
+
+                <table class="table">
+
+                    <thead>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Character</th>
+                            <th>Status</th>
+                            <th>High Score</th>
+                            <th>Last Score</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="leaderboardBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        © Eyad Nintendo Ali • Cockatiel Bird Online
+    </footer>
+
+</main>
+
+<!-- =========================================================
+     PLAYER POPUP
+========================================================= -->
+
+<div
+    id="playerModal"
+    class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="close-modal"
+            type="button"
+            onclick="closePlayerModal()">
+
+            ×
+
+        </button>
+
+        <div class="modal-content">
+
+            <img
+                id="modalCharacterImage"
+                class="modal-character-image"
+                src="Bird_01.png"
+                alt="Character"
+                draggable="false">
+
+            <div>
+
+                <div
+                    id="modalPlayerName"
+                    class="modal-player-name">
+
+                    Player
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        Character
+                    </div>
+
+                    <div
+                        id="modalCharacter"
+                        class="detail-value">
+
+                        Bondock
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        Status
+                    </div>
+
+                    <div
+                        id="modalStatus"
+                        class="detail-value">
+
+                        Offline
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        High Score
+                    </div>
+
+                    <div
+                        id="modalScore"
+                        class="detail-value modal-score">
+
+                        0
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        Last Score
+                    </div>
+
+                    <div
+                        id="modalLastScore"
+                        class="detail-value">
+
+                        0
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     GIFTS / MISSIONS OVERLAY
+========================================================= -->
+
+<div
+    id="giftModal"
+    class="modal">
+
+    <div class="modal-box gift-modal-box">
+
+        <button
+            class="close-modal"
+            type="button"
+            onclick="closeGifts()">
+
+            ×
+
+        </button>
+
+        <div class="gift-header">
+
+            <h2>
+                🎁 Your Gifts & Missions
+            </h2>
+
+            <p id="giftWelcome">
+                Enter your player name first.
+            </p>
+
+        </div>
+
+        <div id="giftList" class="gift-list">
+
+            <div style="
+                text-align:center;
+                padding:30px;
+                color:#9eafd2;
+            ">
+
+                Loading...
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const SUPABASE_URL =
+    "https://gknwpvegzjhgpypjvkkv.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_ORLWzMZvUT7Qey0teYVkiQ_Tk7qLdh-";
+
+/*
+   IMPORTANT:
+   The players table already exists and is used by your game.
+
+   These are the NEW tables used by Creator Mode:
+
+   creator_gifts
+   creator_missions
+
+   The HTML will continue working even if those tables
+   have not been created yet, but Gifts/Missions cannot
+   be saved until the tables exist.
+*/
+
+const PLAYERS_URL =
+    SUPABASE_URL + "/rest/v1/players";
+
+const GIFTS_URL =
+    SUPABASE_URL + "/rest/v1/creator_gifts";
+
+const MISSIONS_URL =
+    SUPABASE_URL + "/rest/v1/creator_missions";
+
+const STORAGE_BUCKET =
+    "creator-gifts";
+
+
+/* =========================================================
+   PLAYER DATA
+========================================================= */
+
+let players = [];
+let currentSort = "best";
+let playersLoading = false;
+
+
+/* =========================================================
+   ONLINE STATUS
+========================================================= */
+
+const onlineStatus =
+    document.getElementById("onlineStatus");
+
+function setOnlineStatus(type, text) {
+    onlineStatus.className =
+        "online-status " + type;
+
+    onlineStatus.textContent = text;
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+const music =
+    document.getElementById("backgroundMusic");
+
+if (music) {
+    music.src = "./intro%20Music.MP3";
+    music.load();
+}
+
+const muteButton =
+    document.getElementById("muteButton");
+
+let musicStarted = false;
+
+function loadMusicState() {
+
+    if (!music || !muteButton) return;
+
+    const savedMute =
+        localStorage.getItem("CockatielMusicMuted");
+
+    music.muted =
+        savedMute === "true";
+
+    music.volume = 0.5;
+
+    updateMuteButton();
+}
+
+function updateMuteButton() {
+
+    if (!muteButton) return;
+
+    muteButton.textContent =
+        music.muted
+            ? "🔇 Music"
+            : "🔊 Music";
+}
+
+async function startMusic() {
+
+    if (!music || music.muted) return;
+
+    try {
+
+        music.volume = 0.5;
+
+        await music.play();
+
+        musicStarted = true;
+
+    } catch (error) {
+
+        musicStarted = false;
+
+        console.log(
+            "Music is waiting for user interaction."
+        );
+    }
+}
+
+async function firstUserInteraction() {
+
+    if (musicStarted) return;
+
+    if (music.muted) return;
+
+    await startMusic();
+}
+
+document.addEventListener(
+    "pointerdown",
+    firstUserInteraction,
+    true
+);
+
+document.addEventListener(
+    "keydown",
+    firstUserInteraction,
+    true
+);
+
+async function toggleMute() {
+
+    if (!music) return;
+
+    if (music.muted) {
+
+        music.muted = false;
+
+        localStorage.setItem(
+            "CockatielMusicMuted",
+            "false"
+        );
+
+        updateMuteButton();
+
+        try {
+
+            music.volume = 0.5;
+
+            await music.play();
+
+            musicStarted = true;
+
+        } catch (error) {
+
+            console.error(
+                "Music could not start:",
+                error
+            );
+        }
+
+    } else {
+
+        music.muted = true;
+
+        localStorage.setItem(
+            "CockatielMusicMuted",
+            "true"
+        );
+
+        updateMuteButton();
+    }
+}
+
+if (music) {
+
+    music.addEventListener(
+        "error",
+        function() {
+
+            console.error(
+                "Could not load intro Music.MP3."
+            );
+
+        }
+    );
+
+    music.addEventListener(
+        "canplay",
+        function() {
+
+            console.log(
+                "intro Music.MP3 loaded successfully."
+            );
+
+        }
+    );
+}
+
+
+/* =========================================================
+   CREATOR MODE
+========================================================= */
+
+/*
+   This checks the saved Creator Mode state from index.html.
+
+   It supports the common storage names used by Creator Mode.
+   If index.html stores "true", "on", "enabled", or the
+   Creator Mode code, this page recognizes it.
+
+   IMPORTANT:
+   localStorage is only a browser/UI lock.
+   Real database security must be handled by Supabase RLS.
+*/
+
+const CREATOR_MODE_KEYS = [
+    "CreatorModeEnabled",
+    "CreatorMode",
+    "creatorMode",
+    "EyadCreatorMode",
+    "eyadCreatorMode",
+    "creator_mode",
+    "creator_mode_enabled",
+    "Creator_Mode"
+];
+
+function isCreatorModeEnabled() {
+
+    try {
+
+        for (const key of CREATOR_MODE_KEYS) {
+
+            const value =
+                localStorage.getItem(key);
+
+            if (!value) continue;
+
+            const normalized =
+                String(value)
+                    .trim()
+                    .toLowerCase();
+
+            if (
+                normalized === "true" ||
+                normalized === "on" ||
+                normalized === "enabled" ||
+                normalized === "yes" ||
+                normalized === "20112015"
+            ) {
+                return true;
+            }
+        }
+
+        /*
+           Also detect a Creator Mode key that may have
+           a slightly different name in index.html.
+        */
+
+        for (let i = 0; i < localStorage.length; i++) {
+
+            const key =
+                localStorage.key(i);
+
+            if (!key) continue;
+
+            const lowerKey =
+                key.toLowerCase();
+
+            if (
+                lowerKey.includes("creator") &&
+                lowerKey.includes("mode")
+            ) {
+
+                const value =
+                    localStorage.getItem(key);
+
+                if (!value) continue;
+
+                const normalized =
+                    String(value)
+                        .trim()
+                        .toLowerCase();
+
+                if (
+                    normalized === "true" ||
+                    normalized === "on" ||
+                    normalized === "enabled" ||
+                    normalized === "yes" ||
+                    normalized === "20112015"
+                ) {
+                    return true;
+                }
+            }
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Creator Mode detection error:",
+            error
+        );
+    }
+
+    return false;
+}
+
+function updateCreatorModeUI() {
+
+    const section =
+        document.getElementById(
+            "creatorSection"
+        );
+
+    if (!section) return;
+
+    if (isCreatorModeEnabled()) {
+
+        section.classList.add("show");
+
+        populateCreatorPlayers();
+
+    } else {
+
+        section.classList.remove("show");
+    }
+}
+
+
+/* =========================================================
+   LOAD PLAYERS
+========================================================= */
+
+async function loadPlayers() {
+
+    if (playersLoading) {
+        return;
+    }
+
+    playersLoading = true;
+
+    const container =
+        document.getElementById("players");
+
+    try {
+
+        setOnlineStatus(
+            "loading",
+            "🟡 Connecting to Supabase..."
+        );
+
+        const query =
+            "?select=id,player_name,character,high_score,last_score,updated_at" +
+            "&order=high_score.desc";
+
+        const response =
+            await fetch(
+                PLAYERS_URL + query,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization":
+                            "Bearer " + SUPABASE_KEY,
+                        "Accept": "application/json"
+                    },
+
+                    cache: "no-store"
+                }
+            );
+
+        const responseText =
+            await response.text();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                responseText
+            );
+        }
+
+        let data;
+
+        try {
+
+            data =
+                JSON.parse(responseText);
+
+        } catch (error) {
+
+            throw new Error(
+                "Supabase returned invalid JSON."
+            );
+        }
+
+        if (!Array.isArray(data)) {
+
+            throw new Error(
+                "Supabase did not return an array."
+            );
+        }
+
+        players =
+            data
+                .map(function(player) {
+
+                    return {
+
+                        id: player.id,
+
+                        name:
+                            String(
+                                player.player_name || ""
+                            ).trim(),
+
+                        character:
+                            player.character === "Bosbos"
+                                ? "Bosbos"
+                                : "Bondock",
+
+                        score:
+                            Number(
+                                player.high_score
+                            ) || 0,
+
+                        lastScore:
+                            Number(
+                                player.last_score
+                            ) || 0,
+
+                        updated_at:
+                            player.updated_at || null
+                    };
+
+                })
+                .filter(function(player) {
+
+                    return player.name.length > 0;
+
+                });
+
+        setOnlineStatus(
+            "online",
+            "🟢 Supabase Online • " +
+            players.length +
+            " player" +
+            (
+                players.length === 1
+                    ? ""
+                    : "s"
+            )
+        );
+
+        renderPlayers();
+
+        updateCreatorModeUI();
+
+        updateGiftButton();
+
+        loadPlayerNotifications();
+
+    } catch (error) {
+
+        console.error(
+            "Supabase leaderboard error:",
+            error
+        );
+
+        if (players.length > 0) {
+
+            setOnlineStatus(
+                "error",
+                "🟠 Refresh failed • Showing last data"
+            );
+
+            renderPlayers();
+
+        } else {
+
+            setOnlineStatus(
+                "error",
+                "🔴 Could not connect to Supabase"
+            );
+
+            container.innerHTML = `
+                <div style="
+                    text-align:center;
+                    padding:25px;
+                    color:#ffb0b0;
+                ">
+
+                    <div style="
+                        font-size:20px;
+                        margin-bottom:10px;
+                    ">
+                        ⚠️ Could not load players
+                    </div>
+
+                    <div style="
+                        font-size:13px;
+                        color:#aeb9d5;
+                        line-height:1.6;
+                    ">
+                        Please refresh the page and try again.
+                    </div>
+
+                </div>
+            `;
+
+            renderLeaderboard([]);
+        }
+
+    } finally {
+
+        playersLoading = false;
+    }
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+setInterval(
+    function() {
+
+        loadPlayers();
+
+    },
+    10000
+);
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const savedMessage =
+    document.getElementById("savedMessage");
+
+function loadName() {
+
+    const savedName =
+        localStorage.getItem(
+            "CockatielPlayerName"
+        );
+
+    if (savedName) {
+
+        nameInput.value =
+            savedName;
+
+        savedMessage.textContent =
+            "✓ Your name is saved as " +
+            savedName;
+    }
+
+    updateGiftButton();
+}
+
+async function saveName() {
+
+    const name =
+        nameInput.value.trim();
+
+    if (!name) {
+
+        savedMessage.textContent =
+            "Please enter a name.";
+
+        updateGiftButton();
+
+        return;
+    }
+
+    localStorage.setItem(
+        "CockatielPlayerName",
+        name
+    );
+
+    savedMessage.textContent =
+        "✓ Your name is saved as " +
+        name;
+
+    updateGiftButton();
+
+    await loadPlayerNotifications();
+
+    if (isCreatorModeEnabled()) {
+        populateCreatorPlayers();
+    }
+}
+
+if (nameInput) {
+
+    nameInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                saveName();
+
+            }
+
+        }
+    );
+}
+
+
+/* =========================================================
+   GIFT BUTTON
+========================================================= */
+
+function getSavedPlayerName() {
+
+    return (
+        localStorage.getItem(
+            "CockatielPlayerName"
+        ) || ""
+    ).trim();
+}
+
+function updateGiftButton() {
+
+    const button =
+        document.getElementById(
+            "giftButton"
+        );
+
+    if (!button) return;
+
+    const name =
+        getSavedPlayerName();
+
+    if (name) {
+
+        button.classList.remove(
+            "disabled"
+        );
+
+        button.title =
+            "Open your gifts and missions";
+
+    } else {
+
+        button.classList.add(
+            "disabled"
+        );
+
+        button.title =
+            "Save your player name first";
+    }
+}
+
+async function openGifts() {
+
+    const name =
+        getSavedPlayerName();
+
+    if (!name) {
+
+        alert(
+            "Please type and save your player name first."
+        );
+
+        return;
+    }
+
+    const modal =
+        document.getElementById(
+            "giftModal"
+        );
+
+    modal.classList.add("show");
+
+    await loadPlayerNotifications();
+
+    markGiftsAsRead();
+}
+
+function closeGifts() {
+
+    document
+        .getElementById("giftModal")
+        .classList.remove("show");
+}
+
+
+/* =========================================================
+   GIFT / MISSION DATA
+========================================================= */
+
+let currentGifts = [];
+let currentMissions = [];
+
+async function supabaseFetch(
+    url,
+    options = {}
+) {
+
+    const headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization":
+            "Bearer " + SUPABASE_KEY,
+        "Accept": "application/json",
+        ...(options.headers || {})
+    };
+
+    return fetch(
+        url,
+        {
+            ...options,
+            headers
+        }
+    );
+}
+
+
+/* =========================================================
+   LOAD GIFTS
+========================================================= */
+
+async function loadPlayerNotifications() {
+
+    const playerName =
+        getSavedPlayerName();
+
+    if (!playerName) {
+
+        updateGiftButton();
+
+        return;
+    }
+
+    const giftList =
+        document.getElementById(
+            "giftList"
+        );
+
+    try {
+
+        const encodedName =
+            encodeURIComponent(
+                playerName
+            );
+
+        const giftsResponse =
+            await supabaseFetch(
+                GIFTS_URL +
+                "?select=*&player_name=eq." +
+                encodedName +
+                "&order=created_at.desc",
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (giftsResponse.ok) {
+
+            const gifts =
+                await giftsResponse.json();
+
+            currentGifts =
+                Array.isArray(gifts)
+                    ? gifts
+                    : [];
+
+        } else {
+
+            /*
+               If the new table does not exist yet,
+               keep the rest of the website working.
+            */
+
+            currentGifts = [];
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Could not load gifts:",
+            error
+        );
+
+        currentGifts = [];
+    }
+
+
+    try {
+
+        const encodedName =
+            encodeURIComponent(
+                playerName
+            );
+
+        const missionsResponse =
+            await supabaseFetch(
+                MISSIONS_URL +
+                "?select=*&player_name=eq." +
+                encodedName +
+                "&order=created_at.desc",
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if (missionsResponse.ok) {
+
+            const missions =
+                await missionsResponse.json();
+
+            currentMissions =
+                Array.isArray(missions)
+                    ? missions
+                    : [];
+
+        } else {
+
+            currentMissions = [];
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Could not load missions:",
+            error
+        );
+
+        currentMissions = [];
+    }
+
+    renderNotifications();
+
+    updateGiftButton();
+}
+
+
+/* =========================================================
+   RENDER GIFTS
+========================================================= */
+
+function renderNotifications() {
+
+    const list =
+        document.getElementById(
+            "giftList"
+        );
+
+    const playerName =
+        getSavedPlayerName();
+
+    document.getElementById(
+        "giftWelcome"
+    ).textContent =
+        playerName
+            ? "Welcome, " + playerName + "! 🎉"
+            : "Enter your player name first.";
+
+    list.innerHTML = "";
+
+    if (
+        currentGifts.length === 0 &&
+        currentMissions.length === 0
+    ) {
+
+        list.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:35px;
+                color:#9eafd2;
+            ">
+
+                🎁 No gifts or missions yet.
+
+            </div>
+        `;
+
+        return;
+    }
+
+    currentGifts.forEach(
+        function(gift) {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "gift-card " +
+                (
+                    gift.is_read
+                        ? ""
+                        : "unread"
+                );
+
+            let content = "";
+
+            if (gift.title) {
+
+                content +=
+                    `<h3>🎁 ${escapeHTML(gift.title)}</h3>`;
+
+            } else {
+
+                content +=
+                    `<h3>🎁 Gift from Creator</h3>`;
+            }
+
+            if (gift.created_at) {
+
+                content +=
+                    `<div class="gift-meta">
+                        ${formatDate(gift.created_at)}
+                    </div>`;
+
+            }
+
+            if (gift.message) {
+
+                content +=
+                    `<div class="gift-message">
+                        ${escapeHTML(gift.message)}
+                    </div>`;
+
+            }
+
+            if (
+                gift.gift_type === "link" &&
+                gift.link_url
+            ) {
+
+                const safeURL =
+                    safeExternalURL(
+                        gift.link_url
+                    );
+
+                if (safeURL) {
+
+                    content +=
+                        `<a
+                            class="gift-link"
+                            href="${escapeAttribute(safeURL)}"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            🔗 Open Link
+                        </a>`;
+                }
+
+            }
+
+            if (
+                (
+                    gift.gift_type === "file" ||
+                    gift.gift_type === "photo"
+                ) &&
+                gift.url
+            ) {
+
+                const safeURL =
+                    safeExternalURL(
+                        gift.url
+                    );
+
+                if (safeURL) {
+
+                    content +=
+                        `<a
+                            class="gift-link"
+                            href="${escapeAttribute(safeURL)}"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            ${
+                                gift.gift_type === "photo"
+                                    ? "🖼️ Open Photo"
+                                    : "📁 Open File"
+                            }
+                        </a>`;
+                }
+            }
+
+            card.innerHTML =
+                content;
+
+            list.appendChild(card);
+        }
+    );
+
+
+    currentMissions.forEach(
+        function(mission) {
+
+            const player =
+                findCurrentPlayer();
+
+            const currentScore =
+                player
+                    ? player.score
+                    : 0;
+
+            const target =
+                Number(
+                    mission.required_score
+                ) || 0;
+
+            const completed =
+                mission.completed ||
+                currentScore >= target;
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.className =
+                "mission-card " +
+                (
+                    completed
+                        ? "completed"
+                        : ""
+                );
+
+            card.innerHTML = `
+
+                <h3>
+                    ${
+                        completed
+                            ? "✅ Mission Completed!"
+                            : "🎯 Creator Mission"
+                    }
+                </h3>
+
+                <div class="mission-score">
+                    Get ${target.toLocaleString()} points or higher
+                </div>
+
+                <p style="
+                    color:#cbd6ef;
+                    line-height:1.6;
+                ">
+                    ${escapeHTML(
+                        mission.description ||
+                        "Reach the required score and you will receive a gift!"
+                    )}
+                </p>
+
+            `;
+
+            list.appendChild(card);
+
+        }
+    );
+}
+
+
+/* =========================================================
+   MARK GIFTS READ
+========================================================= */
+
+async function markGiftsAsRead() {
+
+    const playerName =
+        getSavedPlayerName();
+
+    if (!playerName) return;
+
+    const unread =
+        currentGifts.filter(
+            gift => !gift.is_read
+        );
+
+    for (const gift of unread) {
+
+        if (!gift.id) continue;
+
+        try {
+
+            await supabaseFetch(
+                GIFTS_URL +
+                "?id=eq." +
+                encodeURIComponent(
+                    gift.id
+                ),
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body: JSON.stringify({
+                        is_read: true
+                    })
+                }
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Could not mark gift read:",
+                error
+            );
+        }
+    }
+
+    currentGifts.forEach(
+        gift => {
+            gift.is_read = true;
+        }
+    );
+
+    updateGiftButton();
+}
+
+
+/* =========================================================
+   GIFT COUNT
+========================================================= */
+
+function updateGiftButtonCount() {
+
+    const countElement =
+        document.getElementById(
+            "giftCount"
+        );
+
+    if (!countElement) return;
+
+    const unread =
+        currentGifts.filter(
+            gift => !gift.is_read
+        ).length;
+
+    if (unread > 0) {
+
+        countElement.style.display =
+            "flex";
+
+        countElement.textContent =
+            unread > 99
+                ? "99+"
+                : String(unread);
+
+    } else {
+
+        countElement.style.display =
+            "none";
+    }
+}
+
+const originalUpdateGiftButton =
+    updateGiftButton;
+
+updateGiftButton =
+    function() {
+
+        originalUpdateGiftButton();
+
+        updateGiftButtonCount();
+
+    };
+
+
+/* =========================================================
+   CREATOR PLAYER LIST
+========================================================= */
+
+function populateCreatorPlayers() {
+
+    if (!isCreatorModeEnabled()) {
+        return;
+    }
+
+    const selectors = [
+        "giftPlayer",
+        "missionPlayer",
+        "editPlayer"
+    ];
+
+    selectors.forEach(
+        function(id) {
+
+            const select =
+                document.getElementById(id);
+
+            if (!select) return;
+
+            const previous =
+                select.value;
+
+            select.innerHTML = "";
+
+            if (players.length === 0) {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value = "";
+                option.textContent =
+                    "No players found";
+
+                select.appendChild(
+                    option
+                );
+
+                return;
+            }
+
+            players.forEach(
+                function(player) {
+
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+
+                    option.value =
+                        String(player.id);
+
+                    option.textContent =
+                        player.name +
+                        " • " +
+                        player.score.toLocaleString();
+
+                    select.appendChild(
+                        option
+                    );
+                }
+            );
+
+            if (
+                players.some(
+                    player =>
+                        String(player.id) ===
+                        previous
+                )
+            ) {
+
+                select.value =
+                    previous;
+            }
+
+        }
+    );
+
+    loadCreatorPlayer();
+}
+
+
+/* =========================================================
+   SELECT PLAYER
+========================================================= */
+
+function getSelectedPlayer(selectId) {
+
+    const select =
+        document.getElementById(
+            selectId
+        );
+
+    if (!select) return null;
+
+    const id =
+        select.value;
+
+    return (
+        players.find(
+            player =>
+                String(player.id) ===
+                String(id)
+        ) || null
+    );
+}
+
+function findCurrentPlayer() {
+
+    const name =
+        getSavedPlayerName()
+            .toLowerCase();
+
+    if (!name) return null;
+
+    return (
+        players.find(
+            player =>
+                player.name
+                    .toLowerCase() ===
+                name
+        ) || null
+    );
+}
+
+
+/* =========================================================
+   CREATOR EDIT PLAYER
+========================================================= */
+
+function loadCreatorPlayer() {
+
+    const player =
+        getSelectedPlayer(
+            "editPlayer"
+        );
+
+    const info =
+        document.getElementById(
+            "creatorPlayerInfo"
+        );
+
+    if (!player) {
+
+        info.textContent =
+            "Select a player.";
+
+        return;
+    }
+
+    document.getElementById(
+        "editHighScore"
+    ).value =
+        player.score;
+
+    document.getElementById(
+        "editLastScore"
+    ).value =
+        player.lastScore;
+
+    document.getElementById(
+        "editCharacter"
+    ).value =
+        player.character;
+
+    info.innerHTML = `
+        <strong>${escapeHTML(player.name)}</strong>
+        • Current High Score:
+        <strong>${player.score.toLocaleString()}</strong>
+        • Last Score:
+        <strong>${player.lastScore.toLocaleString()}</strong>
+    `;
+}
+
+
+/* =========================================================
+   SAVE PLAYER EDIT
+========================================================= */
+
+async function savePlayerEdit() {
+
+    if (!isCreatorModeEnabled()) {
+
+        alert("Creator Mode is not enabled.");
+
+        return;
+    }
+
+    const player =
+        getSelectedPlayer(
+            "editPlayer"
+        );
+
+    const status =
+        document.getElementById(
+            "editCreatorStatus"
+        );
+
+    if (!player) {
+
+        status.textContent =
+            "Please select a player.";
+
+        return;
+    }
+
+    const highScore =
+        Number(
+            document.getElementById(
+                "editHighScore"
+            ).value
+        );
+
+    const lastScore =
+        Number(
+            document.getElementById(
+                "editLastScore"
+            ).value
+        );
+
+    const character =
+        document.getElementById(
+            "editCharacter"
+        ).value;
+
+    if (
+        !Number.isFinite(highScore) ||
+        highScore < 0
+    ) {
+
+        status.textContent =
+            "Invalid high score.";
+
+        return;
+    }
+
+    if (
+        !Number.isFinite(lastScore) ||
+        lastScore < 0
+    ) {
+
+        status.textContent =
+            "Invalid last score.";
+
+        return;
+    }
+
+    status.textContent =
+        "Saving...";
+
+    try {
+
+        const response =
+            await supabaseFetch(
+                PLAYERS_URL +
+                "?id=eq." +
+                encodeURIComponent(
+                    player.id
+                ),
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body: JSON.stringify({
+                        high_score:
+                            Math.floor(
+                                highScore
+                            ),
+
+                        last_score:
+                            Math.floor(
+                                lastScore
+                            ),
+
+                        character:
+                            character,
+
+                        updated_at:
+                            new Date()
+                                .toISOString()
+                    })
+                }
+            );
+
+        const text =
+            await response.text();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                text
+            );
+        }
+
+        status.textContent =
+            "✓ Player updated.";
+
+        await loadPlayers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "❌ Could not update player: " +
+            error.message;
+    }
+}
+
+
+/* =========================================================
+   DELETE PLAYER
+========================================================= */
+
+async function deleteSelectedPlayer() {
+
+    if (!isCreatorModeEnabled()) {
+
+        alert(
+            "Creator Mode is not enabled."
+        );
+
+        return;
+    }
+
+    const player =
+        getSelectedPlayer(
+            "editPlayer"
+        );
+
+    const status =
+        document.getElementById(
+            "editCreatorStatus"
+        );
+
+    if (!player) {
+
+        status.textContent =
+            "Please select a player.";
+
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            "Delete player \"" +
+            player.name +
+            "\" permanently?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    status.textContent =
+        "Deleting...";
+
+    try {
+
+        const response =
+            await supabaseFetch(
+                PLAYERS_URL +
+                "?id=eq." +
+                encodeURIComponent(
+                    player.id
+                ),
+                {
+                    method: "DELETE",
+
+                    headers: {
+                        "Prefer":
+                            "return=minimal"
+                    }
+                }
+            );
+
+        const text =
+            await response.text();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                text
+            );
+        }
+
+        status.textContent =
+            "✓ Player deleted.";
+
+        await loadPlayers();
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "❌ Could not delete player: " +
+            error.message;
+    }
+}
+
+
+/* =========================================================
+   GIFT TYPE UI
+========================================================= */
+
+function updateGiftTypeUI() {
+
+    const type =
+        document.getElementById(
+            "giftType"
+        ).value;
+
+    document.getElementById(
+        "giftTextArea"
+    ).style.display =
+        type === "text"
+            ? "block"
+            : "none";
+
+    document.getElementById(
+        "giftLinkArea"
+    ).style.display =
+        type === "link"
+            ? "block"
+            : "none";
+
+    document.getElementById(
+        "giftFileArea"
+    ).style.display =
+        (
+            type === "file" ||
+            type === "photo"
+        )
+            ? "block"
+            : "none";
+
+    const fileInput =
+        document.getElementById(
+            "giftFile"
+        );
+
+    if (type === "photo") {
+
+        fileInput.accept =
+            "image/*";
+
+    } else {
+
+        fileInput.accept =
+            "*/*";
+    }
+}
+
+
+/* =========================================================
+   UPLOAD FILE TO SUPABASE STORAGE
+========================================================= */
+
+async function uploadGiftFile(
+    file,
+    playerName
+) {
+
+    if (!file) {
+        throw new Error(
+            "No file selected."
+        );
+    }
+
+    const safeName =
+        file.name
+            .replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+    const randomPart =
+        Math.random()
+            .toString(36)
+            .slice(2, 10);
+
+    const path =
+        encodeURIComponent(
+            playerName
+        ) +
+        "/" +
+        Date.now() +
+        "_" +
+        randomPart +
+        "_" +
+        safeName;
+
+    const uploadURL =
+        SUPABASE_URL +
+        "/storage/v1/object/" +
+        STORAGE_BUCKET +
+        "/" +
+        path;
+
+    const response =
+        await supabaseFetch(
+            uploadURL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        file.type ||
+                        "application/octet-stream",
+
+                    "x-upsert":
+                        "false"
+                },
+
+                body: file
+            }
+        );
+
+    const responseText =
+        await response.text();
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Storage upload failed: " +
+            response.status +
+            " " +
+            responseText
+        );
+    }
+
+    /*
+       This uses a public bucket URL.
+       The bucket must be configured as public.
+    */
+
+    const publicURL =
+        SUPABASE_URL +
+        "/storage/v1/object/public/" +
+        STORAGE_BUCKET +
+        "/" +
+        path;
+
+    return publicURL;
+}
+
+
+/* =========================================================
+   SEND GIFT
+========================================================= */
+
+async function sendGift() {
+
+    if (!isCreatorModeEnabled()) {
+
+        alert(
+            "Creator Mode is not enabled."
+        );
+
+        return;
+    }
+
+    const player =
+        getSelectedPlayer(
+            "giftPlayer"
+        );
+
+    const status =
+        document.getElementById(
+            "giftCreatorStatus"
+        );
+
+    if (!player) {
+
+        status.textContent =
+            "Please select a player.";
+
+        return;
+    }
+
+    const type =
+        document.getElementById(
+            "giftType"
+        ).value;
+
+    const message =
+        document.getElementById(
+            "giftMessage"
+        ).value.trim();
+
+    const link =
+        document.getElementById(
+            "giftLink"
+        ).value.trim();
+
+    const fileInput =
+        document.getElementById(
+            "giftFile"
+        );
+
+    status.textContent =
+        "Sending gift...";
+
+    try {
+
+        let fileURL = null;
+        let fileName = null;
+
+        if (
+            type === "text" &&
+            !message
+        ) {
+
+            throw new Error(
+                "Write a gift message first."
+            );
+        }
+
+        if (
+            type === "link"
+        ) {
+
+            const safeURL =
+                safeExternalURL(
+                    link
+                );
+
+            if (!safeURL) {
+
+                throw new Error(
+                    "Please enter a valid http or https link."
+                );
+            }
+        }
+
+        if (
+            type === "file" ||
+            type === "photo"
+        ) {
+
+            const file =
+                fileInput.files[0];
+
+            if (!file) {
+
+                throw new Error(
+                    "Please choose a file/photo first."
+                );
+            }
+
+            if (
+                type === "photo" &&
+                !file.type.startsWith("image/")
+            ) {
+
+                throw new Error(
+                    "Please select an image for a photo gift."
+                );
+            }
+
+            fileURL =
+                await uploadGiftFile(
+                    file,
+                    player.name
+                );
+
+            fileName =
+                file.name;
+        }
+
+        const giftData = {
+
+            recipient_player_name:
+                player.name,
+
+            recipient_player_id:
+                Number(player.id),
+
+            type:
+                type,
+
+            title:
+                "Gift from Creator",
+
+            message:
+                type === "text"
+                    ? message
+                    : "",
+
+            url:
+                type === "link"
+                    ? link
+                    : fileURL,
+
+            storage_path:
+                null,
+
+            file_name:
+                fileName,
+
+            mime_type:
+                null,
+
+            creator_name:
+                "Creator",
+
+            read_at:
+                null
+        };
+
+        const response =
+            await supabaseFetch(
+                GIFTS_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "Prefer":
+                            "return=minimal"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            giftData
+                        )
+                }
+            );
+
+        const text =
+            await response.text();
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Supabase HTTP " +
+                response.status +
+                ": " +
+                text
+            );
+        }
+
+        status.textContent =
+            "✓ Gift sent to " +
+            player.name + "! 🎁";
+
+        document.getElementById(
+            "giftMessage"
+        ).value = "";
+
+        document.getElementById(
+            "giftLink"
+        ).value = "";
+
+        document.getElementById(
+            "giftFile"
+        ).value = "";
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "❌ " +
+            error.message;
+    }
+}
+
+
+/* =========================================================
+   CREATE MISSION
+========================================================= */
+
+async function createMission() {
+
+    if (!isCreatorModeEnabled()) {
+
+        alert(
+            "Creator Mode is not enabled."
+        );
+
+        return;
+    }
+
+    const player =
+        getSelectedPlayer(
+            "missionPlayer"
+        );
+
+    const status =
+        document.getElementById(
+            "missionCreatorStatus"
+        );
+
+    if (!player) {
+
+        status.textContent =
+            "Please select a player.";
+
+        return;
+    }
+
+    const targetScore =
+        Number(
+            document.getElementById(
+                "missionScore"
+            ).value
+        );
+
+    const message =
+        document.getElementById(
+            "missionMessage"
+        ).value.trim();
+
+    const reward =
+        document.getElementById(
+            "missionReward"
+        ).value.trim();
+
+    if (
+        !Number.isFinite(targetScore) ||
+        targetScore < 0
+    ) {
+
+        status.textContent =
+            "Enter a valid required score.";
+
+        return;
+    }
+
+    if (!message) {
+
+        status.textContent =
+            "Write the mission message.";
+
+        return;
+    }
+
+    status.textContent =
+        "Creating mission...";
+
+    try {
+
+        const missionData = {
+
+            player_name:
+                player.name,
+
+            player_id:
+                Number(player.id),
+
+            title:
+                "Creator Mission",
+
+            description:
+                message +
+                (
+                    reward
+                        ? "
+
+🎁 Reward: " + reward
+                        : ""
+                ),
+
+            required_score:
+                Math.floor(targetScore),
+
+            reward_gift_id:
+                null,
+
+            completed:
+                player.score >= targetScore,
+
+            created_at:
+                new Date().toISOString(),
+
+            completed_at:
+                player.score >= targetScore
+                    ? new Date().toISOString()
+                    : null
         };
 
         const response =
