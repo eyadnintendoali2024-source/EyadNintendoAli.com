@@ -76,7 +76,133 @@ body.modal-open {
   border-radius: 12px;
 }
 
+#octoberLoadingImg {
+  max-width: 70%;
+  max-height: 50vh;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 204, 255, 0.6);
+  display: none;
+}
+
+#octoberText {
+  display: none;
+  font-size: 28px;
+  color: #00ccff;
+  margin-top: 15px;
+  font-weight: bold;
+  text-shadow: 0 0 12px #00ccff;
+  animation: blink 1.5s infinite;
+}
+
 #loadingVideo h2 {
+  margin-top: Here is the updated, complete HTML code. 
+
+The loading logic now checks the user's IP/location using a free geolocation API (`ipapi.co`). If the user is connected from **any Arab country** AND the current month is **October**, the loading screen displays the `oct 6.png` image with the text **"حرب اكتوبر 1973"** underneath instead of playing the standard video. Otherwise, it falls back to the random video flow.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eyad Nintendo Ali - Space</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0b1026, #000000);
+  overflow-x: hidden;
+  color: white;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* 🌌 STARS */
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* INTRO */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #101a44, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  z-index: 9999;
+  text-align: center;
+}
+
+#intro img { width: 180px; }
+
+#intro h1 {
+  font-size: 36px;
+  text-shadow: 0 0 15px #00ccff;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+/* LOADING */
+#loadingVideo {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: black;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9998;
+}
+
+#loadingVideo video {
+  width: 60%;
+  border-radius: 12px;
+}
+
+/* October 6 Event Content Styles */
+#octoberContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#octoberContent img {
+  max-width: 80%;
+  max-height: 50vh;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+}
+
+#octoberContent h2 {
+  font-size: 32px;
+  margin-top: 20px;
+  color: #ffd700;
+  text-shadow: 0 0 12px #ff8c00;
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#loadingVideo h2.default-loading-text {
   margin-top: 20px;
   color: #00ccff;
   animation: blink 1s infinite;
@@ -516,8 +642,16 @@ for (let i = 0; i < 150; i++) {
 </div>
 
 <div id="loadingVideo">
-  <video id="loadVid" autoplay muted></video>
-  <h2>Loading Space...</h2>
+  <!-- October 6 Photo Display Area -->
+  <div id="octoberContent" style="display: none;">
+    <img src="oct 6.png" alt="حرب اكتوبر 1973">
+    <h2>حرب اكتوبر 1973</h2>
+  </div>
+
+  <!-- Standard Video Display Area -->
+  <video id="loadVid" autoplay muted style="display: none;"></video>
+  <h2 id="defaultLoadingText" class="default-loading-text" style="display: none;">Loading Space...</h2>
+  
   <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
 </div>
 
@@ -551,7 +685,7 @@ for (let i = 0; i < 150; i++) {
     <button class="ai-btn" onclick="location.href='Football.html'">⚽ Football</button>
 
     <button>🔍 Search</button>
-    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
+    <button onclick="window.open('[https://www.youtube.com/@EyadNintendoAli2025','_blank](https://www.youtube.com/@EyadNintendoAli2025','_blank)')">▶️ YouTube</button>
     <button onclick="openSettings()">⚙️ Settings</button>
 
   </nav>
@@ -618,7 +752,7 @@ for (let i = 0; i < 150; i++) {
   </div>
 </div>
 
-<!-- 🛠️ CREATOR MODE UI OVERLAYS -->
+<!-- 🛠️️ CREATOR MODE UI OVERLAYS -->
 <div id="creatorBar" style="display: none;">
   <div class="status">⚡ Creator Mode Active</div>
   <div class="controls">
@@ -671,6 +805,25 @@ const loadVid = document.getElementById("loadVid");
 const loadingVideos = ["loading.mp4", "loading2.mp4"];
 const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
 
+// List of Arab League Country Codes (ISO 3166-1 alpha-2)
+const arabCountries = [
+  "EG", "SA", "AE", "KW", "QA", "BH", "OM", "IQ", "JO", "LB", 
+  "SY", "PS", "YE", "SD", "LY", "TN", "DZ", "MA", "MR", "SO", "DJ", "KM"
+];
+
+// Check if visitor is from an Arab country using IP Geolocation
+async function isArabicCountry() {
+  try {
+    const res = await fetch("[https://ipapi.co/json/](https://ipapi.co/json/)");
+    const data = await res.json();
+    return arabCountries.includes(data.country_code);
+  } catch (err) {
+    // If API fails, check user browser language as fallback
+    const lang = navigator.language || navigator.userLanguage || "";
+    return lang.startsWith("ar");
+  }
+}
+
 // Initialization sequence
 window.addEventListener("DOMContentLoaded", () => {
   // Clean up legacy keys if present
@@ -687,29 +840,41 @@ window.addEventListener("DOMContentLoaded", () => {
   startNormalIntroFlow();
 });
 
-function startNormalIntroFlow() {
+async function startNormalIntroFlow() {
   if (sessionStorage.getItem("visitedHome")) {
     intro.style.display = "none";
     site.style.display = "block";
   } else {
+    // Check if current month is October (0-indexed: October is month 9)
+    const isOctober = (new Date().getMonth() === 9);
+    const isArab = await isArabicCountry();
+
     setTimeout(() => {
       intro.style.display = "none";
       loadingVideo.style.display = "flex";
 
-      loadVid.src = randomVideo;
-      loadVid.play();
+      // If in October AND visitor IP is in an Arabic country
+      if (isOctober && isArab) {
+        document.getElementById("octoberContent").style.display = "flex";
+      } else {
+        // Standard video playback
+        loadVid.style.display = "block";
+        document.getElementById("defaultLoadingText").style.display = "block";
+        loadVid.src = randomVideo;
+        loadVid.play();
 
-      loadVid.onended = () => {
-        loadingVideo.style.display = "none";
-        site.style.display = "block";
-        sessionStorage.setItem("visitedHome", "1");
-      };
+        loadVid.onended = () => {
+          loadingVideo.style.display = "none";
+          site.style.display = "block";
+          sessionStorage.setItem("visitedHome", "1");
+        };
+      }
     }, 3000);
   }
 }
 
 function skipLoading(){
-  loadVid.pause();
+  if (loadVid) loadVid.pause();
   loadingVideo.style.display="none";
   site.style.display="block";
   sessionStorage.setItem("visitedHome","1");
