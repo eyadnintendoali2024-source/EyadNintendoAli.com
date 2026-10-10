@@ -8,101 +8,133 @@
 
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b1026, #000000);
-  overflow-x: hidden;
-  color: white;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0b1026, #000000);
+  overflow-x: hidden;
+  color: white;
 }
 
 body.modal-open {
-  overflow: hidden;
+  overflow: hidden;
 }
 
 /* 🌌 STARS */
 .star {
-  position: fixed;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle 2s infinite alternate;
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
 }
 
 @keyframes twinkle {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
+  from { opacity: 0.3; }
+  to { opacity: 1; }
 }
 
 /* INTRO */
 #intro {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle, #101a44, #000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  z-index: 9999;
-  text-align: center;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #101a44, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  z-index: 9999;
+  text-align: center;
 }
 
 #intro img { width: 180px; }
 
 #intro h1 {
-  font-size: 36px;
-  text-shadow: 0 0 15px #00ccff;
-  animation: pulse 2s infinite alternate;
+  font-size: 36px;
+  text-shadow: 0 0 15px #00ccff;
+  animation: pulse 2s infinite alternate;
 }
 
 @keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
 }
 
 /* LOADING */
 #loadingVideo {
-  position: fixed;
-  inset: 0;
-  display: none;
-  background: black;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 9998;
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: black;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9998;
 }
 
 #loadingVideo video {
-  width: 60%;
-  border-radius: 12px;
+  width: 60%;
+  border-radius: 12px;
 }
 
 #loadingVideo h2 {
-  margin-top: 20px;
-  color: #00ccff;
-  animation: blink 1s infinite;
+  margin-top: 20px;
+  color: #00ccff;
+  animation: blink 1s infinite;
+}
+
+/* October 6 loading screen: shown only on October 6 for visitors in Arab countries */
+#octoberLoading {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #050505;
+  z-index: 10001;
+  text-align: center;
+}
+
+#octoberLoading img {
+  display: block;
+  width: min(92vw, 1100px);
+  height: min(72vh, 650px);
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+#octoberLoading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(22px, 4vw, 38px);
+  text-shadow: 0 0 12px #c00;
+  direction: rtl;
 }
 
 @keyframes blink {
-  50% { opacity: 0.4; }
+  50% { opacity: 0.4; }
 }
 
 /* Skip button styles */
 #skipBtn{
-  margin-top:20px;
-  padding:12px 28px;
-  font-size:18px;
-  border:none;
-  border-radius:10px;
-  background:#00ccff;
-  color:black;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.3s;
+  margin-top:20px;
+  padding:12px 28px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  background:#00ccff;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.3s;
 }
 
 #skipBtn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px #00ccff;
+  transform:scale(1.1);
+  box-shadow:0 0 20px #00ccff;
 }
 
 /* SITE */
@@ -110,385 +142,385 @@ body.modal-open {
 
 /* HEADER */
 header {
-  position: relative;
-  z-index: 9998;
-  background: rgba(0,0,40,0.8);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 9998;
+  background: rgba(0,0,40,0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 .logo {
-  font-size: 26px;
-  font-weight: bold;
-  text-shadow: 0 0 10px #00ccff;
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ccff;
 }
 
 .logo a {
-  color: white;
-  text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 nav {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 button {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: 1px solid #00ccff;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid #00ccff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.1);
-  background: #00ccff;
-  color: black;
+  transform: scale(1.1);
+  background: #00ccff;
+  color: black;
 }
 
 /* AI BUTTON */
 .ai-btn {
-  background: linear-gradient(90deg, #00ccff, #0044ff);
-  color: white;
-  box-shadow: 0 0 12px #00ccff;
+  background: linear-gradient(90deg, #00ccff, #0044ff);
+  color: white;
+  box-shadow: 0 0 12px #00ccff;
 }
 
 .ai-btn:hover {
-  box-shadow: 0 0 22px #00ccff;
+  box-shadow: 0 0 22px #00ccff;
 }
 
 /* DROPDOWN */
 .dropdown {
-  position: relative;
-  z-index: 9999;
+  position: relative;
+  z-index: 9999;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #111844;
-  border-radius: 8px;
-  min-width: 170px;
-  overflow: hidden;
-  z-index: 10000;
-  box-shadow: 0 8px 20px rgba(0,0,0,.6);
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111844;
+  border-radius: 8px;
+  min-width: 170px;
+  overflow: hidden;
+  z-index: 10000;
+  box-shadow: 0 8px 20px rgba(0,0,0,.6);
 }
 
 .dropdown-content a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: white;
-  transition: 0.3s;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
 }
 
 .dropdown-content a:hover {
-  background: #00ccff;
-  color: black;
+  background: #00ccff;
+  color: black;
 }
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block;
 }
 
 /* SECTIONS */
 .section {
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 20px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 14px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  backdrop-filter: blur(5px);
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
 }
 
 /* CARDS */
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .card {
-  width: 200px;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border-radius: 12px;
-  padding: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  border: 1px solid rgba(255,255,255,0.15);
+  width: 200px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.15);
 }
 
 .card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #00ccff;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px #00ccff;
 }
 
 .card img {
-  width: 100%;
-  border-radius: 8px;
+  width: 100%;
+  border-radius: 8px;
 }
 
 /* ⚙️ SETTINGS MODAL STYLES */
 #settingsModalOverlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  z-index: 100000;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 #settingsModalOverlay.active {
-  display: flex;
-  opacity: 1;
+  display: flex;
+  opacity: 1;
 }
 
 .settings-modal {
-  background: radial-gradient(circle at top, #0b1026, #050814);
-  border: 2px solid #00ccff;
-  box-shadow: 0 0 25px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.2);
-  border-radius: 16px;
-  width: 90%;
-  max-width: 480px;
-  max-height: 85vh;
-  overflow-y: auto;
-  padding: 24px;
-  box-sizing: border-box;
-  transform: scale(0.8);
-  transition: transform 0.3s ease;
-  color: white;
+  background: radial-gradient(circle at top, #0b1026, #050814);
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 25px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.2);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-sizing: border-box;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+  color: white;
 }
 
 #settingsModalOverlay.active .settings-modal {
-  transform: scale(1);
+  transform: scale(1);
 }
 
 .settings-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 204, 255, 0.3);
-  padding-bottom: 12px;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 204, 255, 0.3);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .settings-header h2 {
-  margin: 0;
-  font-size: 22px;
-  color: #00ccff;
-  text-shadow: 0 0 8px #00ccff;
+  margin: 0;
+  font-size: 22px;
+  color: #00ccff;
+  text-shadow: 0 0 8px #00ccff;
 }
 
 .close-btn {
-  background: transparent;
-  border: none;
-  color: #00ccff;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0 8px;
-  line-height: 1;
+  background: transparent;
+  border: none;
+  color: #00ccff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
 }
 
 .close-btn:hover {
-  background: transparent;
-  color: #ff3366;
-  transform: scale(1.2);
+  background: transparent;
+  color: #ff3366;
+  transform: scale(1.2);
 }
 
 .settings-section {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 204, 255, 0.2);
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 18px;
 }
 
 .settings-section h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 16px;
-  color: #00ccff;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #00ccff;
 }
 
 .input-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .settings-input {
-  flex: 1;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #00ccff;
-  border-radius: 6px;
-  padding: 8px 12px;
-  color: white;
-  font-size: 14px;
-  outline: none;
+  flex: 1;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #00ccff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
 }
 
 .settings-input:focus {
-  box-shadow: 0 0 8px #00ccff;
+  box-shadow: 0 0 8px #00ccff;
 }
 
 .code-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
 }
 
 .code-status {
-  font-size: 13px;
-  color: #aaa;
-  margin-top: 4px;
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 4px;
 }
 
 .code-status span.enabled {
-  color: #00ff66;
-  font-weight: bold;
+  color: #00ff66;
+  font-weight: bold;
 }
 
 .code-status span.disabled {
-  color: #ff3366;
-  font-weight: bold;
+  color: #ff3366;
+  font-weight: bold;
 }
 
 .error-msg {
-  color: #ff3366;
-  font-size: 13px;
-  margin-top: 8px;
-  display: none;
+  color: #ff3366;
+  font-size: 13px;
+  margin-top: 8px;
+  display: none;
 }
 
 /* 🛠️ CREATOR MODE SYSTEM STYLES */
 #creatorBar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(5, 10, 30, 0.95);
-  border-bottom: 2px solid #00ccff;
-  box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
-  z-index: 100000;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 20px;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(5, 10, 30, 0.95);
+  border-bottom: 2px solid #00ccff;
+  box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 #creatorBar .status {
-  font-weight: bold;
-  color: #00ccff;
-  text-shadow: 0 0 10px #00ccff;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-weight: bold;
+  color: #00ccff;
+  text-shadow: 0 0 10px #00ccff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 #creatorBar .controls {
-  display: flex;
-  gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 #creatorBar button {
-  font-size: 13px;
-  padding: 6px 12px;
+  font-size: 13px;
+  padding: 6px 12px;
 }
 
 #creatorPanel {
-  position: fixed;
-  right: 20px;
-  top: 60px;
-  width: 320px;
-  max-height: 80vh;
-  background: radial-gradient(circle at top, #0b1026, #050814);
-  border: 2px solid #00ccff;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0, 204, 255, 0.4);
-  z-index: 99999;
-  padding: 15px;
-  overflow-y: auto;
-  box-sizing: border-box;
+  position: fixed;
+  right: 20px;
+  top: 60px;
+  width: 320px;
+  max-height: 80vh;
+  background: radial-gradient(circle at top, #0b1026, #050814);
+  border: 2px solid #00ccff;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 204, 255, 0.4);
+  z-index: 99999;
+  padding: 15px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 #creatorPanel h3 {
-  margin-top: 0;
-  color: #00ccff;
-  border-bottom: 1px solid rgba(0,204,255,0.3);
-  padding-bottom: 8px;
-  font-size: 16px;
+  margin-top: 0;
+  color: #00ccff;
+  border-bottom: 1px solid rgba(0,204,255,0.3);
+  padding-bottom: 8px;
+  font-size: 16px;
 }
 
 .creator-group {
-  margin-bottom: 15px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0,204,255,0.15);
-  padding: 10px;
-  border-radius: 8px;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0,204,255,0.15);
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .creator-group label {
-  display: block;
-  font-size: 12px;
-  color: #00ccff;
-  margin-bottom: 5px;
-  font-weight: bold;
+  display: block;
+  font-size: 12px;
+  color: #00ccff;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .creator-group input, .creator-group select, .creator-group textarea {
-  width: 100%;
-  box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid #00ccff;
-  color: white;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 13px;
-  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #00ccff;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  margin-bottom: 8px;
 }
 
 .creator-group textarea {
-  resize: vertical;
-  min-height: 50px;
+  resize: vertical;
+  min-height: 50px;
 }
 
 .creator-active-element {
-  outline: 3px dashed #00ccff !important;
-  outline-offset: 4px;
-  box-shadow: 0 0 15px #00ccff !important;
+  outline: 3px dashed #00ccff !important;
+  outline-offset: 4px;
+  box-shadow: 0 0 15px #00ccff !important;
 }
 
 body.creator-mode-active [data-creator-editable="true"] {
-  cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 body.creator-mode-active [data-creator-editable="true"]:hover {
-  outline: 2px solid #00ccff;
+  outline: 2px solid #00ccff;
 }
 </style>
 </head>
@@ -497,169 +529,176 @@ body.creator-mode-active [data-creator-editable="true"]:hover {
 
 <script>
 for (let i = 0; i < 150; i++) {
-  let s = document.createElement("div");
-  s.className = "star";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  let size = Math.random() * 3 + 1;
-  s.style.width = size + "px";
-  s.style.height = size + "px";
-  s.style.animationDuration = (1 + Math.random() * 3) + "s";
-  document.body.appendChild(s);
+  let s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  let size = Math.random() * 3 + 1;
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+  document.body.appendChild(s);
 }
 </script>
 
 <div id="intro">
-  <img src="mario.png">
-  <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
-  <img src="luigi.png">
+  <img src="mario.png">
+  <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
+  <img src="luigi.png">
 </div>
 
 <div id="loadingVideo">
-  <video id="loadVid" autoplay muted></video>
-  <h2>Loading Space...</h2>
-  <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
+  <video id="loadVid" autoplay muted></video>
+  <h2>Loading Space...</h2>
+  <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
+</div>
+
+<div id="octoberLoading" aria-label="October 6 loading screen">
+  <img src="oct 6.png" alt="ذكرى حرب أكتوبر 1973" onerror="this.style.display='none'; document.getElementById('octoberFallback').style.display='block';">
+  <h2 id="octoberFallback" style="display:none">حرب أكتوبر 1973</h2>
+  <h2>حرب أكتوبر 1973</h2>
+  <button id="skipOctoberBtn" onclick="skipLoading()">⏩ تخطي</button>
 </div>
 
 <div id="site">
 
 <header>
-  <div class="logo">
-    <a href="index.html" id="siteLogoText">Eyad Nintendo Ali 🚀</a>
-  </div>
+  <div class="logo">
+    <a href="index.html" id="siteLogoText">Eyad Nintendo Ali 🚀</a>
+  </div>
 
-  <nav id="mainNav">
+  <nav id="mainNav">
 
-    <div class="dropdown">
-      <button>🌌 Types ▾</button>
-      <div class="dropdown-content" id="typesDropdown">
+    <div class="dropdown">
+      <button>🌌 Types ▾</button>
+      <div class="dropdown-content" id="typesDropdown">
 
-        <a href="minecraft.html">⛏️ Minecraft</a>
-        <a href="cockatiel-online.html">🐦 Cockatiel Bird Online List</a>
+        <a href="minecraft.html">⛏️ Minecraft</a>
+        <a href="cockatiel-online.html">🐦 Cockatiel Bird Online List</a>
 
-        <a href="games.html">🎮 Games</a>
-        <a href="Movies.html">🎬 Movies</a>
+        <a href="games.html">🎮 Games</a>
+        <a href="Movies.html">🎬 Movies</a>
 
-        <a href="cartoons.html">📺 Cartoons</a>
-        <a href="news.html">📰 News</a>
+        <a href="cartoons.html">📺 Cartoons</a>
+        <a href="news.html">📰 News</a>
 
-      </div>
-    </div>
+      </div>
+    </div>
 
-    <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
+    <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
 
-    <button class="ai-btn" onclick="location.href='Football.html'">⚽ Football</button>
+    <button class="ai-btn" onclick="location.href='Football.html'">⚽ Football</button>
 
-    <button>🔍 Search</button>
-    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
-    <button onclick="openSettings()">⚙️ Settings</button>
+    <button>🔍 Search</button>
+    <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
+    <button onclick="openSettings()">⚙️ Settings</button>
 
-  </nav>
+  </nav>
 </header>
 
 <div class="section" id="heroSection">
-  <h1 id="mainTitle">🌌 SPACE MODE 🌌</h1>
-  <p id="mainDescription">Explore the universe of games, fun, and creativity.</p>
+  <h1 id="mainTitle">🌌 SPACE MODE 🌌</h1>
+  <p id="mainDescription">Explore the universe of games, fun, and creativity.</p>
 </div>
 
 <div class="section" id="gamesSection">
-  <h2 id="gamesTitle">🎮 Games</h2>
-  <div class="cards" id="gamesCardsContainer">
-    <div class="card" onclick="location.href='Boy&jelly.html'" data-card-id="boy-jelly">
-      <img src="Boy&jelly.png" alt="Boy & Jelly">
-      <p>Boy & Jelly</p>
-    </div>
+  <h2 id="gamesTitle">🎮 Games</h2>
+  <div class="cards" id="gamesCardsContainer">
+    <div class="card" onclick="location.href='Boy&jelly.html'" data-card-id="boy-jelly">
+      <img src="Boy&jelly.png" alt="Boy & Jelly">
+      <p>Boy & Jelly</p>
+    </div>
 
-    <div class="card" onclick="location.href='Game Haven domdom.html'" data-card-id="domdom">
-      <img src="Game Haven domdom.png" alt="Game Haven Domdom">
-      <p>Game Haven Domdom</p>
-    </div>
-  </div>
+    <div class="card" onclick="location.href='Game Haven domdom.html'" data-card-id="domdom">
+      <img src="Game Haven domdom.png" alt="Game Haven Domdom">
+      <p>Game Haven Domdom</p>
+    </div>
+  </div>
 </div>
 
 </div>
 
 <div id="settingsModalOverlay" onclick="closeSettingsOnBackdrop(event)">
-  <div class="settings-modal">
-    <div class="settings-header">
-      <h2>⚙️ SETTINGS</h2>
-      <button class="close-btn" onclick="closeSettings()">✕</button>
-    </div>
+  <div class="settings-modal">
+    <div class="settings-header">
+      <h2>⚙️ SETTINGS</h2>
+      <button class="close-btn" onclick="closeSettings()">✕</button>
+    </div>
 
-    <div class="settings-section">
-      <h3>👤 Username</h3>
-      <div id="usernameDisplayArea">
-        <span id="usernameText">Username: Not set</span>
-        <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
-      </div>
-      <div id="usernameInputArea" style="display: none;" class="input-group">
-        <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
-        <button onclick="saveUsername()">💾 Save</button>
-      </div>
-    </div>
+    <div class="settings-section">
+      <h3>👤 Username</h3>
+      <div id="usernameDisplayArea">
+        <span id="usernameText">Username: Not set</span>
+        <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
+      </div>
+      <div id="usernameInputArea" style="display: none;" class="input-group">
+        <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
+        <button onclick="saveUsername()">💾 Save</button>
+      </div>
+    </div>
 
-    <div class="settings-section">
-      <h3>📋 Code List</h3>
-      <div id="codeListContent">
-        <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
-      </div>
-    </div>
+    <div class="settings-section">
+      <h3>📋 Code List</h3>
+      <div id="codeListContent">
+        <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
+      </div>
+    </div>
 
-    <div class="settings-section">
-      <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
-      <div id="codeInputArea" style="display: none; margin-top: 10px;">
-        <div class="input-group">
-          <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
-          <button onclick="submitCode()">Enter</button>
-        </div>
-        <div id="codeError" class="error-msg">❌ Invalid code</div>
-      </div>
-    </div>
-  </div>
+    <div class="settings-section">
+      <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
+      <div id="codeInputArea" style="display: none; margin-top: 10px;">
+        <div class="input-group">
+          <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
+          <button onclick="submitCode()">Enter</button>
+        </div>
+        <div id="codeError" class="error-msg">❌ Invalid code</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- 🛠️ CREATOR MODE UI OVERLAYS -->
 <div id="creatorBar" style="display: none;">
-  <div class="status">⚡ Creator Mode Active</div>
-  <div class="controls">
-    <button onclick="saveCreatorData()">💾 Save Changes</button>
-    <button onclick="resetCreatorData()">↩️ Reset Changes</button>
-    <button onclick="toggleCreatorMode(false)" style="border-color: #ff3366; color: #ff3366;">✕ Exit</button>
-  </div>
+  <div class="status">⚡ Creator Mode Active</div>
+  <div class="controls">
+    <button onclick="saveCreatorData()">💾 Save Changes</button>
+    <button onclick="resetCreatorData()">↩️ Reset Changes</button>
+    <button onclick="toggleCreatorMode(false)" style="border-color: #ff3366; color: #ff3366;">✕ Exit</button>
+  </div>
 </div>
 
 <div id="creatorPanel" style="display: none;">
-  <h3>🛠️ Creator Tools</h3>
-  
-  <div class="creator-group">
-    <label>✏️ Edit Text / Selected Element</label>
-    <input type="text" id="creatorSelectedTag" readonly placeholder="Click any text/card to select" style="opacity: 0.7;">
-    <textarea id="creatorTextInput" placeholder="Selected text value..."></textarea>
-    <button onclick="applySelectedTextEdit()" style="width:100%;">Apply Text Change</button>
-  </div>
+  <h3>🛠️ Creator Tools</h3>
+  
+  <div class="creator-group">
+    <label>✏️ Edit Text / Selected Element</label>
+    <input type="text" id="creatorSelectedTag" readonly placeholder="Click any text/card to select" style="opacity: 0.7;">
+    <textarea id="creatorTextInput" placeholder="Selected text value..."></textarea>
+    <button onclick="applySelectedTextEdit()" style="width:100%;">Apply Text Change</button>
+  </div>
 
-  <div class="creator-group">
-    <label>🎮 Cards Management</label>
-    <input type="text" id="cardTitleInput" placeholder="Card Title">
-    <input type="text" id="cardImgInput" placeholder="Image URL (e.g., game.png)">
-    <input type="text" id="cardLinkInput" placeholder="Link URL (e.g., game.html)">
-    <button onclick="addNewCard()" style="width:100%; margin-bottom: 5px;">➕ Add New Card</button>
-    <button onclick="deleteSelectedCard()" style="width:100%; border-color:#ff3366; color:#ff3366;">🗑️ Delete Selected Card</button>
-  </div>
+  <div class="creator-group">
+    <label>🎮 Cards Management</label>
+    <input type="text" id="cardTitleInput" placeholder="Card Title">
+    <input type="text" id="cardImgInput" placeholder="Image URL (e.g., game.png)">
+    <input type="text" id="cardLinkInput" placeholder="Link URL (e.g., game.html)">
+    <button onclick="addNewCard()" style="width:100%; margin-bottom: 5px;">➕ Add New Card</button>
+    <button onclick="deleteSelectedCard()" style="width:100%; border-color:#ff3366; color:#ff3366;">🗑️ Delete Selected Card</button>
+  </div>
 
-  <div class="creator-group">
-    <label>🎨 Appearance & Background</label>
-    <input type="color" id="bgColorPicker" value="#0b1026" onchange="updateBgColor(this.value)">
-    <label style="margin-top: 5px;">Accent Color</label>
-    <input type="color" id="accentColorPicker" value="#00ccff" onchange="updateAccentColor(this.value)">
-  </div>
+  <div class="creator-group">
+    <label>🎨 Appearance & Background</label>
+    <input type="color" id="bgColorPicker" value="#0b1026" onchange="updateBgColor(this.value)">
+    <label style="margin-top: 5px;">Accent Color</label>
+    <input type="color" id="accentColorPicker" value="#00ccff" onchange="updateAccentColor(this.value)">
+  </div>
 
-  <div class="creator-group">
-    <label>🧭 Navigation Link</label>
-    <input type="text" id="navTextInput" placeholder="Link Text (e.g., 🚀 Shop)">
-    <input type="text" id="navUrlInput" placeholder="Link URL (e.g., shop.html)">
-    <button onclick="addNavItem()" style="width:100%;">➕ Add Nav Link</button>
-  </div>
+  <div class="creator-group">
+    <label>🧭 Navigation Link</label>
+    <input type="text" id="navTextInput" placeholder="Link Text (e.g., 🚀 Shop)">
+    <input type="text" id="navUrlInput" placeholder="Link URL (e.g., shop.html)">
+    <button onclick="addNavItem()" style="width:100%;">➕ Add Nav Link</button>
+  </div>
 </div>
 
 <script>
@@ -673,405 +712,473 @@ const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.lengt
 
 // Initialization sequence
 window.addEventListener("DOMContentLoaded", () => {
-  // Clean up legacy keys if present
-  localStorage.removeItem("omarTheBabyEnabled");
-  let unlocked = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-  if (unlocked.includes("20152026")) {
-    unlocked = unlocked.filter(c => c !== "20152026");
-    localStorage.setItem("unlockedCodes", JSON.stringify(unlocked));
-  }
+  // Clean up legacy keys if present
+  localStorage.removeItem("omarTheBabyEnabled");
+  let unlocked = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+  if (unlocked.includes("20152026")) {
+    unlocked = unlocked.filter(c => c !== "20152026");
+    localStorage.setItem("unlockedCodes", JSON.stringify(unlocked));
+  }
 
-  loadWebsiteConfig();
-  renderSettings();
-  initCreatorModeSystem();
-  startNormalIntroFlow();
+  loadWebsiteConfig();
+  renderSettings();
+  initCreatorModeSystem();
+  startNormalIntroFlow();
+});
+
+const octoberLoading = document.getElementById("octoberLoading");
+
+// Arab League country codes. The special screen is shown only on October 6.
+const arabCountryCodes = new Set([
+  "DZ", "BH", "KM", "DJ", "EG", "IQ", "JO", "KW", "LB", "LY",
+  "MR", "MA", "OM", "PS", "QA", "SA", "SO", "SD", "SY", "TN", "AE", "YE"
+]);
+
+async function isOctoberSixInArabCountry() {
+  const now = new Date();
+  if (now.getMonth() !== 9 || now.getDate() !== 6) return false;
+
+  // If IP lookup is blocked or unavailable, safely use the normal loading video.
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 4500);
+    const response = await fetch("https://ipapi.co/json/", {
+      method: "GET",
+      headers: { "Accept": "application/json" },
+      cache: "no-store",
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    if (!response.ok) return false;
+    const locationData = await response.json();
+    const countryCode = String(locationData.country_code || "").toUpperCase();
+    return arabCountryCodes.has(countryCode);
+  } catch (error) {
+    console.warn("IP country lookup failed; using the normal loading video.", error);
+    return false;
+  }
+}
+
+function showNormalLoadingVideo() {
+  octoberLoading.style.display = "none";
+  loadingVideo.style.display = "flex";
+  loadVid.src = randomVideo;
+  const playAttempt = loadVid.play();
+  if (playAttempt && typeof playAttempt.catch === "function") {
+    playAttempt.catch(() => {
+      // The Skip button remains available if autoplay is blocked.
+    });
+  }
+  loadVid.onended = finishLoading;
+}
+
+function finishLoading() {
+  loadVid.pause();
+  loadingVideo.style.display = "none";
+  octoberLoading.style.display = "none";
+  site.style.display = "block";
+  sessionStorage.setItem("visitedHome", "1");
+}
+
+// Initialization sequence
+window.addEventListener("DOMContentLoaded", () => {
+  // Clean up legacy keys if present
+  localStorage.removeItem("omarTheBabyEnabled");
+  let unlocked = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+  if (unlocked.includes("20152026")) {
+    unlocked = unlocked.filter(c => c !== "20152026");
+    localStorage.setItem("unlockedCodes", JSON.stringify(unlocked));
+  }
+
+  loadWebsiteConfig();
+  renderSettings();
+  initCreatorModeSystem();
+  startNormalIntroFlow();
 });
 
 function startNormalIntroFlow() {
-  if (sessionStorage.getItem("visitedHome")) {
-    intro.style.display = "none";
-    site.style.display = "block";
-  } else {
-    setTimeout(() => {
-      intro.style.display = "none";
-      loadingVideo.style.display = "flex";
+  if (sessionStorage.getItem("visitedHome")) {
+    intro.style.display = "none";
+    loadingVideo.style.display = "none";
+    octoberLoading.style.display = "none";
+    site.style.display = "block";
+    return;
+  }
 
-      loadVid.src = randomVideo;
-      loadVid.play();
-
-      loadVid.onended = () => {
-        loadingVideo.style.display = "none";
-        site.style.display = "block";
-        sessionStorage.setItem("visitedHome", "1");
-      };
-    }, 3000);
-  }
+  setTimeout(async () => {
+    intro.style.display = "none";
+    const showOctoberScreen = await isOctoberSixInArabCountry();
+    // The special image replaces the normal video only on October 6 in an Arab country.
+    if (showOctoberScreen) {
+      loadingVideo.style.display = "none";
+      octoberLoading.style.display = "flex";
+    } else {
+      showNormalLoadingVideo();
+    }
+  }, 3000);
 }
 
-function skipLoading(){
-  loadVid.pause();
-  loadingVideo.style.display="none";
-  site.style.display="block";
-  sessionStorage.setItem("visitedHome","1");
+function skipLoading() {
+  finishLoading();
 }
 
 /* ⚙️ SETTINGS SYSTEM JAVASCRIPT */
 function openSettings() {
-  document.getElementById("settingsModalOverlay").classList.add("active");
-  document.body.classList.add("modal-open");
-  renderSettings();
+  document.getElementById("settingsModalOverlay").classList.add("active");
+  document.body.classList.add("modal-open");
+  renderSettings();
 }
 
 function closeSettings() {
-  document.getElementById("settingsModalOverlay").classList.remove("active");
-  document.body.classList.remove("modal-open");
-  document.getElementById("codeInputArea").style.display = "none";
-  document.getElementById("usernameInputArea").style.display = "none";
-  document.getElementById("usernameDisplayArea").style.display = "block";
-  document.getElementById("codeError").style.display = "none";
+  document.getElementById("settingsModalOverlay").classList.remove("active");
+  document.body.classList.remove("modal-open");
+  document.getElementById("codeInputArea").style.display = "none";
+  document.getElementById("usernameInputArea").style.display = "none";
+  document.getElementById("usernameDisplayArea").style.display = "block";
+  document.getElementById("codeError").style.display = "none";
 }
 
 function closeSettingsOnBackdrop(e) {
-  if (e.target.id === "settingsModalOverlay") {
-    closeSettings();
-  }
+  if (e.target.id === "settingsModalOverlay") {
+    closeSettings();
+  }
 }
 
 function renderSettings() {
-  // Render Username
-  const savedUsername = localStorage.getItem("siteUsername");
-  const usernameText = document.getElementById("usernameText");
-  const usernameActionBtn = document.getElementById("usernameActionBtn");
-  
-  if (savedUsername) {
-    usernameText.textContent = "Username: " + savedUsername;
-    usernameActionBtn.textContent = "✏️ Rename";
-  } else {
-    usernameText.textContent = "Username: Not set";
-    usernameActionBtn.textContent = "Set Username";
-  }
+  // Render Username
+  const savedUsername = localStorage.getItem("siteUsername");
+  const usernameText = document.getElementById("usernameText");
+  const usernameActionBtn = document.getElementById("usernameActionBtn");
+  
+  if (savedUsername) {
+    usernameText.textContent = "Username: " + savedUsername;
+    usernameActionBtn.textContent = "✏️ Rename";
+  } else {
+    usernameText.textContent = "Username: Not set";
+    usernameActionBtn.textContent = "Set Username";
+  }
 
-  // Render Code List
-  const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-  const codeListContent = document.getElementById("codeListContent");
-  codeListContent.innerHTML = "";
+  // Render Code List
+  const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+  const codeListContent = document.getElementById("codeListContent");
+  codeListContent.innerHTML = "";
 
-  if (unlockedCodes.length === 0) {
-    codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
-  } else {
-    if (unlockedCodes.includes("20112015")) {
-      const isCreatorOn = localStorage.getItem("creatorModeActive") === "true";
-      const item = document.createElement("div");
-      item.className = "code-item";
-      item.innerHTML = `
-        <div>
-          <div>🛠️ Creator Mode</div>
-          <div class="code-status">Status: <span class="${isCreatorOn ? 'enabled' : 'disabled'}">${isCreatorOn ? 'Active' : 'Inactive'}</span></div>
-        </div>
-        <button onclick="toggleCreatorMode(!${isCreatorOn})">${isCreatorOn ? 'Disable' : 'Enable'}</button>
-      `;
-      codeListContent.appendChild(item);
-    }
-  }
+  if (unlockedCodes.length === 0) {
+    codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
+  } else {
+    if (unlockedCodes.includes("20112015")) {
+      const isCreatorOn = localStorage.getItem("creatorModeActive") === "true";
+      const item = document.createElement("div");
+      item.className = "code-item";
+      item.innerHTML = `
+        <div>
+          <div>🛠️ Creator Mode</div>
+          <div class="code-status">Status: <span class="${isCreatorOn ? 'enabled' : 'disabled'}">${isCreatorOn ? 'Active' : 'Inactive'}</span></div>
+        </div>
+        <button onclick="toggleCreatorMode(!${isCreatorOn})">${isCreatorOn ? 'Disable' : 'Enable'}</button>
+      `;
+      codeListContent.appendChild(item);
+    }
+  }
 }
 
 function toggleUsernameInput() {
-  const displayArea = document.getElementById("usernameDisplayArea");
-  const inputArea = document.getElementById("usernameInputArea");
-  const usernameInput = document.getElementById("usernameInput");
-  const savedUsername = localStorage.getItem("siteUsername");
+  const displayArea = document.getElementById("usernameDisplayArea");
+  const inputArea = document.getElementById("usernameInputArea");
+  const usernameInput = document.getElementById("usernameInput");
+  const savedUsername = localStorage.getItem("siteUsername");
 
-  usernameInput.value = savedUsername || "";
-  displayArea.style.display = "none";
-  inputArea.style.display = "flex";
-  usernameInput.focus();
+  usernameInput.value = savedUsername || "";
+  displayArea.style.display = "none";
+  inputArea.style.display = "flex";
+  usernameInput.focus();
 }
 
 function saveUsername() {
-  const input = document.getElementById("usernameInput").value.trim();
-  if (input) {
-    localStorage.setItem("siteUsername", input);
-  }
-  document.getElementById("usernameInputArea").style.display = "none";
-  document.getElementById("usernameDisplayArea").style.display = "block";
-  renderSettings();
+  const input = document.getElementById("usernameInput").value.trim();
+  if (input) {
+    localStorage.setItem("siteUsername", input);
+  }
+  document.getElementById("usernameInputArea").style.display = "none";
+  document.getElementById("usernameDisplayArea").style.display = "block";
+  renderSettings();
 }
 
 function toggleCodeInput() {
-  const inputArea = document.getElementById("codeInputArea");
-  const errorMsg = document.getElementById("codeError");
-  errorMsg.style.display = "none";
-  if (inputArea.style.display === "none" || inputArea.style.display === "") {
-    inputArea.style.display = "block";
-    document.getElementById("codeInput").focus();
-  } else {
-    inputArea.style.display = "none";
-  }
+  const inputArea = document.getElementById("codeInputArea");
+  const errorMsg = document.getElementById("codeError");
+  errorMsg.style.display = "none";
+  if (inputArea.style.display === "none" || inputArea.style.display === "") {
+    inputArea.style.display = "block";
+    document.getElementById("codeInput").focus();
+  } else {
+    inputArea.style.display = "none";
+  }
 }
 
 function submitCode() {
-  const codeInput = document.getElementById("codeInput");
-  const val = codeInput.value.trim();
-  const errorMsg = document.getElementById("codeError");
+  const codeInput = document.getElementById("codeInput");
+  const val = codeInput.value.trim();
+  const errorMsg = document.getElementById("codeError");
 
-  if (val === "20112015") {
-    let unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-    if (!unlockedCodes.includes("20112015")) {
-      unlockedCodes.push("20112015");
-      localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
-    }
-    localStorage.setItem("creatorModeUnlocked", "true");
-    localStorage.setItem("creatorModeActive", "true");
-    codeInput.value = "";
-    errorMsg.style.display = "none";
-    closeSettings();
-    location.reload();
-  } else {
-    errorMsg.style.display = "block";
-  }
+  if (val === "20112015") {
+    let unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+    if (!unlockedCodes.includes("20112015")) {
+      unlockedCodes.push("20112015");
+      localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
+    }
+    localStorage.setItem("creatorModeUnlocked", "true");
+    localStorage.setItem("creatorModeActive", "true");
+    codeInput.value = "";
+    errorMsg.style.display = "none";
+    closeSettings();
+    location.reload();
+  } else {
+    errorMsg.style.display = "block";
+  }
 }
 
 /* 🛠️ CREATOR MODE SHARED DATA SYSTEM */
 let currentSelectedElement = null;
 
 function getSiteConfig() {
-  const defaultConfig = {
-    heroTitle: "🌌 SPACE MODE 🌌",
-    heroDesc: "Explore the universe of games, fun, and creativity.",
-    gamesTitle: "🎮 Games",
-    cards: [
-      { id: "boy-jelly", title: "Boy & Jelly", img: "Boy&jelly.png", link: "Boy&jelly.html" },
-      { id: "domdom", title: "Game Haven Domdom", img: "Game Haven domdom.png", link: "Game Haven domdom.html" }
-    ],
-    navLinks: [],
-    bgColor: "#0b1026",
-    accentColor: "#00ccff"
-  };
-  const saved = localStorage.getItem("spaceSiteConfig");
-  return saved ? Object.assign(defaultConfig, JSON.parse(saved)) : defaultConfig;
+  const defaultConfig = {
+    heroTitle: "🌌 SPACE MODE 🌌",
+    heroDesc: "Explore the universe of games, fun, and creativity.",
+    gamesTitle: "🎮 Games",
+    cards: [
+      { id: "boy-jelly", title: "Boy & Jelly", img: "Boy&jelly.png", link: "Boy&jelly.html" },
+      { id: "domdom", title: "Game Haven Domdom", img: "Game Haven domdom.png", link: "Game Haven domdom.html" }
+    ],
+    navLinks: [],
+    bgColor: "#0b1026",
+    accentColor: "#00ccff"
+  };
+  const saved = localStorage.getItem("spaceSiteConfig");
+  return saved ? Object.assign(defaultConfig, JSON.parse(saved)) : defaultConfig;
 }
 
 function saveSiteConfig(config) {
-  localStorage.setItem("spaceSiteConfig", JSON.stringify(config));
+  localStorage.setItem("spaceSiteConfig", JSON.stringify(config));
 }
 
 function loadWebsiteConfig() {
-  const config = getSiteConfig();
-  
-  const heroTitle = document.getElementById("mainTitle");
-  if (heroTitle) heroTitle.textContent = config.heroTitle;
+  const config = getSiteConfig();
+  
+  const heroTitle = document.getElementById("mainTitle");
+  if (heroTitle) heroTitle.textContent = config.heroTitle;
 
-  const heroDesc = document.getElementById("mainDescription");
-  if (heroDesc) heroDesc.textContent = config.heroDesc;
+  const heroDesc = document.getElementById("mainDescription");
+  if (heroDesc) heroDesc.textContent = config.heroDesc;
 
-  const gamesTitle = document.getElementById("gamesTitle");
-  if (gamesTitle) gamesTitle.textContent = config.gamesTitle;
+  const gamesTitle = document.getElementById("gamesTitle");
+  if (gamesTitle) gamesTitle.textContent = config.gamesTitle;
 
-  if (config.bgColor) {
-    document.body.style.background = `radial-gradient(circle at top, ${config.bgColor}, #000000)`;
-  }
+  if (config.bgColor) {
+    document.body.style.background = `radial-gradient(circle at top, ${config.bgColor}, #000000)`;
+  }
 
-  // Render Cards
-  const cardsContainer = document.getElementById("gamesCardsContainer");
-  if (cardsContainer && config.cards) {
-    cardsContainer.innerHTML = "";
-    config.cards.forEach(c => {
-      const cardDiv = document.createElement("div");
-      cardDiv.className = "card";
-      cardDiv.setAttribute("data-card-id", c.id);
-      cardDiv.onclick = function() {
-        if (localStorage.getItem("creatorModeActive") !== "true") {
-          location.href = c.link;
-        }
-      };
-      cardDiv.innerHTML = `
-        <img src="${c.img}" alt="${c.title}">
-        <p>${c.title}</p>
-      `;
-      cardsContainer.appendChild(cardDiv);
-    });
-  }
+  // Render Cards
+  const cardsContainer = document.getElementById("gamesCardsContainer");
+  if (cardsContainer && config.cards) {
+    cardsContainer.innerHTML = "";
+    config.cards.forEach(c => {
+      const cardDiv = document.createElement("div");
+      cardDiv.className = "card";
+      cardDiv.setAttribute("data-card-id", c.id);
+      cardDiv.onclick = function() {
+        if (localStorage.getItem("creatorModeActive") !== "true") {
+          location.href = c.link;
+        }
+      };
+      cardDiv.innerHTML = `
+        <img src="${c.img}" alt="${c.title}">
+        <p>${c.title}</p>
+      `;
+      cardsContainer.appendChild(cardDiv);
+    });
+  }
 
-  // Render Custom Navigation Items
-  const dropdown = document.getElementById("typesDropdown");
-  if (dropdown && config.navLinks && config.navLinks.length > 0) {
-    config.navLinks.forEach(item => {
-      const navA = document.createElement("a");
-      navA.href = item.link;
-      navA.textContent = item.text;
-      dropdown.appendChild(navA);
-    });
-  }
+  // Render Custom Navigation Items
+  const dropdown = document.getElementById("typesDropdown");
+  if (dropdown && config.navLinks && config.navLinks.length > 0) {
+    config.navLinks.forEach(item => {
+      const navA = document.createElement("a");
+      navA.href = item.link;
+      navA.textContent = item.text;
+      dropdown.appendChild(navA);
+    });
+  }
 }
 
 function initCreatorModeSystem() {
-  const isUnlocked = localStorage.getItem("creatorModeUnlocked") === "true";
-  const isActive = localStorage.getItem("creatorModeActive") === "true";
+  const isUnlocked = localStorage.getItem("creatorModeUnlocked") === "true";
+  const isActive = localStorage.getItem("creatorModeActive") === "true";
 
-  if (!isUnlocked || !isActive) {
-    document.body.classList.remove("creator-mode-active");
-    return;
-  }
+  if (!isUnlocked || !isActive) {
+    document.body.classList.remove("creator-mode-active");
+    return;
+  }
 
-  document.body.classList.add("creator-mode-active");
-  document.getElementById("creatorBar").style.display = "flex";
-  document.getElementById("creatorPanel").style.display = "block";
+  document.body.classList.add("creator-mode-active");
+  document.getElementById("creatorBar").style.display = "flex";
+  document.getElementById("creatorPanel").style.display = "block";
 
-  // Mark editable elements
-  const editables = document.querySelectorAll("#mainTitle, #mainDescription, #gamesTitle, .card, .logo a");
-  editables.forEach(el => {
-    el.setAttribute("data-creator-editable", "true");
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      selectElementForEdit(el);
-    });
-  });
+  // Mark editable elements
+  const editables = document.querySelectorAll("#mainTitle, #mainDescription, #gamesTitle, .card, .logo a");
+  editables.forEach(el => {
+    el.setAttribute("data-creator-editable", "true");
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      selectElementForEdit(el);
+    });
+  });
 }
 
 function toggleCreatorMode(enable) {
-  localStorage.setItem("creatorModeActive", enable ? "true" : "false");
-  renderSettings();
-  location.reload();
+  localStorage.setItem("creatorModeActive", enable ? "true" : "false");
+  renderSettings();
+  location.reload();
 }
 
 function selectElementForEdit(el) {
-  if (currentSelectedElement) {
-    currentSelectedElement.classList.remove("creator-active-element");
-  }
-  currentSelectedElement = el;
-  currentSelectedElement.classList.add("creator-active-element");
+  if (currentSelectedElement) {
+    currentSelectedElement.classList.remove("creator-active-element");
+  }
+  currentSelectedElement = el;
+  currentSelectedElement.classList.add("creator-active-element");
 
-  const tagInput = document.getElementById("creatorSelectedTag");
-  const textInput = document.getElementById("creatorTextInput");
+  const tagInput = document.getElementById("creatorSelectedTag");
+  const textInput = document.getElementById("creatorTextInput");
 
-  if (el.classList.contains("card")) {
-    const cardId = el.getAttribute("data-card-id");
-    const config = getSiteConfig();
-    const cardData = config.cards.find(c => c.id === cardId);
-    tagInput.value = `🎮 Card: ${cardData ? cardData.title : 'Selected'}`;
-    textInput.value = cardData ? cardData.title : el.querySelector("p").textContent;
-    
-    if (cardData) {
-      document.getElementById("cardTitleInput").value = cardData.title;
-      document.getElementById("cardImgInput").value = cardData.img;
-      document.getElementById("cardLinkInput").value = cardData.link;
-    }
-  } else {
-    tagInput.value = `<${el.tagName.toLowerCase()}> Element`;
-    textInput.value = el.textContent.trim();
-  }
+  if (el.classList.contains("card")) {
+    const cardId = el.getAttribute("data-card-id");
+    const config = getSiteConfig();
+    const cardData = config.cards.find(c => c.id === cardId);
+    tagInput.value = `🎮 Card: ${cardData ? cardData.title : 'Selected'}`;
+    textInput.value = cardData ? cardData.title : el.querySelector("p").textContent;
+    
+    if (cardData) {
+      document.getElementById("cardTitleInput").value = cardData.title;
+      document.getElementById("cardImgInput").value = cardData.img;
+      document.getElementById("cardLinkInput").value = cardData.link;
+    }
+  } else {
+    tagInput.value = `<${el.tagName.toLowerCase()}> Element`;
+    textInput.value = el.textContent.trim();
+  }
 }
 
 function applySelectedTextEdit() {
-  if (!currentSelectedElement) {
-    alert("Please click an element on the page first to edit it!");
-    return;
-  }
-  const val = document.getElementById("creatorTextInput").value;
-  const config = getSiteConfig();
+  if (!currentSelectedElement) {
+    alert("Please click an element on the page first to edit it!");
+    return;
+  }
+  const val = document.getElementById("creatorTextInput").value;
+  const config = getSiteConfig();
 
-  if (currentSelectedElement.id === "mainTitle") {
-    config.heroTitle = val;
-    currentSelectedElement.textContent = val;
-  } else if (currentSelectedElement.id === "mainDescription") {
-    config.heroDesc = val;
-    currentSelectedElement.textContent = val;
-  } else if (currentSelectedElement.id === "gamesTitle") {
-    config.gamesTitle = val;
-    currentSelectedElement.textContent = val;
-  } else if (currentSelectedElement.classList.contains("card")) {
-    const cardId = currentSelectedElement.getAttribute("data-card-id");
-    const card = config.cards.find(c => c.id === cardId);
-    if (card) {
-      card.title = val;
-      const p = currentSelectedElement.querySelector("p");
-      if (p) p.textContent = val;
-    }
-  } else {
-    currentSelectedElement.textContent = val;
-  }
+  if (currentSelectedElement.id === "mainTitle") {
+    config.heroTitle = val;
+    currentSelectedElement.textContent = val;
+  } else if (currentSelectedElement.id === "mainDescription") {
+    config.heroDesc = val;
+    currentSelectedElement.textContent = val;
+  } else if (currentSelectedElement.id === "gamesTitle") {
+    config.gamesTitle = val;
+    currentSelectedElement.textContent = val;
+  } else if (currentSelectedElement.classList.contains("card")) {
+    const cardId = currentSelectedElement.getAttribute("data-card-id");
+    const card = config.cards.find(c => c.id === cardId);
+    if (card) {
+      card.title = val;
+      const p = currentSelectedElement.querySelector("p");
+      if (p) p.textContent = val;
+    }
+  } else {
+    currentSelectedElement.textContent = val;
+  }
 
-  saveSiteConfig(config);
+  saveSiteConfig(config);
 }
 
 function addNewCard() {
-  const title = document.getElementById("cardTitleInput").value.trim();
-  const img = document.getElementById("cardImgInput").value.trim();
-  const link = document.getElementById("cardLinkInput").value.trim();
+  const title = document.getElementById("cardTitleInput").value.trim();
+  const img = document.getElementById("cardImgInput").value.trim();
+  const link = document.getElementById("cardLinkInput").value.trim();
 
-  if (!title || !img || !link) {
-    alert("Please fill in Card Title, Image URL, and Link URL!");
-    return;
-  }
+  if (!title || !img || !link) {
+    alert("Please fill in Card Title, Image URL, and Link URL!");
+    return;
+  }
 
-  const config = getSiteConfig();
-  const newId = "card-" + Date.now();
-  config.cards.push({ id: newId, title, img, link });
-  saveSiteConfig(config);
-  loadWebsiteConfig();
-  initCreatorModeSystem();
+  const config = getSiteConfig();
+  const newId = "card-" + Date.now();
+  config.cards.push({ id: newId, title, img, link });
+  saveSiteConfig(config);
+  loadWebsiteConfig();
+  initCreatorModeSystem();
 
-  document.getElementById("cardTitleInput").value = "";
-  document.getElementById("cardImgInput").value = "";
-  document.getElementById("cardLinkInput").value = "";
+  document.getElementById("cardTitleInput").value = "";
+  document.getElementById("cardImgInput").value = "";
+  document.getElementById("cardLinkInput").value = "";
 }
 
 function deleteSelectedCard() {
-  if (!currentSelectedElement || !currentSelectedElement.classList.contains("card")) {
-    alert("Please click on a Card to select it first before deleting!");
-    return;
-  }
+  if (!currentSelectedElement || !currentSelectedElement.classList.contains("card")) {
+    alert("Please click on a Card to select it first before deleting!");
+    return;
+  }
 
-  const cardId = currentSelectedElement.getAttribute("data-card-id");
-  let config = getSiteConfig();
-  config.cards = config.cards.filter(c => c.id !== cardId);
-  saveSiteConfig(config);
-  loadWebsiteConfig();
-  initCreatorModeSystem();
-  currentSelectedElement = null;
+  const cardId = currentSelectedElement.getAttribute("data-card-id");
+  let config = getSiteConfig();
+  config.cards = config.cards.filter(c => c.id !== cardId);
+  saveSiteConfig(config);
+  loadWebsiteConfig();
+  initCreatorModeSystem();
+  currentSelectedElement = null;
 }
 
 function addNavItem() {
-  const text = document.getElementById("navTextInput").value.trim();
-  const link = document.getElementById("navUrlInput").value.trim();
+  const text = document.getElementById("navTextInput").value.trim();
+  const link = document.getElementById("navUrlInput").value.trim();
 
-  if (!text || !link) {
-    alert("Please provide both Link Text and Link URL!");
-    return;
-  }
+  if (!text || !link) {
+    alert("Please provide both Link Text and Link URL!");
+    return;
+  }
 
-  const config = getSiteConfig();
-  config.navLinks.push({ text, link });
-  saveSiteConfig(config);
-  loadWebsiteConfig();
+  const config = getSiteConfig();
+  config.navLinks.push({ text, link });
+  saveSiteConfig(config);
+  loadWebsiteConfig();
 
-  document.getElementById("navTextInput").value = "";
-  document.getElementById("navUrlInput").value = "";
+  document.getElementById("navTextInput").value = "";
+  document.getElementById("navUrlInput").value = "";
 }
 
 function updateBgColor(color) {
-  document.body.style.background = `radial-gradient(circle at top, ${color}, #000000)`;
-  const config = getSiteConfig();
-  config.bgColor = color;
-  saveSiteConfig(config);
+  document.body.style.background = `radial-gradient(circle at top, ${color}, #000000)`;
+  const config = getSiteConfig();
+  config.bgColor = color;
+  saveSiteConfig(config);
 }
 
 function updateAccentColor(color) {
-  const config = getSiteConfig();
-  config.accentColor = color;
-  saveSiteConfig(config);
+  const config = getSiteConfig();
+  config.accentColor = color;
+  saveSiteConfig(config);
 }
 
 function saveCreatorData() {
-  alert("✅ All changes saved persistently!");
+  alert("✅ All changes saved persistently!");
 }
 
 function resetCreatorData() {
-  if (confirm("Are you sure you want to reset all custom Creator Mode edits back to default?")) {
-    localStorage.removeItem("spaceSiteConfig");
-    location.reload();
-  }
+  if (confirm("Are you sure you want to reset all custom Creator Mode edits back to default?")) {
+    localStorage.removeItem("spaceSiteConfig");
+    location.reload();
+  }
 }
 </script>
 
