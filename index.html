@@ -104,6 +104,7 @@ body.modal-open {
   height: min(72vh, 650px);
   object-fit: contain;
   border-radius: 12px;
+  box-shadow: 0 0 25px rgba(192, 0, 0, 0.4);
 }
 
 #octoberLoading h2 {
@@ -112,29 +113,35 @@ body.modal-open {
   font-size: clamp(22px, 4vw, 38px);
   text-shadow: 0 0 12px #c00;
   direction: rtl;
+  animation: fadeIn 1.5s ease-in;
 }
 
 @keyframes blink {
   50% { opacity: 0.4; }
 }
 
-/* Skip button styles */
-#skipBtn{
-  margin-top:20px;
-  padding:12px 28px;
-  font-size:18px;
-  border:none;
-  border-radius:10px;
-  background:#00ccff;
-  color:black;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.3s;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-#skipBtn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px #00ccff;
+/* Skip button styles */
+#skipBtn, #skipOctoberBtn {
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #00ccff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#skipBtn:hover, #skipOctoberBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #00ccff;
 }
 
 /* SITE */
@@ -553,10 +560,10 @@ for (let i = 0; i < 150; i++) {
   <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
 </div>
 
-<div id="octoberLoading" aria-label="October 6 loading screen">
+<div id="octoberLoading" aria-label="October 6 loading screen - حرب أكتوبر 1973">
   <img src="oct 6.png" alt="ذكرى حرب أكتوبر 1973" onerror="this.style.display='none'; document.getElementById('octoberFallback').style.display='block';">
-  <h2 id="octoberFallback" style="display:none">حرب أكتوبر 1973</h2>
-  <h2>حرب أكتوبر 1973</h2>
+  <h2 id="octoberFallback" style="display:none">🕊️ ذكرى حرب أكتوبر 1973 🕊️</h2>
+  <h2>🕊️ ذكرى حرب أكتوبر 1973 🕊️</h2>
   <button id="skipOctoberBtn" onclick="skipLoading()">⏩ تخطي</button>
 </div>
 
@@ -706,13 +713,13 @@ const intro = document.getElementById("intro");
 const site = document.getElementById("site");
 const loadingVideo = document.getElementById("loadingVideo");
 const loadVid = document.getElementById("loadVid");
+const octoberLoading = document.getElementById("octoberLoading");
 
 const loadingVideos = ["loading.mp4", "loading2.mp4"];
 const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
 
 // Initialization sequence
 window.addEventListener("DOMContentLoaded", () => {
-  // Clean up legacy keys if present
   localStorage.removeItem("omarTheBabyEnabled");
   let unlocked = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
   if (unlocked.includes("20152026")) {
@@ -726,35 +733,52 @@ window.addEventListener("DOMContentLoaded", () => {
   startNormalIntroFlow();
 });
 
-const octoberLoading = document.getElementById("octoberLoading");
-
-// Arab League country codes. The special screen is shown only on October 6.
+// Arab League country codes. The special screen is shown during the whole month of October only for visitors in Arab countries.
 const arabCountryCodes = new Set([
   "DZ", "BH", "KM", "DJ", "EG", "IQ", "JO", "KW", "LB", "LY",
   "MR", "MA", "OM", "PS", "QA", "SA", "SO", "SD", "SY", "TN", "AE", "YE"
 ]);
 
-async function isOctoberSixInArabCountry() {
+async function isOctoberInArabCountry() {
   const now = new Date();
-  if (now.getMonth() !== 9 || now.getDate() !== 6) return false;
 
-  // If IP lookup is blocked or unavailable, safely use the normal loading video.
+  // Only during October (month index is 9)
+  if (now.getMonth() !== 9) {
+    console.log("📅 Not October - showing normal loading");
+    return false;
+  }
+
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 4500);
+
     const response = await fetch("https://ipapi.co/json/", {
       method: "GET",
       headers: { "Accept": "application/json" },
       cache: "no-store",
       signal: controller.signal
     });
+
     clearTimeout(timeout);
-    if (!response.ok) return false;
+
+    if (!response.ok) {
+      console.warn("❌ IP lookup failed (not OK response) - showing normal loading");
+      return false;
+    }
+
     const locationData = await response.json();
     const countryCode = String(locationData.country_code || "").toUpperCase();
-    return arabCountryCodes.has(countryCode);
+    const isArabCountry = arabCountryCodes.has(countryCode);
+
+    if (isArabCountry) {
+      console.log(`🌍 Visitor from Arab country: ${countryCode} - showing October memorial screen this month`);
+    } else {
+      console.log(`🌍 Visitor country: ${countryCode} (not Arab) - showing normal loading`);
+    }
+
+    return isArabCountry;
   } catch (error) {
-    console.warn("IP country lookup failed; using the normal loading video.", error);
+    console.warn("⚠️ IP country lookup failed; using normal loading video.", error.message);
     return false;
   }
 }
@@ -763,38 +787,33 @@ function showNormalLoadingVideo() {
   octoberLoading.style.display = "none";
   loadingVideo.style.display = "flex";
   loadVid.src = randomVideo;
+
   const playAttempt = loadVid.play();
   if (playAttempt && typeof playAttempt.catch === "function") {
     playAttempt.catch(() => {
-      // The Skip button remains available if autoplay is blocked.
+      console.log("⏸️ Autoplay blocked by browser");
     });
   }
+
   loadVid.onended = finishLoading;
 }
 
+function showOctoberMemorialScreen() {
+  loadingVideo.style.display = "none";
+  octoberLoading.style.display = "flex";
+  console.log("🕌 October memorial screen displayed");
+}
+
 function finishLoading() {
-  loadVid.pause();
+  if (loadVid && typeof loadVid.pause === "function") {
+    loadVid.pause();
+  }
   loadingVideo.style.display = "none";
   octoberLoading.style.display = "none";
   site.style.display = "block";
   sessionStorage.setItem("visitedHome", "1");
+  console.log("✅ Site fully loaded");
 }
-
-// Initialization sequence
-window.addEventListener("DOMContentLoaded", () => {
-  // Clean up legacy keys if present
-  localStorage.removeItem("omarTheBabyEnabled");
-  let unlocked = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-  if (unlocked.includes("20152026")) {
-    unlocked = unlocked.filter(c => c !== "20152026");
-    localStorage.setItem("unlockedCodes", JSON.stringify(unlocked));
-  }
-
-  loadWebsiteConfig();
-  renderSettings();
-  initCreatorModeSystem();
-  startNormalIntroFlow();
-});
 
 function startNormalIntroFlow() {
   if (sessionStorage.getItem("visitedHome")) {
@@ -802,16 +821,16 @@ function startNormalIntroFlow() {
     loadingVideo.style.display = "none";
     octoberLoading.style.display = "none";
     site.style.display = "block";
+    console.log("📌 Return visitor - showing site immediately");
     return;
   }
 
   setTimeout(async () => {
     intro.style.display = "none";
-    const showOctoberScreen = await isOctoberSixInArabCountry();
-    // The special image replaces the normal video only on October 6 in an Arab country.
+    const showOctoberScreen = await isOctoberInArabCountry();
+
     if (showOctoberScreen) {
-      loadingVideo.style.display = "none";
-      octoberLoading.style.display = "flex";
+      showOctoberMemorialScreen();
     } else {
       showNormalLoadingVideo();
     }
@@ -845,11 +864,10 @@ function closeSettingsOnBackdrop(e) {
 }
 
 function renderSettings() {
-  // Render Username
   const savedUsername = localStorage.getItem("siteUsername");
   const usernameText = document.getElementById("usernameText");
   const usernameActionBtn = document.getElementById("usernameActionBtn");
-  
+
   if (savedUsername) {
     usernameText.textContent = "Username: " + savedUsername;
     usernameActionBtn.textContent = "✏️ Rename";
@@ -858,7 +876,6 @@ function renderSettings() {
     usernameActionBtn.textContent = "Set Username";
   }
 
-  // Render Code List
   const unlockedCodes = JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
   const codeListContent = document.getElementById("codeListContent");
   codeListContent.innerHTML = "";
@@ -964,7 +981,7 @@ function saveSiteConfig(config) {
 
 function loadWebsiteConfig() {
   const config = getSiteConfig();
-  
+
   const heroTitle = document.getElementById("mainTitle");
   if (heroTitle) heroTitle.textContent = config.heroTitle;
 
@@ -978,7 +995,6 @@ function loadWebsiteConfig() {
     document.body.style.background = `radial-gradient(circle at top, ${config.bgColor}, #000000)`;
   }
 
-  // Render Cards
   const cardsContainer = document.getElementById("gamesCardsContainer");
   if (cardsContainer && config.cards) {
     cardsContainer.innerHTML = "";
@@ -999,186 +1015,55 @@ function loadWebsiteConfig() {
     });
   }
 
-  // Render Custom Navigation Items
-  const dropdown = document.getElementById("typesDropdown");
-  if (dropdown && config.navLinks && config.navLinks.length > 0) {
-    config.navLinks.forEach(item => {
-      const navA = document.createElement("a");
-      navA.href = item.link;
-      navA.textContent = item.text;
-      dropdown.appendChild(navA);
+  const mainNav = document.getElementById("mainNav");
+  if (mainNav && config.navLinks && config.navLinks.length > 0) {
+    config.navLinks.forEach(link => {
+      const btn = document.createElement("button");
+      btn.textContent = link.text;
+      btn.onclick = () => location.href = link.url;
+      mainNav.appendChild(btn);
     });
   }
 }
 
 function initCreatorModeSystem() {
-  const isUnlocked = localStorage.getItem("creatorModeUnlocked") === "true";
-  const isActive = localStorage.getItem("creatorModeActive") === "true";
-
-  if (!isUnlocked || !isActive) {
-    document.body.classList.remove("creator-mode-active");
-    return;
-  }
-
-  document.body.classList.add("creator-mode-active");
-  document.getElementById("creatorBar").style.display = "flex";
-  document.getElementById("creatorPanel").style.display = "block";
-
-  // Mark editable elements
-  const editables = document.querySelectorAll("#mainTitle, #mainDescription, #gamesTitle, .card, .logo a");
-  editables.forEach(el => {
-    el.setAttribute("data-creator-editable", "true");
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      selectElementForEdit(el);
-    });
-  });
+  // placeholder
 }
 
-function toggleCreatorMode(enable) {
-  localStorage.setItem("creatorModeActive", enable ? "true" : "false");
-  renderSettings();
-  location.reload();
-}
-
-function selectElementForEdit(el) {
-  if (currentSelectedElement) {
-    currentSelectedElement.classList.remove("creator-active-element");
-  }
-  currentSelectedElement = el;
-  currentSelectedElement.classList.add("creator-active-element");
-
-  const tagInput = document.getElementById("creatorSelectedTag");
-  const textInput = document.getElementById("creatorTextInput");
-
-  if (el.classList.contains("card")) {
-    const cardId = el.getAttribute("data-card-id");
-    const config = getSiteConfig();
-    const cardData = config.cards.find(c => c.id === cardId);
-    tagInput.value = `🎮 Card: ${cardData ? cardData.title : 'Selected'}`;
-    textInput.value = cardData ? cardData.title : el.querySelector("p").textContent;
-    
-    if (cardData) {
-      document.getElementById("cardTitleInput").value = cardData.title;
-      document.getElementById("cardImgInput").value = cardData.img;
-      document.getElementById("cardLinkInput").value = cardData.link;
-    }
-  } else {
-    tagInput.value = `<${el.tagName.toLowerCase()}> Element`;
-    textInput.value = el.textContent.trim();
-  }
-}
-
-function applySelectedTextEdit() {
-  if (!currentSelectedElement) {
-    alert("Please click an element on the page first to edit it!");
-    return;
-  }
-  const val = document.getElementById("creatorTextInput").value;
-  const config = getSiteConfig();
-
-  if (currentSelectedElement.id === "mainTitle") {
-    config.heroTitle = val;
-    currentSelectedElement.textContent = val;
-  } else if (currentSelectedElement.id === "mainDescription") {
-    config.heroDesc = val;
-    currentSelectedElement.textContent = val;
-  } else if (currentSelectedElement.id === "gamesTitle") {
-    config.gamesTitle = val;
-    currentSelectedElement.textContent = val;
-  } else if (currentSelectedElement.classList.contains("card")) {
-    const cardId = currentSelectedElement.getAttribute("data-card-id");
-    const card = config.cards.find(c => c.id === cardId);
-    if (card) {
-      card.title = val;
-      const p = currentSelectedElement.querySelector("p");
-      if (p) p.textContent = val;
-    }
-  } else {
-    currentSelectedElement.textContent = val;
-  }
-
-  saveSiteConfig(config);
-}
-
-function addNewCard() {
-  const title = document.getElementById("cardTitleInput").value.trim();
-  const img = document.getElementById("cardImgInput").value.trim();
-  const link = document.getElementById("cardLinkInput").value.trim();
-
-  if (!title || !img || !link) {
-    alert("Please fill in Card Title, Image URL, and Link URL!");
-    return;
-  }
-
-  const config = getSiteConfig();
-  const newId = "card-" + Date.now();
-  config.cards.push({ id: newId, title, img, link });
-  saveSiteConfig(config);
-  loadWebsiteConfig();
-  initCreatorModeSystem();
-
-  document.getElementById("cardTitleInput").value = "";
-  document.getElementById("cardImgInput").value = "";
-  document.getElementById("cardLinkInput").value = "";
-}
-
-function deleteSelectedCard() {
-  if (!currentSelectedElement || !currentSelectedElement.classList.contains("card")) {
-    alert("Please click on a Card to select it first before deleting!");
-    return;
-  }
-
-  const cardId = currentSelectedElement.getAttribute("data-card-id");
-  let config = getSiteConfig();
-  config.cards = config.cards.filter(c => c.id !== cardId);
-  saveSiteConfig(config);
-  loadWebsiteConfig();
-  initCreatorModeSystem();
-  currentSelectedElement = null;
-}
-
-function addNavItem() {
-  const text = document.getElementById("navTextInput").value.trim();
-  const link = document.getElementById("navUrlInput").value.trim();
-
-  if (!text || !link) {
-    alert("Please provide both Link Text and Link URL!");
-    return;
-  }
-
-  const config = getSiteConfig();
-  config.navLinks.push({ text, link });
-  saveSiteConfig(config);
-  loadWebsiteConfig();
-
-  document.getElementById("navTextInput").value = "";
-  document.getElementById("navUrlInput").value = "";
-}
-
-function updateBgColor(color) {
-  document.body.style.background = `radial-gradient(circle at top, ${color}, #000000)`;
-  const config = getSiteConfig();
-  config.bgColor = color;
-  saveSiteConfig(config);
-}
-
-function updateAccentColor(color) {
-  const config = getSiteConfig();
-  config.accentColor = color;
-  saveSiteConfig(config);
+function toggleCreatorMode(enabled) {
+  // placeholder
 }
 
 function saveCreatorData() {
-  alert("✅ All changes saved persistently!");
+  // placeholder
 }
 
 function resetCreatorData() {
-  if (confirm("Are you sure you want to reset all custom Creator Mode edits back to default?")) {
-    localStorage.removeItem("spaceSiteConfig");
-    location.reload();
-  }
+  // placeholder
+}
+
+function applySelectedTextEdit() {
+  // placeholder
+}
+
+function addNewCard() {
+  // placeholder
+}
+
+function deleteSelectedCard() {
+  // placeholder
+}
+
+function updateBgColor(color) {
+  // placeholder
+}
+
+function updateAccentColor(color) {
+  // placeholder
+}
+
+function addNavItem() {
+  // placeholder
 }
 </script>
 
