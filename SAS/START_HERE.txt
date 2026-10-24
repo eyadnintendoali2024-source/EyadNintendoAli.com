@@ -1,0 +1,7 @@
+SAS SCHOOL ADVENTURE 3D - V7.0.2
+
+Extract the full ZIP and open index.html (or SAS.html) in Chrome or Edge. On Android 8, extract all files before opening.
+
+Choose ONLINE on the home menu. Customize name, class, gender, and shirt color, then press Continue. The game automatically connects to the configured secure endpoint and starts when the server welcomes you. Offline play still works without the Internet.
+
+Publish all files together over HTTPS for online play. The WSS address is configured in sas-online-config.js. See README.txt for website publishing, the optional SAS relay update, multiplayer limits, and the exact testing status.

@@ -1,0 +1,65 @@
+Project root: sasfix
+
+[Credits screen]
+  Credits screen injected (sas_credits.js / sas_credits.css, linked in index.html)
+
+[Credits assets]
+  audio/credits.mp3 : MISSING - you must supply it (Credits works silently until then)
+  Eyad.png : MISSING - you must supply it (placeholder icon is shown meanwhile)
+  Yussef.png : MISSING - you must supply it (placeholder icon is shown meanwhile)
+
+[Code scan]
+  Uses THREE.js : False
+  Uses PDF.js   : False
+  Cafeteria        present in code: True
+  Leader NPC       present in code: True
+  Sama NPC         present in code: True
+  Magic system     present in code: True
+  Two-player code  present in code: True
+  keydown listeners: 3 (many = possible duplicate handlers)
+
+[Intro credits]
+  Possible intro-credit code in: ['index.html']
+  NOT auto-edited (the script cannot safely guess your intro text format). Add "Eyad, Yossef, Ahmed" there manually.
+
+[Missing asset references]
+  MISSING: Ahmed.png   (used in index.html)
+  MISSING: Die.mp3   (used in index.html)
+  MISSING: Eyad.png   (used in index.html, sas_credits.js)
+  MISSING: Sky.mp3   (used in index.html)
+  MISSING: Yussef.png   (used in index.html, sas_credits.js)
+  MISSING: audio/credits.mp3   (used in index.html, sas_credits.js)
+  MISSING: boss.mp3   (used in index.html)
+  MISSING: click.mp3   (used in index.html)
+  MISSING: f   (used in index.html)
+  MISSING: forest.mp3   (used in index.html)
+  MISSING: found_you.mp3   (used in index.html)
+  MISSING: hallway_music.mp3   (used in index.html)
+  MISSING: jump.mp3   (used in index.html)
+  MISSING: lesson/pages/page_   (used in index.html)
+  MISSING: menu_music.mp3   (used in index.html)
+  MISSING: paper.mp3   (used in index.html)
+  MISSING: pool_music.mp3   (used in index.html)
+  MISSING: question.mp3   (used in index.html)
+  MISSING: school_music.mp3   (used in index.html)
+  MISSING: sky_dive_music.mp3   (used in index.html)
+  MISSING: soccer_music.mp3   (used in index.html)
+  MISSING: teacher_page_01_05.mp3   (used in index.html)
+  MISSING: teacher_page_06_10.mp3   (used in index.html)
+  MISSING: teacher_page_11_15.mp3   (used in index.html)
+  MISSING: teacher_page_16_21.mp3   (used in index.html)
+  MISSING: throw_paper.mp3   (used in index.html)
+  MISSING: try_to_run.mp3   (used in index.html)
+  MISSING: win.mp3   (used in index.html)
+
+[JavaScript syntax]
+  JS syntax check: SKIPPED (Node.js not installed - get it from nodejs.org to enable)
+
+[Not automated - needs your game source read by a person/AI]
+  - 3D board PDF texture fix (depends on your exact board mesh/material code)
+  - Cafeteria "Buy Food" popup + eating animation
+  - Leader NPC combat, health bar, Sama message, mission complete
+  - Two-player split-screen control routing
+  - Magic-animal sizes/AI/meat drops
+
+Nothing here was run in a real browser: ALL gameplay features are UNTESTED.

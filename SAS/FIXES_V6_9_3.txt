@@ -1,0 +1,15 @@
+SAS SCHOOL 3D V6.9.3 — FIXES
+
+- Fixed World History navigation: added the missing historyMissionAction handler.
+- Fixed the old historyExpected path by keeping a safe global compatibility value.
+- Added a safe Quit to Menu path that stops the teacher audio/animation without reinitializing WebGL.
+- World History now uses all 21 lesson pages from lesson/Ch1 - L2.pdf via the bundled page images.
+- Removed the fake lesson text from the 3D smart screen; the screen is the actual PDF page image.
+- Teacher lesson data now covers all 21 PDF pages and follows audio/teacher.ini / audio/teacher_voice_script.txt.
+- Previous/Next PDF page changes the teacher audio cue and updates the displayed PDF page.
+- Re-spaced World History NPCs and replaced the slime-like students with distinct human-shaped students in different uniforms.
+- Enlarged and improved the smart screen to fit the 16:9 PDF pages.
+- Added a GIANT FORICTE animal-finder magic action with a huge scan radius and visible detection rings.
+- Enlarged prehistoric animals and added recognizable BISON, DEER, and WOLF alongside MAMMOTH, HORSE, LION, COW, and PIG.
+- Added a missing playHistoryBoss compatibility function so animal encounters do not crash.
+- Kept the original lesson PDF, audio, images, and game structure intact.

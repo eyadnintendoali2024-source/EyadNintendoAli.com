@@ -1,0 +1,22 @@
+SAS SCHOOL ADVENTURE 3D - V7.0.2 FILES CHANGED
+
+SAS.html
+- Replaced the older remote-player draw-only code with the actual existing game's online WebGL bridge.
+- Publishes player profile, class, room/scene, world position, movement, facing, jump lift, and whitelisted action sequence; draws remote 3D students and projected name tags.
+- Keeps existing offline controller, game modes, pages, and main feature logic intact.
+
+sas-online.js
+- Keeps the Online menu button and customization controls (name, class, character, shirt color).
+- Removes manual server and room prompts; Continue automatically connects then starts the existing SAS game after welcome.
+- Handles duplicate names, join/leave, retry/reconnect, disconnect, and state updates.
+
+sas-online-config.js
+- Sets window.SAS_ONLINE_URL to the temporary WSS endpoint in one location.
+
+server/sas_online_server.py
+- Sanitizes and relays additional movement and visual action fields; actions are allowlisted and cannot set authoritative game outcomes.
+
+README.txt, START_HERE.txt, TEST_REPORT.txt, server/README.txt
+- Added publishing steps, current relay update guidance, service preservation notes, tested checks, and explicit limitations.
+
+All other files/assets were copied from the supplied V7.0.1 archive and retained.

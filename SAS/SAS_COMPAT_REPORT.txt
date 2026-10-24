@@ -1,0 +1,49 @@
+Game folder: C:/Users/eyadn/Downloads/SAS_School_Game_V6_10_EYAD_SCHOOL_ADVENTURE_FULL_PATCH_fixed/sasfix
+
+[1] Old-phone sound + compatibility
+  Sound/compat shim: already installed (up to date)
+
+[2] Credits screen
+  Credits screen: refreshed with old-Chrome-safe CSS/JS (inset/clamp/gap removed)
+
+[3] Image / audio file names
+  COPIED audio\Die.mp3 -> Die.mp3
+  COPIED audio\Sky.mp3 -> Sky.mp3
+  COPIED audio\boss.mp3 -> boss.mp3
+  COPIED audio\click.mp3 -> click.mp3
+  COPIED audio\forest.mp3 -> forest.mp3
+  COPIED audio\found_you.mp3 -> found_you.mp3
+  COPIED audio\hallway_music.mp3 -> hallway_music.mp3
+  COPIED audio\jump.mp3 -> jump.mp3
+  COPIED audio\menu_music.mp3 -> menu_music.mp3
+  COPIED audio\paper.mp3 -> paper.mp3
+  COPIED audio\pool_music.mp3 -> pool_music.mp3
+  COPIED audio\question.mp3 -> question.mp3
+  COPIED audio\school_music.mp3 -> school_music.mp3
+  COPIED audio\sky_dive_music.mp3 -> sky_dive_music.mp3
+  COPIED audio\soccer_music.mp3 -> soccer_music.mp3
+  COPIED audio\teacher_page_01_05.mp3 -> teacher_page_01_05.mp3
+  COPIED audio\teacher_page_06_10.mp3 -> teacher_page_06_10.mp3
+  COPIED audio\teacher_page_11_15.mp3 -> teacher_page_11_15.mp3
+  COPIED audio\teacher_page_16_21.mp3 -> teacher_page_16_21.mp3
+  COPIED audio\throw_paper.mp3 -> throw_paper.mp3
+  COPIED audio\try_to_run.mp3 -> try_to_run.mp3
+  COPIED audio\win.mp3 -> win.mp3
+  Asset names: 9 already OK, 22 fixed, 1 still missing
+
+[4] Modern JavaScript check
+  index.html uses: optional chaining  a?.b
+  -> Old Chrome (below ~80) will fail on these. Install Node.js (nodejs.org) and run this script again to auto-convert,
+     OR update Chrome + "Android System WebView" on the old device.
+
+[5] Syntax check
+  JS syntax check skipped (Node.js not installed)
+
+STILL MISSING (you must add these files):
+   - Ahmed.png
+
+RESULT: Already fixed before (shim present). Asset names were re-checked.
+To see JavaScript errors ON the old phone, open the game with  ?debug  at the end of the address.
+If the old phone opens index.html as a file (file://), sound may still fail: host the folder instead
+(e.g. run "python -m http.server 8000" on the PC and open http://PC-IP:8000 on the phone).
+NOTE: nothing here was tested on a real Android 8 device.

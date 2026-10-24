@@ -1,0 +1,20 @@
+SAS SCHOOL ADVENTURE 3D - VERSION 7.0.2
+
+IMPLEMENTED
+- Recovered and preserved the V7.0.1 game project, lesson content, existing offline game, assets, settings, and Debian deployment materials.
+- Online is still a home-menu button. It opens the current customization screen for player name, class, gender, and shirt color. Continue saves/creates the local student and automatically connects to the configured WSS address; there is no address or room-code prompt and no extra Start Online click.
+- Set the current temporary endpoint in one place: sas-online-config.js, window.SAS_ONLINE_URL.
+- Wired the online client to the actual game profile and WebGL game. Peers appear in the existing game as the same 3D stickman representation, have projected name tags, and their movement/facing/scene state is smoothed and synchronized.
+- Added join/leave handling, duplicate-name labels, reconnect attempts, disconnect control, validated client state fields, and whitelisted short action indicators.
+- The bundled relay accepts/clamps movement/facing/animation fields and only relays action names on an allowlist. Its service unit and tunnel unit are unchanged.
+
+CHECKED HERE
+- Node syntax checks passed for the inline game script, sas-online.js, sas_compat.js, and sas_credits.js.
+- Python AST syntax check passed for the bundled relay.
+- Static checks confirm the endpoint setting is in the config, Online no longer asks for a URL, and both game script tags load.
+
+LIMITS / NOT TESTED
+- The local environment did not allow the test WebSocket server to accept a loopback browser connection, so a two-client relay test could not be completed here.
+- The Cloudflare tunnel endpoint, website publication, Debian server, Android 8, Smart Board, and real two-browser game session were not available for verification.
+- The existing game keeps game logic local to each browser. Presence, positions, facing, and approved action indicators can be relayed, but damage/health outcomes, ball physics, animal state, questions, and other world changes are not server-authoritative or shared. Implementing those requires new shared world state and validation logic, not just a WebSocket client.
+- The Debian server file is included for updating the already-installed SAS process. This package does not access or modify the OptiPlex, systemd service definitions, sas-tunnel, or Minecraft Bedrock.

@@ -1,0 +1,3 @@
+Lesson 3 is intentionally not fabricated. The supplied files include Ch1 - L2.pdf only.
+Put your Lesson 3 PDF here as: lesson/Ch1 - L3.pdf
+Then send that PDF to Codex. Its pages must be rendered as local images and mapped to the in-game WebGL smartboard. Merely copying a PDF does not make its pages visible on the 3D screen.
