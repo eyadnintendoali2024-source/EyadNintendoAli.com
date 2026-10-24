@@ -1,197 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eyad Nintendo Ali - Space</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #0b1026, #000000);
-      color: white;
-      overflow-x: hidden;
-    }
-    a { color: inherit; }
-    header {
-      position: relative;
-      z-index: 10;
-      background: rgba(0,0,40,0.8);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-    .logo {
-      font-size: 26px;
-      font-weight: bold;
-      text-shadow: 0 0 10px #00ccff;
-    }
-    .logo a {
-      color: white;
-      text-decoration: none;
-    }
-    nav {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    button {
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: 1px solid #00ccff;
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-    button:hover {
-      transform: scale(1.05);
-      background: #00ccff;
-      color: black;
-    }
-    .dropdown {
-      position: relative;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: #111844;
-      border-radius: 8px;
-      min-width: 190px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-      z-index: 100;
-    }
-    .dropdown-content a {
-      display: block;
-      padding: 10px;
-      text-decoration: none;
-      color: white;
-    }
-    .dropdown:hover .dropdown-content { display: block; }
-    .dropdown-content a:hover {
-      background: #00ccff;
-      color: black;
-    }
-    .sas-btn {
-      display: none;
-      background: linear-gradient(90deg, #00ccff, #0044ff);
-      color: white;
-      box-shadow: 0 0 12px #00ccff;
-    }
-    .sas-btn.visible { display: inline-flex; }
-    .section {
-      max-width: 1000px;
-      margin: 50px auto;
-      padding: 24px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 14px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-    #settingsModalOverlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-    }
-    #settingsModalOverlay.active { display: flex; }
-    .settings-modal {
-      background: radial-gradient(circle at top, #0b1026, #050814);
-      border: 2px solid #00ccff;
-      box-shadow: 0 0 25px #00ccff;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 480px;
-      padding: 24px;
-      color: white;
-    }
-    .settings-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(0, 204, 255, 0.3);
-      padding-bottom: 12px;
-      margin-bottom: 20px;
-    }
-    .settings-header h2 {
-      margin: 0;
-      font-size: 22px;
-      color: #00ccff;
-    }
-    .close-btn {
-      background: transparent;
-      border: none;
-      color: #00ccff;
-      font-size: 24px;
-      cursor: pointer;
-    }
-    .settings-section {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(0, 204, 255, 0.2);
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 18px;
-    }
-    .settings-section h3 { margin-top: 0; color: #00ccff; }
-    .input-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .settings-input {
-      flex: 1;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid #00ccff;
-      color: white;
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: 14px;
-    }
-    .code-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 8px;
-    }
-    .code-status { font-size: 13px; color: #aaa; margin-top: 4px; }
-    .code-status .enabled { color: #00ff66; font-weight: bold; }
-    .error-msg {
-      color: #ff3366;
-      font-size: 13px;
-      margin-top: 8px;
-      display: none;
-    }
-    .hidden {
-      display: none !important;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eyad Nintendo Ali - Space</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0b1026, #000000);
+  overflow-x: hidden;
+  color: white;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+#intro {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #101a44, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  z-index: 9999;
+  text-align: center;
+}
+
+#intro img { width: 180px; }
+
+#intro h1 {
+  font-size: 36px;
+  text-shadow: 0 0 15px #00ccff;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+#loadingVideo {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: black;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9998;
+}
+
+#loadingVideo video {
+  width: 60%;
+  border-radius: 12px;
+}
+
+#loadingVideo h2 {
+  margin-top: 20px;
+  color: #00ccff;
+  animation: blink 1s infinite;
+}
+
+#octoberLoading {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #050505;
+  z-index: 10001;
+  text-align: center;
+}
+
+#octoberLoading img {
+  display: block;
+  width: min(92vw, 1100px);
+  height: min(72vh, 650px);
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(192, 0, 0, 0.4);
+}
+
+#octoberLoading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(22px, 4vw, 38px);
+  text-shadow: 0 0 12px #c00;
+  direction: rtl;
+  animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes blink {
+  50% { opacity: 0.4; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#skipBtn, #skipOctoberBtn {
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: #00ccff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#skipBtn:hover, #skipOctoberBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #00ccff;
+}
+
+#site { display: none; }
+
+header {
+  position: relative;
+  z-index: 9998;
+  background: rgba(0,0,40,0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ccff;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+button {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid #00ccff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background: #00ccff;
+  color: black;
+}
+
+.ai-btn {
+  background: linear-gradient(90deg, #00ccff, #0044ff);
+  color: white;
+  box-shadow: 0 0 12px #00ccff;
+}
+
+.ai-btn:hover {
+  box-shadow: 0 0 22px #00ccff;
+}
+
+.dropdown {
+  position: relative;
+  z-index: 9999;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111844;
+  border-radius: 8px;
+  min-width: 170px;
+  overflow: hidden;
+  z-index: 10000;
+  box-shadow: 0 8px 20px rgba(0,0,0,.6);
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+  background: #00ccff;
+  color: black;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+#sasGameBtn {
+  display: none;
+  background: linear-gradient(90deg, #00ccff, #0044ff);
+  color: white;
+  box-shadow: 0 0 12px #00ccff;
+}
+
+#sasGameBtn.visible {
+  display: inline-block;
+}
+
+.section {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  width: 200px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px #00ccff;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+#settingsModalOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#settingsModalOverlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.settings-modal {
+  background: radial-gradient(circle at top, #0b1026, #050814);
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 25px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.2);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-sizing: border-box;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+  color: white;
+}
+
+#settingsModalOverlay.active .settings-modal {
+  transform: scale(1);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 204, 255, 0.3);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.settings-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #00ccff;
+  text-shadow: 0 0 8px #00ccff;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #00ccff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: transparent;
+  color: #ff3366;
+  transform: scale(1.2);
+}
+
+.settings-section {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 18px;
+}
+
+.settings-section h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #00ccff;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.settings-input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #00ccff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+.settings-input:focus {
+  box-shadow: 0 0 8px #00ccff;
+}
+
+.code-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
+}
+
+.code-status {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.code-status span.enabled {
+  color: #00ff66;
+  font-weight: bold;
+}
+
+.code-status span.disabled {
+  color: #ff3366;
+  font-weight: bold;
+}
+
+.error-msg {
+  color: #ff3366;
+  font-size: 13px;
+  margin-top: 8px;
+  display: none;
+}
+</style>
 </head>
 <body>
+<script>
+for (let i = 0; i < 150; i++) {
+  let s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  let size = Math.random() * 3 + 1;
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+  s.style.animationDuration = (1 + Math.random() * 3) + "s";
+  document.body.appendChild(s);
+}
+</script>
+
+<div id="intro">
+  <img src="mario.png">
+  <h1>Welcome to Eyad Nintendo Ali<br>SPACE WORLD</h1>
+  <img src="luigi.png">
+</div>
+
+<div id="loadingVideo">
+  <video id="loadVid" autoplay muted></video>
+  <h2>Loading Space...</h2>
+  <button id="skipBtn" onclick="skipLoading()">Skip</button>
+</div>
+
+<div id="octoberLoading" aria-label="October 6 loading screen - 2...">
+  <img src="oct 6.png" alt="October 6 memory" onerror="this.style.display='none'; document.getElementById('octoberFallback').style.display='block';">
+  <h2 id="octoberFallback" style="display:none;">October 6 memory</h2>
+  <button id="skipOctoberBtn" onclick="skipLoading()">Skip</button>
+</div>
+
+<div id="site">
   <header>
     <div class="logo">
-      <a href="index.html">Eyad Nintendo Ali 🚀</a>
+      <a href="index.html" id="siteLogoText">Eyad Nintendo Ali 🚀</a>
     </div>
 
-    <nav>
+    <nav id="mainNav">
       <div class="dropdown">
         <button>🌌 Types ▾</button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" id="typesDropdown">
           <a href="minecraft.html">⛏️ Minecraft</a>
           <a href="cockatiel-online.html">🐦 Cockatiel Bird Online List</a>
           <a href="games.html">🎮 Games</a>
@@ -201,196 +473,251 @@
         </div>
       </div>
 
-      <button id="sasGameBtn" class="sas-btn" onclick="location.href='SAS/SAS.html'">🎮 Play SAS Game</button>
+      <button id="sasGameBtn" onclick="location.href='SAS/SAS.html'">🎮 Play SAS Game</button>
       <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
       <button class="ai-btn" onclick="location.href='Football.html'">⚽ Football</button>
       <button onclick="openSettings()">⚙️ Settings</button>
     </nav>
   </header>
 
-  <div class="section">
-    <h1>🌌 SPACE MODE 🌌</h1>
-    <p>Explore the universe of games, fun, and creativity.</p>
+  <div class="section" id="heroSection">
+    <h1 id="mainTitle">🌌 SPACE MODE 🌌</h1>
+    <p id="mainDescription">Explore the universe of games, fun, and creativity.</p>
   </div>
 
-  <div id="settingsModalOverlay" onclick="closeSettingsOnBackdrop(event)">
-    <div class="settings-modal">
-      <div class="settings-header">
-        <h2>⚙️ SETTINGS</h2>
-        <button class="close-btn" onclick="closeSettings()">✕</button>
+  <div class="section" id="gamesSection">
+    <h2 id="gamesTitle">🎮 Games</h2>
+    <div class="cards" id="gamesCardsContainer">
+      <div class="card" onclick="location.href='Boy&Jelly.html'">
+        <img src="Boy&Jelly.png" alt="Boy & Jelly">
+        <p>Boy & Jelly</p>
       </div>
-
-      <div class="settings-section">
-        <h3>👤 Username</h3>
-        <div id="usernameDisplayArea">
-          <span id="usernameText">Username: Not set</span>
-          <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
-        </div>
-        <div id="usernameInputArea" style="display: none;" class="input-group">
-          <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
-          <button onclick="saveUsername()">💾 Save</button>
-        </div>
-      </div>
-
-      <div class="settings-section">
-        <h3>📋 Code List</h3>
-        <div id="codeListContent">
-          <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
-        </div>
-      </div>
-
-      <div class="settings-section">
-        <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
-        <div id="codeInputArea" style="display: none; margin-top: 10px;">
-          <div class="input-group">
-            <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
-            <button onclick="submitCode()">Enter</button>
-          </div>
-          <div id="codeError" class="error-msg">❌ Invalid code</div>
-        </div>
+      <div class="card" onclick="location.href='Game Haven dome.html'">
+        <img src="Game Haven dome.png" alt="Game Haven Dome">
+        <p>Game Haven Dome</p>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    function getUnlockedCodes() {
-      try {
-        return JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-      } catch {
-        return [];
-      }
+<div id="settingsModalOverlay" onclick="closeSettingsOnBackdrop(event)">
+  <div class="settings-modal">
+    <div class="settings-header">
+      <h2>⚙️ SETTINGS</h2>
+      <button class="close-btn" onclick="closeSettings()">✕</button>
+    </div>
+
+    <div class="settings-section">
+      <h3>👤 Username</h3>
+      <div id="usernameDisplayArea">
+        <span id="usernameText">Username: Not set</span>
+        <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
+      </div>
+      <div id="usernameInputArea" style="display: none;" class="input-group">
+        <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
+        <button onclick="saveUsername()">💾 Save</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>📋 Code List</h3>
+      <div id="codeListContent">
+        <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
+      <div id="codeInputArea" style="display: none; margin-top: 10px;">
+        <div class="input-group">
+          <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
+          <button onclick="submitCode()">Enter</button>
+        </div>
+        <div id="codeError" class="error-msg">❌ Invalid code</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const intro = document.getElementById('intro');
+const site = document.getElementById('site');
+const loadingVideo = document.getElementById('loadingVideo');
+const octoberLoading = document.getElementById('octoberLoading');
+const loadVid = document.getElementById('loadVid');
+const SAS_CODE = '2511';
+
+function getUnlockedCodes() {
+  try {
+    return JSON.parse(localStorage.getItem('unlockedCodes') || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function updateSASButton() {
+  const btn = document.getElementById('sasGameBtn');
+  if (!btn) return;
+  const unlocked = getUnlockedCodes();
+  if (unlocked.includes(SAS_CODE)) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+}
+
+function renderSettings() {
+  const savedUsername = localStorage.getItem('siteUsername');
+  const usernameText = document.getElementById('usernameText');
+  const usernameActionBtn = document.getElementById('usernameActionBtn');
+  usernameText.textContent = savedUsername ? 'Username: ' + savedUsername : 'Username: Not set';
+  usernameActionBtn.textContent = savedUsername ? '✏️ Rename' : 'Set Username';
+
+  const unlockedCodes = getUnlockedCodes();
+  const codeListContent = document.getElementById('codeListContent');
+  codeListContent.innerHTML = '';
+
+  if (unlockedCodes.length === 0) {
+    codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
+  } else {
+    if (unlockedCodes.includes(SAS_CODE)) {
+      const item = document.createElement('div');
+      item.className = 'code-item';
+      item.innerHTML = `
+        <div>
+          <div>🎮 SAS Game</div>
+          <div class="code-status">Status: <span class="enabled">Unlocked</span></div>
+        </div>
+        <button onclick="location.href='SAS/SAS.html'">Play</button>
+      `;
+      codeListContent.appendChild(item);
     }
+  }
 
-    function updateSASButton() {
-      const btn = document.getElementById("sasGameBtn");
-      if (!btn) return;
-      const unlocked = getUnlockedCodes();
-      btn.style.display = unlocked.includes("2511") ? "inline-flex" : "none";
+  updateSASButton();
+}
+
+function openSettings() {
+  document.getElementById('settingsModalOverlay').classList.add('active');
+  document.body.classList.add('modal-open');
+  renderSettings();
+}
+
+function closeSettings() {
+  document.getElementById('settingsModalOverlay').classList.remove('active');
+  document.body.classList.remove('modal-open');
+  document.getElementById('codeInputArea').style.display = 'none';
+  document.getElementById('usernameInputArea').style.display = 'none';
+  document.getElementById('usernameDisplayArea').style.display = 'block';
+  document.getElementById('codeError').style.display = 'none';
+}
+
+function closeSettingsOnBackdrop(e) {
+  if (e.target.id === 'settingsModalOverlay') closeSettings();
+}
+
+function toggleUsernameInput() {
+  const displayArea = document.getElementById('usernameDisplayArea');
+  const inputArea = document.getElementById('usernameInputArea');
+  const usernameInput = document.getElementById('usernameInput');
+  usernameInput.value = localStorage.getItem('siteUsername') || '';
+  displayArea.style.display = 'none';
+  inputArea.style.display = 'flex';
+  usernameInput.focus();
+}
+
+function saveUsername() {
+  const input = document.getElementById('usernameInput').value.trim();
+  if (input) {
+    localStorage.setItem('siteUsername', input);
+  }
+  document.getElementById('usernameInputArea').style.display = 'none';
+  document.getElementById('usernameDisplayArea').style.display = 'block';
+  renderSettings();
+}
+
+function toggleCodeInput() {
+  const inputArea = document.getElementById('codeInputArea');
+  const errorMsg = document.getElementById('codeError');
+  errorMsg.style.display = 'none';
+  inputArea.style.display = (inputArea.style.display === 'none' || inputArea.style.display === '') ? 'block' : 'none';
+  if (inputArea.style.display === 'block') {
+    document.getElementById('codeInput').focus();
+  }
+}
+
+function submitCode() {
+  const val = document.getElementById('codeInput').value.trim();
+  const errorMsg = document.getElementById('codeError');
+  const unlockedCodes = getUnlockedCodes();
+
+  if (val === SAS_CODE) {
+    if (!unlockedCodes.includes(SAS_CODE)) {
+      unlockedCodes.push(SAS_CODE);
     }
+    localStorage.setItem('unlockedCodes', JSON.stringify(unlockedCodes));
+    document.getElementById('codeInput').value = '';
+    errorMsg.style.display = 'none';
+    closeSettings();
+    renderSettings();
+    updateSASButton();
+    return;
+  }
 
-    function openSettings() {
-      document.getElementById("settingsModalOverlay").classList.add("active");
-      renderSettings();
-    }
+  errorMsg.style.display = 'block';
+}
 
-    function closeSettings() {
-      document.getElementById("settingsModalOverlay").classList.remove("active");
-      document.getElementById("codeInputArea").style.display = "none";
-      document.getElementById("usernameInputArea").style.display = "none";
-      document.getElementById("usernameDisplayArea").style.display = "block";
-      document.getElementById("codeError").style.display = "none";
-    }
+function skipLoading() {
+  if (loadingVideo) loadingVideo.style.display = 'none';
+  if (octoberLoading) octoberLoading.style.display = 'none';
+  intro.style.display = 'none';
+  site.style.display = 'block';
+}
 
-    function closeSettingsOnBackdrop(e) {
-      if (e.target.id === "settingsModalOverlay") closeSettings();
-    }
+async function loadWebsiteConfig() {
+  const unlockedCodes = getUnlockedCodes();
+  if (unlockedCodes.includes(SAS_CODE)) {
+    updateSASButton();
+  }
+}
 
-    function renderSettings() {
-      const savedUsername = localStorage.getItem("siteUsername");
-      const usernameText = document.getElementById("usernameText");
-      const usernameActionBtn = document.getElementById("usernameActionBtn");
-      usernameText.textContent = savedUsername ? "Username: " + savedUsername : "Username: Not set";
-      usernameActionBtn.textContent = savedUsername ? "✏️ Rename" : "Set Username";
+window.addEventListener('DOMContentLoaded', () => {
+  renderSettings();
+  updateSASButton();
+  if (sessionStorage.getItem('visitedHome') === '1') {
+    intro.style.display = 'none';
+    site.style.display = 'block';
+    return;
+  }
 
-      const unlockedCodes = getUnlockedCodes();
-      const codeListContent = document.getElementById("codeListContent");
-      codeListContent.innerHTML = "";
+  const isOctoberArab = awaitIsOctoberInArabCountry();
+  if (isOctoberArab) {
+    octoberLoading.style.display = 'flex';
+    setTimeout(() => {
+      skipLoading();
+    }, 5000);
+  } else {
+    const randomVideo = ['loading.mp4', 'loading2.mp4'][Math.floor(Math.random() * 2)];
+    loadVid.src = randomVideo;
+    loadingVideo.style.display = 'flex';
+    loadVid.onended = skipLoading;
+    loadVid.play().catch(() => {});
+    setTimeout(skipLoading, 5000);
+  }
+  sessionStorage.setItem('visitedHome', '1');
+});
 
-      if (unlockedCodes.length === 0) {
-        codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
-      } else {
-        if (unlockedCodes.includes("2511")) {
-          const item = document.createElement("div");
-          item.className = "code-item";
-          item.innerHTML = `
-            <div>
-              <div>🎮 SAS Game</div>
-              <div class="code-status">Status: <span class="enabled">Unlocked</span></div>
-            </div>
-            <button onclick="location.href='SAS/SAS.html'">Play</button>
-          `;
-          codeListContent.appendChild(item);
-        }
-
-        if (unlockedCodes.includes("20112015")) {
-          const item = document.createElement("div");
-          item.className = "code-item";
-          item.innerHTML = `
-            <div>
-              <div>🛠️ Creator Mode</div>
-              <div class="code-status">Status: <span class="enabled">Unlocked</span></div>
-            </div>
-            <button onclick="location.reload()">Open</button>
-          `;
-          codeListContent.appendChild(item);
-        }
-      }
-
-      updateSASButton();
-    }
-
-    function toggleUsernameInput() {
-      const displayArea = document.getElementById("usernameDisplayArea");
-      const inputArea = document.getElementById("usernameInputArea");
-      const usernameInput = document.getElementById("usernameInput");
-      usernameInput.value = localStorage.getItem("siteUsername") || "";
-      displayArea.style.display = "none";
-      inputArea.style.display = "flex";
-      usernameInput.focus();
-    }
-
-    function saveUsername() {
-      const input = document.getElementById("usernameInput").value.trim();
-      if (input) localStorage.setItem("siteUsername", input);
-      document.getElementById("usernameInputArea").style.display = "none";
-      document.getElementById("usernameDisplayArea").style.display = "block";
-      renderSettings();
-    }
-
-    function toggleCodeInput() {
-      const inputArea = document.getElementById("codeInputArea");
-      const errorMsg = document.getElementById("codeError");
-      errorMsg.style.display = "none";
-      if (inputArea.style.display === "none" || inputArea.style.display === "") {
-        inputArea.style.display = "block";
-        document.getElementById("codeInput").focus();
-      } else {
-        inputArea.style.display = "none";
-      }
-    }
-
-    function submitCode() {
-      const val = document.getElementById("codeInput").value.trim();
-      const errorMsg = document.getElementById("codeError");
-      const unlockedCodes = getUnlockedCodes();
-
-      if (val === "2511") {
-        if (!unlockedCodes.includes("2511")) unlockedCodes.push("2511");
-        localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
-        document.getElementById("codeInput").value = "";
-        errorMsg.style.display = "none";
-        closeSettings();
-        location.reload();
-        return;
-      }
-
-      if (val === "20112015") {
-        if (!unlockedCodes.includes("20112015")) unlockedCodes.push("20112015");
-        localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
-        document.getElementById("codeInput").value = "";
-        errorMsg.style.display = "none";
-        closeSettings();
-        location.reload();
-        return;
-      }
-
-      errorMsg.style.display = "block";
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      renderSettings();
-      updateSASButton();
-    });
-  </script>
+async function awaitIsOctoberInArabCountry() {
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    if (!response.ok) return false;
+    const data = await response.json();
+    const arabCodes = new Set(['DZ','BH','KM','DJ','EG','IQ','JO','KW','LB','LY','MR','MA','OM','PS','QA','SA','SO','SD','SY','TN','AE','YE']);
+    return data && data.country_code && arabCodes.has(String(data.country_code).toUpperCase()) && new Date().getMonth() === 9;
+  } catch {
+    return false;
+  }
+}
+</script>
 </body>
 </html>
