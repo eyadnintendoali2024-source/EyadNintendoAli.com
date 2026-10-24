@@ -1,0 +1,2 @@
+Lesson 3 is already included in this package.
+The original worksheet is Grade10-Ch1-L3 Sheet.pdf and its four smartboard page images are in pages/.
