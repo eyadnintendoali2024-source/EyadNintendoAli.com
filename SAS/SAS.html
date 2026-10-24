@@ -3,68 +3,59 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loading SAS Game...</title>
+  <title>SAS School Adventure 2.13</title>
   <style>
-    body {
+    * { box-sizing: border-box; }
+    html, body {
       margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       background: #12354b;
       color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
+      font: 18px Arial, sans-serif;
     }
-    .loading-box {
-      text-align: center;
-      padding: 24px;
-      background: rgba(10, 20, 40, 0.8);
-      border: 2px solid #80dcff;
-      border-radius: 18px;
-      box-shadow: 0 0 25px rgba(45, 199, 255, 0.5);
+    body {
+      position: relative;
     }
-    h1 { margin: 0 0 12px; }
     a {
       color: #80dcff;
       text-decoration: none;
       font-weight: bold;
     }
-    .back-link {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.08);
+    #sasBackLink {
+      position: fixed;
+      right: 16px;
+      top: 16px;
+      z-index: 100000;
+      background: rgba(10, 20, 40, 0.8);
       border: 1px solid #80dcff;
+      border-radius: 10px;
+      padding: 10px 14px;
+      box-shadow: 0 0 20px rgba(45, 199, 255, 0.4);
+    }
+    #sasBackLink a {
+      color: white;
     }
   </style>
 </head>
 <body>
-  <div class="loading-box">
-    <h1>Loading SAS School Adventure...</h1>
-    <p>Preparing the game and the title screen.</p>
-    <a class="back-link" href="../index.html">⬅️ Back to EyadNintendoAli Page</a>
-  </div>
-
+  <div id="sasBackLink"><a href="../index.html">⬅️ Back to EyadNintendoAli Page</a></div>
+  <script src="sas_compat.js"></script>
   <script>
-    (async function () {
-      const rawUrl = "https://raw.githubusercontent.com/eyadnintendoali2024-source/EyadNintendoAli.com/29a4d5fe9a83a9f13bbec9a610f8dcdf13347073/SAS/SAS.html";
-      try {
-        const res = await fetch(rawUrl, { cache: "no-store" });
-        if (!res.ok) throw new Error("Could not load SAS game");
-        const html = await res.text();
-        const extractedBody = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-        const extractedHead = html.match(/<head[^>]*>([\s\S]*)<\/head>/i);
-        const bodyContent = extractedBody ? extractedBody[1] : html;
-        const headContent = extractedHead ? extractedHead[1] : "";
-
-        document.open();
-        document.write('<!doctype html><html><head>' + headContent + '</head><body>' + bodyContent + '<div style="position:fixed;right:16px;top:16px;z-index:10000;"><a href="../index.html" style="display:inline-block;background:#0b1026;border:1px solid #80dcff;border-radius:10px;padding:10px 14px;color:#80dcff;text-decoration:none;font-weight:bold;">⬅️ Back to EyadNintendoAli Page</a></div></body></html>');
-        document.close();
-      } catch (error) {
-        document.body.innerHTML = '<div class="loading-box"><h1>Unable to load SAS Game</h1><p>' + (error && error.message ? error.message : 'Unknown error') + '</p><a class="back-link" href="../index.html">⬅️ Back to EyadNintendoAli Page</a></div>';
+    (function () {
+      var originalTitle = document.title;
+      function addBackText() {
+        var link = document.getElementById('sasBackLink');
+        if (!link) return;
+        link.style.display = 'block';
       }
+      addBackText();
+      if (document.readyState === 'complete') {
+        setTimeout(addBackText, 100);
+      }
+      document.addEventListener('DOMContentLoaded', addBackText);
+      document.title = originalTitle;
     })();
   </script>
 </body>
