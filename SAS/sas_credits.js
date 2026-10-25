@@ -1,4 +1,3 @@
-
 /* SAS Credits screen (old-Chrome safe, ES5) */
 (function () {
   'use strict';
@@ -27,7 +26,9 @@
   function build() {
     root = document.createElement('div'); root.id = 'sas-credits';
     root.innerHTML = '<h1>Credits</h1><div class="team">' +
-      member('Eyad', 'Eyad.png') + member('Yossef', 'Yussef.png') + member('Ahmed', 'Ahmed.png') + '</div><ul>' +
+      member('Eyad', 'Eyad.png') + member('Youssef', 'Yussef.png') + member('Yousef Ekramy', 'Y_E.png') + '</div><ul>' +
+      '<li>Yousef Ekramy &mdash; Game Checker</li>' +
+      '<li>Added: game polish, smoother controls, quick quiz, PDF viewer, and upgraded credits</li>' +
       '<li>ChatGPT &mdash; AI assistance</li><li>Gemini &mdash; AI assistance</li>' +
       '<li>AI-generated voices</li><li>Audio Maker &mdash; sound effects</li>' +
       '<li>JavaScript and C++ &mdash; programming technologies</li></ul>' +
