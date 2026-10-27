@@ -619,9 +619,9 @@ for (let i = 0; i < 150; i++) {
 </div>
 
 <script>
-window.GOOGLE_AUTH_CONFIG = window.GOOGLE_AUTH_CONFIG || {
+window.GOOGLE_AUTH_CONFIG = {
   clientId: "",
-  backendUrl: ""
+  backendUrl: "https://divine-pleased-resolve-hints.trycloudflare.com"
 };
 
 const intro = document.getElementById("intro");
@@ -652,10 +652,9 @@ function clearStoredGoogleAccount() {
 
 function getGoogleConfig() {
   const config = window.GOOGLE_AUTH_CONFIG || {};
-  return {
-    clientId: String(config.clientId || window.GOOGLE_CLIENT_ID || "").trim(),
-    backendUrl: String(config.backendUrl || window.GOOGLE_BACKEND_URL || "").trim().replace(/\/+$/, "")
-  };
+  const clientId = String(config.clientId || "").trim();
+  const backendUrl = String(config.backendUrl || "").trim().replace(/\/+$/, "");
+  return { clientId, backendUrl };
 }
 
 function showGoogleAuthError(message) {
@@ -687,9 +686,14 @@ function updateGoogleAccountUi() {
     signInBtn.textContent = "Continue with Google";
     signInBtn.title = "";
 
-    if (!config.clientId || !config.backendUrl) {
+    if (!config.clientId) {
       signInBtn.disabled = true;
-      signInBtn.title = "Add your Google OAuth Web Client ID and HTTPS backend URL in window.GOOGLE_AUTH_CONFIG before using Google sign-in.";
+      signInBtn.title = "Set your Google OAuth Web Client ID in window.GOOGLE_AUTH_CONFIG.clientId before using Google sign-in.";
+    }
+
+    if (!config.backendUrl) {
+      signInBtn.disabled = true;
+      signInBtn.title = "Set the HTTPS backend URL in window.GOOGLE_AUTH_CONFIG.backendUrl before using Google sign-in.";
     }
   }
 
@@ -751,35 +755,40 @@ async function handleGoogleCredentialResponse(response) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({
-        credential,
-        clientId: config.clientId
-      })
+      body: JSON.stringify({ idToken: credential })
     });
 
     let payload = {};
     try {
       payload = await backendRes.json();
-    } catch {
+    } catch (error) {
       payload = {};
     }
 
-    if (!backendRes.ok || payload.success === false) {
-      throw new Error(payload.message || "Google authentication failed on the backend.");
+    if (!backendRes.ok) {
+      throw new Error(payload.message || payload.error || `Backend request failed (HTTP ${backendRes.status}).`);
+    }
+
+    if (payload.success === false) {
+      throw new Error(payload.message || payload.error || "Google authentication failed on the backend.");
     }
 
     const safeUser = {
-      name: payload.user && payload.user.name ? payload.user.name : payload.name || "Google User",
-      email: payload.user && payload.user.email ? payload.user.email : payload.email || "",
-      picture: payload.user && payload.user.picture ? payload.user.picture : payload.picture || ""
+      name: payload.user && payload.user.name ? payload.user.name : "",
+      email: payload.user && payload.user.email ? payload.user.email : "",
+      picture: payload.user && payload.user.picture ? payload.user.picture : ""
     };
+
+    if (!safeUser.name && !safeUser.email && !safeUser.picture) {
+      throw new Error("The backend did not return verified user information.");
+    }
 
     setStoredGoogleAccount(safeUser);
     updateGoogleAccountUi();
     showGoogleAuthError("");
   } catch (error) {
     console.error("Google auth failed:", error);
-    showGoogleAuthError(error.message || "Google authentication failed.");
+    showGoogleAuthError(error.message || "Google sign-in failed. Please try again.");
   }
 }
 
