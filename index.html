@@ -1,1042 +1,1188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eyad Nintendo Ali - Space</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b1026, #000000);
-  overflow-x: hidden;
-  color: white;
-}
-
-body.modal-open { overflow: hidden; }
-
-.star {
-  position: fixed;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
-}
-
-#intro {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle, #101a44, #000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  z-index: 9999;
-  text-align: center;
-}
-
-#intro img { width: 180px; }
-
-#intro h1 {
-  font-size: 36px;
-  text-shadow: 0 0 15px #00ccff;
-  animation: pulse 2s infinite alternate;
-}
-
-@keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
-}
-
-#loadingVideo {
-  position: fixed;
-  inset: 0;
-  display: none;
-  background: black;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 9998;
-}
-
-#loadingVideo video { width: 60%; border-radius: 12px; }
-
-#loadingVideo h2 {
-  margin-top: 20px;
-  color: #00ccff;
-  animation: blink 1s infinite;
-}
-
-#octoberLoading {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 18px;
-  padding: 20px;
-  box-sizing: border-box;
-  background: #050505;
-  z-index: 10001;
-  text-align: center;
-}
-
-#octoberLoading img {
-  display: block;
-  width: min(92vw, 1100px);
-  height: min(72vh, 650px);
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(192, 0, 0, 0.4);
-}
-
-#octoberLoading h2 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(22px, 4vw, 38px);
-  text-shadow: 0 0 12px #c00;
-  direction: rtl;
-  animation: fadeIn 1.5s ease-in;
-}
-
-@keyframes blink { 50% { opacity: 0.4; } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-#skipBtn, #skipOctoberBtn {
-  margin-top: 20px;
-  padding: 12px 28px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: #00ccff;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#skipBtn:hover, #skipOctoberBtn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px #00ccff;
-}
-
-#site { display: none; }
-
-header {
-  position: relative;
-  z-index: 9998;
-  background: rgba(0,0,40,0.8);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-.logo { font-size: 26px; font-weight: bold; text-shadow: 0 0 10px #00ccff; }
-.logo a { color: white; text-decoration: none; }
-
-nav {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-button {
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border: 1px solid #00ccff;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  transform: scale(1.1);
-  background: #00ccff;
-  color: black;
-}
-
-.ai-btn {
-  background: linear-gradient(90deg, #00ccff, #0044ff);
-  color: white;
-  box-shadow: 0 0 12px #00ccff;
-}
-
-.ai-btn:hover { box-shadow: 0 0 22px #00ccff; }
-
-.dropdown { position: relative; z-index: 9999; }
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #111844;
-  border-radius: 8px;
-  min-width: 170px;
-  overflow: hidden;
-  z-index: 10000;
-  box-shadow: 0 8px 20px rgba(0,0,0,.6);
-}
-
-.dropdown-content a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: white;
-  transition: 0.3s;
-}
-
-.dropdown-content a:hover {
-  background: #00ccff;
-  color: black;
-}
-
-.dropdown:hover .dropdown-content { display: block; }
-
-#sasGameBtn {
-  display: none;
-  background: linear-gradient(90deg, #00ccff, #0044ff);
-  color: white;
-  box-shadow: 0 0 12px #00ccff;
-}
-
-#sasGameBtn.visible { display: inline-block; }
-
-.section {
-  max-width: 1000px;
-  margin: 50px auto;
-  padding: 20px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 14px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  backdrop-filter: blur(5px);
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.card {
-  width: 200px;
-  background: rgba(255,255,255,0.08);
-  color: white;
-  border-radius: 12px;
-  padding: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-.card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #00ccff;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-#settingsModalOverlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  z-index: 100000;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-#settingsModalOverlay.active {
-  display: flex;
-  opacity: 1;
-}
-
-.settings-modal {
-  background: radial-gradient(circle at top, #0b1026, #050814);
-  border: 2px solid #00ccff;
-  box-shadow: 0 0 25px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.2);
-  border-radius: 16px;
-  width: 90%;
-  max-width: 480px;
-  max-height: 85vh;
-  overflow-y: auto;
-  padding: 24px;
-  box-sizing: border-box;
-  transform: scale(0.8);
-  transition: transform 0.3s ease;
-  color: white;
-}
-
-#settingsModalOverlay.active .settings-modal { transform: scale(1); }
-
-.settings-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 204, 255, 0.3);
-  padding-bottom: 12px;
-  margin-bottom: 20px;
-}
-
-.settings-header h2 {
-  margin: 0;
-  font-size: 22px;
-  color: #00ccff;
-  text-shadow: 0 0 8px #00ccff;
-}
-
-.close-btn {
-  background: transparent;
-  border: none;
-  color: #00ccff;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0 8px;
-  line-height: 1;
-}
-
-.close-btn:hover {
-  background: transparent;
-  color: #ff3366;
-  transform: scale(1.2);
-}
-
-.settings-section {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(0, 204, 255, 0.2);
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 18px;
-}
-
-.settings-section h3 {
-  margin-top: 0;
-  margin-bottom: 12px;
-  font-size: 16px;
-  color: #00ccff;
-}
-
-.input-group {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.settings-input {
-  flex: 1;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid #00ccff;
-  border-radius: 6px;
-  padding: 8px 12px;
-  color: white;
-  font-size: 14px;
-  outline: none;
-}
-
-.settings-input:focus { box-shadow: 0 0 8px #00ccff; }
-
-.google-btn {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: linear-gradient(90deg, #ffffff, #e8f3ff);
-  color: #0b1026;
-  border: 1px solid rgba(0, 204, 255, 0.5);
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-weight: 700;
-  box-shadow: 0 0 12px rgba(0, 204, 255, 0.25);
-}
-
-.google-btn:hover {
-  background: #ffffff;
-  transform: translateY(-1px);
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
-}
-
-.google-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.google-user-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(0, 204, 255, 0.25);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.google-user-card img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid rgba(0, 204, 255, 0.8);
-}
-
-.google-user-meta {
-  flex: 1;
-  min-width: 0;
-}
-
-.google-user-meta strong {
-  display: block;
-  font-size: 15px;
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.google-user-meta div {
-  color: #d0d7e7;
-  font-size: 12px;
-  word-break: break-word;
-}
-
-.google-status {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #00ff66;
-}
-
-.google-disconnect-btn {
-  width: 100%;
-  margin-top: 6px;
-}
-
-.account-message {
-  margin: 0 0 10px;
-  color: #d0d7e7;
-  font-size: 13px;
-}
-
-.code-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-}
-
-.code-status {
-  font-size: 13px;
-  color: #aaa;
-  margin-top: 4px;
-}
-
-.code-status span.enabled {
-  color: #00ff66;
-  font-weight: bold;
-}
-
-.code-status span.disabled {
-  color: #ff3366;
-  font-weight: bold;
-}
-
-.error-msg {
-  color: #ff3366;
-  font-size: 13px;
-  margin-top: 8px;
-  display: none;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eyad Nintendo Ali - Space</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    :root {
+      --space-bg: #000000;
+      --panel: rgba(255,255,255,0.05);
+      --panel-border: rgba(0,204,255,0.25);
+      --cyan: #00ccff;
+      --blue: #0044ff;
+      --danger: #ff3366;
+      --success: #00ff66;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #0b1026, #000000);
+      overflow-x: hidden;
+      color: white;
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    .star {
+      position: fixed;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; }
+      to { opacity: 1; }
+    }
+
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle, #101a44, #000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      z-index: 9999;
+      text-align: center;
+    }
+
+    #intro img { width: 180px; }
+
+    #intro h1 {
+      font-size: 36px;
+      text-shadow: 0 0 15px #00ccff;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
+
+    #loadingVideo {
+      position: fixed;
+      inset: 0;
+      display: none;
+      background: black;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9998;
+    }
+
+    #loadingVideo video { width: 60%; border-radius: 12px; }
+
+    #loadingVideo h2 { margin-top: 20px; color: #00ccff; animation: blink 1s infinite; }
+
+    #octoberLoading {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 18px;
+      padding: 20px;
+      box-sizing: border-box;
+      background: #050505;
+      z-index: 10001;
+      text-align: center;
+    }
+
+    #octoberLoading img {
+      display: block;
+      width: min(92vw, 1100px);
+      height: min(72vh, 650px);
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(192,0,0,0.4);
+    }
+
+    #octoberLoading h2 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(22px, 4vw, 38px);
+      text-shadow: 0 0 12px #c00;
+      direction: rtl;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    @keyframes blink { 50% { opacity: 0.4; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    #skipBtn, #skipOctoberBtn {
+      margin-top: 20px;
+      padding: 12px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #00ccff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #skipBtn:hover, #skipOctoberBtn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #00ccff;
+    }
+
+    #site { display: none; }
+
+    header {
+      position: relative;
+      z-index: 9998;
+      background: rgba(0,0,40,0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 26px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00ccff;
+      min-width: 0;
+    }
+
+    .logo a {
+      color: white;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-google-profile {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(0,204,255,0.4);
+      border-radius: 999px;
+      padding: 4px 10px 4px 4px;
+      max-width: 210px;
+      box-shadow: 0 0 12px rgba(0,204,255,0.15);
+      transition: opacity 0.2s ease;
+    }
+
+    .site-google-profile[hidden] {
+      display: none;
+    }
+
+    .site-google-profile img {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0,204,255,0.8);
+      background: rgba(0,0,0,0.25);
+      display: block;
+    }
+
+    .site-google-profile span {
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid #00ccff;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #00ccff;
+      color: black;
+    }
+
+    .ai-btn {
+      background: linear-gradient(90deg, #00ccff, #0044ff);
+      color: white;
+      box-shadow: 0 0 12px #00ccff;
+    }
+
+    .ai-btn:hover { box-shadow: 0 0 22px #00ccff; }
+
+    .dropdown { position: relative; z-index: 9999; }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #111844;
+      border-radius: 8px;
+      min-width: 170px;
+      overflow: hidden;
+      z-index: 10000;
+      box-shadow: 0 8px 20px rgba(0,0,0,.6);
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background: #00ccff;
+      color: black;
+    }
+
+    .dropdown:hover .dropdown-content { display: block; }
+
+    #sasGameBtn {
+      display: none;
+      background: linear-gradient(90deg, #00ccff, #0044ff);
+      color: white;
+      box-shadow: 0 0 12px #00ccff;
+    }
+
+    #sasGameBtn.visible { display: inline-block; }
+
+    .section {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      width: 200px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-radius: 12px;
+      padding: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #00ccff;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    #settingsModalOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 100000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #settingsModalOverlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .settings-modal {
+      background: radial-gradient(circle at top, #0b1026, #050814);
+      border: 2px solid #00ccff;
+      box-shadow: 0 0 25px #00ccff, inset 0 0 10px rgba(0, 204, 255, 0.2);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 480px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-sizing: border-box;
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+      color: white;
+    }
+
+    #settingsModalOverlay.active .settings-modal { transform: scale(1); }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 204, 255, 0.3);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .settings-header h2 {
+      margin: 0;
+      font-size: 22px;
+      color: #00ccff;
+      text-shadow: 0 0 8px #00ccff;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: #00ccff;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0 8px;
+      line-height: 1;
+    }
+
+    .close-btn:hover {
+      background: transparent;
+      color: #ff3366;
+      transform: scale(1.2);
+    }
+
+    .settings-section {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,204,255,0.2);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 18px;
+    }
+
+    .settings-section h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: #00ccff;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .settings-input {
+      flex: 1;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid #00ccff;
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .settings-input:focus { box-shadow: 0 0 8px #00ccff; }
+
+    .google-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(90deg, #ffffff, #e8f3ff);
+      color: #0b1026;
+      border: 1px solid rgba(0,204,255,0.5);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(0,204,255,0.25);
+    }
+
+    .google-btn:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 0 16px rgba(255,255,255,0.2);
+    }
+
+    .google-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .google-g-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .google-g-icon svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    .google-user-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(0,204,255,0.25);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .google-user-card img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0,204,255,0.8);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .google-user-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .google-user-meta strong {
+      display: block;
+      font-size: 15px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .google-user-meta div {
+      color: #d0d7e7;
+      font-size: 12px;
+      word-break: break-word;
+    }
+
+    .google-status {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00ff66;
+    }
+
+    .google-disconnect-btn {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .google-switch-btn {
+      width: 100%;
+      margin-top: 6px;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .account-message {
+      margin: 0 0 10px;
+      color: #d0d7e7;
+      font-size: 13px;
+    }
+
+    .code-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-top: 8px;
+    }
+
+    .code-status {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    .code-status span.enabled {
+      color: #00ff66;
+      font-weight: bold;
+    }
+
+    .code-status span.disabled {
+      color: #ff3366;
+      font-weight: bold;
+    }
+
+    .error-msg {
+      color: #ff3366;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav {
+        justify-content: center;
+      }
+
+      .logo {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
-<script>
-for (let i = 0; i < 150; i++) {
-  let s = document.createElement("div");
-  s.className = "star";
-  s.style.left = Math.random() * 100 + "vw";
-  s.style.top = Math.random() * 100 + "vh";
-  let size = Math.random() * 3 + 1;
-  s.style.width = size + "px";
-  s.style.height = size + "px";
-  s.style.animationDuration = (1 + Math.random() * 3) + "s";
-  document.body.appendChild(s);
-}
-</script>
+  <script>
+    for (let i = 0; i < 150; i++) {
+      let s = document.createElement("div");
+      s.className = "star";
+      s.style.left = Math.random() * 100 + "vw";
+      s.style.top = Math.random() * 100 + "vh";
+      let size = Math.random() * 3 + 1;
+      s.style.width = size + "px";
+      s.style.height = size + "px";
+      s.style.animationDuration = (1 + Math.random() * 3) + "s";
+      document.body.appendChild(s);
+    }
+  </script>
 
-<div id="intro">
-  <img src="mario.png">
-  <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
-  <img src="luigi.png">
-</div>
-
-<div id="loadingVideo">
-  <video id="loadVid" autoplay muted></video>
-  <h2>Loading Space...</h2>
-  <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
-</div>
-
-<div id="octoberLoading" aria-label="October 6 loading screen - حرب أكتوبر 1973">
-  <img src="oct 6.png" alt="ذكرى حرب أكتوبر 1973" onerror="this.style.display='none'; document.getElementById('octoberFallback').style.display='block';">
-  <h2 id="octoberFallback" style="display:none">🕊️ ذكرى حرب أكتوبر 1973 🕊️</h2>
-  <h2>🕊️ ذكرى حرب أكتوبر 1973 🕊️</h2>
-  <button id="skipOctoberBtn" onclick="skipLoading()">⏩ تخطي</button>
-</div>
-
-<div id="site">
-  <header>
-    <div class="logo">
-      <a href="index.html" id="siteLogoText">Eyad Nintendo Ali 🚀</a>
-    </div>
-
-    <nav id="mainNav">
-      <div class="dropdown">
-        <button>🌌 Types ▾</button>
-        <div class="dropdown-content" id="typesDropdown">
-          <a href="minecraft.html">⛏️ Minecraft</a>
-          <a href="cockatiel-online.html">🐦 Cockatiel Bird Online List</a>
-          <a href="games.html">🎮 Games</a>
-          <a href="Movies.html">🎬 Movies</a>
-          <a href="cartoons.html">📺 Cartoons</a>
-          <a href="news.html">📰 News</a>
-        </div>
-      </div>
-
-      <button id="sasGameBtn" onclick="location.href='SAS/SAS.html'">🎮 Play SAS Game</button>
-      <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
-      <button class="ai-btn" onclick="location.href='Football.html'">⚽ Football</button>
-      <button>🔍 Search</button>
-      <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
-      <button onclick="openSettings()">⚙️ Settings</button>
-    </nav>
-  </header>
-
-  <div class="section" id="heroSection">
-    <h1 id="mainTitle">🌌 SPACE MODE 🌌</h1>
-    <p id="mainDescription">Explore the universe of games, fun, and creativity.</p>
+  <div id="intro">
+    <img src="mario.png" alt="Mario">
+    <h1>🌌 Welcome to Eyad Nintendo Ali 🌌<br>🚀 SPACE WORLD 🚀</h1>
+    <img src="luigi.png" alt="Luigi">
   </div>
 
-  <div class="section" id="gamesSection">
-    <h2 id="gamesTitle">🎮 Games</h2>
-    <div class="cards" id="gamesCardsContainer">
-      <div class="card" onclick="location.href='Boy&jelly.html'" data-card-id="boy-jelly">
-        <img src="Boy&jelly.png" alt="Boy & Jelly">
-        <p>Boy & Jelly</p>
-      </div>
-
-      <div class="card" onclick="location.href='Game Haven domdom.html'" data-card-id="domdom">
-        <img src="Game Haven domdom.png" alt="Game Haven Domdom">
-        <p>Game Haven Domdom</p>
-      </div>
-    </div>
+  <div id="loadingVideo">
+    <video id="loadVid" autoplay muted></video>
+    <h2>Loading Space...</h2>
+    <button id="skipBtn" onclick="skipLoading()">⏩ Skip</button>
   </div>
-</div>
 
-<div id="settingsModalOverlay" onclick="closeSettingsOnBackdrop(event)">
-  <div class="settings-modal">
-    <div class="settings-header">
-      <h2>⚙️ SETTINGS</h2>
-      <button class="close-btn" onclick="closeSettings()">✕</button>
-    </div>
+  <div id="octoberLoading" aria-label="October 6 loading screen - حرب أكتوبر 1973">
+    <img src="oct 6.png" alt="ذكرى حرب أكتوبر 1973" onerror="this.style.display='none'; document.getElementById('octoberFallback').style.display='block';">
+    <h2 id="octoberFallback" style="display:none">🕊️ ذكرى حرب أكتوبر 1973 🕊️</h2>
+    <h2>🕊️ ذكرى حرب أكتوبر 1973 🕊️</h2>
+    <button id="skipOctoberBtn" onclick="skipLoading()">⏩ تخطي</button>
+  </div>
 
-    <div class="settings-section">
-      <h3>👤 Username</h3>
-      <div id="usernameDisplayArea">
-        <span id="usernameText">Username: Not set</span>
-        <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
+  <div id="site">
+    <header>
+      <div class="logo">
+        <a href="index.html" id="siteLogoText">Eyad Nintendo Ali 🚀</a>
+        <div id="siteGoogleProfileChip" class="site-google-profile" hidden aria-live="polite"></div>
       </div>
-      <div id="usernameInputArea" style="display: none;" class="input-group">
-        <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
-        <button onclick="saveUsername()">💾 Save</button>
-      </div>
-    </div>
 
-    <div class="settings-section">
-      <h3>🔐 Account</h3>
-      <div id="googleAccountContainer">
-        <div id="googleAccountSignedOut">
-          <p class="account-message">Connect your Google account to sign in securely.</p>
-          <button id="googleSignInBtn" class="google-btn" type="button" onclick="requestGoogleSignIn()">Continue with Google</button>
-        </div>
-
-        <div id="googleAccountSignedIn" style="display:none;">
-          <div class="google-user-card">
-            <img id="googleUserPicture" src="" alt="Google profile picture">
-            <div class="google-user-meta">
-              <strong id="googleUserName">Google User</strong>
-              <div id="googleUserEmail">user@example.com</div>
-              <span class="google-status">Connected</span>
-            </div>
+      <nav id="mainNav">
+        <div class="dropdown">
+          <button>🌌 Types ▾</button>
+          <div class="dropdown-content" id="typesDropdown">
+            <a href="minecraft.html">⛏️ Minecraft</a>
+            <a href="cockatiel-online.html">🐦 Cockatiel Bird Online List</a>
+            <a href="games.html">🎮 Games</a>
+            <a href="Movies.html">🎬 Movies</a>
+            <a href="cartoons.html">📺 Cartoons</a>
+            <a href="news.html">📰 News</a>
           </div>
-          <button id="googleDisconnectBtn" class="google-disconnect-btn" type="button" onclick="disconnectGoogleAccount()">Disconnect Google Account</button>
         </div>
 
-        <div id="googleAuthError" class="error-msg">❌ Google authentication failed.</div>
-      </div>
+        <button id="sasGameBtn" onclick="location.href='SAS/SAS.html'">🎮 Play SAS Game</button>
+        <button class="ai-btn" onclick="location.href='ai.html'">🤖 AI</button>
+        <button class="ai-btn" onclick="location.href='Football.html'">⚽ Football</button>
+        <button>🔍 Search</button>
+        <button onclick="window.open('https://www.youtube.com/@EyadNintendoAli2025','_blank')">▶️ YouTube</button>
+        <button onclick="openSettings()">⚙️ Settings</button>
+      </nav>
+    </header>
+
+    <div class="section" id="heroSection">
+      <h1 id="mainTitle">🌌 SPACE MODE 🌌</h1>
+      <p id="mainDescription">Explore the universe of games, fun, and creativity.</p>
     </div>
 
-    <div class="settings-section">
-      <h3>📋 Code List</h3>
-      <div id="codeListContent">
-        <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
-      </div>
-    </div>
-
-    <div class="settings-section">
-      <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
-      <div id="codeInputArea" style="display: none; margin-top: 10px;">
-        <div class="input-group">
-          <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
-          <button onclick="submitCode()">Enter</button>
+    <div class="section" id="gamesSection">
+      <h2 id="gamesTitle">🎮 Games</h2>
+      <div class="cards" id="gamesCardsContainer">
+        <div class="card" onclick="location.href='Boy&jelly.html'" data-card-id="boy-jelly">
+          <img src="Boy&jelly.png" alt="Boy & Jelly">
+          <p>Boy & Jelly</p>
         </div>
-        <div id="codeError" class="error-msg">❌ Invalid code</div>
+
+        <div class="card" onclick="location.href='Game Haven domdom.html'" data-card-id="domdom">
+          <img src="Game Haven domdom.png" alt="Game Haven Domdom">
+          <p>Game Haven Domdom</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-window.GOOGLE_AUTH_CONFIG = {
-  clientId: "268994456853-9tcur3mp9o2eg0fa3q3gu97ubho87tms.apps.googleusercontent.com",
-  backendUrl: "https://divine-pleased-resolve-hints.trycloudflare.com"
-};
+  <div id="settingsModalOverlay" onclick="closeSettingsOnBackdrop(event)">
+    <div class="settings-modal">
+      <div class="settings-header">
+        <h2>⚙️ SETTINGS</h2>
+        <button class="close-btn" onclick="closeSettings()">✕</button>
+      </div>
 
-const intro = document.getElementById("intro");
-const site = document.getElementById("site");
-const loadingVideo = document.getElementById("loadingVideo");
-const loadVid = document.getElementById("loadVid");
-const octoberLoading = document.getElementById("octoberLoading");
-const SAS_CODE = "2511";
+      <div class="settings-section">
+        <h3>👤 Username</h3>
+        <div id="usernameDisplayArea">
+          <span id="usernameText">Username: Not set</span>
+          <button style="margin-left: 10px;" id="usernameActionBtn" onclick="toggleUsernameInput()">Set Username</button>
+        </div>
+        <div id="usernameInputArea" style="display: none;" class="input-group">
+          <input type="text" id="usernameInput" class="settings-input" placeholder="Enter username">
+          <button onclick="saveUsername()">💾 Save</button>
+        </div>
+      </div>
 
-const loadingVideos = ["loading.mp4", "loading2.mp4"];
-const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
+      <div class="settings-section">
+        <h3>🔐 Account</h3>
+        <div id="googleAccountContainer">
+          <div id="googleAccountSignedOut">
+            <p class="account-message">Connect your Google account to sign in securely.</p>
+            <button id="googleSignInBtn" class="google-btn" type="button" onclick="requestGoogleSignIn()">
+              <span class="google-g-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2 6.9 2.2 2.7 6.5 2.7 11.7S6.9 21.2 12 21.2c6.9 0 11.4-4.8 11.4-11.6 0-.8-.1-1.4-.2-2H12z"/>
+                  <path fill="#34A853" d="M3.7 7.2l3.7 2.7C8.3 7.7 10 6.8 12 6.8c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2c-3.2 0-6 1.8-7.3 4.5z" opacity=".9"/>
+                  <path fill="#FBBC05" d="M3.9 18.9C5.2 21 7.7 22.2 12 22.2c3.7 0 6.8-1.3 9.1-3.6l-3.3-2.8c-.9.6-2.2 1.1-5.8 1.1-3.2 0-5.7-2.2-6.1-4.9l-3.2 2.9z" opacity=".9"/>
+                  <path fill="#4285F4" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2 6.9 2.2 2.7 6.5 2.7 11.7S6.9 21.2 12 21.2c6.9 0 11.4-4.8 11.4-11.6 0-.8-.1-1.4-.2-2H12z" opacity="0"/>
+                </svg>
+              </span>
+              <span>Continue with Google</span>
+            </button>
+          </div>
 
-function getStoredGoogleAccount() {
-  try {
-    return JSON.parse(localStorage.getItem("siteGoogleAccount") || "null");
-  } catch {
-    return null;
-  }
-}
+          <div id="googleAccountSignedIn" style="display:none;">
+            <div class="google-user-card">
+              <img id="googleUserPicture" src="" alt="Google profile picture">
+              <div class="google-user-meta">
+                <strong id="googleUserName">Google User</strong>
+                <div id="googleUserEmail">user@example.com</div>
+                <span class="google-status">Connected</span>
+              </div>
+            </div>
+            <button id="googleSwitchBtn" class="google-switch-btn" type="button" onclick="requestGoogleSignIn()">Switch Google Account</button>
+            <button id="googleDisconnectBtn" class="google-disconnect-btn" type="button" onclick="disconnectGoogleAccount()">Disconnect Google Account</button>
+          </div>
 
-function setStoredGoogleAccount(account) {
-  localStorage.setItem("siteGoogleAccount", JSON.stringify(account));
-}
+          <div id="googleAuthError" class="error-msg">❌ Google authentication failed.</div>
+        </div>
+      </div>
 
-function clearStoredGoogleAccount() {
-  localStorage.removeItem("siteGoogleAccount");
-}
+      <div class="settings-section">
+        <h3>📋 Code List</h3>
+        <div id="codeListContent">
+          <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
+        </div>
+      </div>
 
-function getGoogleConfig() {
-  const config = window.GOOGLE_AUTH_CONFIG || {};
-  const clientId = String(config.clientId || "").trim();
-  const backendUrl = String(config.backendUrl || "").trim().replace(/\/+$/, "");
-  return { clientId, backendUrl };
-}
+      <div class="settings-section">
+        <button id="toggleCodeBtn" onclick="toggleCodeInput()" style="width: 100%;">🔑 Enter Code</button>
+        <div id="codeInputArea" style="display: none; margin-top: 10px;">
+          <div class="input-group">
+            <input type="text" id="codeInput" class="settings-input" placeholder="Enter code">
+            <button onclick="submitCode()">Enter</button>
+          </div>
+          <div id="codeError" class="error-msg">❌ Invalid code</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-function showGoogleAuthError(message) {
-  const errorBox = document.getElementById("googleAuthError");
-  if (!errorBox) return;
-
-  if (!message) {
-    errorBox.textContent = "❌ Google authentication failed.";
-    errorBox.style.display = "none";
-    return;
-  }
-
-  errorBox.textContent = `❌ ${message}`;
-  errorBox.style.display = "block";
-}
-
-function updateGoogleAccountUi() {
-  const account = getStoredGoogleAccount();
-  const signedOut = document.getElementById("googleAccountSignedOut");
-  const signedIn = document.getElementById("googleAccountSignedIn");
-  const signInBtn = document.getElementById("googleSignInBtn");
-  const nameEl = document.getElementById("googleUserName");
-  const emailEl = document.getElementById("googleUserEmail");
-  const pictureEl = document.getElementById("googleUserPicture");
-  const config = getGoogleConfig();
-
-  if (signInBtn) {
-    signInBtn.disabled = false;
-    signInBtn.textContent = "Continue with Google";
-    signInBtn.title = "";
-
-    if (!config.clientId) {
-      signInBtn.disabled = true;
-      signInBtn.title = "Set your Google OAuth Web Client ID in window.GOOGLE_AUTH_CONFIG.clientId before using Google sign-in.";
-    }
-
-    if (!config.backendUrl) {
-      signInBtn.disabled = true;
-      signInBtn.title = "Set the HTTPS backend URL in window.GOOGLE_AUTH_CONFIG.backendUrl before using Google sign-in.";
-    }
-  }
-
-  if (account && account.name && account.email) {
-    if (signedOut) signedOut.style.display = "none";
-    if (signedIn) signedIn.style.display = "block";
-    if (nameEl) nameEl.textContent = account.name || "Google User";
-    if (emailEl) emailEl.textContent = account.email || "No email available";
-    if (pictureEl) {
-      pictureEl.src = account.picture || "";
-      pictureEl.style.display = account.picture ? "block" : "none";
-    }
-  } else {
-    if (signedOut) signedOut.style.display = "block";
-    if (signedIn) signedIn.style.display = "none";
-  }
-
-  showGoogleAuthError("");
-}
-
-function initGoogleAuth() {
-  const config = getGoogleConfig();
-
-  if (!config.clientId || !config.backendUrl) {
-    console.warn("Google auth is not configured yet. Set window.GOOGLE_AUTH_CONFIG.clientId and backendUrl before testing sign-in.");
-    updateGoogleAccountUi();
-    return;
-  }
-
-  if (!window.google || !window.google.accounts || !window.google.accounts.id) {
-    console.warn("Google Identity Services is still loading.");
-    return;
-  }
-
-  window.google.accounts.id.initialize({
-    client_id: config.clientId,
-    callback: handleGoogleCredentialResponse,
-    auto_select: false,
-    cancel_on_tap_outside: true
-  });
-}
-
-async function handleGoogleCredentialResponse(response) {
-  const config = getGoogleConfig();
-  const credential = response && response.credential;
-
-  if (!credential) {
-    showGoogleAuthError("Google sign-in did not return a credential.");
-    return;
-  }
-
-  if (!config.backendUrl) {
-    showGoogleAuthError("Set the HTTPS backend URL in window.GOOGLE_AUTH_CONFIG.backendUrl before continuing.");
-    return;
-  }
-
-  try {
-    const backendRes = await fetch(`${config.backendUrl}/auth/google`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({ idToken: credential })
-    });
-
-    let payload = {};
-    try {
-      payload = await backendRes.json();
-    } catch (error) {
-      payload = {};
-    }
-
-    if (!backendRes.ok) {
-      throw new Error(payload.message || payload.error || `Backend request failed (HTTP ${backendRes.status}).`);
-    }
-
-    if (payload.success === false) {
-      throw new Error(payload.message || payload.error || "Google authentication failed on the backend.");
-    }
-
-    const safeUser = {
-      name: payload.user && payload.user.name ? payload.user.name : "",
-      email: payload.user && payload.user.email ? payload.user.email : "",
-      picture: payload.user && payload.user.picture ? payload.user.picture : ""
+  <script>
+    window.GOOGLE_AUTH_CONFIG = {
+      clientId: "268994456853-9tcur3mp9o2eg0fa3q3gu97ubho87tms.apps.googleusercontent.com",
+      backendUrl: "https://divine-pleased-resolve-hints.trycloudflare.com"
     };
 
-    if (!safeUser.name && !safeUser.email && !safeUser.picture) {
-      throw new Error("The backend did not return verified user information.");
-    }
+    const intro = document.getElementById("intro");
+    const site = document.getElementById("site");
+    const loadingVideo = document.getElementById("loadingVideo");
+    const loadVid = document.getElementById("loadVid");
+    const octoberLoading = document.getElementById("octoberLoading");
+    const SAS_CODE = "2511";
 
-    setStoredGoogleAccount(safeUser);
-    updateGoogleAccountUi();
-    showGoogleAuthError("");
-  } catch (error) {
-    console.error("Google auth failed:", error);
-    showGoogleAuthError(error.message || "Google sign-in failed. Please try again.");
-  }
-}
+    const loadingVideos = ["loading.mp4", "loading2.mp4"];
+    const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
 
-function requestGoogleSignIn() {
-  const config = getGoogleConfig();
-
-  if (!config.clientId || !config.backendUrl) {
-    showGoogleAuthError("Configure window.GOOGLE_AUTH_CONFIG with your Google OAuth Web Client ID and HTTPS backend URL.");
-    return;
-  }
-
-  if (!window.google || !window.google.accounts || !window.google.accounts.id) {
-    showGoogleAuthError("Google sign-in is still loading. Please try again in a moment.");
-    return;
-  }
-
-  if (!window.googleAuthInitialized) {
-    window.google.accounts.id.initialize({
-      client_id: config.clientId,
-      callback: handleGoogleCredentialResponse,
-      auto_select: false,
-      cancel_on_tap_outside: true
-    });
-    window.googleAuthInitialized = true;
-  }
-
-  try {
-    window.google.accounts.id.prompt((notification) => {
-      if (notification && ((typeof notification.isNotDisplayed === "function" && notification.isNotDisplayed()) || (typeof notification.isSkippedMoment === "function" && notification.isSkippedMoment()))) {
-        console.warn("Google One Tap was not displayed:", notification);
+    function getStoredGoogleAccount() {
+      try {
+        return JSON.parse(localStorage.getItem("siteGoogleAccount") || "null");
+      } catch {
+        return null;
       }
-    });
-    showGoogleAuthError("");
-  } catch (error) {
-    console.error("Google prompt failed:", error);
-    showGoogleAuthError("Google sign-in could not start. Please try again.");
-  }
-}
+    }
 
-function disconnectGoogleAccount() {
-  clearStoredGoogleAccount();
-  updateGoogleAccountUi();
-  showGoogleAuthError("");
-}
+    function setStoredGoogleAccount(account) {
+      localStorage.setItem("siteGoogleAccount", JSON.stringify(account));
+    }
 
-function getUnlockedCodes() {
-  try {
-    return JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
-  } catch {
-    return [];
-  }
-}
+    function clearStoredGoogleAccount() {
+      localStorage.removeItem("siteGoogleAccount");
+    }
 
-function updateSASButton() {
-  const btn = document.getElementById("sasGameBtn");
-  if (!btn) return;
-  const unlocked = getUnlockedCodes();
-  btn.classList.toggle("visible", unlocked.includes(SAS_CODE));
-}
+    function getGoogleConfig() {
+      const config = window.GOOGLE_AUTH_CONFIG || {};
+      const clientId = String(config.clientId || "").trim();
+      const backendUrl = String(config.backendUrl || "").trim().replace(/\/+$/, "");
+      return { clientId, backendUrl };
+    }
 
-function renderSettings() {
-  const savedUsername = localStorage.getItem("siteUsername");
-  const usernameText = document.getElementById("usernameText");
-  const usernameActionBtn = document.getElementById("usernameActionBtn");
+    function showGoogleAuthError(message) {
+      const errorBox = document.getElementById("googleAuthError");
+      if (!errorBox) return;
+      if (!message) {
+        errorBox.textContent = "❌ Google authentication failed.";
+        errorBox.style.display = "none";
+        return;
+      }
+      errorBox.textContent = `❌ ${message}`;
+      errorBox.style.display = "block";
+    }
 
-  if (savedUsername) {
-    usernameText.textContent = "Username: " + savedUsername;
-    usernameActionBtn.textContent = "✏️ Rename";
-  } else {
-    usernameText.textContent = "Username: Not set";
-    usernameActionBtn.textContent = "Set Username";
-  }
+    function renderHeaderGoogleProfile() {
+      const profileChip = document.getElementById("siteGoogleProfileChip");
+      if (!profileChip) return;
 
-  const unlockedCodes = getUnlockedCodes();
-  const codeListContent = document.getElementById("codeListContent");
-  codeListContent.innerHTML = "";
+      const account = getStoredGoogleAccount();
+      if (!account || !account.name || !account.picture) {
+        profileChip.hidden = true;
+        profileChip.innerHTML = "";
+        return;
+      }
 
-  if (unlockedCodes.length === 0) {
-    codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
-  } else {
-    if (unlockedCodes.includes(SAS_CODE)) {
-      const item = document.createElement("div");
-      item.className = "code-item";
-      item.innerHTML = `
-        <div>
-          <div>🎮 SAS Game</div>
-          <div class="code-status">Status: <span class="enabled">Unlocked</span></div>
-        </div>
-        <button onclick="location.href='SAS/SAS.html'">Play</button>
+      profileChip.hidden = false;
+      profileChip.innerHTML = `
+        <img src="${account.picture}" alt="${account.name} profile picture" onerror="this.style.display='none';">
+        <span>${account.name}</span>
       `;
-      codeListContent.appendChild(item);
     }
-  }
 
-  updateGoogleAccountUi();
-  updateSASButton();
-}
+    function updateGoogleAccountUi() {
+      const account = getStoredGoogleAccount();
+      const signedOut = document.getElementById("googleAccountSignedOut");
+      const signedIn = document.getElementById("googleAccountSignedIn");
+      const signInBtn = document.getElementById("googleSignInBtn");
+      const nameEl = document.getElementById("googleUserName");
+      const emailEl = document.getElementById("googleUserEmail");
+      const pictureEl = document.getElementById("googleUserPicture");
+      const config = getGoogleConfig();
 
-function openSettings() {
-  document.getElementById("settingsModalOverlay").classList.add("active");
-  document.body.classList.add("modal-open");
-  renderSettings();
-}
+      if (signInBtn) {
+        signInBtn.disabled = false;
+        signInBtn.title = "";
 
-function closeSettings() {
-  document.getElementById("settingsModalOverlay").classList.remove("active");
-  document.body.classList.remove("modal-open");
-  document.getElementById("codeInputArea").style.display = "none";
-  document.getElementById("usernameInputArea").style.display = "none";
-  document.getElementById("usernameDisplayArea").style.display = "block";
-  document.getElementById("codeError").style.display = "none";
-}
+        if (!config.clientId) {
+          signInBtn.disabled = true;
+          signInBtn.title = "Set your Google OAuth Web Client ID in window.GOOGLE_AUTH_CONFIG.clientId before using Google sign-in.";
+        }
 
-function closeSettingsOnBackdrop(e) {
-  if (e.target.id === "settingsModalOverlay") closeSettings();
-}
+        if (!config.backendUrl) {
+          signInBtn.disabled = true;
+          signInBtn.title = "Set the HTTPS backend URL in window.GOOGLE_AUTH_CONFIG.backendUrl before using Google sign-in.";
+        }
+      }
 
-function toggleUsernameInput() {
-  const displayArea = document.getElementById("usernameDisplayArea");
-  const inputArea = document.getElementById("usernameInputArea");
-  const usernameInput = document.getElementById("usernameInput");
-  usernameInput.value = localStorage.getItem("siteUsername") || "";
-  displayArea.style.display = "none";
-  inputArea.style.display = "flex";
-  usernameInput.focus();
-}
+      if (account && account.name) {
+        if (signedOut) signedOut.style.display = "none";
+        if (signedIn) signedIn.style.display = "block";
+        if (nameEl) nameEl.textContent = account.name || "Google User";
+        if (emailEl) emailEl.textContent = (account.email || "No email available");
+        if (pictureEl) {
+          pictureEl.src = account.picture || "";
+          pictureEl.style.display = account.picture ? "block" : "none";
+          pictureEl.onerror = () => {
+            pictureEl.style.display = "none";
+          };
+        }
+      } else {
+        if (signedOut) signedOut.style.display = "block";
+        if (signedIn) signedIn.style.display = "none";
+      }
 
-function saveUsername() {
-  const input = document.getElementById("usernameInput").value.trim();
-  if (input) {
-    localStorage.setItem("siteUsername", input);
-  }
-  document.getElementById("usernameInputArea").style.display = "none";
-  document.getElementById("usernameDisplayArea").style.display = "block";
-  renderSettings();
-}
-
-function toggleCodeInput() {
-  const inputArea = document.getElementById("codeInputArea");
-  const errorMsg = document.getElementById("codeError");
-  errorMsg.style.display = "none";
-  if (inputArea.style.display === "none" || inputArea.style.display === "") {
-    inputArea.style.display = "block";
-    document.getElementById("codeInput").focus();
-  } else {
-    inputArea.style.display = "none";
-  }
-}
-
-function submitCode() {
-  const codeInput = document.getElementById("codeInput");
-  const val = codeInput.value.trim();
-  const errorMsg = document.getElementById("codeError");
-
-  if (val === SAS_CODE) {
-    const unlockedCodes = getUnlockedCodes();
-    if (!unlockedCodes.includes(SAS_CODE)) {
-      unlockedCodes.push(SAS_CODE);
-      localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
+      renderHeaderGoogleProfile();
+      showGoogleAuthError("");
     }
-    codeInput.value = "";
-    errorMsg.style.display = "none";
-    closeSettings();
-    renderSettings();
-    return;
-  }
 
-  errorMsg.style.display = "block";
-}
+    function initGoogleAuth() {
+      const config = getGoogleConfig();
 
-const arabCountryCodes = new Set([
-  "DZ", "BH", "KM", "DJ", "EG", "IQ", "JO", "KW", "LB", "LY",
-  "MR", "MA", "OM", "PS", "QA", "SA", "SO", "SD", "SY", "TN", "AE", "YE"
-]);
+      if (!config.clientId || !config.backendUrl) {
+        console.warn("Google auth is not configured yet. Set window.GOOGLE_AUTH_CONFIG.clientId and backendUrl before testing sign-in.");
+        updateGoogleAccountUi();
+        return;
+      }
 
-async function isOctoberInArabCountry() {
-  const now = new Date();
-  if (now.getMonth() !== 9) return false;
+      if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+        console.warn("Google Identity Services is still loading.");
+        return;
+      }
 
-  try {
-    const response = await fetch("https://ipapi.co/json/", { cache: "no-store" });
-    if (!response.ok) return false;
-    const data = await response.json();
-    const countryCode = String(data.country_code || "").toUpperCase();
-    return arabCountryCodes.has(countryCode);
-  } catch {
-    return false;
-  }
-}
-
-function showNormalLoadingVideo() {
-  octoberLoading.style.display = "none";
-  loadingVideo.style.display = "flex";
-  loadVid.src = randomVideo;
-
-  const playAttempt = loadVid.play();
-  if (playAttempt && typeof playAttempt.catch === "function") {
-    playAttempt.catch(() => {});
-  }
-
-  loadVid.onended = finishLoading;
-}
-
-function showOctoberMemorialScreen() {
-  loadingVideo.style.display = "none";
-  octoberLoading.style.display = "flex";
-}
-
-function finishLoading() {
-  if (loadVid && typeof loadVid.pause === "function") {
-    loadVid.pause();
-  }
-  loadingVideo.style.display = "none";
-  octoberLoading.style.display = "none";
-  site.style.display = "block";
-  sessionStorage.setItem("visitedHome", "1");
-}
-
-function startNormalIntroFlow() {
-  if (sessionStorage.getItem("visitedHome")) {
-    intro.style.display = "none";
-    loadingVideo.style.display = "none";
-    octoberLoading.style.display = "none";
-    site.style.display = "block";
-    return;
-  }
-
-  setTimeout(async () => {
-    intro.style.display = "none";
-    const showOctoberScreen = await isOctoberInArabCountry();
-    if (showOctoberScreen) {
-      showOctoberMemorialScreen();
-    } else {
-      showNormalLoadingVideo();
+      window.google.accounts.id.initialize({
+        client_id: config.clientId,
+        callback: handleGoogleCredentialResponse,
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+      window.googleAuthInitialized = true;
     }
-  }, 3000);
-}
 
-function skipLoading() {
-  finishLoading();
-}
+    async function handleGoogleCredentialResponse(response) {
+      const config = getGoogleConfig();
+      const credential = response && response.credential;
 
-window.addEventListener("DOMContentLoaded", () => {
-  renderSettings();
-  updateSASButton();
-  initGoogleAuth();
-  startNormalIntroFlow();
-});
-</script>
+      if (!credential) {
+        showGoogleAuthError("Google sign-in did not return a credential.");
+        return;
+      }
+
+      if (!config.backendUrl) {
+        showGoogleAuthError("Set the HTTPS backend URL in window.GOOGLE_AUTH_CONFIG.backendUrl before continuing.");
+        return;
+      }
+
+      try {
+        const backendRes = await fetch(`${config.backendUrl}/auth/google`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          mode: "cors",
+          credentials: "include",
+          body: JSON.stringify({ idToken: credential })
+        });
+
+        let payload = {};
+        try {
+          payload = await backendRes.json();
+        } catch (error) {
+          payload = {};
+        }
+
+        if (!backendRes.ok) {
+          throw new Error(payload.message || payload.error || `Backend request failed (HTTP ${backendRes.status}).`);
+        }
+
+        if (payload.success === false) {
+          throw new Error(payload.message || payload.error || "Google authentication failed on the backend.");
+        }
+
+        const profile = payload.user || {};
+        const safeUser = {
+          name: profile.name || profile.displayName || "",
+          email: profile.email || "",
+          picture: profile.picture || profile.pictureUrl || ""
+        };
+
+        if (!safeUser.name && !safeUser.email && !safeUser.picture) {
+          throw new Error("The backend did not return verified user information.");
+        }
+
+        setStoredGoogleAccount(safeUser);
+        updateGoogleAccountUi();
+        showGoogleAuthError("");
+      } catch (error) {
+        console.error("Google auth failed:", error);
+        const message = error && error.message ? error.message : "Google sign-in failed. Please try again.";
+        showGoogleAuthError(message);
+      }
+    }
+
+    function requestGoogleSignIn() {
+      const config = getGoogleConfig();
+
+      if (!config.clientId || !config.backendUrl) {
+        showGoogleAuthError("Configure window.GOOGLE_AUTH_CONFIG with your Google OAuth Web Client ID and HTTPS backend URL.");
+        return;
+      }
+
+      if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+        showGoogleAuthError("Google sign-in is still loading. Please try again in a moment.");
+        return;
+      }
+
+      if (!window.googleAuthInitialized) {
+        window.google.accounts.id.initialize({
+          client_id: config.clientId,
+          callback: handleGoogleCredentialResponse,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+        window.googleAuthInitialized = true;
+      }
+
+      try {
+        window.google.accounts.id.prompt((notification) => {
+          if (notification && typeof notification === "object") {
+            if (typeof notification.isNotDisplayed === "function" && notification.isNotDisplayed()) {
+              console.warn("Google One Tap was not displayed.", notification);
+            }
+            if (typeof notification.isSkippedMoment === "function" && notification.isSkippedMoment()) {
+              console.warn("Google account chooser was skipped.", notification);
+            }
+          }
+        });
+        showGoogleAuthError("");
+      } catch (error) {
+        console.error("Google prompt failed:", error);
+        showGoogleAuthError("Google sign-in could not start. Please try again.");
+      }
+    }
+
+    function disconnectGoogleAccount() {
+      clearStoredGoogleAccount();
+      if (window.google && window.google.accounts && window.google.accounts.id && typeof window.google.accounts.id.disableAutoSelect === "function") {
+        window.google.accounts.id.disableAutoSelect();
+      }
+      updateGoogleAccountUi();
+      showGoogleAuthError("");
+    }
+
+    function getUnlockedCodes() {
+      try {
+        return JSON.parse(localStorage.getItem("unlockedCodes") || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function updateSASButton() {
+      const btn = document.getElementById("sasGameBtn");
+      if (!btn) return;
+      const unlocked = getUnlockedCodes();
+      btn.classList.toggle("visible", unlocked.includes(SAS_CODE));
+    }
+
+    function renderSettings() {
+      const savedUsername = localStorage.getItem("siteUsername");
+      const usernameText = document.getElementById("usernameText");
+      const usernameActionBtn = document.getElementById("usernameActionBtn");
+
+      if (savedUsername) {
+        usernameText.textContent = "Username: " + savedUsername;
+        usernameActionBtn.textContent = "✏️ Rename";
+      } else {
+        usernameText.textContent = "Username: Not set";
+        usernameActionBtn.textContent = "Set Username";
+      }
+
+      const unlockedCodes = getUnlockedCodes();
+      const codeListContent = document.getElementById("codeListContent");
+      codeListContent.innerHTML = "";
+
+      if (unlockedCodes.length === 0) {
+        codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
+      } else {
+        if (unlockedCodes.includes(SAS_CODE)) {
+          const item = document.createElement("div");
+          item.className = "code-item";
+          item.innerHTML = `
+            <div>
+              <div>🎮 SAS Game</div>
+              <div class="code-status">Status: <span class="enabled">Unlocked</span></div>
+            </div>
+            <button onclick="location.href='SAS/SAS.html'">Play</button>
+          `;
+          codeListContent.appendChild(item);
+        }
+      }
+
+      updateGoogleAccountUi();
+      updateSASButton();
+    }
+
+    function openSettings() {
+      document.getElementById("settingsModalOverlay").classList.add("active");
+      document.body.classList.add("modal-open");
+      renderSettings();
+    }
+
+    function closeSettings() {
+      document.getElementById("settingsModalOverlay").classList.remove("active");
+      document.body.classList.remove("modal-open");
+      document.getElementById("codeInputArea").style.display = "none";
+      document.getElementById("usernameInputArea").style.display = "none";
+      document.getElementById("usernameDisplayArea").style.display = "block";
+      document.getElementById("codeError").style.display = "none";
+    }
+
+    function closeSettingsOnBackdrop(e) {
+      if (e.target.id === "settingsModalOverlay") closeSettings();
+    }
+
+    function toggleUsernameInput() {
+      const displayArea = document.getElementById("usernameDisplayArea");
+      const inputArea = document.getElementById("usernameInputArea");
+      const usernameInput = document.getElementById("usernameInput");
+      usernameInput.value = localStorage.getItem("siteUsername") || "";
+      displayArea.style.display = "none";
+      inputArea.style.display = "flex";
+      usernameInput.focus();
+    }
+
+    function saveUsername() {
+      const input = document.getElementById("usernameInput").value.trim();
+      if (input) {
+        localStorage.setItem("siteUsername", input);
+      }
+      document.getElementById("usernameInputArea").style.display = "none";
+      document.getElementById("usernameDisplayArea").style.display = "block";
+      renderSettings();
+    }
+
+    function toggleCodeInput() {
+      const inputArea = document.getElementById("codeInputArea");
+      const errorMsg = document.getElementById("codeError");
+      errorMsg.style.display = "none";
+      if (inputArea.style.display === "none" || inputArea.style.display === "") {
+        inputArea.style.display = "block";
+        document.getElementById("codeInput").focus();
+      } else {
+        inputArea.style.display = "none";
+      }
+    }
+
+    function submitCode() {
+      const codeInput = document.getElementById("codeInput");
+      const val = codeInput.value.trim();
+      const errorMsg = document.getElementById("codeError");
+
+      if (val === SAS_CODE) {
+        const unlockedCodes = getUnlockedCodes();
+        if (!unlockedCodes.includes(SAS_CODE)) {
+          unlockedCodes.push(SAS_CODE);
+          localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
+        }
+        codeInput.value = "";
+        errorMsg.style.display = "none";
+        closeSettings();
+        renderSettings();
+        return;
+      }
+
+      errorMsg.style.display = "block";
+    }
+
+    const arabCountryCodes = new Set([
+      "DZ", "BH", "KM", "DJ", "EG", "IQ", "JO", "KW", "LB", "LY",
+      "MR", "MA", "OM", "PS", "QA", "SA", "SO", "SD", "SY", "TN", "AE", "YE"
+    ]);
+
+    async function isOctoberInArabCountry() {
+      const now = new Date();
+      if (now.getMonth() !== 9) return false;
+
+      try {
+        const response = await fetch("https://ipapi.co/json/", { cache: "no-store" });
+        if (!response.ok) return false;
+        const data = await response.json();
+        const countryCode = String(data.country_code || "").toUpperCase();
+        return arabCountryCodes.has(countryCode);
+      } catch {
+        return false;
+      }
+    }
+
+    function showNormalLoadingVideo() {
+      octoberLoading.style.display = "none";
+      loadingVideo.style.display = "flex";
+      loadVid.src = randomVideo;
+
+      const playAttempt = loadVid.play();
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {});
+      }
+
+      loadVid.onended = finishLoading;
+    }
+
+    function showOctoberMemorialScreen() {
+      loadingVideo.style.display = "none";
+      octoberLoading.style.display = "flex";
+    }
+
+    function finishLoading() {
+      if (loadVid && typeof loadVid.pause === "function") {
+        loadVid.pause();
+      }
+      loadingVideo.style.display = "none";
+      octoberLoading.style.display = "none";
+      site.style.display = "block";
+      sessionStorage.setItem("visitedHome", "1");
+    }
+
+    function startNormalIntroFlow() {
+      if (sessionStorage.getItem("visitedHome")) {
+        intro.style.display = "none";
+        loadingVideo.style.display = "none";
+        octoberLoading.style.display = "none";
+        site.style.display = "block";
+        return;
+      }
+
+      setTimeout(async () => {
+        intro.style.display = "none";
+
+        const showOctober = await isOctoberInArabCountry();
+        if (showOctober) {
+          showOctoberMemorialScreen();
+          setTimeout(() => finishLoading(), 4000);
+        } else {
+          showNormalLoadingVideo();
+        }
+      }, 3000);
+    }
+
+    function skipLoading() {
+      finishLoading();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderSettings();
+      renderHeaderGoogleProfile();
+      initGoogleAuth();
+      startNormalIntroFlow();
+    });
+  </script>
 </body>
 </html>
