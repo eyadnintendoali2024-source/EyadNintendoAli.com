@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eyad Nintendo Ali - Space</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <style>
 body {
@@ -354,6 +355,88 @@ button:hover {
 
 .settings-input:focus { box-shadow: 0 0 8px #00ccff; }
 
+.google-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(90deg, #ffffff, #e8f3ff);
+  color: #0b1026;
+  border: 1px solid rgba(0, 204, 255, 0.5);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(0, 204, 255, 0.25);
+}
+
+.google-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+}
+
+.google-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.google-user-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 204, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.google-user-card img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0, 204, 255, 0.8);
+}
+
+.google-user-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.google-user-meta strong {
+  display: block;
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.google-user-meta div {
+  color: #d0d7e7;
+  font-size: 12px;
+  word-break: break-word;
+}
+
+.google-status {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #00ff66;
+}
+
+.google-disconnect-btn {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.account-message {
+  margin: 0 0 10px;
+  color: #d0d7e7;
+  font-size: 13px;
+}
+
 .code-item {
   display: flex;
   justify-content: space-between;
@@ -492,6 +575,30 @@ for (let i = 0; i < 150; i++) {
     </div>
 
     <div class="settings-section">
+      <h3>🔐 Account</h3>
+      <div id="googleAccountContainer">
+        <div id="googleAccountSignedOut">
+          <p class="account-message">Connect your Google account to sign in securely.</p>
+          <button id="googleSignInBtn" class="google-btn" type="button" onclick="requestGoogleSignIn()">Continue with Google</button>
+        </div>
+
+        <div id="googleAccountSignedIn" style="display:none;">
+          <div class="google-user-card">
+            <img id="googleUserPicture" src="" alt="Google profile picture">
+            <div class="google-user-meta">
+              <strong id="googleUserName">Google User</strong>
+              <div id="googleUserEmail">user@example.com</div>
+              <span class="google-status">Connected</span>
+            </div>
+          </div>
+          <button id="googleDisconnectBtn" class="google-disconnect-btn" type="button" onclick="disconnectGoogleAccount()">Disconnect Google Account</button>
+        </div>
+
+        <div id="googleAuthError" class="error-msg">❌ Google authentication failed.</div>
+      </div>
+    </div>
+
+    <div class="settings-section">
       <h3>📋 Code List</h3>
       <div id="codeListContent">
         <p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>
@@ -512,6 +619,11 @@ for (let i = 0; i < 150; i++) {
 </div>
 
 <script>
+window.GOOGLE_AUTH_CONFIG = window.GOOGLE_AUTH_CONFIG || {
+  clientId: "",
+  backendUrl: ""
+};
+
 const intro = document.getElementById("intro");
 const site = document.getElementById("site");
 const loadingVideo = document.getElementById("loadingVideo");
@@ -521,6 +633,197 @@ const SAS_CODE = "2511";
 
 const loadingVideos = ["loading.mp4", "loading2.mp4"];
 const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
+
+function getStoredGoogleAccount() {
+  try {
+    return JSON.parse(localStorage.getItem("siteGoogleAccount") || "null");
+  } catch {
+    return null;
+  }
+}
+
+function setStoredGoogleAccount(account) {
+  localStorage.setItem("siteGoogleAccount", JSON.stringify(account));
+}
+
+function clearStoredGoogleAccount() {
+  localStorage.removeItem("siteGoogleAccount");
+}
+
+function getGoogleConfig() {
+  const config = window.GOOGLE_AUTH_CONFIG || {};
+  return {
+    clientId: String(config.clientId || window.GOOGLE_CLIENT_ID || "").trim(),
+    backendUrl: String(config.backendUrl || window.GOOGLE_BACKEND_URL || "").trim().replace(/\/+$/, "")
+  };
+}
+
+function showGoogleAuthError(message) {
+  const errorBox = document.getElementById("googleAuthError");
+  if (!errorBox) return;
+
+  if (!message) {
+    errorBox.textContent = "❌ Google authentication failed.";
+    errorBox.style.display = "none";
+    return;
+  }
+
+  errorBox.textContent = `❌ ${message}`;
+  errorBox.style.display = "block";
+}
+
+function updateGoogleAccountUi() {
+  const account = getStoredGoogleAccount();
+  const signedOut = document.getElementById("googleAccountSignedOut");
+  const signedIn = document.getElementById("googleAccountSignedIn");
+  const signInBtn = document.getElementById("googleSignInBtn");
+  const nameEl = document.getElementById("googleUserName");
+  const emailEl = document.getElementById("googleUserEmail");
+  const pictureEl = document.getElementById("googleUserPicture");
+  const config = getGoogleConfig();
+
+  if (signInBtn) {
+    signInBtn.disabled = false;
+    signInBtn.textContent = "Continue with Google";
+    signInBtn.title = "";
+
+    if (!config.clientId || !config.backendUrl) {
+      signInBtn.disabled = true;
+      signInBtn.title = "Add your Google OAuth Web Client ID and HTTPS backend URL in window.GOOGLE_AUTH_CONFIG before using Google sign-in.";
+    }
+  }
+
+  if (account && account.name && account.email) {
+    if (signedOut) signedOut.style.display = "none";
+    if (signedIn) signedIn.style.display = "block";
+    if (nameEl) nameEl.textContent = account.name || "Google User";
+    if (emailEl) emailEl.textContent = account.email || "No email available";
+    if (pictureEl) {
+      pictureEl.src = account.picture || "";
+      pictureEl.style.display = account.picture ? "block" : "none";
+    }
+  } else {
+    if (signedOut) signedOut.style.display = "block";
+    if (signedIn) signedIn.style.display = "none";
+  }
+
+  showGoogleAuthError("");
+}
+
+function initGoogleAuth() {
+  const config = getGoogleConfig();
+
+  if (!config.clientId || !config.backendUrl) {
+    console.warn("Google auth is not configured yet. Set window.GOOGLE_AUTH_CONFIG.clientId and backendUrl before testing sign-in.");
+    updateGoogleAccountUi();
+    return;
+  }
+
+  if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+    console.warn("Google Identity Services is still loading.");
+    return;
+  }
+
+  window.google.accounts.id.initialize({
+    client_id: config.clientId,
+    callback: handleGoogleCredentialResponse,
+    auto_select: false,
+    cancel_on_tap_outside: true
+  });
+}
+
+async function handleGoogleCredentialResponse(response) {
+  const config = getGoogleConfig();
+  const credential = response && response.credential;
+
+  if (!credential) {
+    showGoogleAuthError("Google sign-in did not return a credential.");
+    return;
+  }
+
+  if (!config.backendUrl) {
+    showGoogleAuthError("Set the HTTPS backend URL in window.GOOGLE_AUTH_CONFIG.backendUrl before continuing.");
+    return;
+  }
+
+  try {
+    const backendRes = await fetch(`${config.backendUrl}/auth/google`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        credential,
+        clientId: config.clientId
+      })
+    });
+
+    let payload = {};
+    try {
+      payload = await backendRes.json();
+    } catch {
+      payload = {};
+    }
+
+    if (!backendRes.ok || payload.success === false) {
+      throw new Error(payload.message || "Google authentication failed on the backend.");
+    }
+
+    const safeUser = {
+      name: payload.user && payload.user.name ? payload.user.name : payload.name || "Google User",
+      email: payload.user && payload.user.email ? payload.user.email : payload.email || "",
+      picture: payload.user && payload.user.picture ? payload.user.picture : payload.picture || ""
+    };
+
+    setStoredGoogleAccount(safeUser);
+    updateGoogleAccountUi();
+    showGoogleAuthError("");
+  } catch (error) {
+    console.error("Google auth failed:", error);
+    showGoogleAuthError(error.message || "Google authentication failed.");
+  }
+}
+
+function requestGoogleSignIn() {
+  const config = getGoogleConfig();
+
+  if (!config.clientId || !config.backendUrl) {
+    showGoogleAuthError("Configure window.GOOGLE_AUTH_CONFIG with your Google OAuth Web Client ID and HTTPS backend URL.");
+    return;
+  }
+
+  if (!window.google || !window.google.accounts || !window.google.accounts.id) {
+    showGoogleAuthError("Google sign-in is still loading. Please try again in a moment.");
+    return;
+  }
+
+  if (!window.googleAuthInitialized) {
+    window.google.accounts.id.initialize({
+      client_id: config.clientId,
+      callback: handleGoogleCredentialResponse,
+      auto_select: false,
+      cancel_on_tap_outside: true
+    });
+    window.googleAuthInitialized = true;
+  }
+
+  try {
+    window.google.accounts.id.prompt((notification) => {
+      if (notification && ((typeof notification.isNotDisplayed === "function" && notification.isNotDisplayed()) || (typeof notification.isSkippedMoment === "function" && notification.isSkippedMoment()))) {
+        console.warn("Google One Tap was not displayed:", notification);
+      }
+    });
+    showGoogleAuthError("");
+  } catch (error) {
+    console.error("Google prompt failed:", error);
+    showGoogleAuthError("Google sign-in could not start. Please try again.");
+  }
+}
+
+function disconnectGoogleAccount() {
+  clearStoredGoogleAccount();
+  updateGoogleAccountUi();
+  showGoogleAuthError("");
+}
 
 function getUnlockedCodes() {
   try {
@@ -571,6 +874,7 @@ function renderSettings() {
     }
   }
 
+  updateGoogleAccountUi();
   updateSASButton();
 }
 
@@ -721,6 +1025,7 @@ function skipLoading() {
 window.addEventListener("DOMContentLoaded", () => {
   renderSettings();
   updateSASButton();
+  initGoogleAuth();
   startNormalIntroFlow();
 });
 </script>
