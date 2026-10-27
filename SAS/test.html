@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>Eyad Nintendo Ali - Fingerprint Scanner</title>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #07111f;
+  --panel: #101e30;
+  --cyan: #35e8ff;
+  --green: #44ffab;
+  --red: #ff647c;
+  --text: #edf8ff;
+  --muted: #9bb0c6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: system-ui, Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at top, #123452 0%, transparent 55%),
+    var(--bg);
+  color: var(--text);
+}
+
+main {
+  width: min(100%, 520px);
+  margin: auto;
+}
+
+header { text-align: center; margin: 12px 0 24px; }
+
+.logo {
+  width: 66px;
+  height: 66px;
+  margin: auto auto 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #35e8ff70;
+  border-radius: 22px;
+  background: #102c42;
+  box-shadow: 0 0 28px #35e8ff25;
+}
+
+h1 { font-size: 25px; margin: 0; }
+.subtitle { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+.card {
+  padding: 22px;
+  margin-bottom: 16px;
+  border: 1px solid #29425b;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #14253a, #0b1727);
+  box-shadow: 0 12px 35px #0003;
+}
+
+.scanner {
+  width: 180px;
+  height: 200px;
+  margin: 12px auto 18px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid #35e8ff65;
+  border-radius: 28px;
+  background: radial-gradient(ellipse, #153f54, #091727 72%);
+}
+
+.fingerprint {
+  width: 125px;
+  height: 150px;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 8px #35e8ff80);
+  transition: color .3s, filter .3s;
+}
+
+.scanner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10%;
+  height: 3px;
+  background: var(--cyan);
+  box-shadow: 0 0 14px 4px #35e8ff90;
+  opacity: 0;
+  z-index: 2;
+}
+
+.scanner.active::before {
+  opacity: 1;
+  animation: scan 1.6s linear infinite;
+}
+
+.scanner.success .fingerprint {
+  color: var(--green);
+  filter: drop-shadow(0 0 12px #44ffab);
+}
+
+.scanner.error .fingerprint {
+  color: var(--red);
+  filter: drop-shadow(0 0 12px #ff647c);
+}
+
+@keyframes scan {
+  from { top: 0; }
+  to { top: 100%; }
+}
+
+.status {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 650;
+  min-height: 24px;
+}
+
+.detail {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 38px;
+  margin-top: 7px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  padding: 13px 10px;
+  border-radius: 12px;
+  border: 1px solid #35e8ff50;
+  color: var(--text);
+  background: #173149;
+  cursor: pointer;
+  transition: transform .15s, background .2s;
+}
+
+button:active { transform: scale(.97); }
+button:disabled { opacity: .45; cursor: wait; }
+
+button.primary {
+  color: #04131e;
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+
+button.green {
+  background: #123c36;
+  border-color: #44ffab75;
+}
+
+button.danger {
+  background: #3c1d2a;
+  border-color: #ff647c70;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 750;
+  margin-bottom: 13px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border-radius: 11px;
+  border: 1px solid #39536d;
+  background: #071321;
+  color: white;
+  font: inherit;
+  outline: none;
+}
+
+input:focus { border-color: var(--cyan); }
+
+.command-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.command-row button { min-width: 86px; }
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.profile {
+  padding: 13px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: #0a1725;
+  border: 1px solid #263d53;
+}
+
+.profile-name { font-weight: 700; overflow-wrap: anywhere; }
+.profile-meta { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.profile-actions button { flex: 1; font-size: 12px; }
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 99px;
+  background: #173b35;
+  color: var(--green);
+  font-size: 11px;
+}
+
+footer {
+  text-align: center;
+  padding: 12px 0 4px;
+  font-size: 11px;
+  color: #8298af;
+}
+
+@media (max-width: 380px) {
+  body { padding: 12px; }
+  .card { padding: 16px; }
+  h1 { font-size: 21px; }
+}
+</style>
+</head>
+
+<body>
+<main>
+  <header>
+    <div class="logo">
+      <svg width="38" height="38" viewBox="0 0 100 100"
+           fill="none" stroke="#35e8ff" stroke-width="5"
+           stroke-linecap="round">
+        <path d="M24 39C26 19 42 11 56 14C75 17 84 33 81 51"/>
+        <path d="M15 48C15 25 31 9 51 8"/>
+        <path d="M33 46C33 31 42 25 52 26C65 27 71 38 69 53"/>
+        <path d="M42 48C42 40 46 36 52 37C59 38 60 44 59 54"/>
+        <path d="M23 59C24 76 32 88 43 94"/>
+        <path d="M34 62C35 75 40 82 49 86"/>
+        <path d="M70 64C68 77 62 85 55 89"/>
+        <path d="M80 60C78 75 73 86 65 94"/>
+      </svg>
+    </div>
+    <h1>Fingerprint Scanner</h1>
+    <div class="subtitle">EYAD NINTENDO ALI · BIOMETRIC ACCESS</div>
+  </header>
+
+  <section class="card">
+    <div class="scanner" id="scanner">
+      <svg class="fingerprint" viewBox="0 0 100 120"
+           fill="none" stroke="currentColor" stroke-width="3.2"
+           stroke-linecap="round">
+        <path d="M50 13C29 13 15 29 15 49"/>
+        <path d="M50 23C35 23 25 34 25 49"/>
+        <path d="M50 33C41 33 35 40 35 49"/>
+        <path d="M50 43C47 43 45 45 45 49"/>
+        <path d="M50 13C71 13 85 29 85 49"/>
+        <path d="M50 23C65 23 75 34 75 49"/>
+        <path d="M50 33C59 33 65 40 65 49"/>
+        <path d="M15 57C15 80 25 99 40 109"/>
+        <path d="M25 57C25 75 32 90 43 97"/>
+        <path d="M35 57C35 70 39 79 47 85"/>
+        <path d="M45 57C45 64 48 69 52 73"/>
+        <path d="M85 57C85 80 75 99 60 109"/>
+        <path d="M75 57C75 75 68 90 57 97"/>
+        <path d="M65 57C65 70 61 79 53 85"/>
+        <path d="M55 57C55 64 52 69 48 73"/>
+        <path d="M50 53V57"/>
+      </svg>
+    </div>
+
+    <div class="status" id="status" aria-live="polite">
+      Scanner ready
+    </div>
+    <div class="detail" id="detail">
+      Add a fingerprint to get started, or scan an enrolled credential.
+    </div>
+
+    <div class="actions">
+      <button class="primary" id="addBtn">＋ Add Fingerprint</button>
+      <button class="green" id="scanBtn">◎ Scan</button>
+      <button id="checkBtn">Check Device</button>
+      <button class="danger" id="clearBtn">Clear Saved Data</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title">⌨ Scanner Command</div>
+    <div class="command-row">
+      <input id="command" placeholder="Type scan or add"
+             autocomplete="off" aria-label="Scanner command">
+      <button class="primary" id="runBtn">Run</button>
+    </div>
+    <div class="hint">
+      Commands: <b>scan</b>, <b>add</b>, <b>list</b>,
+      <b>check</b>, <b>help</b>.
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title">
+      Enrolled Credentials
+      <span class="badge" id="count">0 saved</span>
+    </div>
+    <div id="profiles">
+      <div class="hint">No credentials enrolled yet.</div>
+    </div>
+    <div class="hint">
+      This list contains browser credential IDs and labels, not fingerprint
+      images or fingerprint templates.
+    </div>
+  </section>
+
+  <footer>
+    Made by Eyad Nintendo Ali · Browser-based biometric demo
+  </footer>
+</main>
+
+<script>
+"use strict";
+
+const STORAGE_KEY = "eyad-fingerprint-credentials-v1";
+
+const $ = id => document.getElementById(id);
+
+const scanner = $("scanner");
+const statusBox = $("status");
+const detailBox = $("detail");
+const addBtn = $("addBtn");
+const scanBtn = $("scanBtn");
+const checkBtn = $("checkBtn");
+const clearBtn = $("clearBtn");
+const commandInput = $("command");
+
+let busy = false;
+
+function loadProfiles() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(data) ? data.filter(p =>
+      p && typeof p.id === "string" &&
+      typeof p.name === "string"
+    ) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveProfiles(profiles) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+}
+
+function setStatus(title, detail, state = "") {
+  statusBox.textContent = title;
+  detailBox.textContent = detail;
+  scanner.classList.remove("active", "success", "error");
+  if (state) scanner.classList.add(state);
+}
+
+function setBusy(value) {
+  busy = value;
+  [addBtn, scanBtn, checkBtn, clearBtn, $("runBtn")]
+    .forEach(btn => btn.disabled = value);
+}
+
+function animateStart(title, detail) {
+  setStatus(title, detail, "active");
+}
+
+function base64url(bytes) {
+  let binary = "";
+  new Uint8Array(bytes).forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+function randomBytes(length = 32) {
+  const bytes = new Uint8Array(length);
+  crypto.getRandomValues(bytes);
+  return bytes;
+}
+
+function isSupported() {
+  return !!(
+    window.isSecureContext &&
+    window.PublicKeyCredential &&
+    navigator.credentials
+  );
+}
+
+async function checkDevice() {
+  if (!window.isSecureContext) {
+    setStatus(
+      "Secure connection required",
+      "Open this page on HTTPS or localhost. A file:// page cannot reliably use WebAuthn.",
+      "error"
+    );
+    return;
+  }
+
+  if (!isSupported()) {
+    setStatus(
+      "Biometric API unavailable",
+      "Use a supported, updated browser with WebAuthn enabled.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    let platformAvailable = "Unknown";
+
+    if (PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+      platformAvailable =
+        await PublicKeyCredential
+          .isUserVerifyingPlatformAuthenticatorAvailable();
+    }
+
+    let conditionalAvailable = "Not checked";
+
+    if (PublicKeyCredential.isConditionalMediationAvailable) {
+      conditionalAvailable =
+        await PublicKeyCredential.isConditionalMediationAvailable();
+    }
+
+    setStatus(
+      platformAvailable ? "Platform authenticator detected"
+                         : "No platform authenticator confirmed",
+      "Secure context: yes. Platform authenticator: " +
+      platformAvailable + ". Conditional mediation: " +
+      conditionalAvailable + ". A device PIN, password, or biometric may be required.",
+      platformAvailable ? "success" : ""
+    );
+  } catch (err) {
+    setStatus("Device check incomplete", err.message || String(err), "error");
+  }
+}
+
+function getLabel() {
+  const name = prompt("Enter a name for this credential:", "My Fingerprint");
+  if (name === null) return null;
+
+  const trimmed = name.trim();
+  if (!trimmed) {
+    alert("Please enter a name.");
+    return null;
+  }
+  return trimmed.slice(0, 60);
+}
+
+async function addFingerprint() {
+  if (busy) return;
+
+  if (!isSupported()) {
+    setStatus(
+      "Cannot enroll",
+      "Open this page using HTTPS or localhost in a WebAuthn-capable browser.",
+      "error"
+    );
+    return;
+  }
+
+  const name = getLabel();
+  if (!name) return;
+
+  setBusy(true);
+  animateStart(
+    "Prepare your device",
+    "Follow the browser's security prompt. Use the fingerprint reader if offered."
+  );
+
+  try {
+    const userId = randomBytes(16);
+    const challenge = randomBytes(32);
+
+    const options = {
+      publicKey: {
+        challenge,
+        rp: {
+          name: "Eyad Nintendo Ali Fingerprint Demo"
+        },
+        user: {
+          id: userId,
+          name: "eyad-" + base64url(userId),
+          displayName: name
+        },
+        pubKeyCredParams: [
+          { type: "public-key", alg: -7 },
+          { type: "public-key", alg: -257 }
+        ],
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required",
+          residentKey: "preferred"
+        },
+        timeout: 60000,
+        attestation: "none"
+      }
+    };
+
+    const credential = await navigator.credentials.create(options);
+
+    if (!credential) throw new Error("No credential was created.");
+
+    const profiles = loadProfiles();
+
+    profiles.push({
+      id: base64url(credential.rawId),
+      name,
+      createdAt: new Date().toISOString()
+    });
+
+    saveProfiles(profiles);
+    renderProfiles();
+
+    setStatus(
+      "Enrollment successful!",
+      name + " was registered with the device's authentication system. Try Scan to verify it.",
+      "success"
+    );
+  } catch (err) {
+    setStatus(
+      "Enrollment cancelled or failed",
+      friendlyError(err),
+      "error"
+    );
+  } finally {
+    setBusy(false);
+  }
+}
+
+async function scanFingerprint(selectedId = null) {
+  if (busy) return;
+
+  if (!isSupported()) {
+    setStatus(
+      "Scanner unavailable",
+      "Open the page through HTTPS or localhost in a supported browser.",
+      "error"
+    );
+    return;
+  }
+
+  const profiles = loadProfiles();
+  if (!profiles.length) {
+    setStatus(
+      "No credentials enrolled",
+      "Select Add Fingerprint first, then follow your device's security prompt.",
+      "error"
+    );
+    return;
+  }
+
+  const profile = selectedId
+    ? profiles.find(p => p.id === selectedId)
+    : null;
+
+  if (selectedId && !profile) {
+    setStatus("Credential not found", "Enroll it again to continue.", "error");
+    return;
+  }
+
+  setBusy(true);
+  animateStart(
+    "Place your finger on the reader",
+    "Complete the browser's authentication prompt. The device may request its PIN or screen lock instead."
+  );
+
+  try {
+    const allowCredentials = (profile ? [profile] : profiles).map(p => ({
+      type: "public-key",
+      id: Uint8Array.from(
+        atob(p.id.replace(/-/g, "+").replace(/_/g, "/") +
+          "=".repeat((4 - p.id.length % 4) % 4)),
+        c => c.charCodeAt(0)
+      )
+    }));
+
+    const credential = await navigator.credentials.get({
+      publicKey: {
+        challenge: randomBytes(32),
+        allowCredentials,
+        userVerification: "required",
+        timeout: 60000
+      }
+    });
+
+    if (!credential) throw new Error("Authentication returned no credential.");
+
+    const matched = loadProfiles().find(
+      p => p.id === base64url(credential.rawId)
+    );
+
+    if (matched) {
+      setStatus(
+        "Authentication succeeded!",
+        "The device authenticated the enrolled credential: " +
+          matched.name + ".",
+        "success"
+      );
+    } else {
+      setStatus(
+        "Credential not in local list",
+        "The device returned a credential that this page does not recognize.",
+        "error"
+      );
+    }
+  } catch (err) {
+    setStatus(
+      "Scan cancelled or failed",
+      friendlyError(err),
+      "error"
+    );
+  } finally {
+    setBusy(false);
+  }
+}
+
+function friendlyError(err) {
+  if (!err) return "Unknown error.";
+
+  if (err.name === "NotAllowedError") {
+    return "The request timed out, was cancelled, or the device did not approve authentication.";
+  }
+
+  if (err.name === "NotSupportedError") {
+    return "This browser or device does not support the requested platform authentication.";
+  }
+
+  if (err.name === "InvalidStateError") {
+    return "This credential may already be registered.";
+  }
+
+  if (err.name === "SecurityError") {
+    return "Browser security rules blocked the request. Use HTTPS or localhost and check the site origin.";
+  }
+
+  if (err.name === "NotReadableError") {
+    return "The authenticator could not be accessed. Check device security settings.";
+  }
+
+  return err.message || String(err);
+}
+
+function renderProfiles() {
+  const profiles = loadProfiles();
+  $("count").textContent = profiles.length + " saved";
+  const root = $("profiles");
+  root.replaceChildren();
+
+  if (!profiles.length) {
+    const empty = document.createElement("div");
+    empty.className = "hint";
+    empty.textContent = "No credentials enrolled yet.";
+    root.appendChild(empty);
+    return;
+  }
+
+  profiles.forEach(profile => {
+    const item = document.createElement("div");
+    item.className = "profile";
+
+    const name = document.createElement("div");
+    name.className = "profile-name";
+    name.textContent = "◎ " + profile.name;
+
+    const meta = document.createElement("div");
+    meta.className = "profile-meta";
+    meta.textContent = "Enrolled: " +
+      (profile.createdAt ? new Date(profile.createdAt).toLocaleString()
+                         : "Date unavailable");
+
+    const actions = document.createElement("div");
+    actions.className = "profile-actions";
+
+    const scan = document.createElement("button");
+    scan.className = "green";
+    scan.textContent = "Scan this";
+    scan.addEventListener("click", () => scanFingerprint(profile.id));
+
+    const remove = document.createElement("button");
+    remove.className = "danger";
+    remove.textContent = "Remove";
+    remove.addEventListener("click", () => removeProfile(profile.id));
+
+    actions.append(scan, remove);
+    item.append(name, meta, actions);
+    root.appendChild(item);
+  });
+}
+
+function removeProfile(id) {
+  if (busy) return;
+
+  if (!confirm("Remove this credential from the local list?")) return;
+
+  saveProfiles(loadProfiles().filter(p => p.id !== id));
+  renderProfiles();
+
+  setStatus(
+    "Removed from local list",
+    "This removes the browser's saved reference only. It does not delete the credential from your device authenticator."
+  );
+}
+
+function clearProfiles() {
+  if (busy) return;
+  if (!loadProfiles().length) {
+    setStatus("Nothing to clear", "No locally saved credentials.");
+    return;
+  }
+
+  if (!confirm(
+    "Remove every credential reference saved by this page? " +
+    "This does not erase fingerprints or delete device credentials."
+  )) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+  renderProfiles();
+  setStatus(
+    "Local list cleared",
+    "Device credentials may still exist in your device or password manager."
+  );
+}
+
+function runCommand() {
+  const command = commandInput.value.trim().toLowerCase();
+  commandInput.value = "";
+
+  switch (command) {
+    case "scan":
+      scanFingerprint();
+      break;
+    case "add":
+    case "enroll":
+      addFingerprint();
+      break;
+    case "check":
+      checkDevice();
+      break;
+    case "list":
+      renderProfiles();
+      setStatus(
+        "Credentials listed",
+        loadProfiles().length + " credential reference(s) saved locally."
+      );
+      break;
+    case "help":
+      setStatus(
+        "Available commands",
+        "scan = authenticate; add = enroll; check = test device support; list = show saved credentials."
+      );
+      break;
+    case "":
+      setStatus("Enter a command", "Type scan, add, check, list, or help.");
+      break;
+    default:
+      setStatus(
+        "Unknown command",
+        "Try scan, add, check, list, or help.",
+        "error"
+      );
+  }
+}
+
+addBtn.addEventListener("click", addFingerprint);
+scanBtn.addEventListener("click", () => scanFingerprint());
+checkBtn.addEventListener("click", checkDevice);
+clearBtn.addEventListener("click", clearProfiles);
+$("runBtn").addEventListener("click", runCommand);
+
+commandInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") runCommand();
+});
+
+renderProfiles();
+
+if (!window.isSecureContext) {
+  setStatus(
+    "Demo ready · Secure access needed",
+    "The interface works, but real authentication requires HTTPS or localhost.",
+    "error"
+  );
+}
+</script>
+</body>
+</html>
