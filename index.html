@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eyad Nintendo Ali - Space</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://accounts.google.com/gsi/client" async defer onerror="window.googleScriptLoadFailed=true; if (typeof window.showGoogleScriptFailure === 'function') window.showGoogleScriptFailure();"></script>
   <style>
     :root {
       --space-bg: #000000;
@@ -181,9 +181,7 @@
       transition: opacity 0.2s ease;
     }
 
-    .site-google-profile[hidden] {
-      display: none;
-    }
+    .site-google-profile[hidden] { display: none; }
 
     .site-google-profile img {
       width: 28px;
@@ -678,13 +676,13 @@
         <div id="googleAccountContainer">
           <div id="googleAccountSignedOut">
             <p class="account-message">Connect your Google account to sign in securely.</p>
-            <button id="googleSignInBtn" class="google-btn" type="button" onclick="requestGoogleSignIn()">
+            <button id="googleSignInBtn" class="google-btn" type="button" aria-label="Continue with Google">
               <span class="google-g-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2 6.9 2.2 2.7 6.5 2.7 11.7S6.9 21.2 12 21.2c6.9 0 11.4-4.8 11.4-11.6 0-.8-.1-1.4-.2-2H12z"/>
+                  <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2 6.9 2.2 2.7 6.5 2.7 11.7S6.9 21.2 12 21.2c3.7 0 6.8-1.3 9.1-3.6l-3.3-2.8c-.9.6-2.2 1.1-5.8 1.1-3.2 0-5.7-2.2-6.1-4.9l-3.2 2.9z" opacity=".9"/>
                   <path fill="#34A853" d="M3.7 7.2l3.7 2.7C8.3 7.7 10 6.8 12 6.8c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2c-3.2 0-6 1.8-7.3 4.5z" opacity=".9"/>
                   <path fill="#FBBC05" d="M3.9 18.9C5.2 21 7.7 22.2 12 22.2c3.7 0 6.8-1.3 9.1-3.6l-3.3-2.8c-.9.6-2.2 1.1-5.8 1.1-3.2 0-5.7-2.2-6.1-4.9l-3.2 2.9z" opacity=".9"/>
-                  <path fill="#4285F4" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2 6.9 2.2 2.7 6.5 2.7 11.7S6.9 21.2 12 21.2c6.9 0 11.4-4.8 11.4-11.6 0-.8-.1-1.4-.2-2H12z" opacity="0"/>
+                  <path fill="#4285F4" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2c-3.2 0-6 1.8-7.3 4.5z" opacity=".9"/>
                 </svg>
               </span>
               <span>Continue with Google</span>
@@ -734,6 +732,9 @@
       backendUrl: "https://divine-pleased-resolve-hints.trycloudflare.com"
     };
 
+    window.googleScriptLoadFailed = false;
+    window.googleAuthInitialized = false;
+
     const intro = document.getElementById("intro");
     const site = document.getElementById("site");
     const loadingVideo = document.getElementById("loadingVideo");
@@ -743,6 +744,11 @@
 
     const loadingVideos = ["loading.mp4", "loading2.mp4"];
     const randomVideo = loadingVideos[Math.floor(Math.random() * loadingVideos.length)];
+
+    function showGoogleScriptFailure() {
+      window.googleScriptLoadFailed = true;
+      showGoogleAuthError("Google sign-in is unavailable because the Google script failed to load.");
+    }
 
     function getStoredGoogleAccount() {
       try {
@@ -826,7 +832,7 @@
         if (signedOut) signedOut.style.display = "none";
         if (signedIn) signedIn.style.display = "block";
         if (nameEl) nameEl.textContent = account.name || "Google User";
-        if (emailEl) emailEl.textContent = (account.email || "No email available");
+        if (emailEl) emailEl.textContent = account.email || "No email available";
         if (pictureEl) {
           pictureEl.src = account.picture || "";
           pictureEl.style.display = account.picture ? "block" : "none";
@@ -843,6 +849,44 @@
       showGoogleAuthError("");
     }
 
+    function renderGoogleSignInButton() {
+      const signInBtn = document.getElementById("googleSignInBtn");
+      if (!signInBtn || !window.google || !window.google.accounts || !window.google.accounts.id) {
+        return;
+      }
+      if (signInBtn.dataset.googleRendered === "true") {
+        return;
+      }
+      signInBtn.dataset.googleRendered = "true";
+      signInBtn.innerHTML = "";
+      try {
+        window.google.accounts.id.renderButton(signInBtn, {
+          type: "standard",
+          theme: "outline",
+          size: "large",
+          text: "signin_with",
+          shape: "rectangular",
+          logo_alignment: "left",
+          width: Math.max(240, signInBtn.offsetWidth || 300),
+          locale: "en"
+        });
+      } catch (error) {
+        console.error("Google button render failed:", error);
+        signInBtn.dataset.googleRendered = "false";
+        signInBtn.innerHTML = `
+          <span class="google-g-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2 6.9 2.2 2.7 6.5 2.7 11.7S6.9 21.2 12 21.2c3.7 0 6.8-1.3 9.1-3.6l-3.3-2.8c-.9.6-2.2 1.1-5.8 1.1-3.2 0-5.7-2.2-6.1-4.9l-3.2 2.9z" opacity=".9"/>
+              <path fill="#34A853" d="M3.7 7.2l3.7 2.7C8.3 7.7 10 6.8 12 6.8c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2c-3.2 0-6 1.8-7.3 4.5z" opacity=".9"/>
+              <path fill="#FBBC05" d="M3.9 18.9C5.2 21 7.7 22.2 12 22.2c3.7 0 6.8-1.3 9.1-3.6l-3.3-2.8c-.9.6-2.2 1.1-5.8 1.1-3.2 0-5.7-2.2-6.1-4.9l-3.2 2.9z" opacity=".9"/>
+              <path fill="#4285F4" d="M12 10.2v3.9h5.4c-.2 1.3-1.5 3.9-5.4 3.9-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3.1.8 3.8 1.4l2.6-2.5C16.8 3.1 14.8 2.2 12 2.2c-3.2 0-6 1.8-7.3 4.5z" opacity=".9"/>
+            </svg>
+          </span>
+          <span>Continue with Google</span>
+        `;
+      }
+    }
+
     function initGoogleAuth() {
       const config = getGoogleConfig();
 
@@ -853,7 +897,14 @@
       }
 
       if (!window.google || !window.google.accounts || !window.google.accounts.id) {
-        console.warn("Google Identity Services is still loading.");
+        if (window.googleScriptLoadFailed) {
+          showGoogleAuthError("Google sign-in is unavailable because the Google script failed to load.");
+        }
+        return;
+      }
+
+      if (window.googleAuthInitialized) {
+        renderGoogleSignInButton();
         return;
       }
 
@@ -864,6 +915,7 @@
         cancel_on_tap_outside: true
       });
       window.googleAuthInitialized = true;
+      renderGoogleSignInButton();
     }
 
     async function handleGoogleCredentialResponse(response) {
@@ -881,16 +933,18 @@
       }
 
       try {
-        const backendRes = await fetch(`${config.backendUrl}/auth/google`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          mode: "cors",
-          credentials: "include",
-          body: JSON.stringify({ idToken: credential })
-        });
+        const backendRes = await fetch(
+          `${config.backendUrl}/auth/google`,
+          {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({ idToken: credential })
+          }
+        );
 
         let payload = {};
         try {
@@ -900,22 +954,28 @@
         }
 
         if (!backendRes.ok) {
-          throw new Error(payload.message || payload.error || `Backend request failed (HTTP ${backendRes.status}).`);
+          const message = payload && (payload.message || payload.error)
+            ? payload.message || payload.error
+            : `Google authentication failed (HTTP ${backendRes.status}).`;
+          if (backendRes.status === 401) {
+            throw new Error(`Authentication failed: ${message}`);
+          }
+          throw new Error(message);
         }
 
-        if (payload.success === false) {
+        if (payload && payload.success === false) {
           throw new Error(payload.message || payload.error || "Google authentication failed on the backend.");
         }
 
-        const profile = payload.user || {};
+        const profile = payload && payload.user ? payload.user : {};
         const safeUser = {
-          name: profile.name || profile.displayName || "",
-          email: profile.email || "",
-          picture: profile.picture || profile.pictureUrl || ""
+          name: typeof profile.name === "string" ? profile.name : (typeof profile.displayName === "string" ? profile.displayName : ""),
+          email: typeof profile.email === "string" ? profile.email : "",
+          picture: typeof profile.picture === "string" ? profile.picture : (typeof profile.pictureUrl === "string" ? profile.pictureUrl : "")
         };
 
         if (!safeUser.name && !safeUser.email && !safeUser.picture) {
-          throw new Error("The backend did not return verified user information.");
+          throw new Error("The backend did not return valid Google account information.");
         }
 
         setStoredGoogleAccount(safeUser);
@@ -942,13 +1002,7 @@
       }
 
       if (!window.googleAuthInitialized) {
-        window.google.accounts.id.initialize({
-          client_id: config.clientId,
-          callback: handleGoogleCredentialResponse,
-          auto_select: false,
-          cancel_on_tap_outside: true
-        });
-        window.googleAuthInitialized = true;
+        initGoogleAuth();
       }
 
       try {
@@ -998,191 +1052,170 @@
       const usernameText = document.getElementById("usernameText");
       const usernameActionBtn = document.getElementById("usernameActionBtn");
 
-      if (savedUsername) {
-        usernameText.textContent = "Username: " + savedUsername;
-        usernameActionBtn.textContent = "✏️ Rename";
-      } else {
-        usernameText.textContent = "Username: Not set";
-        usernameActionBtn.textContent = "Set Username";
+      if (usernameText) {
+        usernameText.textContent = savedUsername ? `Username: ${savedUsername}` : "Username: Not set";
       }
 
-      const unlockedCodes = getUnlockedCodes();
+      if (usernameActionBtn) {
+        usernameActionBtn.textContent = savedUsername ? "Change Username" : "Set Username";
+      }
+
       const codeListContent = document.getElementById("codeListContent");
-      codeListContent.innerHTML = "";
+      const unlocked = getUnlockedCodes();
+      if (!codeListContent) return;
 
-      if (unlockedCodes.length === 0) {
+      if (unlocked.length === 0) {
         codeListContent.innerHTML = '<p style="font-size: 13px; color: #aaa; margin: 0;">No codes unlocked yet.</p>';
-      } else {
-        if (unlockedCodes.includes(SAS_CODE)) {
-          const item = document.createElement("div");
-          item.className = "code-item";
-          item.innerHTML = `
-            <div>
-              <div>🎮 SAS Game</div>
-              <div class="code-status">Status: <span class="enabled">Unlocked</span></div>
-            </div>
-            <button onclick="location.href='SAS/SAS.html'">Play</button>
-          `;
-          codeListContent.appendChild(item);
-        }
+        return;
       }
 
-      updateGoogleAccountUi();
-      updateSASButton();
-    }
-
-    function openSettings() {
-      document.getElementById("settingsModalOverlay").classList.add("active");
-      document.body.classList.add("modal-open");
-      renderSettings();
-    }
-
-    function closeSettings() {
-      document.getElementById("settingsModalOverlay").classList.remove("active");
-      document.body.classList.remove("modal-open");
-      document.getElementById("codeInputArea").style.display = "none";
-      document.getElementById("usernameInputArea").style.display = "none";
-      document.getElementById("usernameDisplayArea").style.display = "block";
-      document.getElementById("codeError").style.display = "none";
-    }
-
-    function closeSettingsOnBackdrop(e) {
-      if (e.target.id === "settingsModalOverlay") closeSettings();
-    }
-
-    function toggleUsernameInput() {
-      const displayArea = document.getElementById("usernameDisplayArea");
-      const inputArea = document.getElementById("usernameInputArea");
-      const usernameInput = document.getElementById("usernameInput");
-      usernameInput.value = localStorage.getItem("siteUsername") || "";
-      displayArea.style.display = "none";
-      inputArea.style.display = "flex";
-      usernameInput.focus();
+      codeListContent.innerHTML = unlocked.map((code) => `
+        <div class="code-item">
+          <span>Code: ${code}</span>
+          <span class="code-status"><span class="enabled">Unlocked</span></span>
+        </div>
+      `).join("");
     }
 
     function saveUsername() {
-      const input = document.getElementById("usernameInput").value.trim();
-      if (input) {
-        localStorage.setItem("siteUsername", input);
+      const input = document.getElementById("usernameInput");
+      const username = input ? input.value.trim() : "";
+      if (!username) {
+        return;
       }
-      document.getElementById("usernameInputArea").style.display = "none";
-      document.getElementById("usernameDisplayArea").style.display = "block";
+      localStorage.setItem("siteUsername", username);
       renderSettings();
+      toggleUsernameInput(false);
+    }
+
+    function toggleUsernameInput(forceOpen) {
+      const area = document.getElementById("usernameInputArea");
+      const display = document.getElementById("usernameDisplayArea");
+      if (!area || !display) return;
+      const shouldShow = typeof forceOpen === "boolean" ? forceOpen : area.style.display === "none";
+      area.style.display = shouldShow ? "flex" : "none";
+      display.style.display = shouldShow ? "none" : "block";
+      if (shouldShow) {
+        const input = document.getElementById("usernameInput");
+        if (input) {
+          input.value = localStorage.getItem("siteUsername") || "";
+          setTimeout(() => input.focus(), 50);
+        }
+      }
     }
 
     function toggleCodeInput() {
-      const inputArea = document.getElementById("codeInputArea");
-      const errorMsg = document.getElementById("codeError");
-      errorMsg.style.display = "none";
-      if (inputArea.style.display === "none" || inputArea.style.display === "") {
-        inputArea.style.display = "block";
-        document.getElementById("codeInput").focus();
-      } else {
-        inputArea.style.display = "none";
-      }
+      const area = document.getElementById("codeInputArea");
+      if (!area) return;
+      area.style.display = area.style.display === "none" ? "block" : "none";
     }
 
     function submitCode() {
-      const codeInput = document.getElementById("codeInput");
-      const val = codeInput.value.trim();
-      const errorMsg = document.getElementById("codeError");
+      const input = document.getElementById("codeInput");
+      const error = document.getElementById("codeError");
+      const value = input ? input.value.trim() : "";
+      const unlocked = getUnlockedCodes();
 
-      if (val === SAS_CODE) {
-        const unlockedCodes = getUnlockedCodes();
-        if (!unlockedCodes.includes(SAS_CODE)) {
-          unlockedCodes.push(SAS_CODE);
-          localStorage.setItem("unlockedCodes", JSON.stringify(unlockedCodes));
+      if (!value) {
+        if (error) {
+          error.textContent = "❌ Please enter a code";
+          error.style.display = "block";
         }
-        codeInput.value = "";
-        errorMsg.style.display = "none";
-        closeSettings();
+        return;
+      }
+
+      if (value === SAS_CODE || value === "SAS") {
+        if (!unlocked.includes(SAS_CODE)) {
+          unlocked.push(SAS_CODE);
+          localStorage.setItem("unlockedCodes", JSON.stringify(unlocked));
+        }
+        updateSASButton();
         renderSettings();
-        return;
-      }
-
-      errorMsg.style.display = "block";
-    }
-
-    const arabCountryCodes = new Set([
-      "DZ", "BH", "KM", "DJ", "EG", "IQ", "JO", "KW", "LB", "LY",
-      "MR", "MA", "OM", "PS", "QA", "SA", "SO", "SD", "SY", "TN", "AE", "YE"
-    ]);
-
-    async function isOctoberInArabCountry() {
-      const now = new Date();
-      if (now.getMonth() !== 9) return false;
-
-      try {
-        const response = await fetch("https://ipapi.co/json/", { cache: "no-store" });
-        if (!response.ok) return false;
-        const data = await response.json();
-        const countryCode = String(data.country_code || "").toUpperCase();
-        return arabCountryCodes.has(countryCode);
-      } catch {
-        return false;
-      }
-    }
-
-    function showNormalLoadingVideo() {
-      octoberLoading.style.display = "none";
-      loadingVideo.style.display = "flex";
-      loadVid.src = randomVideo;
-
-      const playAttempt = loadVid.play();
-      if (playAttempt && typeof playAttempt.catch === "function") {
-        playAttempt.catch(() => {});
-      }
-
-      loadVid.onended = finishLoading;
-    }
-
-    function showOctoberMemorialScreen() {
-      loadingVideo.style.display = "none";
-      octoberLoading.style.display = "flex";
-    }
-
-    function finishLoading() {
-      if (loadVid && typeof loadVid.pause === "function") {
-        loadVid.pause();
-      }
-      loadingVideo.style.display = "none";
-      octoberLoading.style.display = "none";
-      site.style.display = "block";
-      sessionStorage.setItem("visitedHome", "1");
-    }
-
-    function startNormalIntroFlow() {
-      if (sessionStorage.getItem("visitedHome")) {
-        intro.style.display = "none";
-        loadingVideo.style.display = "none";
-        octoberLoading.style.display = "none";
-        site.style.display = "block";
-        return;
-      }
-
-      setTimeout(async () => {
-        intro.style.display = "none";
-
-        const showOctober = await isOctoberInArabCountry();
-        if (showOctober) {
-          showOctoberMemorialScreen();
-          setTimeout(() => finishLoading(), 4000);
-        } else {
-          showNormalLoadingVideo();
+        if (error) {
+          error.style.display = "none";
         }
-      }, 3000);
+        if (input) input.value = "";
+        return;
+      }
+
+      if (error) {
+        error.textContent = "❌ Invalid code";
+        error.style.display = "block";
+      }
+    }
+
+    function openSettings() {
+      const overlay = document.getElementById("settingsModalOverlay");
+      if (!overlay) return;
+      overlay.classList.add("active");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeSettings() {
+      const overlay = document.getElementById("settingsModalOverlay");
+      if (!overlay) return;
+      overlay.classList.remove("active");
+      document.body.classList.remove("modal-open");
+    }
+
+    function closeSettingsOnBackdrop(event) {
+      if (event.target.id === "settingsModalOverlay") {
+        closeSettings();
+      }
     }
 
     function skipLoading() {
-      finishLoading();
+      const intro = document.getElementById("intro");
+      const site = document.getElementById("site");
+      if (intro) intro.style.display = "none";
+      if (site) site.style.display = "block";
+      if (loadingVideo) loadingVideo.style.display = "none";
+      if (octoberLoading) octoberLoading.style.display = "none";
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
+    function setupIntroAndLoading() {
+      if (!intro || !site || !loadingVideo || !octoberLoading) return;
+
+      const playVideo = () => {
+        if (!loadVid) return;
+        const videoPath = randomVideo;
+        loadVid.src = videoPath;
+        loadVid.muted = true;
+        loadVid.play().catch(() => {});
+      };
+
+      setTimeout(() => {
+        intro.style.display = "none";
+        loadingVideo.style.display = "flex";
+        playVideo();
+      }, 1500);
+
+      setTimeout(() => {
+        loadingVideo.style.display = "none";
+        octoberLoading.style.display = "flex";
+      }, 5000);
+
+      setTimeout(() => {
+        octoberLoading.style.display = "none";
+        site.style.display = "block";
+      }, 8000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
       renderSettings();
-      renderHeaderGoogleProfile();
+      updateSASButton();
+      updateGoogleAccountUi();
       initGoogleAuth();
-      startNormalIntroFlow();
+      setupIntroAndLoading();
     });
+
+    if (document.readyState !== "loading") {
+      renderSettings();
+      updateSASButton();
+      updateGoogleAccountUi();
+      initGoogleAuth();
+      setupIntroAndLoading();
+    }
   </script>
 </body>
 </html>
