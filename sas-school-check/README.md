@@ -1,61 +1,49 @@
 # SAS School Check
 
-SAS School Check is a secure staff attendance and administration system for the American Section of Seeds American School.
+A secure teacher attendance and administration system for Seeds American School, American Section.
 
-This project is created in a separate folder under the current repository so it does not overwrite the existing website files.
+## Security overview
 
-## Features
+- Passwords are stored as bcrypt hashes.
+- Device-link codes are hashed before storage.
+- WebAuthn challenges are short-lived and validated server-side.
+- Real attendance remains disabled until verified campus coordinates are configured.
+- No biometric images or raw fingerprint/face data are collected.
 
-- Teacher sign-in by Teacher ID and password
-- Administrator-only developer console
-- Temporary single-use device linking codes with expiry and revocation
-- Password changes and device revocation
-- Passkey/WebAuthn registration and verification
-- Attendance history in Africa/Cairo time using server timestamps
-- School geofence with server-side validation and disabled attendance until configured
-- Audit logging and rate limiting
-- SQLite-backed persistence and local development deployment scripts
+## Requirements
 
-## Quick start
+- Node.js 18+
+- SQLite 3
+- An environment file based on `.env.example`
 
-1. Create the data directory if it does not exist:
-   `mkdir -p data`
-2. Copy `.env.example` to `.env` and set the required values.
-3. Install dependencies:
-   `npm install`
-4. Start the server:
-   `npm start`
-5. Open `http://localhost:3000/`
+## Local development
 
-## Default admin
+1. `mkdir -p data`
+2. `cp .env.example .env`
+3. `npm install`
+4. `npm start`
+5. Visit http://localhost:3000/
 
-The application will seed a default administrator account when the database is empty.
+## Initial administrator
 
-- Teacher ID: `admin`
-- Password: `Admin@1234`
+On first startup, an administrator account is created automatically using the configured `ADMIN_TEACHER_ID` and `ADMIN_PASSWORD` values if the database is empty.
 
-Change this immediately in production.
+The default values in `.env.example` are placeholders only and must be changed before real use.
+
+## Pages
+
+- `/` Teacher portal
+- `/developer` Administrator console
+- `/teachers` Admin teacher directory
+- `/teacher-details` Individual teacher detail page
+
+## Deployment
+
+See `DEBIAN-INSTALL.txt`, `install-debian.sh`, and `start-debian.sh` for Debian 13 service setup, backup guidance, and update flow.
 
 ## Security notes
 
-- Passwords are stored as bcrypt hashes.
-- Device-link codes are stored as cryptographic SHA-256 hashes only.
-- No biometric images or raw templates are collected or stored.
-- Attendance remains disabled unless a real campus latitude and longitude are configured.
-- Real WebAuthn deployment requires HTTPS and a valid relying party ID and origin.
-
-## Debian deployment
-
-See `DEBIAN-INSTALL.txt` and `install-debian.sh` for installation, backup, and service setup instructions.
-
-## Project structure
-
-- `public/index.html` — teacher portal
-- `public/developer.html` — admin/developer console
-- `public/teachers.html` — searchable teacher directory
-- `public/teacher-details.html` — teacher details and attendance history
-- `public/styles.css` — shared styles
-- `public/*.js` — page-specific JavaScript
-- `server.js` — Express application
-- `schema.sql` — SQLite schema
-- `test/*.js` — automated tests
+- Configure HTTPS for production passkeys.
+- Do not expose the database file over HTTP.
+- Never store raw passwords, device-link codes, or biometric data.
+- Keep geofence coordinates verified before enabling attendance.
