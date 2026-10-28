@@ -7,11 +7,7 @@
 <title>Fingerprint Developer</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1120;--panel:#121c2f;--line:#263650;--text:#eef4ff;--muted:#a7b6cc;--accent:#67e8f9;--good:#86efac;--bad:#fda4af}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#162743 0,#0b1120 55%);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh}
-main{width:min(920px,100%);margin:auto;padding:28px 16px 48px}.brand{display:flex;align-items:center;gap:13px;margin-bottom:24px}.logo{display:grid;place-items:center;width:50px;height:50px;border-radius:15px;background:#16354a;border:1px solid #286078;color:var(--accent);font-size:27px}.brand h1{font-size:clamp(1.35rem,4vw,2rem);margin:0}.brand p{margin:3px 0 0;color:var(--muted)}
-.card{background:rgba(18,28,47,.94);border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 14px 40px #0002}.card h2{margin:0 0 8px;font-size:1.2rem}.muted{color:var(--muted)}.center{text-align:center}.finger{font-size:64px;color:var(--accent);line-height:1.25;margin:10px 0 14px}
-input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid #3a4d68;background:#0a1322;color:var(--text);font-size:18px;letter-spacing:.18em;outline:none}input:focus{border-color:var(--accent)}
-button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:#05202a;font-weight:750;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}button.secondary{background:#24344d;color:var(--text);border:1px solid #3a4d68}button.danger{background:#4a2635;color:#ffe4e6;border:1px solid #7f3348}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.status{padding:12px 14px;border-radius:12px;background:#0a1322;border:1px solid var(--line);margin-top:14px;overflow-wrap:anywhere}.status.good{border-color:#276749;color:var(--good)}.status.bad{border-color:#7f3348;color:var(--bad)}.hidden{display:none!important}.pill{display:inline-block;padding:4px 9px;border-radius:99px;background:#20324a;color:#c9e9ff;font-size:12px;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.small{font-size:13px}.code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}.notice{border-left:3px solid #fbbf24;padding:10px 13px;background:#332b19;color:#fde68a;border-radius:0 10px 10px 0}.divider{height:1px;background:var(--line);margin:18px 0}iframe{width:100%;height:300px;border:1px solid var(--line);border-radius:14px;background:#0a1322}footer{text-align:center;color:var(--muted);font-size:13px;padding-top:8px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#162743 0,#0b1120 55%);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh}main{width:min(920px,100%);margin:auto;padding:28px 16px 48px}.brand{display:flex;align-items:center;gap:13px;margin-bottom:24px}.logo{display:grid;place-items:center;width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#67e8f9,#a78bfa);color:#07131b;font-size:28px;font-weight:700;box-shadow:0 10px 30px rgba(103,232,249,.35)}.brand h1{margin:0;font-size:clamp(2rem,3vw,2.5rem);line-height:1.1}.brand p{margin:6px 0 0;color:var(--muted)}.card{background:rgba(18,28,47,.94);border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 14px 40px #0002}.card.center{text-align:center}.card h2{margin:0 0 8px;font-size:1.2rem}.muted{color:var(--muted)}.small{font-size:.92rem}.notice{margin-top:12px;padding:12px 14px;border-radius:12px;border:1px solid rgba(103,232,249,.4);background:rgba(103,232,249,.08);color:var(--text)}.status{margin-top:16px;padding:12px 14px;border-radius:12px;background:#0f172a;border:1px solid var(--line);color:var(--text);min-height:48px;display:flex;align-items:center;justify-content:flex-start}.status.good{border-color:rgba(134,239,172,.5);background:rgba(134,239,172,.08);color:#dcfce7}.status.bad{border-color:rgba(253,164,175,.5);background:rgba(253,164,175,.08);color:#ffe4e6}.status.hidden,.hidden{display:none!important}.divider{height:1px;background:var(--line);margin:22px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(103,232,249,.1);border:1px solid rgba(103,232,249,.35);color:var(--accent);font-size:.72rem;font-weight:700;letter-spacing:.08em}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.center .actions{justify-content:center}button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:#05202a;font-weight:750;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:filter .15s ease,opacity .15s ease}button:hover,.button:hover{filter:brightness(1.05)}button:disabled,.button:disabled{opacity:.5;cursor:not-allowed}.secondary{background:#243247;color:var(--text);border:1px solid var(--line)}.danger{background:rgba(253,164,175,.15);color:#fecdd3;border:1px solid rgba(253,164,175,.35)}label.small{display:block;margin-top:12px}.finger{font-size:44px;color:var(--accent);margin-bottom:10px}input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid #3a4d68;background:#0a1322;color:var(--text);font-size:18px;letter-spacing:.18em;outline:none}input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(103,232,249,.18)}#developerObject{width:100%;min-height:220px;border:1px solid var(--line);border-radius:14px;background:#0a1322}footer{padding:18px 4px 8px;color:var(--muted);text-align:center;font-size:.9rem}@media (max-width:700px){.grid{grid-template-columns:1fr}.brand{align-items:flex-start}.brand p{font-size:.95rem}.card{padding:18px}.actions{flex-direction:column}.actions button,.actions .button{width:100%}} 
 </style>
 </head>
 <body>
@@ -64,7 +60,7 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
     <div class="divider"></div>
     <h2>Developer Object preview</h2>
     <p class="muted small">This iframe is a local preview area for future website tools.</p>
-    <iframe id="developerObject" name="developerObject" title="Developer Object" sandbox="allow-scripts" srcdoc="<!doctype html><html><body style='margin:0;background:#0a1322;color:#eef4ff;font:15px system-ui;padding:20px'><h2>Developer Object</h2><p>Panel opened successfully.</p><p id='message'>Register a passkey and run a test.</p><script>addEventListener('message',e=>{if(e.data&&e.data.type==='fingerprint-status'){document.getElementById('message').textContent=e.data.message}})<\/script></body></html>"></iframe>
+    <iframe id="developerObject" name="developerObject" title="Developer Object" sandbox="allow-scripts" srcdoc="<!doctype html><html><body style='margin:0;background:#0a1322;color:#eef4ff;font:15px sans-serif;line-height:1.5;padding:14px'>Developer object preview waiting for status…</body></html>"></iframe>
     <p class="muted small">To publish files to GitHub, connect a secure OAuth/backend flow. Never put a GitHub personal access token in this HTML.</p>
   </section>
   <footer>WebAuthn demo · Requires HTTPS or localhost and a browser/device that supports passkeys.</footer>
@@ -76,51 +72,119 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
   const STORAGE_KEY = "fingerprintDeveloperDemo.v1";
   const $ = id => document.getElementById(id);
   let unlocked = false;
-  let lastStatus = "Ready. Register a passkey to begin.";
+  let registerInProgress = false;
+  let testInProgress = false;
 
   function setStatus(message, kind = "") {
-    lastStatus = message;
     const el = $("result");
     el.textContent = message;
     el.className = "status" + (kind ? " " + kind : "");
     try {
-      $("developerObject").contentWindow.postMessage({type:"fingerprint-status", message}, "*");
+      $("developerObject").contentWindow.postMessage({ type: "fingerprint-status", message }, "*");
     } catch (_) {}
   }
+
   function readRecord() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); }
     catch (_) { return null; }
   }
+
   function saveRecord(record) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
   }
+
   function randomBytes(length = 32) {
     const bytes = new Uint8Array(length);
     crypto.getRandomValues(bytes);
     return bytes;
   }
+
   function toBase64Url(buffer) {
     const bytes = new Uint8Array(buffer);
     let binary = "";
     bytes.forEach(b => binary += String.fromCharCode(b));
     return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
   }
+
   function fromBase64Url(value) {
     const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
     const padded = normalized + "=".repeat((4 - normalized.length % 4) % 4);
     const binary = atob(padded);
     return Uint8Array.from(binary, c => c.charCodeAt(0));
   }
-  function checkEnvironment() {
+
+  function getRpId() {
+    const host = location.hostname || "localhost";
+    if (!host || host === "localhost" || host === "127.0.0.1" || host === "[::1]" || /^\d+(?:\.\d+){3}$/.test(host)) {
+      return "localhost";
+    }
+    return host;
+  }
+
+  async function checkEnvironment({ forRegistration = false, forAssertion = false } = {}) {
     if (!window.isSecureContext) {
-      setStatus("This page needs HTTPS or localhost. Open it from GitHub Pages (HTTPS) or a local development server.", "bad");
+      const msg = "WebAuthn registration and verification require HTTPS or localhost. This page is not in a secure context, so the browser will refuse to use the credential manager.";
+      setStatus(msg, "bad");
       return false;
     }
-    if (!window.PublicKeyCredential || !navigator.credentials) {
-      setStatus("This browser does not support WebAuthn/passkeys. Try an updated browser on a supported device.", "bad");
+
+    if (!window.PublicKeyCredential || !navigator.credentials || !navigator.credentials.create || !navigator.credentials.get) {
+      const msg = "This browser or device does not support WebAuthn/passkeys. Use a modern browser with passkey support and a device that can provide a screen lock or platform authenticator.";
+      setStatus(msg, "bad");
       return false;
     }
+
+    const host = location.hostname || "";
+    if (!host || host.includes(":") || host === "0.0.0.0") {
+      const msg = "WebAuthn requires a valid relying-party ID matching the current website hostname. Do not use an IP address, URL, port, path, or unrelated domain as the RP ID.";
+      setStatus(msg, "bad");
+      return false;
+    }
+
+    if (typeof PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable === "function") {
+      try {
+        const platformAvailable = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+        if (!platformAvailable) {
+          const detail = "No supported platform authenticator is currently available. On phones, this usually means the device is not unlocked, passkeys are not enabled, or no screen lock / fingerprint / face unlock is enrolled. A website cannot directly access a fingerprint sensor.";
+          if (forRegistration || forAssertion) {
+            setStatus(detail, "bad");
+          }
+        }
+      } catch (error) {
+        const msg = "The browser could not check whether a platform authenticator is available: " + (error && error.message ? error.message : String(error)) + ".";
+        setStatus(msg, "bad");
+        return false;
+      }
+    }
+
     return true;
+  }
+
+  function formatWebAuthnError(error, context) {
+    const name = error && error.name ? error.name : "UnknownError";
+    const message = error && error.message ? error.message : String(error);
+
+    switch (name) {
+      case "NotAllowedError":
+        return context + " was cancelled, timed out, or the browser was not allowed to access the credential manager. Unlock the device and allow the passkey prompt.";
+      case "InvalidStateError":
+        return context + " is not valid in the current browser state. Clear stale demo data, restart the browser, or use a supported authenticator setup.";
+      case "SecurityError":
+        return context + " was blocked by browser security. WebAuthn requires HTTPS or localhost and a relying-party ID that matches the current hostname.";
+      case "NotSupportedError":
+        return context + " is not supported by this browser or device. Use a modern browser with passkeys, fingerprint, face unlock, or a compatible security key.";
+      case "AbortError":
+        return context + " was aborted. Try again while the device is unlocked and the credential manager is ready.";
+      default:
+        return context + " failed: " + message + ". Check that the page is served over HTTPS or localhost, the hostname matches the website, and the device has a supported passkey or screen lock configured.";
+    }
+  }
+
+  function updateButtons() {
+    const record = readRecord();
+    $("testBtn").disabled = !record || !record.credentialId || registerInProgress || testInProgress;
+    $("registerBtn").disabled = registerInProgress || testInProgress;
+    $("makeFileBtn").disabled = !record || registerInProgress || testInProgress;
   }
 
   $("pinForm").addEventListener("submit", event => {
@@ -139,15 +203,8 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
     $("pin").value = "";
     const record = readRecord();
     if (record) setStatus("A local demo record exists. Test it or register again.");
-    if (!checkEnvironment()) return;
-    updateButtons();
+    checkEnvironment().then(() => updateButtons());
   });
-
-  function updateButtons() {
-    const record = readRecord();
-    $("testBtn").disabled = !record || !record.credentialId;
-    $("makeFileBtn").disabled = !record;
-  }
 
   $("lockBtn").addEventListener("click", () => {
     unlocked = false;
@@ -157,16 +214,22 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
   });
 
   $("registerBtn").addEventListener("click", async () => {
-    if (!unlocked || !checkEnvironment()) return;
-    $("registerBtn").disabled = true;
+    if (!unlocked) return;
+    if (registerInProgress || testInProgress) return;
+    if (!await checkEnvironment({ forRegistration: true })) return;
+
+    registerInProgress = true;
+    updateButtons();
+
     try {
       setStatus("Waiting for your device to create a passkey…");
       const userId = randomBytes(16);
       const challenge = randomBytes(32);
+      const rpId = getRpId();
       const credential = await navigator.credentials.create({
         publicKey: {
           challenge,
-          rp: { name: "Fingerprint Developer Demo" },
+          rp: { id: rpId, name: "Fingerprint Developer Demo" },
           user: {
             id: userId,
             name: "local-demo-user",
@@ -177,7 +240,6 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
             { type: "public-key", alg: -257 }
           ],
           authenticatorSelection: {
-            authenticatorAttachment: "platform",
             residentKey: "preferred",
             userVerification: "required"
           },
@@ -185,42 +247,52 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
           attestation: "none"
         }
       });
+
       if (!credential) throw new Error("The device did not create a credential.");
+
       const record = {
         version: 1,
         createdAt: new Date().toISOString(),
         origin: location.origin,
+        rpId,
         credentialId: toBase64Url(credential.rawId),
         credentialType: credential.type,
-        method: "WebAuthn platform authenticator",
+        method: "WebAuthn passkey / platform authenticator",
         note: "Demo metadata only. This is not a server-verified authentication record."
       };
+
       saveRecord(record);
       updateButtons();
-      setStatus("Registration completed on this device. The authenticator created a passkey; no fingerprint image was accessed.", "good");
+      setStatus("Registration completed on this device. The authenticator created a passkey; no fingerprint image was accessed, and no raw biometric data was sent to the website.", "good");
     } catch (error) {
-      const msg = error && error.name === "NotAllowedError"
-        ? "Registration was cancelled, timed out, or no supported platform authenticator was available."
-        : "Registration failed: " + (error && error.message ? error.message : String(error));
-      setStatus(msg, "bad");
+      setStatus(formatWebAuthnError(error, "Registration"), "bad");
     } finally {
-      $("registerBtn").disabled = false;
+      registerInProgress = false;
+      updateButtons();
     }
   });
 
   $("testBtn").addEventListener("click", async () => {
-    if (!unlocked || !checkEnvironment()) return;
+    if (!unlocked) return;
+    if (registerInProgress || testInProgress) return;
+    if (!await checkEnvironment({ forAssertion: true })) return;
+
     const record = readRecord();
     if (!record || !record.credentialId) {
       setStatus("No local passkey record found. Register this device first.", "bad");
       return;
     }
-    $("testBtn").disabled = true;
+
+    testInProgress = true;
+    updateButtons();
+
     try {
       setStatus("Waiting for device verification…");
+      const rpId = getRpId();
       const assertion = await navigator.credentials.get({
         publicKey: {
           challenge: randomBytes(32),
+          rpId,
           allowCredentials: [{
             type: "public-key",
             id: fromBase64Url(record.credentialId)
@@ -229,16 +301,14 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
           timeout: 60000
         }
       });
+
       if (!assertion) throw new Error("No assertion returned.");
-      // Client-side demo only: a real application must send this assertion and
-      // its original server challenge to a backend for cryptographic verification.
-      setStatus("Test is done — the device authenticator approved the passkey prompt. This is a local demo; a server must verify assertions before granting real access.", "good");
+
+      setStatus("Test is done — the device authenticator approved the passkey prompt. This is a browser-only demo; a production app must generate and store a backend challenge and verify the returned WebAuthn assertion server-side before granting access.", "good");
     } catch (error) {
-      const msg = error && error.name === "NotAllowedError"
-        ? "Fingerprint/passkey verification was cancelled, timed out, or not approved."
-        : "Test failed: " + (error && error.message ? error.message : String(error));
-      setStatus(msg, "bad");
+      setStatus(formatWebAuthnError(error, "Fingerprint/passkey verification"), "bad");
     } finally {
+      testInProgress = false;
       updateButtons();
     }
   });
@@ -254,11 +324,12 @@ button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--ac
       status: "registered-demo",
       generatedAt: new Date().toISOString(),
       origin: location.origin,
+      rpId: record.rpId || getRpId(),
       credentialId: record.credentialId,
       credentialType: record.credentialType,
       method: record.method,
       securityNote: "This file contains a credential identifier, not fingerprint data. Do not use it as proof of authentication. Server-side WebAuthn verification is required for real security."
-    }, null, 2)], {type:"application/json"});
+    }, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
