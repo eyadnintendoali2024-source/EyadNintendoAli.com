@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Fingerprint Developer</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1120;--panel:#121c2f;--line:#263650;--text:#eef4ff;--muted:#a7b6cc;--accent:#67e8f9;--good:#86efac;--bad:#fda4af}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#162743 0,#0b1120 55%);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);min-height:100vh}
+main{width:min(920px,100%);margin:auto;padding:28px 16px 48px}.brand{display:flex;align-items:center;gap:13px;margin-bottom:24px}.logo{display:grid;place-items:center;width:50px;height:50px;border-radius:15px;background:#16354a;border:1px solid #286078;color:var(--accent);font-size:27px}.brand h1{font-size:clamp(1.35rem,4vw,2rem);margin:0}.brand p{margin:3px 0 0;color:var(--muted)}
+.card{background:rgba(18,28,47,.94);border:1px solid var(--line);border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 14px 40px #0002}.card h2{margin:0 0 8px;font-size:1.2rem}.muted{color:var(--muted)}.center{text-align:center}.finger{font-size:64px;color:var(--accent);line-height:1.25;margin:10px 0 14px}
+input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid #3a4d68;background:#0a1322;color:var(--text);font-size:18px;letter-spacing:.18em;outline:none}input:focus{border-color:var(--accent)}
+button,.button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:#05202a;font-weight:750;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}button.secondary{background:#24344d;color:var(--text);border:1px solid #3a4d68}button.danger{background:#4a2635;color:#ffe4e6;border:1px solid #7f3348}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.status{padding:12px 14px;border-radius:12px;background:#0a1322;border:1px solid var(--line);margin-top:14px;overflow-wrap:anywhere}.status.good{border-color:#276749;color:var(--good)}.status.bad{border-color:#7f3348;color:var(--bad)}.hidden{display:none!important}.pill{display:inline-block;padding:4px 9px;border-radius:99px;background:#20324a;color:#c9e9ff;font-size:12px;font-weight:700}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.small{font-size:13px}.code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}.notice{border-left:3px solid #fbbf24;padding:10px 13px;background:#332b19;color:#fde68a;border-radius:0 10px 10px 0}.divider{height:1px;background:var(--line);margin:18px 0}iframe{width:100%;height:300px;border:1px solid var(--line);border-radius:14px;background:#0a1322}footer{text-align:center;color:var(--muted);font-size:13px;padding-top:8px}
+</style>
+</head>
+<body>
+<main>
+  <header class="brand">
+    <div class="logo" aria-hidden="true">⌁</div>
+    <div><h1>Fingerprint Developer</h1><p>Device authenticator demo · standalone HTML</p></div>
+  </header>
+
+  <section class="card center" id="pinCard">
+    <div class="finger" aria-hidden="true">◎</div>
+    <h2>Developer Object</h2>
+    <p class="muted">Enter the developer access code to open the panel.</p>
+    <form id="pinForm">
+      <label for="pin" class="small muted">Access code</label>
+      <div style="max-width:320px;margin:8px auto 0"><input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="Enter code" required></div>
+      <div class="actions" style="justify-content:center"><button type="submit">Open Developer Object</button></div>
+    </form>
+    <div id="pinStatus" class="status hidden" role="status"></div>
+  </section>
+
+  <section class="card hidden" id="developerPanel">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div><span class="pill">DEVELOPER OBJECT</span><h2 style="margin-top:8px">Fingerprint test</h2></div>
+      <button class="secondary" id="lockBtn" type="button">Lock panel</button>
+    </div>
+    <p class="muted">Uses the device's platform authenticator (such as fingerprint, face unlock, or device PIN), when supported. The website never receives raw fingerprint data.</p>
+    <div class="notice small">Demo security note: code 2511 is included in this HTML, so it is not a secure secret. Real access control and credential verification must be enforced by a backend.</div>
+    <div class="grid" style="margin-top:18px">
+      <div class="card" style="margin:0;padding:18px">
+        <h2>1. Register this device</h2>
+        <p class="muted small">Create a passkey for this website using the device authenticator.</p>
+        <button id="registerBtn" type="button">Register Fingerprint / Passkey</button>
+      </div>
+      <div class="card" style="margin:0;padding:18px">
+        <h2>2. Test the authenticator</h2>
+        <p class="muted small">Ask the device to verify the registered passkey again.</p>
+        <button id="testBtn" type="button">Test Fingerprint</button>
+      </div>
+    </div>
+    <div id="result" class="status" role="status" aria-live="polite">Ready. Register a passkey to begin.</div>
+    <div class="divider"></div>
+    <h2>Developer file</h2>
+    <p class="muted small">Create a JSON configuration file after registration. This downloads a file to your device; it does not upload anything to GitHub automatically.</p>
+    <div class="actions">
+      <button id="makeFileBtn" class="secondary" type="button">Create / Download JSON file</button>
+      <button id="clearBtn" class="danger" type="button">Forget local demo record</button>
+    </div>
+    <p id="fileStatus" class="muted small"></p>
+    <div class="divider"></div>
+    <h2>Developer Object preview</h2>
+    <p class="muted small">This iframe is a local preview area for future website tools.</p>
+    <iframe id="developerObject" name="developerObject" title="Developer Object" sandbox="allow-scripts" srcdoc="<!doctype html><html><body style='margin:0;background:#0a1322;color:#eef4ff;font:15px system-ui;padding:20px'><h2>Developer Object</h2><p>Panel opened successfully.</p><p id='message'>Register a passkey and run a test.</p><script>addEventListener('message',e=>{if(e.data&&e.data.type==='fingerprint-status'){document.getElementById('message').textContent=e.data.message}})<\/script></body></html>"></iframe>
+    <p class="muted small">To publish files to GitHub, connect a secure OAuth/backend flow. Never put a GitHub personal access token in this HTML.</p>
+  </section>
+  <footer>WebAuthn demo · Requires HTTPS or localhost and a browser/device that supports passkeys.</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+  const ACCESS_CODE = "2511";
+  const STORAGE_KEY = "fingerprintDeveloperDemo.v1";
+  const $ = id => document.getElementById(id);
+  let unlocked = false;
+  let lastStatus = "Ready. Register a passkey to begin.";
+
+  function setStatus(message, kind = "") {
+    lastStatus = message;
+    const el = $("result");
+    el.textContent = message;
+    el.className = "status" + (kind ? " " + kind : "");
+    try {
+      $("developerObject").contentWindow.postMessage({type:"fingerprint-status", message}, "*");
+    } catch (_) {}
+  }
+  function readRecord() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); }
+    catch (_) { return null; }
+  }
+  function saveRecord(record) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
+  }
+  function randomBytes(length = 32) {
+    const bytes = new Uint8Array(length);
+    crypto.getRandomValues(bytes);
+    return bytes;
+  }
+  function toBase64Url(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let binary = "";
+    bytes.forEach(b => binary += String.fromCharCode(b));
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+  }
+  function fromBase64Url(value) {
+    const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+    const padded = normalized + "=".repeat((4 - normalized.length % 4) % 4);
+    const binary = atob(padded);
+    return Uint8Array.from(binary, c => c.charCodeAt(0));
+  }
+  function checkEnvironment() {
+    if (!window.isSecureContext) {
+      setStatus("This page needs HTTPS or localhost. Open it from GitHub Pages (HTTPS) or a local development server.", "bad");
+      return false;
+    }
+    if (!window.PublicKeyCredential || !navigator.credentials) {
+      setStatus("This browser does not support WebAuthn/passkeys. Try an updated browser on a supported device.", "bad");
+      return false;
+    }
+    return true;
+  }
+
+  $("pinForm").addEventListener("submit", event => {
+    event.preventDefault();
+    const value = $("pin").value;
+    if (value !== ACCESS_CODE) {
+      $("pinStatus").textContent = "Incorrect code. Try again.";
+      $("pinStatus").className = "status bad";
+      $("pinStatus").classList.remove("hidden");
+      $("pin").select();
+      return;
+    }
+    unlocked = true;
+    $("pinCard").classList.add("hidden");
+    $("developerPanel").classList.remove("hidden");
+    $("pin").value = "";
+    const record = readRecord();
+    if (record) setStatus("A local demo record exists. Test it or register again.");
+    if (!checkEnvironment()) return;
+    updateButtons();
+  });
+
+  function updateButtons() {
+    const record = readRecord();
+    $("testBtn").disabled = !record || !record.credentialId;
+    $("makeFileBtn").disabled = !record;
+  }
+
+  $("lockBtn").addEventListener("click", () => {
+    unlocked = false;
+    $("developerPanel").classList.add("hidden");
+    $("pinCard").classList.remove("hidden");
+    $("pinStatus").classList.add("hidden");
+  });
+
+  $("registerBtn").addEventListener("click", async () => {
+    if (!unlocked || !checkEnvironment()) return;
+    $("registerBtn").disabled = true;
+    try {
+      setStatus("Waiting for your device to create a passkey…");
+      const userId = randomBytes(16);
+      const challenge = randomBytes(32);
+      const credential = await navigator.credentials.create({
+        publicKey: {
+          challenge,
+          rp: { name: "Fingerprint Developer Demo" },
+          user: {
+            id: userId,
+            name: "local-demo-user",
+            displayName: "Fingerprint Developer User"
+          },
+          pubKeyCredParams: [
+            { type: "public-key", alg: -7 },
+            { type: "public-key", alg: -257 }
+          ],
+          authenticatorSelection: {
+            authenticatorAttachment: "platform",
+            residentKey: "preferred",
+            userVerification: "required"
+          },
+          timeout: 60000,
+          attestation: "none"
+        }
+      });
+      if (!credential) throw new Error("The device did not create a credential.");
+      const record = {
+        version: 1,
+        createdAt: new Date().toISOString(),
+        origin: location.origin,
+        credentialId: toBase64Url(credential.rawId),
+        credentialType: credential.type,
+        method: "WebAuthn platform authenticator",
+        note: "Demo metadata only. This is not a server-verified authentication record."
+      };
+      saveRecord(record);
+      updateButtons();
+      setStatus("Registration completed on this device. The authenticator created a passkey; no fingerprint image was accessed.", "good");
+    } catch (error) {
+      const msg = error && error.name === "NotAllowedError"
+        ? "Registration was cancelled, timed out, or no supported platform authenticator was available."
+        : "Registration failed: " + (error && error.message ? error.message : String(error));
+      setStatus(msg, "bad");
+    } finally {
+      $("registerBtn").disabled = false;
+    }
+  });
+
+  $("testBtn").addEventListener("click", async () => {
+    if (!unlocked || !checkEnvironment()) return;
+    const record = readRecord();
+    if (!record || !record.credentialId) {
+      setStatus("No local passkey record found. Register this device first.", "bad");
+      return;
+    }
+    $("testBtn").disabled = true;
+    try {
+      setStatus("Waiting for device verification…");
+      const assertion = await navigator.credentials.get({
+        publicKey: {
+          challenge: randomBytes(32),
+          allowCredentials: [{
+            type: "public-key",
+            id: fromBase64Url(record.credentialId)
+          }],
+          userVerification: "required",
+          timeout: 60000
+        }
+      });
+      if (!assertion) throw new Error("No assertion returned.");
+      // Client-side demo only: a real application must send this assertion and
+      // its original server challenge to a backend for cryptographic verification.
+      setStatus("Test is done — the device authenticator approved the passkey prompt. This is a local demo; a server must verify assertions before granting real access.", "good");
+    } catch (error) {
+      const msg = error && error.name === "NotAllowedError"
+        ? "Fingerprint/passkey verification was cancelled, timed out, or not approved."
+        : "Test failed: " + (error && error.message ? error.message : String(error));
+      setStatus(msg, "bad");
+    } finally {
+      updateButtons();
+    }
+  });
+
+  $("makeFileBtn").addEventListener("click", () => {
+    const record = readRecord();
+    if (!record) {
+      $("fileStatus").textContent = "Register a passkey first.";
+      return;
+    }
+    const blob = new Blob([JSON.stringify({
+      app: "Fingerprint Developer",
+      status: "registered-demo",
+      generatedAt: new Date().toISOString(),
+      origin: location.origin,
+      credentialId: record.credentialId,
+      credentialType: record.credentialType,
+      method: record.method,
+      securityNote: "This file contains a credential identifier, not fingerprint data. Do not use it as proof of authentication. Server-side WebAuthn verification is required for real security."
+    }, null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "fingerprint-developer-config.json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    $("fileStatus").textContent = "JSON file download requested. Uploading it to GitHub is not automatic.";
+  });
+
+  $("clearBtn").addEventListener("click", () => {
+    if (!confirm("Remove the local demo record from this browser? This does not necessarily delete the passkey from your device or password manager.")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    updateButtons();
+    $("fileStatus").textContent = "";
+    setStatus("Local demo record removed. The device passkey may still exist in your authenticator.", "good");
+  });
+
+  updateButtons();
+})();
+</script>
+</body>
+</html>
