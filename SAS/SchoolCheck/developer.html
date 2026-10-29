@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Administrator Console — SAS School Check</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <div class="brand">
+        <div class="brand-logo">SAS</div>
+        <div>
+          <h1>Administrator Console</h1>
+          <div class="subtitle">Seeds American School · American Section</div>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="/">Teacher Portal</a>
+        <a href="/teachers">Directory</a>
+        <a href="#" id="nav-logout" class="hidden">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top:1.5rem;padding-bottom:2rem;">
+    <!-- SETUP / LOGIN -->
+    <div id="auth-section">
+      <div class="card" id="setup-card" style="max-width:480px;margin:0 auto;">
+        <h2>First-Run Administrator Setup</h2>
+        <p style="font-size:.9rem;color:var(--muted);margin-bottom:1rem;">Create the initial administrator account. Password must be at least 12 characters.</p>
+        <div id="setup-alert" class="alert hidden"></div>
+        <form id="setup-form">
+          <label>Username</label>
+          <input id="setup-username" required autocomplete="username" />
+          <label>Display Name</label>
+          <input id="setup-display" />
+          <label>Password</label>
+          <input id="setup-password" type="password" required minlength="12" autocomplete="new-password" />
+          <button type="submit" class="btn btn-primary btn-block" id="setup-btn">Create Administrator</button>
+        </form>
+      </div>
+
+      <div class="card hidden" id="login-card" style="max-width:420px;margin:0 auto;">
+        <h2>Administrator Login</h2>
+        <div id="login-alert" class="alert hidden"></div>
+        <form id="login-form">
+          <label>Username</label>
+          <input id="login-username" required autocomplete="username" />
+          <label>Password</label>
+          <input id="login-password" type="password" required autocomplete="current-password" />
+          <button type="submit" class="btn btn-primary btn-block" id="login-btn">Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- MAIN CONSOLE -->
+    <div id="console-section" class="hidden">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+          <h2 style="margin:0;">Dashboard</h2>
+          <span id="admin-name" style="color:var(--muted);font-size:.9rem;"></span>
+        </div>
+        <div class="stat-grid" id="stats" style="margin-top:1rem;"></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="teachers">Teachers</button>
+        <button class="tab" data-tab="attendance">Attendance</button>
+        <button class="tab" data-tab="geofence">Geofence &amp; Settings</button>
+        <button class="tab" data-tab="audit">Audit Log</button>
+      </div>
+
+      <!-- Teachers tab -->
+      <div class="tab-panel" id="tab-teachers">
+        <div class="card">
+          <h2>Create Teacher</h2>
+          <div id="create-alert" class="alert hidden"></div>
+          <form id="create-teacher-form" class="form-row">
+            <div>
+              <label>Teacher ID</label>
+              <input id="ct-id" required placeholder="T001" />
+            </div>
+            <div>
+              <label>Full Name</label>
+              <input id="ct-name" required placeholder="Full name" />
+            </div>
+            <div>
+              <label>Username (optional)</label>
+              <input id="ct-user" placeholder="optional" />
+            </div>
+            <div style="display:flex;align-items:flex-end;">
+              <button type="submit" class="btn btn-primary" id="ct-btn">Create</button>
+            </div>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Teacher Accounts</h2>
+          <div class="toolbar">
+            <input id="teacher-search" placeholder="Search ID or name…" />
+            <button class="btn btn-outline btn-sm" id="search-btn">Search</button>
+          </div>
+          <div id="teachers-list"><div class="empty-state">Loading…</div></div>
+        </div>
+      </div>
+
+      <!-- Attendance tab -->
+      <div class="tab-panel hidden" id="tab-attendance">
+        <div class="card">
+          <h2>Attendance Reports</h2>
+          <div class="toolbar">
+            <button class="btn btn-outline btn-sm" id="export-csv">Export CSV</button>
+            <button class="btn btn-outline btn-sm" id="refresh-att">Refresh</button>
+          </div>
+          <div id="attendance-list"><div class="empty-state">Loading…</div></div>
+        </div>
+      </div>
+
+      <!-- Geofence -->
+      <div class="tab-panel hidden" id="tab-geofence">
+        <div class="card">
+          <h2>School Geofence Configuration</h2>
+          <div id="geo-alert" class="alert hidden"></div>
+          <p style="font-size:.9rem;color:var(--muted);margin-bottom:1rem;">
+            Coordinates have not been independently verified. Enter verified latitude/longitude and radius (meters).
+            Attendance remains disabled until valid coordinates are saved. All school entrances within the radius are treated as valid.
+          </p>
+          <form id="geo-form">
+            <label>School Name</label>
+            <input id="geo-name" />
+            <div class="form-row">
+              <div>
+                <label>Latitude</label>
+                <input id="geo-lat" placeholder="e.g. 30.0" />
+              </div>
+              <div>
+                <label>Longitude</label>
+                <input id="geo-lng" placeholder="e.g. 31.7" />
+              </div>
+              <div>
+                <label>Radius (meters)</label>
+                <input id="geo-radius" type="number" min="20" max="2000" value="150" />
+              </div>
+            </div>
+            <label>
+              <input type="checkbox" id="geo-enabled" style="width:auto;margin-right:.4rem;" />
+              Enable attendance (requires coordinates)
+            </label>
+            <div style="margin-top:1rem;">
+              <button type="submit" class="btn btn-primary" id="geo-save">Save Settings</button>
+            </div>
+          </form>
+          <p style="font-size:.8rem;color:var(--muted);margin-top:1rem;" id="geo-status"></p>
+        </div>
+      </div>
+
+      <!-- Audit -->
+      <div class="tab-panel hidden" id="tab-audit">
+        <div class="card">
+          <h2>Audit Log</h2>
+          <div id="audit-list"><div class="empty-state">Loading…</div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Link code modal -->
+  <div id="code-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>Device-Link Code</h3>
+      <p id="code-teacher" style="font-size:.9rem;color:var(--muted);"></p>
+      <div class="code-display" id="code-value">------</div>
+      <p style="font-size:.85rem;">Expires: <span id="code-expires"></span></p>
+      <p style="font-size:.8rem;color:var(--danger);margin-top:.5rem;">This code is shown only once. Share it securely with the teacher.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="code-close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>SAS School Check · Administrator Console · Do not expose this interface publicly without HTTPS</footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/developer.js"></script>
+<script src="./sas-api-config.js"></script>
+</body>
+</html>

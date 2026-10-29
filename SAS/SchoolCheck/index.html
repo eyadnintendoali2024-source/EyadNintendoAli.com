@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teacher Portal — SAS School Check</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <div class="brand">
+        <div class="brand-logo">SAS</div>
+        <div>
+          <h1>SAS School Check</h1>
+          <div class="subtitle">Seeds American School · American Section · Teacher Portal</div>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="/">Teacher</a>
+        <a href="/developer">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top:1.5rem;padding-bottom:2rem;">
+    <!-- AUTH VIEWS -->
+    <div id="auth-section">
+      <div class="grid-2">
+        <div class="card" id="login-card">
+          <h2>Teacher Sign In</h2>
+          <div id="login-alert" class="alert hidden"></div>
+          <form id="login-form">
+            <label for="login-id">Teacher ID or Username</label>
+            <input id="login-id" name="teacher_id" required autocomplete="username" placeholder="e.g. T001" />
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" required autocomplete="current-password" minlength="12" />
+            <button type="submit" class="btn btn-primary btn-block" id="login-btn">Sign In</button>
+          </form>
+        </div>
+
+        <div class="card" id="activate-card">
+          <h2>First-Time Device Link</h2>
+          <p style="font-size:.9rem;color:var(--muted);margin-bottom:1rem;">
+            Enter the Teacher ID and the 6-digit code provided by your administrator, then create a password (min 12 characters).
+          </p>
+          <div id="activate-alert" class="alert hidden"></div>
+          <form id="activate-form">
+            <label for="act-id">Teacher ID</label>
+            <input id="act-id" required placeholder="e.g. T001" />
+            <label for="act-code">Device-Link Code</label>
+            <input id="act-code" required pattern="[0-9]{6}" maxlength="6" placeholder="6-digit code" inputmode="numeric" />
+            <label for="act-password">New Password (min 12 chars)</label>
+            <input id="act-password" type="password" required minlength="12" autocomplete="new-password" />
+            <label for="act-password2">Confirm Password</label>
+            <input id="act-password2" type="password" required minlength="12" autocomplete="new-password" />
+            <button type="submit" class="btn btn-success btn-block" id="activate-btn">Activate &amp; Link Device</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard-section" class="hidden">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <h2 id="welcome-name">Welcome</h2>
+            <p style="color:var(--muted);font-size:.9rem;" id="teacher-meta"></p>
+          </div>
+          <button class="btn btn-outline" id="logout-btn">Logout</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Attendance</h2>
+        <div id="attendance-status"></div>
+        <div id="attendance-alert" class="alert hidden"></div>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem;" id="attendance-actions">
+          <button class="btn btn-success" id="checkin-btn">Check In</button>
+          <button class="btn btn-primary" id="checkout-btn">Check Out</button>
+        </div>
+        <p style="font-size:.8rem;color:var(--muted);margin-top:1rem;">
+          Location is checked only at the moment of check-in/out. Browser GPS can be spoofed and is not tamper-proof.
+          Continuous background location is never collected.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>My Attendance History</h2>
+        <div id="history-container">
+          <div class="empty-state">Loading…</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Linked Devices</h2>
+        <div id="devices-container">
+          <div class="empty-state">Loading…</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Seeds American School · American Section · New Administrative Capital, Cairo · Africa/Cairo timezone
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/index.js"></script>
+<script src="./sas-api-config.js"></script>
+</body>
+</html>

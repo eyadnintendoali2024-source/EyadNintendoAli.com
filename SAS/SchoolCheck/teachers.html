@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teacher Directory — SAS School Check</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="container">
+      <div class="brand">
+        <div class="brand-logo">SAS</div>
+        <div>
+          <h1>Teacher Directory</h1>
+          <div class="subtitle">Administrator only</div>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="/developer">Console</a>
+        <a href="/">Teacher Portal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top:1.5rem;">
+    <div id="auth-required" class="card hidden">
+      <h2>Authentication Required</h2>
+      <p>Please <a href="/developer">sign in as administrator</a> to view the directory.</p>
+    </div>
+
+    <div id="dir-section" class="hidden">
+      <div class="card">
+        <h2>Search Teachers</h2>
+        <div class="toolbar">
+          <input id="search" placeholder="Teacher ID or name…" />
+          <button class="btn btn-primary btn-sm" id="search-btn">Search</button>
+        </div>
+        <div id="results"><div class="empty-state">Loading…</div></div>
+        <div id="pagination" style="margin-top:1rem;"></div>
+      </div>
+      <div id="profile-section" class="hidden">
+        <div class="card">
+          <button class="btn btn-outline btn-sm" id="back-to-directory">← Back to directory</button>
+          <div id="profile-header" style="margin-top:1rem;"></div>
+          <div id="profile-actions" style="margin-top:1rem;"></div>
+        </div>
+        <div class="card"><h2>Devices</h2><div id="devices"></div></div>
+        <div class="card"><h2>Attendance History</h2><div id="attendance"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="code-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>Device-Link Code</h3>
+      <div class="code-display" id="code-value">------</div>
+      <p style="font-size:.85rem;">Expires: <span id="code-expires"></span></p>
+      <p style="font-size:.8rem;color:var(--danger);">Shown only once. Share securely.</p>
+      <div class="modal-actions"><button class="btn btn-primary" id="code-close">Close</button></div>
+    </div>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/teachers.js"></script>
+<script src="./sas-api-config.js"></script>
+</body>
+</html>
