@@ -1,6 +1,6 @@
 <!doctype html><html><head>
 <script src="sas_compat.js"></script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>SAS Adventure 7.0.4</title><style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>SAS Adventure 7.0.5</title><style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#12354b;color:white;font:18px Arial,sans-serif}button,input,select{font:inherit}button{border:0;border-radius:13px;background:#1671ce;color:white;padding:12px 17px;min-height:50px;font-weight:bold;cursor:pointer;touch-action:manipulation;box-shadow:0 3px #0c4788}button:active{transform:translateY(2px);background:#148644;box-shadow:none}.app{position:fixed;inset:0}.toolbar{position:absolute;z-index:8;top:8px;left:8px;display:flex;gap:5px;flex-wrap:wrap}.toolbar button{padding:7px 12px;min-height:42px}.musicToast{position:absolute;z-index:10;top:56px;left:50%;transform:translateX(-50%);padding:9px 16px;border:1px solid #fff;border-radius:12px;background:#07172def;color:#fff;font-weight:bold;box-shadow:0 5px 18px #0008;display:none;white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}.screen{display:none;position:absolute;inset:0;padding:65px 12px 12px}.screen.on{display:flex;align-items:center;justify-content:center}.home{background:radial-gradient(ellipse at 48% 35%,#34a8b4,#0e3551 75%)}.panel{width:min(900px,96vw);max-height:calc(100vh - 82px);overflow:auto;background:#10283fee;border:2px solid #9ac2de;border-radius:22px;padding:22px;box-shadow:0 15px 44px #0018}.title{text-align:center;font-size:clamp(42px,8vw,74px);margin:8px}.sub{text-align:center;color:#d7edff}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px}.grid button{min-height:62px;font-size:20px}.row{display:flex;gap:12px;flex-wrap:wrap;margin:13px 0}.row input,.row select{padding:12px;border-radius:9px}.players{display:flex;gap:10px;flex-wrap:wrap}.saved{padding:12px;background:#30526b;border-radius:12px}.game{background:#72bdda;display:none;position:absolute;inset:0;padding:0}.game.on{display:block}.world{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}.hud{position:absolute;z-index:3;top:62px;right:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:70%;background:#0b203bdc;padding:8px;border-radius:13px}.pad{position:absolute;z-index:4;bottom:12px;left:12px;display:grid;grid-template-columns:repeat(3,58px);gap:4px}.pad.right{left:auto;right:12px}.controlTag{position:absolute;z-index:5;bottom:184px;left:13px;background:#10243be8;padding:5px 9px;border-radius:8px;font-size:14px;font-weight:bold}.controlTag.right{left:auto;right:13px}.pad button{height:52px;width:58px;padding:0;font-size:23px;touch-action:none;user-select:none;-webkit-user-select:none}.void{visibility:hidden}.health{position:absolute;z-index:5;top:116px;left:10px;background:#10243be8;border:2px solid #fff;border-radius:12px;padding:8px 12px;font-weight:bold}.health span{color:#ff5264;margin-left:8px}.partner{display:none;position:absolute;z-index:5;top:160px;left:12px;background:#082944e8;border:2px solid #fff;padding:7px 10px;border-radius:10px;font-weight:bold}.partner.right{left:auto;right:12px}#paperBadge{display:none;position:absolute;z-index:6;top:166px;left:50%;transform:translateX(-50%);background:#fff4d8;color:#ad2323;border:3px solid #b32929;border-radius:10px;padding:8px 14px;font-size:24px;font-weight:bold;direction:rtl}#health2{left:auto;right:10px}#splitLine{display:none;position:absolute;z-index:2;top:0;bottom:0;left:50%;width:4px;background:#ffffffcc;box-shadow:0 0 8px #000}.message{position:absolute;z-index:3;bottom:15px;left:50%;transform:translateX(-50%);background:#0b203bdd;border-radius:12px;padding:8px 12px;text-align:center;max-width:85%}.error{display:none;position:fixed;inset:0;background:#101827;z-index:20;align-items:center;justify-content:center;padding:15px}.error.on{display:flex}.error .panel{border-color:#e85959}.hide{display:none!important}.small{font-size:14px;color:#cbddec}@media(max-width:620px){.toolbar button{padding:6px 9px;font-size:15px}.pad{grid-template-columns:repeat(3,48px)}.pad button{width:48px;height:46px}.hud{max-width:80%;font-size:14px}.panel{padding:16px}}
 
 .settingsShade{position:fixed;inset:0;background:#000b;z-index:15;display:none;align-items:center;justify-content:center;padding:12px}.settingsShade.on{display:flex}.settingsPanel{width:min(760px,96vw);max-height:90vh;overflow:auto;background:#10283f;border:2px solid #9ac2de;border-radius:20px;padding:20px}.history{background:radial-gradient(ellipse at 50% 5%,#315776,#0a2036 70%)}.historyPanel{width:min(1100px,96vw);height:min(760px,calc(100vh - 82px));overflow:auto;background:#f1e7cf;color:#172634;border-radius:20px;padding:18px}.historyPanel button{margin:4px}.historyTop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}.lessonScreen{height:300px;background:linear-gradient(#203d57 0 60%,#735c40 60%);border:8px solid #554b3c;border-radius:10px;color:#fff;padding:16px;overflow:auto}.lessonScreen h2{color:#ffe782}.teacher{float:left;font-size:56px;margin:0 16px 10px 4px}.students{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}.studentSeat{background:#d7c8aa;border-radius:10px;padding:8px 14px}.lessonText{font-size:18px;line-height:1.5}.pdfTextOverlay{position:absolute;z-index:7;left:2%;right:2%;top:10%;bottom:10%;display:none;overflow:auto;background:#f7efd9;color:#172634;border:4px solid #554b3c;border-radius:12px;padding:18px;line-height:1.45;font-size:clamp(16px,2.2vw,24px);white-space:pre-wrap;text-align:left}.pdfTextOverlay.on{display:block}.twoHud{position:absolute;z-index:8;left:0;right:0;top:62px;display:none;pointer-events:none}.twoHud.on{display:flex}.twoHud .side{width:50%;padding:6px;display:flex;flex-wrap:wrap;gap:5px;pointer-events:auto}.twoHud .side.right{justify-content:flex-end}.twoHud button{font-size:13px;padding:7px 9px;min-height:38px}.historyTransition{position:absolute;inset:0;background:#020611;z-index:18;display:none;align-items:center;justify-content:center;text-align:center;font-size:clamp(24px,5vw,55px)}.historyTransition.on{display:flex;animation:warp 2.6s ease-in-out}@keyframes warp{0%,100%{opacity:1;background:#020611}25%{opacity:.15;background:#05030a}50%{opacity:1;background:radial-gradient(circle,#fff,#6b82ff 2px,#050913 8px,#020611 70%)}75%{opacity:.7;background:linear-gradient(90deg,#e44aff,#57d9ff,#fff45f,#ee55ae)}}.forest{background:linear-gradient(#8bd4ed,#a9df91 58%,#417a35);border-radius:12px;padding:20px;color:#13252d;min-height:250px}.joystick{position:absolute;z-index:6;bottom:18px;left:18px;width:144px;height:144px;border:4px solid #fff9;border-radius:50%;background:#10243b88;touch-action:none;display:none}.joystick:after{content:'';position:absolute;width:56px;height:56px;left:40px;top:40px;border-radius:50%;background:#7fd8ff;border:3px solid #fff}.joystick.right{left:auto;right:18px}.joystick.active:after{transform:translate(var(--jx,0),var(--jy,0))}.game.analog #pad1,.game.analog #pad2{display:none}.game.analog .joystick{display:block}.game.analog #joy1{left:12px;right:auto}.game.analog #joy2{left:auto;right:12px}:root{--auto-ui:1}body{font-size:calc(18px * var(--auto-ui))}.toolbar button,.hud button{font-size:calc(16px * var(--auto-ui));min-height:calc(46px * var(--auto-ui))}@media(max-width:800px){:root{--auto-ui:.88}.grid button{font-size:clamp(15px,4vw,19px);min-height:54px}.panel{max-height:calc(100vh - 100px)}}@media(min-width:1500px){:root{--auto-ui:1.08}.panel,.historyPanel{font-size:20px}.grid button{min-height:66px}}
@@ -12,8 +12,8 @@
 #launchIntro p{font-size:clamp(19px,3.1vw,36px);font-weight:800;line-height:1.25;margin:10px 0 28px}
 #launchIntro button{font-size:clamp(20px,3vw,30px);padding:14px 28px;min-height:52px}
 
-</style><link rel="stylesheet" href="_credits.css">
-</head><body><div id="launchIntro"><div class="introCard"><h1>SAS ADVENTURE 7.0.4</h1><p>Made BY:<br>Eyad Ahmad Mohamed<br>and Yossef Mohamed Ali Elsagher</p><button id="enterGameButton" type="button">ENTER GAME</button></div></div><div id="app">
+</style><link rel="stylesheet" href="_credits.css"><script src="lesson/egypt/text.js"></script>
+</head><body><div id="launchIntro" style="position:fixed;inset:0;z-index:99999;background:#000"><canvas id="introCanvas" style="position:absolute;inset:0;width:100%;height:100%"></canvas><img id="introLogo" alt="" style="display:none"><audio id="introAudio" preload="auto"></audio><div id="introHint" style="display:none;position:absolute;left:0;right:0;bottom:14px;text-align:center;color:#9fdcff;font:600 15px Arial;opacity:.8">🔊 Tap anywhere to turn on the intro sound</div><button id="enterGameButton" type="button" style="display:none">ENTER GAME</button></div><div id="app">
 <div class="toolbar"><button data-a="home">🏠 Menu</button><button data-a="games">🎮 Mini-Games</button><button data-a="zoom-">−</button><b id="zoomText">100%</b><button data-a="zoom+">+</button><button id="musicVolume" data-a="musicVolume">🎵 Music 50%</button></div><div id="musicToast" class="musicToast" role="status" aria-live="polite"></div>
 <section id="home" class="screen home on"><button data-a="settings" style="position:absolute;right:12px;top:10px;z-index:10">⚙ Settings</button><div class="panel"><h1 class="title">🏫 SAS</h1><p class="sub">3D school adventure • Windows, touch and keyboard</p><div class="grid"><button data-a="new">New Game</button><button data-a="load">Load Last Save</button><button data-a="players">Players</button><button data-a="games">Mini-Games</button></div><h2>Saved Players</h2><div id="saved" class="players"></div><p id="saveNote" class="sub"></p><a class="sas703SiteLink" href="../index.html">← Back to EyadNintendoAli Page</a></div></section>
 <section id="classes" class="screen"><div class="panel"><h1>Choose your class</h1><div class="grid"><button data-class="10A">10A</button><button data-class="10B">10B</button><button data-class="10C">10C</button><button data-class="10D">10D</button><button data-class="10E">10E</button><button data-class="10F">10F</button></div><button data-a="home">Back</button></div></section>
@@ -30,7 +30,7 @@ function closeLaunchIntro(){var q=document.getElementById('launchIntro');if(q)q.
 
 var spearEquipped=false,spearSwingUntil=0,forageCount=0,historyQuizScore=0,historyQuizAnswered=false,historyQuizBank=null;
 var KEY='SAS_SCHOOL_V3_SAVE',data={players:[],active:null,settings:{zoom:100}},cl='10A',mode='menu',room='courtyard',x=0,z=3,px=-2,pz=3,walk=0,walk2=0,zoom=100,gl=null,program=null,buf={},raf=0,runTick=0,reactTimer=0,reactStartAt=0,reactState='ready',balls=[],ball={x:0,z:0,vx:0,vz:0},score=0,runObs=[],jumpFrames=0,musicTrack='',foundState=false,alarmAt=0,paper=null,miniCount=2,miniPlayers=[],activeMiniPlayer=0,altitude=8,hp=[3,3],foundState=false,alarmAt=0,nextAlertAt=0,alertNpc=null,alertTarget=0,projectiles=[],staffVisible=false,staffUntil=0,nextStaffAt=0,isTwo=false,fallAt=0,partnerArrow1='→',partnerArrow2='←',p1Scene='school',p2Scene='school',p1Room='yard',p2Room='yard',altitude1=9,altitude2=9,musicVolume=.5,musicToastTimer=0,musicAudio=null,holdTimer=0,heldMove='';
-function $(s){return document.getElementById(s)}function audioPath(file){return 'audio/'+file}function showMusicNotice(text,duration){var toast=$('musicToast');if(!toast)return;toast.textContent=text;toast.style.display='block';if(musicToastTimer)clearTimeout(musicToastTimer);musicToastTimer=setTimeout(function(){toast.style.display='none'},duration||4200)}function music(name){if(musicTrack===name)return;stopMusic();musicTrack=name;var files={menu:'menu_music.mp3',school:'school_music.mp3',hall:'hallway_music.mp3',sky:'sky_dive_music.mp3',heli:'sky_dive_music.mp3',soccer:'soccer_music.mp3',pool:'pool_music.mp3',run:'school_music.mp3',boss:'boss.mp3',forest:'forest.mp3'};var labels={menu:'Menu Music',school:'School Music',hall:'Hallway Music',sky:'GTA 5 Wanted Level Music 4',heli:'GTA 5 Wanted Level Music 4',soccer:'Soccer Music',pool:'Pool Music',run:'School Music',boss:'ANIMAL BOSS MUSIC',forest:'Stone Age Forest'};var file=files[name]||files.school;showMusicNotice('♫ '+(labels[name]||'School Music'),4200);try{if(typeof Audio==='undefined')throw new Error('This browser does not support MP3 audio.');var a=new Audio();musicAudio=a;a.src=audioPath(file);a.loop=true;a.preload='auto';a.volume=musicVolume;a.onerror=function(){if(musicAudio===a){musicAudio=null;musicTrack='';showMusicNotice('Cannot play '+audioPath(file)+' — add a valid MP3 file.',6500)}};var result=a.play();if(result&&result.catch)result.catch(function(){showMusicNotice('Tap the game once to allow music: '+audioPath(file),5000)})}catch(e){musicAudio=null;musicTrack='';showMusicNotice('Cannot play '+audioPath(file)+' — add a valid MP3 file.',6500)}}function setMusicVolume(){musicVolume=musicVolume===.5?1:musicVolume===1?0:.5;data.settings.musicVolume=musicVolume;var b=$('musicVolume');if(b)b.textContent='🎵 Music '+Math.round(musicVolume*100)+'%';if(musicAudio)musicAudio.volume=musicVolume;save()}function effect(name){var files={click:'click.mp3',found:'found_you.mp3',throw:'throw_paper.mp3',land:'Sky.mp3',hit:'Die.mp3',jump:'jump.mp3',question:'question.mp3',paper:'paper.mp3',win:'win.mp3',run:'try_to_run.mp3',boss:'boss.mp3'};var file=files[name];if(!file)return;try{if(typeof Audio==='undefined')return;var a=new Audio(audioPath(file));a.preload='auto';a.volume=.8;var r=a.play();if(r&&r.catch)r.catch(function(){})}catch(e){}}function stopMusic(){if(musicAudio){try{musicAudio.pause();musicAudio.currentTime=0}catch(e){}musicAudio=null}musicTrack=''} function esc(v){return String(v||'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function $(s){return document.getElementById(s)}function audioPath(file){return 'audio/'+file}function showMusicNotice(text,duration){var toast=$('musicToast');if(!toast)return;toast.textContent=text;toast.style.display='block';if(musicToastTimer)clearTimeout(musicToastTimer);musicToastTimer=setTimeout(function(){toast.style.display='none'},duration||4200)}function music(name){if(musicTrack===name)return;stopMusic();musicTrack=name;var files={menu:'menu_music.mp3',school:'school_music.mp3',hall:'hallway_music.mp3',sky:'sky_dive_music.mp3',heli:'sky_dive_music.mp3',soccer:'soccer_music.mp3',pool:'pool_music.mp3',run:'school_music.mp3',boss:'boss.mp3',forest:'forest.mp3',egypt:'Egypt.mp3',lesson4:'Lesson 4.mp3'};var labels={menu:'Menu Music',school:'School Music',hall:'Hallway Music',sky:'GTA 5 Wanted Level Music 4',heli:'GTA 5 Wanted Level Music 4',soccer:'Soccer Music',pool:'Pool Music',run:'School Music',boss:'ANIMAL BOSS MUSIC',forest:'Stone Age Forest',egypt:'Egypt Music',lesson4:'Paris • Lesson 4 Music'};var file=files[name]||files.school;showMusicNotice('♫ '+(labels[name]||'School Music'),4200);try{if(typeof Audio==='undefined')throw new Error('This browser does not support MP3 audio.');var a=new Audio();musicAudio=a;a.src=audioPath(file);a.loop=true;a.preload='auto';a.volume=musicVolume;a.onerror=function(){if(musicAudio===a){musicAudio=null;musicTrack='';showMusicNotice('Cannot play '+audioPath(file)+' — add a valid MP3 file.',6500)}};var result=a.play();if(result&&result.catch)result.catch(function(){showMusicNotice('Tap the game once to allow music: '+audioPath(file),5000)})}catch(e){musicAudio=null;musicTrack='';showMusicNotice('Cannot play '+audioPath(file)+' — add a valid MP3 file.',6500)}}function setMusicVolume(){musicVolume=musicVolume===.5?1:musicVolume===1?0:.5;data.settings.musicVolume=musicVolume;var b=$('musicVolume');if(b)b.textContent='🎵 Music '+Math.round(musicVolume*100)+'%';if(musicAudio)musicAudio.volume=musicVolume;save()}function effect(name){var files={click:'click.mp3',found:'found_you.mp3',throw:'throw_paper.mp3',land:'Sky.mp3',hit:'Die.mp3',jump:'jump.mp3',question:'question.mp3',paper:'paper.mp3',win:'win.mp3',run:'try_to_run.mp3',boss:'boss.mp3'};var file=files[name];if(!file)return;try{if(typeof Audio==='undefined')return;var a=new Audio(audioPath(file));a.preload='auto';a.volume=.8;var r=a.play();if(r&&r.catch)r.catch(function(){})}catch(e){}}function stopMusic(){if(musicAudio){try{musicAudio.pause();musicAudio.currentTime=0}catch(e){}musicAudio=null}musicTrack=''} function esc(v){return String(v||'').replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 try{var raw=localStorage.getItem(KEY);if(raw){var d=JSON.parse(raw);if(d&&d.players){data.players=d.players;data.active=d.active;data.settings=d.settings||data.settings;musicVolume=typeof data.settings.musicVolume==='number'?data.settings.musicVolume:.5}}}catch(e){};window.addEventListener('DOMContentLoaded',function(){var b=$('musicVolume');if(b)b.textContent='🎵 Music '+Math.round(musicVolume*100)+'%'})
 function save(){try{localStorage.setItem(KEY,JSON.stringify(data));$('saveNote').textContent='Saved in this browser.'}catch(e){$('saveNote').textContent='Storage blocked: game continues without saving.'}}
 function player(){for(var i=0;i<data.players.length;i++)if(data.players[i].id===data.active)return data.players[i];return data.players[0]||null}
@@ -339,7 +339,7 @@ var v213LeaderHP=3,v213LeaderDeadUntil=0,v213DeadWho=0,v213LeaderHitAt=[0,0],v21
 function v213DrawLeader(){if(room!=='class')return;var phase=Date.now()/240;person3(5,-7,[.58,.10,.12,1],phase,[.75,.58,.45,1]);var w=1.15,y=2.15;box(5,y,-7,w,.12,.08,[.14,.08,.08,1]);if(v213LeaderHP>0)box(5-w/2+(w*v213LeaderHP/3)/2,y,-7.06,w*v213LeaderHP/3,.09,.09,[.2,.9,.25,1]);else if(Date.now()>v213LeaderDeadUntil){v213LeaderHP=3;v213LeaderDeadUntil=0;$('message').textContent='The classroom NPC returned.'}}
 function v213AttackLeader(who){who=who===2?2:1;var playerRoom=mode==='two'?(who===2?p2Room:p1Room):room;if(playerRoom!=='class'){  $('message').textContent='Go to the classroom to find the NPC.';return}var ax=who===2?px:x,az=who===2?pz:z;if(Math.hypot(ax-5,az+7)>3.2){$('message').textContent='Move closer to the classroom NPC before attacking.';return}if(v213LeaderHP<=0){$('message').textContent='The NPC is defeated and will return shortly.';return}var now=Date.now();if(now-v213LastPlayerAttack[who-1]<500)return;v213LastPlayerAttack[who-1]=now;v213LeaderHP=Math.max(0,v213LeaderHP-1);v213LeaderDeadUntil=v213LeaderHP===0?now+7000:0;$('message').textContent=v213LeaderHP===0?'NPC defeated. Respawning soon.':'NPC hit. Health: '+v213LeaderHP+' / 3';effect('hit')}
 function v213CombatTick(){var now=Date.now();if(v213DeathAt&&now>=v213DeathAt){ v213DeathAt=0;hp=[3,3];refreshHealth();if(mode==='two'){if(v213DeadWho===2){px=0;pz=3;p2Room='class'}else{x=0;z=3;p1Room='class'}}else{x=0;z=3;room='class'}v213DeadWho=0;var ov=$('v213DeathOverlay');if(ov)ov.style.display='none';$('message').textContent='Respawned in class with full health.'}if(v213LeaderHP<=0)return;for(var p=1;p<=(mode==='two'?2:1);p++){if((mode==='two'?(p===1?p1Room:p2Room):room)!=='class')continue;var ax=p===2?px:x,az=p===2?pz:z;if(Math.hypot(ax-5,az+7)<2.5&&now-v213LeaderHitAt[p-1]>1700){v213LeaderHitAt[p-1]=now;hp[p-1]=Math.max(0,hp[p-1]-1);refreshHealth();$('message').textContent='The NPC hit Player '+p+'. Health: '+hp[p-1];effect('hit');if(hp[p-1]===0&&!v213DeathAt){v213DeathAt=now+2200;v213DeadWho=p;v213ShowDeath(p);$('message').textContent='Player '+p+' was defeated. Respawning in the classroom…'}}}}
-function v213Version(){document.title='SAS Adventure 3D — Version 7.0.4';var intro=document.querySelector('#launchIntro h1');if(intro)intro.textContent='SAS ADVENTURE 7.0.4';}
+function v213Version(){document.title='SAS Adventure 3D — Version 7.0.5';var intro=document.querySelector('#launchIntro h1');if(intro)intro.textContent='SAS ADVENTURE 7.0.5';}
 window.addEventListener('keydown',function(e){if(e.key==='Escape'&&$('creditsScreen')&&$('creditsScreen').classList.contains('on'))closeCredits();if(e.key==='Escape'&&$('customizeShade')&&$('customizeShade').style.display==='block')$('customizeClose').click()});v213Version();setTimeout(v213AddHomeButtons,0);var sas7RemotePlayers=[],sas7OnlineActive=false,sas7Facing=0,sas7MovingUntil=0,sas7Action='',sas7ActionUntil=0,sas7ActionSeq=0,sas7TagNodes=Object.create(null);
 var sas7HomeBase=home;home=function(){try{if(window.SAS7_onlineClose)window.SAS7_onlineClose()}catch(e){}sas7HomeBase()};
 var sas7OriginalAction=action;action=function(a){try{if(window.SAS7_GAME&&window.SAS7_GAME.noteAction)window.SAS7_GAME.noteAction(a)}catch(e){}return sas7OriginalAction(a)};
@@ -347,7 +347,7 @@ var sas7OriginalMove=move;move=function(d){var ox=x,oz=z,opx=px,opz=pz,mi=mode==
 function sas7HexColor(hex){var m=/^#([0-9a-f]{6})$/i.exec(hex||'');if(!m)return [.08,.08,.1,1];var n=parseInt(m[1],16);return[((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255,1]}
 function sas7ActionLabel(a){var labels={attack:'Attack',p1Attack:'Attack',p2Attack:'Attack',leaderAttack:'Leader attack',p1LeaderAttack:'Leader attack',p2LeaderAttack:'Leader attack',leaderKick:'Kick',spear:'Make spear',p1Spear:'Spear attack',p2Spear:'Spear attack',spearAttack:'Spear attack',learnMagic:'Learning magic',eatFood:'Eat food',kick:'Ball kick',kick2:'Ball kick',shot:'Shot',jump:'Jump',helicopterJump:'Jump',skydive1:'Sky dive',skydive2:'Sky dive',land:'Land',land1:'Land',land2:'Land',forage:'Gathering food',foricte:'Animal finder'};return labels[a]||''}
 function sas7DrawRemotePeers(){if(!sas7OnlineActive||!gl||mode==='menu'||mode==='caught'||mode==='loss')return;var wrap=$('sasOnlineTags');if(!wrap){wrap=document.createElement('div');wrap.id='sasOnlineTags';wrap.className='sasOnlineTags';$('game').appendChild(wrap)}var mvp=mul(proj,viewM),worldRect=$('world').getBoundingClientRect(),wrapRect=wrap.getBoundingClientRect(),w=worldRect.width||$('world').width||window.innerWidth,h=worldRect.height||$('world').height||window.innerHeight,seen=Object.create(null),now=Date.now();for(var i=0;i<sas7RemotePlayers.length;i++){var p=sas7RemotePlayers[i];if(!p||!isFinite(Number(p.x))||!isFinite(Number(p.z)))continue;var sc=p.scene||'school',localScene=mode==='school'?'school':mode;if(sc!==localScene)continue;var color=sas7HexColor(p.shirtColor),tarX=Number(p.x),tarZ=Number(p.z);if(typeof p._rx!=='number'){p._rx=tarX;p._rz=tarZ}p._rx+=(tarX-p._rx)*.32;p._rz+=(tarZ-p._rz)*.32;var walkPhase=Number(p.walk)||0;if(p.moving)walkPhase+=now/110;if(typeof p._actionSeqSeen!=='number'||p._actionSeqSeen!==Number(p.actionSeq||0)){p._actionSeqSeen=Number(p.actionSeq||0);p._actionLocalUntil=now+850}if(sc==='sky')parachuter(p._rx,p._rz,Math.max(1,Number(p.lift)||2),color,walkPhase);else person3(p._rx,p._rz,color,walkPhase,p.gender==='girl'?[.94,.68,.78,1]:[.88,.68,.52,1],Math.max(0,Number(p.lift)||0),Number(p.facing)||0);if((p.action==='attack'||p.action==='p1Attack'||p.action==='p2Attack'||p.action==='leaderAttack'||p.action==='spearAttack'||p.action==='kick'||p.action==='shot')&&Number(p._actionLocalUntil)>now){box(p._rx+.62,1.32+(Number(p.lift)||0),p._rz-.22,.65,.08,.08,[1,.78,.12,1],Number(p.facing)||0)}var id=String(p.id),tag=sas7TagNodes[id];if(!tag){tag=document.createElement('div');tag.className='sasOnlineTag';tag.setAttribute('data-peer-tag',id);wrap.appendChild(tag);sas7TagNodes[id]=tag}seen[id]=1;var v=p.displayName||p.name||'Student',act=Number(p.actionUntil)>now?sas7ActionLabel(p.action):'';tag.textContent=act?v+' • '+act:v;var lift=sc==='sky'?(Number(p.lift)||2)+3:2.25+(Number(p.lift)||0),xv=p._rx,yv=lift,zv=p._rz,cx=mvp[0]*xv+mvp[4]*yv+mvp[8]*zv+mvp[12],cy=mvp[1]*xv+mvp[5]*yv+mvp[9]*zv+mvp[13],cw=mvp[3]*xv+mvp[7]*yv+mvp[11]*zv+mvp[15];if(cw>0){var nx=cx/cw,ny=cy/cw;tag.style.display=(nx>=-1.2&&nx<=1.2&&ny>=-1.2&&ny<=1.2)?'block':'none';tag.style.left=(worldRect.left-wrapRect.left+(nx+1)*.5*w)+'px';tag.style.top=(worldRect.top-wrapRect.top+(1-ny)*.5*h)+'px'}else tag.style.display='none'}for(var key in sas7TagNodes)if(!seen[key]){if(sas7TagNodes[key].parentNode)sas7TagNodes[key].parentNode.removeChild(sas7TagNodes[key]);delete sas7TagNodes[key]}}
-/* SAS Adventure V7.0.4 repair and additions */
+/* SAS Adventure V7.0.5 repair and additions */
 var sas703PunchUntil=[0,0];
 var sas703OriginalPerson3=person3;
 person3=function(px0,pz0,shirt,phase,skin,lift,yaw){
@@ -422,13 +422,13 @@ function sas703Init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sas703Init);else sas703Init();
 
-/* ===== SAS Adventure V7.0.4 — Bio Lab ===== */
+/* ===== SAS Adventure V7.0.5 — Bio Lab ===== */
 var BIO_WHITE=[.95,.97,1,1],bioOwner=1,bioSavedHud='',bioPrevLesson=2,bioMagicOn=false,bioQuizOn=false;
 var bioProg=null,bioBuf=null,bioTex=null,bioTexPage=-1,bioLoadingPage=-1,bioTexWarned=false;
 function sas704NewBio(){return{water:0,light:0,gShow:.12,waterFx:0,bottle:false,powder:false,sugar:false,balloon:false,gasAt:0,msgInfl:false,msgFly:false,gone:false}}
 var bioM=sas704NewBio();
-function sas704Count(){return historyLesson===4?6:(historyLesson===3?lesson3Pages.length:lessonPages.length)}
-function sas704Bank(){return historyLesson===4?bioQuizBank:(historyLesson===3?historyQuizBankLesson3:historyQuizBankMaster)}
+function sas704Count(){return historyLesson===9?6:(historyLesson===3?lesson3Pages.length:lessonPages.length)}
+function sas704Bank(){return historyLesson===9?bioQuizBank:(historyLesson===3?historyQuizBankLesson3:historyQuizBankMaster)}
 function sas704InBio(){return(mode==='school'&&room==='bio')||(mode==='two'&&(p1Room==='bio'||p2Room==='bio'))}
 function sas704Msg(t){var m=$('message');if(m)m.textContent=t}
 
@@ -472,13 +472,13 @@ var bioQuizBank=[
 
 /* all lesson-page counters now go through sas704Count() (source edited), so the PDF viewer works for 6 Bio pages */
 function sas703UpdatePdf(img,label){
-  var bio=historyLesson===4,count=sas704Count(),n=((historyPage%count)+count)%count+1,nn=('0'+n).slice(-2);
+  var bio=historyLesson===9,count=sas704Count(),n=((historyPage%count)+count)%count+1,nn=('0'+n).slice(-2);
   img.src=(bio?'lesson/bio/pages/':historyLesson===3?'lesson/lesson3/pages/':'lesson/pages/')+'page_'+nn+'.jpg';
   var nm=bio?'Bio Lab':historyLesson===3?'Lesson 3':'Lesson 2';img.alt=nm+' page '+n;label.textContent=nm+' • Page '+n+' / '+count;
 }
 function sas703EnterPdf(){
   var isHistory=(mode==='school'&&room==='history')||(mode==='two'&&(p1Room==='history'||p2Room==='history'));
-  if(!isHistory&&!sas704InBio()){sas703Toast('Enter World History or the Bio Lab, then open its PDF page.');return;}
+  if(!isHistory&&!sas704InBio()&&!egyRoomActive()){sas703Toast('Enter World History or the Bio Lab, then open its PDF page.');return;}
   var modal=document.getElementById('sas703Pdf');sas703UpdatePdf(modal.querySelector('img'),modal.querySelector('[data-pdf-label]'));modal.style.display='flex';
   var el=document.documentElement,req=el.requestFullscreen||el.webkitRequestFullscreen;
   try{if(req){var r=req.call(el);if(r&&r.catch)r.catch(function(){});}}catch(e){}
@@ -547,7 +547,7 @@ function drawBioClass(){
   if(m.light>0){var lr=.2+.04*m.light;ball3(-3.3,3.1,-6.5,lr,[1,.92,.3,1]);box(-3.3,2.05,-6.5,.012+.008*m.light,1.0,.012+.008*m.light,[1,.9,.35,1])}
   if(now<m.waterFx){box(-3.75,2.4,-6.5,.2,.14,.14,[.2,.45,.8,1]);for(i=0;i<5;i++){var wy=2.3-((now/300+i*.2)%1)*1.2;ball3(-3.3+Math.sin(i*2)*.1,wy,-6.5,.04,[.3,.6,1,1])}}
   if(m.water>0&&m.light>0){for(i=0;i<4;i++){var oy=1.2+h+((now/900+i*.25)%1)*1.0;ball3(-3.3+Math.sin(now/400+i*1.7)*.18,oy,-6.5,.04,[.75,.92,1,1])}draw3DText('O2',-3.3,2.65,-6.5,.06,[.15,.4,.6,1])}
-  /* experiment bench (right): bottle + baking powder + sugar + balloon */
+  /* experiment bench (right): bottle + yeast + sugar + balloon */
   sas704Bench(3.3,-6.5,.95);
   if(m.bottle){
     var bxx=3.3,bzz=-6.5,gc=[.6,.85,.95,1];
@@ -555,7 +555,7 @@ function drawBioClass(){
     box(bxx-.16,1.0,bzz-.16,.012,.22,.012,gc);box(bxx+.16,1.0,bzz-.16,.012,.22,.012,gc);box(bxx-.16,1.0,bzz+.16,.012,.22,.012,gc);box(bxx+.16,1.0,bzz+.16,.012,.22,.012,gc);
     box(bxx-.06,1.32,bzz-.06,.01,.12,.01,gc);box(bxx+.06,1.32,bzz-.06,.01,.12,.01,gc);box(bxx-.06,1.32,bzz+.06,.01,.12,.01,gc);box(bxx+.06,1.32,bzz+.06,.01,.12,.01,gc);
     box(bxx,1.22,bzz,.17,.01,.17,gc);
-    if(m.powder)box(bxx,.84,bzz,.13,.035,.13,[1,1,1,1]);
+    if(m.powder)box(bxx,.84,bzz,.13,.035,.13,[.85,.7,.42,1]);
     if(m.sugar)for(i=0;i<9;i++)ball3(bxx-.1+(i%3)*.1,.92,bzz-.1+Math.floor(i/3)*.1,.03,[.98,.95,.8,1]);
     if(m.balloon){
       var t=(now-m.gasAt)/1000,fly=t-6.8;
@@ -583,7 +583,7 @@ drawSchool=function(){if(room==='bio'){drawBioClass();return}sas704DrawSchool()}
 function sas704SetHud(){
   var tail='<button data-a="bioQuestion">Questions</button><button data-a="bioBack">Back to school</button><button data-a="quit">Quit to Menu</button>';
   $('hud').innerHTML=bioMagicOn
-   ?'BIO MAGIC • <button data-a="bioWater">💧 Water plant</button><button data-a="bioSun">☀ Sunlight</button><button data-a="bioBottle">1 Bottle on table</button><button data-a="bioPowder">2 Baking powder</button><button data-a="bioSugar">3 Sugar</button><button data-a="bioBalloon">4 Balloon on bottle</button><button data-a="bioReset">↺ Reset</button><button data-a="bioExitMagic">Exit magic</button>'
+   ?'BIO MAGIC • <button data-a="bioWater">💧 Water plant</button><button data-a="bioSun">☀ Sunlight</button><button data-a="bioBottle">1 Bottle on table</button><button data-a="bioPowder">2 Yeast</button><button data-a="bioSugar">3 Sugar</button><button data-a="bioBalloon">4 Balloon on bottle</button><button data-a="bioReset">↺ Reset</button><button data-a="bioExitMagic">Exit magic</button>'
    :'BIO LAB • <button data-a="bioPrev">◀ Page</button><button data-a="bioNext">Page ▶</button><button data-a="bioMagic">✦ Learn by Magic</button>'+tail;
 }
 function sas704EnterBio(who){
@@ -592,7 +592,7 @@ function sas704EnterBio(who){
   var tr=$('historyTransition');tr.textContent='ENTERING THE BIO LAB 🧪';tr.className='historyTransition on';effect('jump');
   setTimeout(function(){
     tr.className='historyTransition';
-    bioPrevLesson=historyLesson===4?2:historyLesson;historyLesson=4;historyPage=0;lessonPage=0;bioMagicOn=false;bioQuizOn=false;bioM=sas704NewBio();
+    bioPrevLesson=historyLesson===9?2:historyLesson;historyLesson=9;historyPage=0;lessonPage=0;bioMagicOn=false;bioQuizOn=false;bioM=sas704NewBio();
     projectiles=[];staffVisible=false;foundState=false;$('staffBadge').style.display='none';$('paperBadge').style.display='none';
     if(mode==='two'){if(bioOwner===1){p1Scene='school';p1Room='bio';x=-1;z=-2}else{p2Scene='school';p2Room='bio';px=1;pz=-2}}
     else{room='bio';x=0;z=-2}
@@ -619,10 +619,10 @@ function sas704BioAction(a){
     m.light++;effect('click');
     sas704Msg(m.water>0?'☀ Light '+m.light+'/3 • Photosynthesis: carbon dioxide + water + light → glucose + oxygen':'☀ Light '+m.light+'/3 • The plant also needs water!');
     if(m.water===3&&m.light===3)sas704Msg('🌱 The plant grew! It made glucose and is releasing oxygen bubbles.');return}
-  if(a==='bioBottle'){if(m.bottle){sas704Msg('The bottle is already on the table.');return}m.bottle=true;effect('click');sas704Msg('🍼 Bottle on the table. Step 2: add baking powder.');return}
-  if(a==='bioPowder'){if(!m.bottle){sas704Msg('Put the bottle on the table first.');return}if(m.powder){sas704Msg('The baking powder is already inside.');return}m.powder=true;effect('click');sas704Msg('⚪ Baking powder added. Step 3: add sugar.');return}
-  if(a==='bioSugar'){if(!m.bottle){sas704Msg('Put the bottle on the table first.');return}if(!m.powder){sas704Msg('Add the baking powder first.');return}if(m.sugar){sas704Msg('The sugar is already inside.');return}m.sugar=true;effect('click');sas704Msg('🍬 Sugar added. Step 4: put the balloon on the bottle.');return}
-  if(a==='bioBalloon'){if(!m.bottle||!m.powder||!m.sugar){sas704Msg('Add the bottle, baking powder and sugar first.');return}if(m.balloon){sas704Msg('The balloon is already on the bottle.');return}m.balloon=true;m.gasAt=now;m.msgInfl=false;m.msgFly=false;m.gone=false;effect('found');sas704Msg('🎈 Balloon on! CO₂ gas starts forming inside the bottle…');return}
+  if(a==='bioBottle'){if(m.bottle){sas704Msg('The bottle is already on the table.');return}m.bottle=true;effect('click');sas704Msg('🍼 Bottle on the table. Step 2: add yeast.');return}
+  if(a==='bioPowder'){if(!m.bottle){sas704Msg('Put the bottle on the table first.');return}if(m.powder){sas704Msg('The yeast is already inside.');return}m.powder=true;effect('click');sas704Msg('🟤 Yeast added. Step 3: add sugar (yeast eats sugar = fermentation).');return}
+  if(a==='bioSugar'){if(!m.bottle){sas704Msg('Put the bottle on the table first.');return}if(!m.powder){sas704Msg('Add the yeast first.');return}if(m.sugar){sas704Msg('The sugar is already inside.');return}m.sugar=true;effect('click');sas704Msg('🍬 Sugar added. Step 4: put the balloon on the bottle.');return}
+  if(a==='bioBalloon'){if(!m.bottle||!m.powder||!m.sugar){sas704Msg('Add the bottle, yeast and sugar first.');return}if(m.balloon){sas704Msg('The balloon is already on the bottle.');return}m.balloon=true;m.gasAt=now;m.msgInfl=false;m.msgFly=false;m.gone=false;effect('found');sas704Msg('🎈 Balloon on! yeast ferments the sugar and makes CO₂ gas inside the bottle…');return}
   if(a==='bioReset'){bioM=sas704NewBio();sas704Msg('Experiment reset. Start again!');return}
 }
 var sas704BaseAction=action;
@@ -634,18 +634,18 @@ action=function(a){
     var tr=$('historyTransition');tr.textContent='✦ BIO MAGIC: THE LAB COMES ALIVE ✦';tr.className='historyTransition on';effect('win');
     setTimeout(function(){tr.className='historyTransition';bioMagicOn=true;bioM=sas704NewBio();sas704SetHud();sas704Msg('Magic lab! Give the plant 💧 water and ☀ sunlight, then build the bottle experiment in 4 steps.')},1800);return}
   if(a==='bioExitMagic'){bioMagicOn=false;sas704SetHud();sas704Msg('Magic finished. Use Questions to test yourself!');return}
-  if(a==='bioQuestion'){historyLesson=4;bioQuizOn=true;historyQuestion();return}
+  if(a==='bioQuestion'){historyLesson=9;bioQuizOn=true;historyQuestion();return}
   if(a==='bioBack'){sas704LeaveBio();return}
   if(a==='backHistory'&&bioQuizOn){screen('game');cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame);sas704Msg('Back in the Bio Lab.');return}
   if(/^bio(Water|Sun|Bottle|Powder|Sugar|Balloon|Reset)$/.test(a)){sas704BioAction(a);return}
   return sas704BaseAction(a);
 };
 var sas704EnterHistory=enterHistory;
-enterHistory=function(who){if(historyLesson===4)historyLesson=bioPrevLesson||2;sas704EnterHistory(who)};
+enterHistory=function(who){if(historyLesson===9)historyLesson=bioPrevLesson||2;sas704EnterHistory(who)};
 var sas704Quit=safeQuitToMenu;
-safeQuitToMenu=function(){bioMagicOn=false;bioQuizOn=false;if(historyLesson===4)historyLesson=bioPrevLesson||2;sas704Quit()};
+safeQuitToMenu=function(){bioMagicOn=false;bioQuizOn=false;if(historyLesson===9)historyLesson=bioPrevLesson||2;sas704Quit()};
 var sas704Home=home;
-home=function(){bioMagicOn=false;bioQuizOn=false;if(historyLesson===4)historyLesson=bioPrevLesson||2;sas704Home()};
+home=function(){bioMagicOn=false;bioQuizOn=false;if(historyLesson===9)historyLesson=bioPrevLesson||2;sas704Home()};
 var sas704DrawFrame=drawFrame;
 drawFrame=function(){
   try{
@@ -660,6 +660,621 @@ drawFrame=function(){
   sas704DrawFrame();
 };
 
+
+/* ===== SAS Adventure V7.0.5 — part A: intro, menu, settings, voice reader, lesson 4, board fix ===== */
+var S5={voiceURI:'',rate:.92,systemVoice:true,autoNext:false,readAuto:true};
+try{var _s5=JSON.parse(localStorage.getItem('sas705_prefs')||'{}');for(var _k in _s5)S5[_k]=_s5[_k]}catch(e){}
+function s5Save(){try{localStorage.setItem('sas705_prefs',JSON.stringify(S5))}catch(e){}}
+function s5Pad(n,l){n=String(n);while(n.length<l)n='0'+n;return n}
+
+/* ---------- INTRO: GO AI.png + intro.mp3, 10 seconds, then the menu ---------- */
+(function(){
+  var box=document.getElementById('launchIntro');if(!box)return;
+  var cv=document.getElementById('introCanvas'),logo=document.getElementById('introLogo'),au=document.getElementById('introAudio'),hint=document.getElementById('introHint');
+  if(!cv)return;var c=cv.getContext('2d'),W=0,H=0,t0=performance.now(),done=false,logoOk=false,parts=[],i;
+  var names=['GO AI.png','GO_AI.png','GO-AI.png','go ai.png','goai.png','assets/GO AI.png','images/GO AI.png'],ni=0;
+  logo.onload=function(){logoOk=logo.naturalWidth>0};
+  logo.onerror=function(){ni++;if(ni<names.length)logo.src=names[ni]};
+  logo.src=names[0];
+  var anames=['intro.mp3','audio/intro.mp3','Intro.mp3','assets/intro.mp3'],ai=0;
+  au.onerror=function(){ai++;if(ai<anames.length){au.src=anames[ai];au.load()}};
+  au.src=anames[0];au.volume=.9;
+  function sizeIt(){var d=Math.min(2,window.devicePixelRatio||1);W=window.innerWidth;H=window.innerHeight;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}
+  sizeIt();window.addEventListener('resize',sizeIt);
+  for(i=0;i<70;i++)parts.push({x:Math.random(),y:Math.random(),r:1+Math.random()*3.2,s:.015+Math.random()*.05,p:Math.random()*6.28,c:Math.random()<.5?'#a66bff':'#6fd3ff'});
+  var played=false;
+  function tryPlay(){if(played)return;var r;try{r=au.play()}catch(e){}if(r&&r.then){r.then(function(){played=true;if(hint)hint.style.display='none'}).catch(function(){if(hint)hint.style.display='block'})}else played=true}
+  tryPlay();
+  ['pointerdown','keydown','touchstart','click'].forEach(function(ev){window.addEventListener(ev,function(){if(!done){tryPlay()}},{passive:true})});
+  function ribbon(t,k,col,amp,y0,alpha){c.beginPath();for(var xx=-20;xx<=W+20;xx+=14){var u=xx/W,y=y0*H+Math.sin(u*5+t*.9+k)*amp*H+Math.sin(u*9-t*.6+k*2)*amp*.45*H+Math.cos(u*2.3+t*.35)*amp*.6*H;if(xx===-20)c.moveTo(xx,y);else c.lineTo(xx,y)}
+    c.lineWidth=14+8*Math.sin(t+k);c.strokeStyle=col;c.globalAlpha=alpha;c.shadowColor=col;c.shadowBlur=32;c.stroke();c.shadowBlur=0}
+  function finish(){if(done)return;done=true;try{au.pause()}catch(e){}box.style.transition='opacity .6s';box.style.opacity='0';setTimeout(function(){closeLaunchIntro();window.__s5IntroDone=true;try{music('menu')}catch(e){}},620)}
+  function frame(now){
+    if(done)return;now=performance.now();var t=(now-t0)/1000;window.__introT=t;if(t>=10){finish();return}
+    c.globalAlpha=1;c.globalCompositeOperation='source-over';
+    var bg=c.createRadialGradient(W/2,H*.55,10,W/2,H*.55,Math.max(W,H)*.75);bg.addColorStop(0,'#1c0a35');bg.addColorStop(.55,'#0a0516');bg.addColorStop(1,'#000');c.fillStyle=bg;c.fillRect(0,0,W,H);
+    var rf=Math.min(1,t/1.4);c.globalCompositeOperation='lighter';
+    ribbon(t,0,'#7b2cff',.07,.62,.55*rf);ribbon(t,1.7,'#3cc8ff',.06,.56,.5*rf);ribbon(t,3.1,'#b46bff',.08,.7,.38*rf);ribbon(t,4.6,'#6fe0ff',.05,.5,.34*rf);ribbon(t,6,'#5a1fd6',.09,.76,.3*rf);
+    for(i=0;i<parts.length;i++){var p=parts[i],py=((p.y-t*p.s)%1+1)%1,px2=p.x+Math.sin(t*.5+p.p)*.02;c.globalAlpha=(.25+.45*Math.sin(t*2+p.p)*.5+.2)*rf;c.fillStyle=p.c;c.beginPath();c.arc(px2*W,py*H,p.r,0,6.28);c.fill()}
+    c.globalCompositeOperation='source-over';c.globalAlpha=1;
+    var cx=W/2,cy=H*.46,base=Math.min(W,H)*.52;
+    /* expanding light rings (console boot feel) */
+    if(t>1.0){for(var rr=0;rr<3;rr++){var q=((t-1.0-rr*.55)%2.6)/2.6;if(q<0||t-1.0-rr*.55<0)continue;c.globalAlpha=(1-q)*.5;c.strokeStyle=rr%2?'#b98bff':'#7fdcff';c.lineWidth=3;c.beginPath();c.arc(cx,cy,base*(.2+q*1.1),0,6.28);c.stroke()}c.globalAlpha=1}
+    var la=Math.max(0,Math.min(1,(t-1.2)/1.6)),out=t>8.6?Math.max(0,1-(t-8.6)/1.4):1;
+    if(la>0){
+      var sc=(.62+.38*(1-Math.pow(1-la,3)))*(1+.012*Math.sin(t*1.6)),fy=Math.sin(t*1.1)*H*.006;
+      var glow=c.createRadialGradient(cx,cy,base*.05,cx,cy,base*.75);glow.addColorStop(0,'rgba(150,90,255,'+(.5*la*out)+')');glow.addColorStop(.5,'rgba(70,190,255,'+(.2*la*out)+')');glow.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=glow;c.fillRect(0,0,W,H);
+      c.save();c.translate(cx,cy+fy);c.scale(sc,sc);c.globalAlpha=la*out;
+      var lw=base,lh=base;
+      if(logoOk){var ar=logo.naturalWidth/logo.naturalHeight;if(ar>1){lw=base*1.1;lh=lw/ar}else{lh=base;lw=lh*ar}
+        c.shadowColor='#8f5bff';c.shadowBlur=40;c.drawImage(logo,-lw/2,-lh/2,lw,lh);c.shadowBlur=0;
+        /* shine sweep clipped to the picture */
+        var sh=(t-3.2)/2.2;if(sh>0&&sh<1){var o=document.createElement('canvas');o.width=Math.ceil(lw);o.height=Math.ceil(lh);var oc=o.getContext('2d');oc.drawImage(logo,0,0,o.width,o.height);oc.globalCompositeOperation='source-atop';var gx=-o.width*.3+sh*o.width*1.6,g=oc.createLinearGradient(gx-60,0,gx+60,o.height*.5);g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(.5,'rgba(255,255,255,.85)');g.addColorStop(1,'rgba(255,255,255,0)');oc.fillStyle=g;oc.fillRect(0,0,o.width,o.height);c.drawImage(o,-lw/2,-lh/2,lw,lh)}
+      }else{c.font='900 '+Math.round(base*.32)+'px Arial';c.textAlign='center';c.textBaseline='middle';c.shadowColor='#8f5bff';c.shadowBlur=36;var tg=c.createLinearGradient(-base/2,0,base/2,0);tg.addColorStop(0,'#b985ff');tg.addColorStop(1,'#6fd8ff');c.fillStyle=tg;c.fillText('GO AI',0,0);c.shadowBlur=0}
+      c.restore();c.globalAlpha=1;
+      /* reflection line */
+      var rg=c.createLinearGradient(cx-base*.6,0,cx+base*.6,0);rg.addColorStop(0,'rgba(120,70,255,0)');rg.addColorStop(.5,'rgba(120,210,255,'+(.8*la*out)+')');rg.addColorStop(1,'rgba(120,70,255,0)');c.fillStyle=rg;c.fillRect(cx-base*.6,cy+base*.56,base*1.2,2)
+    }
+    if(t<.9){c.fillStyle='rgba(255,255,255,'+(.5*(1-t/.9))+')';c.fillRect(0,0,W,H)}
+    if(t>1.2&&t<1.6){c.fillStyle='rgba(190,160,255,'+(.35*(1-(t-1.2)/.4))+')';c.fillRect(0,0,W,H)}
+    if(t>9.1){c.fillStyle='rgba(0,0,0,'+Math.min(1,(t-9.1)/.9)+')';c.fillRect(0,0,W,H)}
+    c.globalAlpha=.55*Math.min(1,la)*out;c.fillStyle='#bfe9ff';c.font='600 '+Math.max(12,Math.round(base*.045))+'px Arial';c.textAlign='center';c.fillText('SAS ADVENTURE 7.0.5',cx,H*.93);c.globalAlpha=1;
+    requestAnimationFrame(frame)}
+  requestAnimationFrame(frame);
+  setTimeout(finish,10600);
+})();
+
+/* ---------- SYSTEM VOICE (read aloud) ---------- */
+var s5Reading=false,s5Queue=[],s5Voices=[];
+function s5LoadVoices(){try{s5Voices=window.speechSynthesis?speechSynthesis.getVoices():[]}catch(e){s5Voices=[]}return s5Voices}
+try{if(window.speechSynthesis){s5LoadVoices();speechSynthesis.onvoiceschanged=function(){s5LoadVoices();s5FillVoiceList()}}}catch(e){}
+function s5Pick(lang){var v=s5LoadVoices(),i;if(S5.voiceURI){for(i=0;i<v.length;i++)if(v[i].voiceURI===S5.voiceURI&&v[i].lang.toLowerCase().indexOf(lang.slice(0,2).toLowerCase())===0)return v[i]}
+  for(i=0;i<v.length;i++)if(v[i].lang.toLowerCase().replace('_','-')===lang.toLowerCase())return v[i];
+  for(i=0;i<v.length;i++)if(v[i].lang.toLowerCase().indexOf(lang.slice(0,2).toLowerCase())===0)return v[i];return null}
+function s5Chunks(text){text=String(text||'').replace(/\s+/g,' ').trim();var parts=text.split(/(?<=[.!?؟؛;:۔\n])\s+/),out=[],cur='';parts.forEach(function(p){if((cur+' '+p).length>170&&cur){out.push(cur);cur=p}else cur=cur?cur+' '+p:p});if(cur)out.push(cur);var fin=[];out.forEach(function(o){while(o.length>200){var k=o.lastIndexOf(' ',190);if(k<60)k=190;fin.push(o.slice(0,k));o=o.slice(k+1)}if(o)fin.push(o)});return fin}
+function s5Stop(){s5Reading=false;s5Queue=[];try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}}
+function s5Speak(text,lang,onEnd,onFail){s5Stop();if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){if(onEnd)setTimeout(onEnd,0);return false}
+  s5Reading=true;s5Queue=s5Chunks(text);var token=Date.now();s5Speak.tok=token;
+  (function next(){if(!s5Reading||s5Speak.tok!==token)return;var piece=s5Queue.shift();if(!piece){s5Reading=false;if(onEnd)onEnd();return}
+    var u=new SpeechSynthesisUtterance(piece);u.lang=lang;var v=s5Pick(lang);if(v){u.voice=v;u.lang=v.lang}u.rate=S5.rate;u.pitch=1;u.volume=1;var st0=Date.now();u.onend=function(){if(Date.now()-st0<120&&piece.length>25){s5Reading=false;s5Queue=[];if(onFail)onFail();return}next()};u.onerror=function(){if(s5Speak.tok!==token)return;if(Date.now()-st0<300){s5Reading=false;s5Queue=[];if(onFail)onFail();return}next()};try{speechSynthesis.speak(u)}catch(e){s5Reading=false;if(onFail)onFail()}})();
+  return true}
+function s5FillVoiceList(){var sel=document.getElementById('s5Voice');if(!sel)return;var v=s5LoadVoices(),h='<option value="">Auto (best Arabic/English voice)</option>',i,ar=[],other=[];for(i=0;i<v.length;i++){(v[i].lang.toLowerCase().indexOf('ar')===0?ar:other).push(v[i])}
+  ar.concat(other).forEach(function(x){h+='<option value="'+x.voiceURI.replace(/"/g,'&quot;')+'"'+(x.voiceURI===S5.voiceURI?' selected':'')+'>'+x.name+' — '+x.lang+'</option>'});sel.innerHTML=h}
+(function(){var panel=document.querySelector('.settingsPanel');if(!panel)return;var done=panel.querySelector('[data-a="settingsClose"]');
+  var d=document.createElement('div');d.id='s5Settings';d.innerHTML='<h2>🔊 Teacher voice (system read)</h2><p><label>Voice <select id="s5Voice"></select></label></p><p><label>Speed <input type="range" id="s5Rate" min="0.5" max="1.5" step="0.05"> <b id="s5RateText"></b></label></p><p><button type="button" id="s5Test">▶ Test voice (عربي)</button> <button type="button" id="s5TestEn">▶ Test voice (English)</button></p><p><label><input type="checkbox" id="s5SysVoice"> Teacher reads lessons with the system voice (all lessons)</label></p><p><label><input type="checkbox" id="s5ReadAuto"> Keep reading page after page automatically</label></p><h2>❓ Questions</h2><p><label><input type="checkbox" id="s5AutoNext"> Auto next question (after you answer, go to the next one)</label></p>';
+  panel.insertBefore(d,done||null);s5FillVoiceList();
+  var r=document.getElementById('s5Rate');r.value=S5.rate;document.getElementById('s5RateText').textContent=S5.rate;r.oninput=function(){S5.rate=parseFloat(r.value);document.getElementById('s5RateText').textContent=S5.rate;s5Save()};
+  document.getElementById('s5Voice').onchange=function(){S5.voiceURI=this.value;s5Save()};
+  document.getElementById('s5Test').onclick=function(){s5Speak('مرحبا يا بطل! أنا مدرس التاريخ، وسأقرأ لك الدروس من الكتاب.','ar-EG')};
+  document.getElementById('s5TestEn').onclick=function(){s5Speak('Hello! I am your teacher. I will read the lessons to you.','en-US')};
+  [['s5SysVoice','systemVoice'],['s5ReadAuto','readAuto'],['s5AutoNext','autoNext']].forEach(function(p){var e=document.getElementById(p[0]);e.checked=!!S5[p[1]];e.onchange=function(){S5[p[1]]=e.checked;s5Save()}})})();
+
+/* auto next question (all quiz screens) */
+document.addEventListener('click',function(e){var n=e.target;while(n&&n!==document){if(n.getAttribute&&n.hasAttribute('data-hanswer')){if(S5.autoNext)setTimeout(function(){var q=$('historyQuiz');if(q&&q.className.indexOf('on')>=0)nextHistoryQuestion()},1400);return}n=n.parentNode}
+  var qa=e.target.closest&&e.target.closest('[data-qanswers]');if(qa&&S5.autoNext)setTimeout(function(){var q=document.getElementById('sas703Quiz');if(!q||q.style.display==='none')return;var nx=q.querySelector('[data-qnext]');if(nx&&!nx.disabled&&nx.textContent.indexOf('Play')<0)nx.click()},1400)});
+
+/* ---------- MENU: GO AI website, delete save ---------- */
+(function(){var panel=document.querySelector('#home .panel');if(!panel)return;
+  var go=document.createElement('a');go.className='sas703SiteLink';go.href='https://goaiai64-cmd.github.io/GO-AI-Website/';go.textContent='← Back to GO AI Website';go.style.display='block';go.style.margin='10px 0';
+  var del=document.createElement('button');del.type='button';del.id='s5DeleteOpen';del.textContent='🗑 Delete Save';del.style.background='#8b2a3a';
+  var link=panel.querySelector('.sas703SiteLink');panel.insertBefore(del,link||null);panel.appendChild(go);
+  var m=document.createElement('div');m.id='s5Del';m.className='sas703Overlay';m.style.display='none';m.innerHTML='<div class="sas703QuizCard"><h1>🗑 Delete Save</h1><div id="s5DelList"></div><p id="s5DelMsg"></p><button type="button" id="s5DelAll" style="background:#8b2a3a">Delete ALL saves</button> <button type="button" id="s5DelClose">Close</button></div>';document.body.appendChild(m);
+  function render(){var l=document.getElementById('s5DelList');l.innerHTML='';if(!data.players.length){l.innerHTML='<p>No saved students.</p>';return}data.players.forEach(function(p,i){var b=document.createElement('button');b.type='button';b.textContent='Delete '+(p.name||'Student')+' • '+(p.className||'');b.onclick=function(){if(!confirm('Delete this saved student: '+(p.name||'Student')+'?'))return;data.players.splice(i,1);if(data.active!==null&&data.active>=data.players.length)data.active=data.players.length?0:null;try{save();renderSaved()}catch(e){}document.getElementById('s5DelMsg').textContent='Deleted.';render()};l.appendChild(b)})}
+  del.onclick=function(){document.getElementById('s5DelMsg').textContent='';render();m.style.display='flex'};
+  document.getElementById('s5DelClose').onclick=function(){m.style.display='none'};
+  document.getElementById('s5DelAll').onclick=function(){if(!confirm('Delete ALL saved students? This cannot be undone.'))return;data.players=[];data.active=null;try{localStorage.removeItem(KEY)}catch(e){}try{save();renderSaved()}catch(e){}document.getElementById('s5DelMsg').textContent='All saves deleted.';render()}})();
+
+/* ---------- Lesson 4 data (World History) ---------- */
+var lesson4Pages=[
+[1,'Power, Printing, and Everyday Society','Welcome to Lesson 4: Power, Printing, and Everyday Society. Today we study Machiavelli, the Renaissance noble, Gutenberg\'s printing press, and daily life in Renaissance society.'],
+[2,'Machiavelli and The Prince','Niccolo Machiavelli wrote The Prince, one of the most influential books on political power in the Western world. His central thesis is how to acquire, which means get, and keep political power. Quick check: what is the name of his famous book? The Prince. What was its main idea? How to get and keep political power.'],
+[3,'The Power Matrix: Medieval versus Renaissance','In the Middle Ages, rulers were told to follow Christian principles and always be good. Machiavelli said morality has very little to do with politics. Rulers should understand human nature, which is basically self-centered, or selfish. A ruler acts only for the state and must be willing to let his conscience sleep. Quick check: Machiavelli believed human nature is self-centered, and politics and morality should not be mixed.'],
+[4,'Machiavelli\'s Rules for Rulers','Rule one: cunning. Princes who achieved great things tricked men with cunning and gave their word lightly. Rule two: appearances. A prince does not need to have all the good qualities, but he must seem like he has them. Rule three: necessary evil. A prince should know how to do evil if it is necessary to keep power.'],
+[5,'Module 2: The Reality of the Renaissance Noble','Nobles dominated society. They held top political posts and advised the king. Many nobles had declining incomes, but they kept their lands and fancy titles. The Three Estates continued from the Middle Ages. Nobles were only two to three percent of the population.'],
+[6,'The Book of the Courtier, 1528','Castiglione wrote The Book of the Courtier in 1528. A noble is born, not made. He must have character, grace, and talent. He must be a warrior with a classical education and an interest in the arts. He must follow strict rules of behavior. His ultimate aim is to serve his prince in an effective and honest way, telling the prince the truth.'],
+[7,'Gutenberg Starts an Information Revolution','Johannes Gutenberg, in Germany, in 1455, produced the first printed book: a Bible. Old handwritten books were made on parchment or vellum, which are animal skins. Gutenberg stopped using these and used paper instead.'],
+[8,'The Anatomy of the Printing Press','Step one: the wine press. The machine was adapted from a traditional agricultural wine press. Step two: goldsmiths\' type. Goldsmiths had used metal type to stamp marks on products, and Gutenberg used this for letters. Step three: artists\' ink. The ink for printing was based on special artists\' ink.'],
+[9,'Why Printing Mattered','Literacy, the ability to read, was rising. This created a growing audience and a high demand for books. More books were produced in the first fifty years of printing than in all history before 1450. The press greatly accelerated, or sped up, the spread of new ideas.'],
+[10,'The Renaissance Social Pyramid','Patricians were at the top of urban society and gained wealth from trade, industry, and banking. Burghers were shopkeepers, artisans, and guild members. Peasants were eighty-five to ninety percent of the population. Serfdom was declining, and by 1500 most Western European peasants were legally free. Urban poverty increased dramatically in the late 1300s and 1400s.'],
+[11,'Inside the Renaissance Family','Parents arranged marriages to strengthen business or family ties, sometimes when children were two or three years old. A dowry is money or property given to the new family. The father was the center of the family, managed all finances, and had absolute authority over the children until he died or formally freed them before a judge. The mother supervised the household.'],
+[12,'Noble Wealth and Fashion','Titles of nobility passed down from generation to generation. Only nobles were allowed to wear certain luxuries, like purple silk. Noble women trained girls of high birth in court manners and household administration. A warning sign: the nobles\' primary income source was threatened as towns gained control of the countryside.'],
+[13,'How Trade Changed Society','Shift one: the money economy. Urban trade brought cash instead of barter, and banks developed to back cash and checks. Shift two: expanding markets, with imported fabrics and peasants selling goods in town markets. Shift three: buying power. Some successful merchants used their cash to buy their way into the nobility.'],
+[14,'Synthesis: The Changing Renaissance World','Machiavelli\'s realistic ideas about politics were quickly spread across the world by the printing press. The old rules of who had power were changing, and trade and cash created new wealth. Merchants used this money to buy their way into the nobility. All parts of society were connected.']
+];
+function mkQ(q,a,c){return{t:'choice',q:q,a:a,c:c}}
+var lesson4Bank=[
+mkQ('What is the name of Machiavelli\'s famous book?',['The King','The Prince','The Noble'],1),
+mkQ('What was the main idea of The Prince?',['How to paint art','How to get and keep political power','How to run a farm'],1),
+mkQ('According to Machiavelli, human nature is basically:',['Good','Self-centered','Honest'],1),
+mkQ('Did Machiavelli believe politics and morality should be mixed?',['Yes','No'],1),
+mkQ('Machiavelli said a prince should know how to do ____ if necessary.',['Magic','Evil','Charity'],1),
+mkQ('Does a prince actually need to be perfectly good?',['Yes, always','No, he only needs to seem good'],1),
+mkQ('What percentage of the population were nobles?',['50%','25%','2 to 3%'],2),
+mkQ('Did all nobles have growing, massive incomes?',['Yes, all were rich','No, many had declining incomes'],1),
+mkQ('According to Castiglione, a noble is:',['Born, not made','Anyone who works hard','Always a peasant'],0),
+mkQ('What is the ultimate aim of a perfect noble?',['To be rich','To serve his prince honestly','To trick people'],1),
+mkQ('What was the first printed book produced by Gutenberg?',['The Prince','A Bible','The Courtier'],1),
+mkQ('What new material did Gutenberg use instead of parchment?',['Stone','Silk','Paper'],2),
+mkQ('The printing press machine was originally adapted from a:',['Water wheel','Wine press','Weapon'],1),
+mkQ('Who originally created the metal type technology?',['Goldsmiths','Farmers','Kings'],0),
+mkQ('What caused the high demand for books?',['Rising literacy','Cheaper paper','Orders from the King'],0),
+mkQ('Printing produced more books in the first ___ years than in all history before 1450.',['10','50','100'],1),
+mkQ('Which group made up 85 to 90 percent of the population?',['Patricians','Nobles','Peasants'],2),
+mkQ('Who were at the top of urban society due to wealth from banking and trade?',['Patricians','Burghers','Peasants'],0),
+mkQ('Why did parents arrange marriages?',['For love','To strengthen business and family ties'],1),
+mkQ('Who had absolute authority over the children\'s lives and finances?',['The Mother','The Judge','The Father'],2),
+mkQ('What luxury item were only nobles allowed to wear?',['Cotton','Purple silk','Gold shoes'],1),
+mkQ('Who trained young girls of high birth in manners?',['Noblewomen','The Father','Patricians'],0),
+mkQ('What developed to back cash and checks?',['Castles','Banks','Farms'],1),
+mkQ('What did successful merchants do with their new wealth?',['Bought their way into the nobility','Gave it to the peasants'],0),
+mkQ('Which invention allowed the new ideas of the Renaissance to spread rapidly?',['The banking check','The printing press'],1),
+mkQ('Did the different parts of society (trade, power, technology) affect each other?',['Yes, they were all connected','No, they stayed separate'],0),
+mkQ('What is a dowry?',['A type of fabric','Money or property included in the marriage contract','A noble title'],1),
+mkQ('Who wrote The Book of the Courtier (1528)?',['Castiglione','Gutenberg','Machiavelli'],0)
+];
+
+/* ---------- page paths / counts / banks for every lesson ---------- */
+var egyLessonIdx=0;
+var EGY_LESSONS=[
+ {u:1,t:'الحضارة والتاريخ',a:12,b:15},{u:1,t:'مصادر دراسة الحضارات',a:16,b:19},{u:1,t:'عوامل قيام الحضارات',a:20,b:27},
+ {u:2,t:'ملامح من تاريخ مصر القديمة',a:28,b:32},{u:2,t:'الحياة الاقتصادية',a:33,b:41},{u:2,t:'الحياة السياسية والإدارية',a:42,b:51},{u:2,t:'الحياة الاجتماعية',a:52,b:58},{u:2,t:'الحياة الدينية',a:59,b:62},{u:2,t:'الحياة الثقافية والفكرية',a:63,b:75},
+ {u:3,t:'حضارة بلاد العراق القديم',a:76,b:83},{u:3,t:'حضارة فينيقيا',a:84,b:93},
+ {u:4,t:'الحضارة اليونانية (الإغريقية)',a:94,b:102},{u:4,t:'مصر تحت حكم البطالمة',a:103,b:111},{u:4,t:'الحضارة الرومانية',a:112,b:121},{u:4,t:'مصر تحت حكم الرومان',a:122,b:141}
+];
+function egyL(){return EGY_LESSONS[egyLessonIdx]||EGY_LESSONS[0]}
+function egyPageCount(){var l=egyL();return l.b-l.a+1}
+function egyPageIndex(i){return egyL().a+((i%egyPageCount())+egyPageCount())%egyPageCount()}
+function sas704Count(){var L=historyLesson;return L===9?6:L===10?egyPageCount():L===4?lesson4Pages.length:(L===3?lesson3Pages.length:lessonPages.length)}
+function sas704Bank(){var L=historyLesson;return L===9?bioQuizBank:L===10?egyBankFor(egyLessonIdx):L===4?lesson4Bank:(L===3?historyQuizBankLesson3:historyQuizBankMaster)}
+function s5Path(L,i){var n=((i%sas704Count())+sas704Count())%sas704Count();
+  if(L===10)return'lesson/egypt/pages/page_'+s5Pad(egyPageIndex(n)+1,3)+'.jpg';
+  if(L===9)return'lesson/bio/pages/page_'+s5Pad(n+1,2)+'.jpg';
+  if(L===4)return'lesson/lesson4/pages/page_'+s5Pad(n+1,2)+'.jpg';
+  if(L===3)return'lesson/lesson3/pages/page_'+s5Pad(n+1,2)+'.jpg';
+  return'lesson/pages/page_'+s5Pad(n+1,2)+'.jpg'}
+function s5LessonName(L){return L===10?'Egypt':L===9?'Bio Lab':'Lesson '+L}
+function sas703UpdatePdf(img,label){var count=sas704Count(),n=((historyPage%count)+count)%count;img.src=s5Path(historyLesson,n);img.alt=s5LessonName(historyLesson)+' page '+(n+1);label.textContent=(historyLesson===10?'📖 '+egyL().t:s5LessonName(historyLesson))+' • '+(n+1)+' / '+count}
+function s5PageText(){var L=historyLesson,n=((historyPage%sas704Count())+sas704Count())%sas704Count();
+  if(L===10)return{lang:'ar-EG',text:(window.EGY_TEXT&&EGY_TEXT[egyPageIndex(n)])||''};
+  var arr=L===4?lesson4Pages:L===3?lesson3Pages:L===2?lessonPages:null;if(!arr)return{lang:'en-US',text:''};var p=arr[n]||arr[0];return{lang:'en-US',text:p[1]+'. '+p[2]}}
+function renderLesson(){var L=historyLesson;if(L===9||L===10)return;var pages=L===4?lesson4Pages:L===3?lesson3Pages:lessonPages,p=pages[lessonPage]||pages[0],path=s5Path(L,lessonPage);var t=$('lessonTitle');if(t)t.textContent='Lesson '+L+' • PDF Page '+p[0]+': '+p[1];var im=$('pdfPreview');if(im){im.src=path;im.alt='Lesson '+L+' page '+p[0]}var sm=$('teacherSmartImage'),st=$('teacherSmartText');if(sm){sm.style.display='block';sm.src=path;sm.onerror=function(){sm.style.display='none';if(st){st.style.display='block';st.textContent=p[1]+'\n\n'+p[2]}}}if(st&&st.style.display!=='block')st.textContent=p[1]+'\n\n'+p[2];var hs=$('historyStatus');if(hs)hs.textContent='Lesson '+L+' • page '+p[0]+' of '+pages.length;if(window.historyExpected!==undefined)window.historyExpected='';syncTeacherSmartScreen()}
+
+/* ---------- the smartboard: always fits the page's real shape ---------- */
+var s5Prog=null,s5Buf=null,s5Tex={},s5Order=[],s5Err={};
+function s5BoardDraw(key,path,cx,cy,cz,maxW,maxH){
+  if(!gl)return false;
+  try{
+    if(!s5Prog){var v=shader(gl.VERTEX_SHADER,'attribute vec3 aP;attribute vec2 aT;uniform mat4 uM;varying vec2 vT;void main(){vT=aT;gl_Position=uM*vec4(aP,1.0);}'),f=shader(gl.FRAGMENT_SHADER,'precision mediump float;uniform sampler2D uS;varying vec2 vT;void main(){gl_FragColor=texture2D(uS,vT);}');s5Prog=gl.createProgram();gl.attachShader(s5Prog,v);gl.attachShader(s5Prog,f);gl.linkProgram(s5Prog);if(!gl.getProgramParameter(s5Prog,gl.LINK_STATUS))throw new Error('board shader');s5Prog.p=gl.getAttribLocation(s5Prog,'aP');s5Prog.t=gl.getAttribLocation(s5Prog,'aT');s5Prog.m=gl.getUniformLocation(s5Prog,'uM');s5Prog.s=gl.getUniformLocation(s5Prog,'uS');s5Buf=gl.createBuffer()}
+    var e=s5Tex[key];
+    if(!e&&!s5Err[key]){e=s5Tex[key]={loading:true};s5Order.push(key);var im=new Image();im.onload=function(){try{var tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im);e.tex=tx;e.ar=im.naturalWidth/im.naturalHeight;e.loading=false}catch(er){s5Err[key]=1;delete s5Tex[key]}};im.onerror=function(){s5Err[key]=1;delete s5Tex[key]};im.src=path;
+      while(s5Order.length>8){var old=s5Order.shift();if(s5Tex[old]&&s5Tex[old].tex)try{gl.deleteTexture(s5Tex[old].tex)}catch(er){}delete s5Tex[old]}}
+    if(!e||!e.tex){box(cx,cy,cz-.03,maxW/2,maxH/2,.01,[.93,.93,.9,1]);if(s5Err[key])draw3DText('NO PAGE IMAGE',cx,cy-.1,cz+.05,.05,[.6,.1,.1,1]);return false}
+    var w=maxW,h=w/e.ar;if(h>maxH){h=maxH;w=h*e.ar}var l=cx-w/2,r=cx+w/2,b=cy-h/2,tp=cy+h/2;
+    gl.useProgram(s5Prog);gl.bindBuffer(gl.ARRAY_BUFFER,s5Buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([l,b,cz,0,0,r,b,cz,1,0,r,tp,cz,1,1,l,b,cz,0,0,r,tp,cz,1,1,l,tp,cz,0,1]),gl.DYNAMIC_DRAW);
+    gl.enableVertexAttribArray(s5Prog.p);gl.enableVertexAttribArray(s5Prog.t);gl.vertexAttribPointer(s5Prog.p,3,gl.FLOAT,false,20,0);gl.vertexAttribPointer(s5Prog.t,2,gl.FLOAT,false,20,12);
+    gl.uniformMatrix4fv(s5Prog.m,false,new Float32Array(mul(mul(proj,viewM),ident())));gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,e.tex);gl.uniform1i(s5Prog.s,0);gl.drawArrays(gl.TRIANGLES,0,6);gl.useProgram(program);return true
+  }catch(er){try{gl.useProgram(program)}catch(e2){}return false}}
+drawPdfPageTexture=function(){if(historyLesson===9||historyLesson===10)return false;var c=sas704Count(),n=((historyPage%c)+c)%c;return s5BoardDraw(historyLesson+':'+n,s5Path(historyLesson,n),0,2.15,-9.47,8.6,3.9)};
+
+/* ---------- reading the lesson aloud ---------- */
+function s5ReadNow(){if(!S5.systemVoice&&historyLesson===2)return;var info=s5PageText();if(!info.text)return;var L=historyLesson,pg=historyPage;
+  var ok=s5Speak(info.text,info.lang,function(){if(!S5.readAuto)return;if(historyLesson!==L)return;if(!sas705ReadingContext())return;var c=sas704Count();if(historyPage>=c-1){sas705Msg(L===10?'انتهى الدرس. اضغط على "أسئلة" لتختبر نفسك!':'Lesson finished. Press Questions to test yourself!');return}setTimeout(function(){if(!sas705ReadingContext())return;historyPage++;lessonPage=historyPage;renderLesson();s5ReadNow()},500)},function(){sas705Msg(L===10?'⚠ لا يوجد صوت عربي على جهازك. ثبّت صوتًا عربيًا من إعدادات النظام، أو اختر صوتًا من الإعدادات.':'⚠ No system voice is working. Pick another voice in Settings.')});
+  if(!ok)sas705Msg(L===10?'⚠ المتصفح لا يدعم القراءة الصوتية.':'⚠ This browser has no system voice.')}
+function sas705ReadingContext(){return(mode==='school'||mode==='two')&&(room==='history'||room==='egy'||p1Room==='history'||p2Room==='history')}
+function sas705Msg(t){var m=$('message');if(m)m.textContent=t}
+var s5OldStopTeacher=stopTeacher;stopTeacher=function(){s5OldStopTeacher();s5Stop()};
+
+/* lesson 4 + read buttons on the World History HUD */
+var s5OldEnterHistory=enterHistory;
+enterHistory=function(who){if(historyLesson===9||historyLesson===10||historyLesson===4)historyLesson=2;s5OldEnterHistory(who);setTimeout(function(){var h=$('hud');if(h&&!h.querySelector('[data-a="historyLesson4"]'))h.insertAdjacentHTML('beforeend','<button data-a="historyLesson4">Lesson 4</button><button data-a="sasRead">🔊 Read aloud</button><button data-a="sasStopRead">⏹ Stop</button>');
+    if(S5.systemVoice){try{s5OldStopTeacher()}catch(e){}setTimeout(s5ReadNow,400)}},2750)};
+var s5OldMission=historyMissionAction;
+historyMissionAction=function(a){
+  if(a==='historyLesson4'){historyLesson=4;historyPage=lessonPage=0;renderLesson();s5Stop();try{s5OldStopTeacher()}catch(e){}$('message').textContent='Lesson 4 selected: Power, Printing, and Everyday Society. The slides are on the classroom board.';if(S5.systemVoice)setTimeout(s5ReadNow,300);return}
+  if(a==='historyLesson2'||a==='historyLesson3'){s5Stop();var r0=s5OldMission(a);if(S5.systemVoice){try{s5OldStopTeacher()}catch(e){}setTimeout(s5ReadNow,300)}return r0}
+  if(a==='historyNext'||a==='historyPrev'){var r1=s5OldMission(a);if(S5.systemVoice){try{s5OldStopTeacher()}catch(e){}s5Stop();setTimeout(s5ReadNow,200)}return r1}
+  if(a==='learnMagic'||a==='historyForest'){if(historyLesson===4&&window.sas705StartParis){sas705StartParis();return}}
+  return s5OldMission(a)};
+var s5OldAction=action;
+action=function(a){
+  if(a==='sasRead'){S5.systemVoice=true;s5Save();s5ReadNow();return}
+  if(a==='sasStopRead'){s5Stop();return}
+  if(a==='historyLesson4'){historyMissionAction(a);return}
+  return s5OldAction(a)};
+
+/* ===== SAS Adventure V7.0.5 — part B: Egypt History class, open worlds (Ancient Egypt + Renaissance Paris) ===== */
+var EGY_Q={
+0:[mkQ('ما هو مفهوم الحضارة؟',['ثمرة مجهود الإنسان نتيجة تفاعله مع البيئة لتحسين ظروف حياته','مجرد المباني الضخمة','الحروب والغزوات فقط'],0),mkQ('أين بدأت الحضارات العظمى قديمًا؟',['في مصر والعراق (بلاد ما بين النهرين)','في أمريكا','في أستراليا'],0),mkQ('الحضارة انتقلت إلى اليونان والرومان ثم عادت إلى الشرق على يد…',['الحضارة الإسلامية','الحضارة الصينية','الحضارة الفرعونية'],0)],
+1:[mkQ('على أي مادة مصنوعة من نبات كتب المصريون القدماء؟',['ورق البردي','الجلد فقط','القماش'],0),mkQ('ما اسم الحجر الذي ساعد شامبليون على فك رموز الهيروغليفية؟',['حجر رشيد','حجر الصوان','حجر الأهرام'],0),mkQ('الآثار والنقوش التي تركها القدماء تُعد مصادر…',['أولية','ثانوية'],0)],
+2:[mkQ('قال هيرودوت: مصر هبة…',['النيل','الصحراء','البحر'],0),mkQ('من عوامل قيام الحضارات وجود…',['مصدر للمياه وأرض صالحة للزراعة','الجبال فقط','الصحراء فقط'],0),mkQ('كيف ساعد موقع مصر على قيام حضارتها؟',['حمتها الصحراء والبحر من الأعداء','منعها من التجارة','جعلها بلا مياه'],0)],
+3:[mkQ('من الملك الذي وحّد القطرين (الوجه القبلي والبحري)؟',['مينا (نارمر)','خوفو','رمسيس الثاني'],0),mkQ('عُرف عصر الدولة القديمة بعصر…',['بناة الأهرام','الفتوحات','الهكسوس'],0),mkQ('من الملك الذي طرد الهكسوس وبدأ الدولة الحديثة؟',['أحمس','مينا','زوسر'],0)],
+4:[mkQ('ما أهم نشاط اقتصادي في مصر القديمة؟',['الزراعة','الصيد فقط','التعدين فقط'],0),mkQ('كان التبادل التجاري يتم غالبًا بنظام…',['المقايضة','البنوك الحديثة','العملات الورقية'],0),mkQ('ما سبب خصوبة الأرض في مصر؟',['فيضان النيل','الأمطار الغزيرة','الرياح'],0)],
+5:[mkQ('ما لقب حاكم مصر القديمة؟',['الفرعون (الملك)','السلطان','الأمير'],0),mkQ('من أكبر موظفي الدولة بعد الملك؟',['الوزير','الجندي','الفلاح'],0),mkQ('قُسمت مصر إداريًا إلى وحدات تسمى…',['الأقاليم (النومات)','الولايات','المحافظات الحديثة'],0)],
+6:[mkQ('أكبر طبقة في المجتمع المصري القديم كانت…',['الفلاحين','الأمراء','الكهنة'],0),mkQ('كانت مكانة المرأة في مصر القديمة…',['محترمة ولها حقوق','محرومة من كل الحقوق','لا تملك شيئًا'],0),mkQ('من الذين يكتبون ويسجلون؟',['الكتّاب','الجنود','الحدادون'],0)],
+7:[mkQ('أي إله اعتبره المصريون إله الشمس؟',['رع','حابي','أنوبيس'],0),mkQ('ماذا يسمى حفظ الجسد بعد الموت؟',['التحنيط','الحرق','الدفن البسيط'],0),mkQ('اعتقد المصريون القدماء في…',['الحياة بعد الموت','فناء كل شيء','تقديس الجبال فقط'],0)],
+8:[mkQ('ما اسم الكتابة المصرية القديمة؟',['الهيروغليفية','المسمارية','اللاتينية'],0),mkQ('من العالم الفرنسي الذي فك رموز الهيروغليفية؟',['شامبليون','هيرودوت','كارتر'],0),mkQ('على ماذا كان المصريون يكتبون؟',['ورق البردي','الورق الحديث','الحرير'],0)],
+9:[mkQ('ما اسم الكتابة في بلاد الرافدين؟',['المسمارية','الهيروغليفية','الفينيقية'],0),mkQ('من الملك البابلي صاحب أشهر مجموعة قوانين؟',['حمورابي','نبوخذ نصر','أخناتون'],0),mkQ('المعبد المدرّج في بلاد الرافدين يسمى…',['الزقورة','الهرم','البارثينون'],0)],
+10:[mkQ('اشتهر الفينيقيون بـ…',['التجارة البحرية وصناعة السفن','بناء الأهرام','الزراعة فقط'],0),mkQ('ما أهم إنجاز فينيقي في الكتابة؟',['الأبجدية','الهيروغليفية','المسمارية'],0),mkQ('ما الصبغة الشهيرة عند الفينيقيين؟',['الأرجوان','الأخضر','الأبيض'],0)],
+11:[mkQ('ما أشهر معبد يوناني في أثينا؟',['البارثينون','الكرنك','الزقورة'],0),mkQ('ظهر نظام الحكم الديمقراطي في…',['أثينا','طيبة','بابل'],0),mkQ('أشهر المدن اليونانية العسكرية؟',['إسبرطة','منف','صور'],0)],
+12:[mkQ('من أسس مدينة الإسكندرية؟',['الإسكندر الأكبر','يوليوس قيصر','رمسيس الثاني'],0),mkQ('ما أشهر ما ازدهر في الإسكندرية؟',['المكتبة والمنارة','الأهرامات','الزقورة'],0),mkQ('آخر ملكات البطالمة في مصر؟',['كليوباترا السابعة','نفرتيتي','حتشبسوت'],0)],
+13:[mkQ('ما عاصمة الإمبراطورية الرومانية؟',['روما','أثينا','منف'],0),mkQ('أشهر ملعب روماني؟',['الكولوسيوم','الكرنك','البارثينون'],0),mkQ('من أول إمبراطور روماني؟',['أغسطس','نيرون','قسطنطين'],0)],
+14:[mkQ('كان الرومان يعتبرون مصر…',['مخزن الغلال لروما','مركز الصناعات الثقيلة','مستعمرة غير مهمة'],0),mkQ('من هزم كليوباترا وأنطونيو في معركة أكتيوم؟',['أوكتافيان (أغسطس)','يوليوس قيصر','هانيبال'],0),mkQ('أي دين انتشر في مصر في العصر الروماني؟',['المسيحية','البوذية','الزرادشتية'],0)]
+};
+/* shuffle the correct answer's place so it is not always the first one */
+(function(){for(var k in EGY_Q){EGY_Q[k].forEach(function(q){var right=q.a[q.c],arr=q.a.slice(),i,j,t;for(i=arr.length-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=arr[i];arr[i]=arr[j];arr[j]=t}q.a=arr;q.c=arr.indexOf(right)})}})();
+function egyBankFor(i){return EGY_Q[i]||[]}
+
+/* ===================== EGYPT CLASSROOM ===================== */
+var egyOwner=1,egyPrevHud='',egyMagicMode=false;
+function egyRoomActive(){return room==='egy'||(mode==='two'&&(p1Room==='egy'||p2Room==='egy'))}
+function egyHud(){return'<button data-a="egyPrev">◀ الصفحة السابقة</button><button data-a="egyNext">الصفحة التالية ▶</button><button data-a="egyRead">🔊 اقرأ لي</button><button data-a="egyStop">⏹ إيقاف</button><button data-a="egyPick">📚 اختيار الدرس</button><button data-a="egyQuestion">❓ أسئلة</button><button data-a="egyMagic">✦ تعلّم بالسحر</button><button data-a="egyBack">🏫 رجوع للمدرسة</button><button data-a="quit">الخروج للقائمة</button>'}
+function egyBanner(on){var b=document.getElementById('egyBanner');if(!b){b=document.createElement('div');b.id='egyBanner';b.dir='rtl';b.style.cssText='position:fixed;top:186px;left:50%;transform:translateX(-50%);z-index:30;background:#3b2a12e6;color:#ffe9a6;border:2px solid #e8c25a;border-radius:14px;padding:6px 18px;font:700 20px Arial,Tahoma,sans-serif;pointer-events:none;display:none;text-align:center';document.body.appendChild(b)}b.style.display=on?'block':'none';if(on)egyBannerText()}
+function egyBannerText(){var b=document.getElementById('egyBanner');if(b)b.textContent='📜 حصة التاريخ — مصر القديمة • '+egyL().t+' • صفحة '+(((historyPage%egyPageCount())+egyPageCount())%egyPageCount()+1)+' / '+egyPageCount()}
+function egyPickUI(show){var o=document.getElementById('egyPick');if(!o){o=document.createElement('div');o.id='egyPick';o.className='sas703Overlay';o.dir='rtl';o.style.display='none';var h='<div class="sas703QuizCard" style="max-width:760px;text-align:right"><h1>📚 اختر الدرس</h1><p>اختر الدرس الذي تريد أن يقرأه المدرس من الكتاب:</p>',u=0;EGY_LESSONS.forEach(function(l,i){if(l.u!==u){u=l.u;h+='<h2 style="margin:10px 0 4px">'+['','الوحدة الأولى: مدخل لدراسة حضارة مصر والعالم القديم','الوحدة الثانية: حضارة مصر القديمة (الفرعونية)','الوحدة الثالثة: حضارة بلاد العراق القديم وحضارة فينيقيا','الوحدة الرابعة: حضارة اليونان وحضارة الرومان'][u]+'</h2>'}h+='<button type="button" data-egylesson="'+i+'" style="margin:3px;font-size:18px">'+(i+1)+'. '+l.t+'</button>'});h+='<p><button type="button" id="egyPickClose">إغلاق</button></p></div>';o.innerHTML=h;document.body.appendChild(o);
+    o.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-egylesson]');if(b){egyChoose(parseInt(b.getAttribute('data-egylesson'),10))}if(e.target.id==='egyPickClose')o.style.display='none'})}
+  o.style.display=show?'flex':'none'}
+function egyChoose(i){egyLessonIdx=i;historyLesson=10;historyPage=0;lessonPage=0;egyPickUI(false);s5Stop();egyBannerText();sas705Msg('اخترت الدرس: '+egyL().t+' — المدرس سيقرأ من الكتاب الآن.');setTimeout(s5ReadNow,400)}
+function egyEnter(who){
+  if(mode!=='school'&&mode!=='two')return;egyOwner=who===2?2:1;egyPrevHud=$('hud').innerHTML;
+  var tr=$('historyTransition');tr.textContent='📜 جارٍ الانتقال إلى حصة تاريخ مصر';tr.className='historyTransition on';effect('jump');
+  setTimeout(function(){tr.className='historyTransition';historyLesson=10;historyPage=0;lessonPage=0;projectiles=[];staffVisible=false;foundState=false;$('staffBadge').style.display='none';$('paperBadge').style.display='none';
+    if(mode==='two'){if(egyOwner===1){p1Scene='school';p1Room='egy';x=-1;z=-2}else{p2Scene='school';p2Room='egy';px=1;pz=-2}}else{room='egy';x=0;z=-1}
+    try{music('egypt')}catch(e){}$('hud').innerHTML=egyHud();screen('game');egyBanner(true);sas705Msg('أهلًا بك في حصة تاريخ مصر القديمة! اختر الدرس ليبدأ المدرس القراءة.');egyPickUI(true);
+    cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame)},1500)}
+function egyLeave(){s5Stop();egyBanner(false);egyPickUI(false);if(mode==='two'){if(egyOwner===1){p1Room='class';x=-1;z=3}else{p2Room='class';px=1;pz=3}}else{room='class';x=0;z=3}historyLesson=2;
+  if(egyPrevHud)$('hud').innerHTML=egyPrevHud;screen('game');try{music('school')}catch(e){}sas705Msg('رجعت إلى الفصل.');cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame)}
+
+function egySeated(sx,sz,shirt,skin,t,ph){
+  box(sx,.5,sz,.34,.05,.32,[.45,.28,.13,1]);box(sx,.9,sz+.3,.34,.4,.04,[.45,.28,.13,1]);
+  [[-.28,-.26],[.28,-.26],[-.28,.26],[.28,.26]].forEach(function(l){box(sx+l[0],.25,sz+l[1],.04,.25,.04,[.3,.2,.1,1])});
+  var bob=Math.sin(t/900+ph)*.015;
+  box(sx,.88+bob,sz+.02,.27,.36,.17,shirt);ball3(sx,1.46+bob,sz-.02,.19,skin);
+  box(sx-.14,.62,sz-.28,.12,.1,.3,[.13,.18,.24,1]);box(sx+.14,.62,sz-.28,.12,.1,.3,[.13,.18,.24,1]);
+  box(sx-.14,.28,sz-.5,.1,.28,.1,[.13,.18,.24,1]);box(sx+.14,.28,sz-.5,.1,.28,.1,[.13,.18,.24,1]);
+  limb(sx-.34,1.05,sz-.02,.1,.3,.1,-1.1,shirt,0);limb(sx+.34,1.05,sz-.02,.1,.3,.1,-1.1,shirt,0);
+  box(sx,1.0,sz-.42,.26,.03,.2,[.85,.2,.15,1],0);box(sx,1.03,sz-.42,.24,.015,.18,[.96,.92,.82,1],0)}
+function drawEgyClass(){
+  var now=Date.now(),i,k;
+  floor([.8,.66,.42,1]);
+  box(0,2.2,-10,20,2.5,.3,[.93,.82,.55,1]);box(0,3.95,-9.85,20,.14,.25,[.1,.35,.6,1]);box(0,.38,-9.85,20,.1,.25,[.7,.5,.12,1]);
+  for(k=-8;k<=8;k+=1.6){box(k,3.55,-9.8,.35,.22,.04,[.76,.27,.18,1]);box(k,3.55,-9.79,.12,.09,.05,[.95,.8,.3,1])}
+  [-9,9].forEach(function(cx){box(cx,1.6,-9.2,.4,1.6,.4,[.94,.84,.58,1]);box(cx,3.3,-9.2,.62,.2,.62,[.8,.62,.2,1]);ball3(cx,3.62,-9.2,.28,[.25,.6,.3,1])});
+  /* wall decor: Egyptian flag + papyrus + map */
+  box(-6,2.7,-9.65,.9,.5,.03,[.8,.1,.12,1]);box(-6,2.4,-9.64,.9,.17,.03,[.98,.98,.98,1]);box(-6,2.1,-9.63,.9,.17,.03,[.05,.05,.05,1]);box(-6,2.4,-9.6,.18,.14,.03,[.78,.62,.1,1]);
+  box(6,2.4,-9.65,.8,.7,.03,[.95,.89,.7,1]);box(6,2.3,-9.6,.5,.04,.03,[.3,.55,.8,1]);box(6.1,2.55,-9.6,.35,.04,.03,[.6,.4,.15,1]);
+  /* board with the book page */
+  box(0,2.1,-9.72,2.55,1.9,.06,[.12,.1,.08,1]);box(0,2.1,-9.69,2.45,1.82,.02,[.7,.55,.2,1]);
+  var n=((historyPage%egyPageCount())+egyPageCount())%egyPageCount();
+  s5BoardDraw('egy:'+egyPageIndex(n),s5Path(10,n),0,2.1,-9.64,3.55,3.5);
+  /* teacher with the book, mouth moves while the voice reads */
+  var ty=-8.3,ts=s5Reading;person3(-3.3,ty,[.55,.3,.12,1],Math.sin(now/900)*.12,[.8,.58,.42,1],0,.2);
+  box(-3.3,1.9,ty,.3,.06,.3,[.35,.2,.1,1]);
+  box(-3.0,1.0,ty+.25,.22,.03,.18,[.6,.1,.1,1],0.3);box(-3.0,1.03,ty+.25,.2,.015,.16,[.96,.92,.8,1],.3);
+  if(ts)box(-3.3,1.46,ty+.19,.05,.012+.012*Math.abs(Math.sin(now/110)),.02,[.4,.05,.05,1]);
+  if(ts)for(i=0;i<3;i++)ball3(-3.3+.4+i*.18,1.9+((now/400+i*.3)%1)*.6,ty+.2,.045,[.95,.85,.4,1]);
+  /* desks with seated students reading */
+  var skins=[[.88,.68,.52,1],[.7,.5,.36,1],[.8,.6,.45,1],[.6,.42,.3,1]],cols=[[.2,.45,.7,1],[.7,.25,.3,1],[.25,.6,.4,1],[.65,.5,.15,1],[.45,.3,.65,1],[.2,.2,.25,1],[.75,.45,.2,1],[.3,.55,.6,1]];
+  var seats=[[-7,-6],[-3.5,-6],[3.5,-6],[7,-6],[-7,-3.2],[-3.5,-3.2],[3.5,-3.2],[7,-3.2]];
+  for(i=0;i<seats.length;i++){var sx=seats[i][0],sz=seats[i][1];box(sx,.7,sz-.62,.55,.05,.34,[.58,.4,.2,1]);box(sx-.5,.35,sz-.62,.04,.35,.04,[.3,.2,.1,1]);box(sx+.5,.35,sz-.62,.04,.35,.04,[.3,.2,.1,1]);egySeated(sx,sz,cols[i],skins[i%4],now,i)}
+  drawEgyClassPlayers();
+}
+function drawEgyClassPlayers(){}
+var s5OldDrawSchool=drawSchool;drawSchool=function(){if(room==='egy'){drawEgyClass();return}s5OldDrawSchool()};
+
+/* ===================== OPEN WORLD ENGINE ===================== */
+var W5=null,w5Keys={},w5Last=0,w5Panel=null,w5Map=null,w5Cut=0;
+var w5Seed=1;function w5R(){w5Seed=(w5Seed*16807)%2147483647;return(w5Seed-1)/2147483646}
+function w5Dist(ax,az,bx,bz){return Math.hypot(ax-bx,az-bz)}
+function w5Pyr(x,z,s,c){var n=10,hh=s*.9/n;for(var i=0;i<n;i++){var h=s*(1-i/n);box(x,(i+.5)*hh,z,h,hh*.52,h,i%2?[c[0]*.93,c[1]*.93,c[2]*.9,1]:c)}}
+function w5Col(x,z,h,c){box(x,h/2,z,.42,h/2,.42,c);box(x,h+.12,z,.62,.14,.62,[c[0]*.9,c[1]*.85,c[2]*.7,1])}
+function w5Hut(x,z,c){box(x,.9,z,1.5,.9,1.3,c);box(x,2.0,z,1.75,.2,1.55,[.5,.35,.2,1]);box(x,.8,z+1.32,.35,.6,.04,[.2,.12,.07,1])}
+function w5Palm(x,z){box(x,1.5,z,.18,1.5,.18,[.45,.3,.15,1]);for(var i=0;i<4;i++)box(x,3.1,z,1.2,.05,.2,[.2,.55,.2,1],i*.8);ball3(x,3.05,z,.22,[.4,.25,.1,1])}
+function w5Temple(x,z,c){for(var i=-3;i<=3;i++){w5Col(x+i*2.2,z+3,4.2,c);w5Col(x+i*2.2,z-3,4.2,c)}box(x,4.6,z,8.5,.22,3.6,[c[0]*.9,c[1]*.85,c[2]*.75,1]);box(x,2,z-4.2,8.5,2,.4,c);box(x-10,2.7,z+4.5,1.8,2.7,1.2,c);box(x+10,2.7,z+4.5,1.8,2.7,1.2,c);box(x-12.5,5.2,z+4.5,.6,5.2,.6,[.8,.7,.45,1]);box(x-12.5,10.6,z+4.5,.9,.4,.9,[.95,.8,.3,1])}
+function w5Zig(x,z,c){for(var i=0;i<5;i++)box(x,(i+.5)*1.5,z,10-i*1.7,.78,10-i*1.7,i%2?c:[c[0]*.9,c[1]*.88,c[2]*.8,1]);box(x,8.3,z,1.2,.5,1.2,[.2,.45,.7,1])}
+function w5Sphinx(x,z){box(x,1.2,z,1.6,1.2,3.6,[.88,.75,.5,1]);box(x,3.2,z-2.8,1.1,1.2,1.1,[.86,.73,.48,1]);ball3(x,3.8,z-2.8,.95,[.88,.75,.5,1]);box(x,.4,z-5.2,1.1,.4,1.4,[.84,.7,.45,1])}
+function w5Ship(x,z,r){box(x,.45,z,1,.45,3.2,[.45,.27,.12,1],r);box(x,3,z,.12,2.4,.12,[.35,.2,.1,1],r);box(x,3.3,z,1.4,1.3,.07,[.95,.9,.8,1],r+Math.PI/2)}
+function w5Parth(x,z){var c=[.95,.93,.88,1];for(var s=0;s<3;s++)box(x,.3+s*.3,z,11-s*.6,.3,5.5-s*.4,c);for(var i=-5;i<=5;i++){w5Col(x+i*2,z+3.6,5,c);w5Col(x+i*2,z-3.6,5,c)}box(x,6.3,z,11.5,.35,5,[.9,.88,.82,1]);box(x,7.2,z,10.5,.4,3.2,[.85,.82,.75,1]);box(x,7.9,z,8,.35,1.8,[.8,.77,.7,1])}
+function w5Light(x,z){for(var i=0;i<4;i++)box(x,2.2+i*3.4,z,2.4-i*.3,1.75,2.4-i*.3,[.93,.9,.82,1]);ball3(x,15.5,z,.9,[1,.9,.3,1]);box(x,15,z,1.2,.4,1.2,[.5,.45,.4,1])}
+function w5Colos(x,z){for(var f=0;f<2;f++)for(var i=0;i<30;i++){var a=i/30*6.283;box(x+Math.cos(a)*15,1.6+f*3.2,z+Math.sin(a)*15,1.1,1.6,.55,[.87-f*.03,.78,.62,1],-a+1.5708)}for(var j=0;j<20;j++){var b=j/20*6.283;box(x+Math.cos(b)*10,.4+((j%3)*.25),z+Math.sin(b)*10,1.4,.4,.6,[.7,.6,.45,1],-b+1.5708)}box(x,-.02,z,9,.04,9,[.8,.68,.45,1])}
+function w5Palace(x,z){var c=[.95,.88,.66,1];box(x,3,z,10,3,5,c);box(x,6.4,z,10.5,.4,5.5,[.2,.4,.6,1]);for(var i=-4;i<=4;i++)w5Col(x+i*2.4,z+5.6,4,[.9,.8,.5,1]);box(x,2,z+5.2,1.6,2,.2,[.2,.12,.07,1])}
+function w5Memphis(x,z){for(var i=-6;i<=6;i++){box(x+i*2.5,1.7,z-9,1.3,1.7,.5,[.97,.96,.92,1]);box(x+i*2.5,1.7,z+9,1.3,1.7,.5,[.97,.96,.92,1])}for(var j=-3;j<=3;j++){box(x-16,1.7,z+j*2.5*1.3,.5,1.7,1.3,[.97,.96,.92,1]);box(x+16,1.7,z+j*2.5*1.3,.5,1.7,1.3,[.97,.96,.92,1])}w5Hut(x-6,z-3,[.93,.84,.63,1]);w5Hut(x+6,z+3,[.93,.84,.63,1])}
+/* Paris pieces */
+function w5Cathedral(x,z){var c=[.78,.75,.7,1];box(x,4.5,z,7,4.5,12,c);box(x-5,8,z+11.5,2.2,8,2.2,c);box(x+5,8,z+11.5,2.2,8,2.2,c);box(x,10.5,z,7.4,.35,12.4,[.35,.4,.5,1]);box(x,9.9,z,3,2,10.5,[.45,.5,.6,1]);box(x,6,z+12.1,1.6,2.2,.1,[.25,.45,.7,1]);box(x,16.3,z+11.5,.3,1.5,.3,[.85,.7,.2,1])}
+function w5Louvre(x,z){var c=[.9,.84,.72,1];box(x,4,z,16,4,5,c);box(x,8.4,z,16.4,.4,5.4,[.3,.4,.5,1]);box(x-16,5,z,3.5,5,5,c);box(x+16,5,z,3.5,5,5,c);box(x-16,10.5,z,3.9,.5,5.4,[.3,.4,.5,1]);box(x+16,10.5,z,3.9,.5,5.4,[.3,.4,.5,1]);for(var i=-6;i<=6;i++)box(x+i*2.3,4,z+5.1,.5,.9,.1,[.25,.45,.7,1])}
+function w5Press(x,z){box(x,.6,z,1.3,.6,1,[.4,.25,.12,1]);box(x-1.1,2,z,.2,2,.2,[.4,.25,.12,1]);box(x+1.1,2,z,.2,2,.2,[.4,.25,.12,1]);box(x,3.9,z,1.4,.2,.3,[.4,.25,.12,1]);box(x,1.4,z,.9,.1,.8,[.2,.2,.22,1]);box(x+1.6,1.2,z,.1,.8,.1,[.5,.35,.15,1])}
+function w5Stall(x,z,c){box(x,.5,z,1.3,.5,.8,[.5,.35,.2,1]);box(x,2.2,z,1.5,.08,1.1,c);box(x-1.3,1.2,z-.9,.07,1.2,.07,[.4,.3,.15,1]);box(x+1.3,1.2,z-.9,.07,1.2,.07,[.4,.3,.15,1]);ball3(x-.5,1.1,z,.2,[.85,.2,.2,1]);ball3(x+.3,1.1,z,.2,[.95,.75,.2,1])}
+function w5House(x,z,c,rt){box(x,1.7,z,2,1.7,2.2,c);box(x,3.7,z,2.3,.25,2.5,rt||[.55,.25,.2,1]);box(x,4.5,z,1.5,.5,2.2,rt||[.55,.25,.2,1])}
+function w5Tree(x,z){box(x,1.2,z,.2,1.2,.2,[.35,.22,.1,1]);ball3(x,3,z,1.3,[.2,.5,.2,1])}
+function w5Bank(x,z){var c=[.9,.86,.72,1];box(x,2.4,z,3.5,2.4,3,c);box(x,5,z,3.8,.3,3.3,[.25,.3,.5,1]);for(var i=-2;i<=2;i++)w5Col(x+i*1.3,z+3.4,3.5,c);ball3(x,6.4,z,.55,[.95,.8,.2,1])}
+
+function w5Mission(o){W5.missions.push(o)}
+function w5BuildEgypt(){
+  w5Seed=11;var W={id:'egy',lang:'ar',half:320,sky:[.55,.78,.95],objs:[],npcs:[],enemies:[],items:[],solids:[],missions:[],mi:0,stars:0,hp:5,x:0,z:14,y:0,vy:0,yaw:0,walk:0,run:false,swim:false,atk:0,hitDone:false,last:Date.now(),dead:0,say:'',sayUntil:0,fx:[]};
+  W.water=function(x,z){return Math.abs(x-(70+30*Math.sin(z/70)+12*Math.sin(z/28)))<13||z<-295||x<-300&&z<-100};
+  W.ground=function(x,z){var d=Math.abs(x-(70+30*Math.sin(z/70)+12*Math.sin(z/28)));if(d<32)return[.36,.56,.2,1];if(Math.hypot(x-200,z+180)<28||Math.hypot(x+200,z+200)<26)return[.62,.66,.42,1];return[.87,.76,.5,1]};
+  var o=W.objs,i,z0;
+  /* river banks: palms + fields */
+  for(z0=-290;z0<=310;z0+=14){var cx=70+30*Math.sin(z0/70)+12*Math.sin(z0/28);o.push({k:'palm',x:cx-18-w5R()*6,z:z0});o.push({k:'palm',x:cx+18+w5R()*6,z:z0+7})}
+  /* Giza */
+  o.push({k:'pyr',x:-110,z:-100,s:22,c:[.9,.78,.5,1]});o.push({k:'pyr',x:-150,z:-125,s:18,c:[.88,.76,.48,1]});o.push({k:'pyr',x:-185,z:-150,s:13,c:[.9,.77,.5,1]});o.push({k:'sphinx',x:-92,z:-65});
+  W.solids.push({x:-110,z:-100,r:22},{x:-150,z:-125,r:18},{x:-185,z:-150,r:13},{x:-92,z:-66,r:3});
+  /* village */
+  for(i=0;i<10;i++){var hx=(i%2?1:-1)*(18+(i%3)*9)+w5R()*3,hz=-18+Math.floor(i/2)*10+w5R()*2;o.push({k:'hut',x:hx,z:hz,c:[.9,.8,.6,1]});W.solids.push({x:hx,z:hz,r:2.2})}
+  o.push({k:'memphis',x:-20,z:-160});W.solids.push({x:-20,z:-169,r:1});
+  o.push({k:'palace',x:40,z:-215});W.solids.push({x:40,z:-215,r:7});
+  o.push({k:'temple',x:-60,z:150,c:[.92,.82,.58,1]});W.solids.push({x:-60,z:150,r:6});
+  o.push({k:'zig',x:200,z:-180,c:[.78,.58,.35,1]});W.solids.push({x:200,z:-180,r:8});
+  o.push({k:'ship',x:140,z:-306,r:.4});o.push({k:'ship',x:158,z:-312,r:-.2});o.push({k:'ship',x:176,z:-304,r:.1});o.push({k:'hut',x:150,z:-282,c:[.82,.62,.4,1]});o.push({k:'hut',x:168,z:-280,c:[.82,.62,.4,1]});
+  o.push({k:'parth',x:-200,z:-200});W.solids.push({x:-200,z:-200,r:9});
+  o.push({k:'light',x:-250,z:-270});W.solids.push({x:-250,z:-270,r:3});
+  o.push({k:'colos',x:-200,z:200});
+  o.push({k:'hut',x:118,z:172,c:[.8,.7,.5,1]});o.push({k:'hut',x:126,z:176,c:[.8,.7,.5,1]});
+  for(i=0;i<50;i++){var rx=(w5R()-.5)*600,rz=(w5R()-.5)*600;if(!W.water(rx,rz)&&Math.hypot(rx,rz)>20)o.push({k:'rock',x:rx,z:rz,s:.5+w5R()*1.3})}
+  /* NPCs */
+  function npc(n,x,z,col,say){W.npcs.push({n:n,x:x,z:z,hx:x,hz:z,col:col,say:say,ph:w5R()*6})}
+  npc('الكاتب',10,-4,[.9,.88,.8,1],'أهلًا يا بطل! أنا الكاتب. الحضارة هي ثمرة مجهود الإنسان لتحسين حياته، وقد بدأت أولى الحضارات في مصر والعراق.');
+  npc('فلاح',-8,20,[.55,.45,.3,1],'النيل هو سر حياتنا. يفيض كل عام فيترك الطمي الخصب لنزرع القمح.');
+  npc('فلاحة',16,22,[.7,.4,.35,1],'نزرع القمح والكتان، ونحصد مع الفيضان. اذهب وتعلم كل شيء عن حضارتنا!');
+  npc('الملك نارمر (مينا)',-20,-152,[.95,.9,.6,1],'أنا مينا (نارمر)! وحّدت القطرين، الوجه القبلي والوجه البحري، وبنيت مدينة منف عاصمة لمصر.');
+  npc('الوزير',40,-203,[.9,.88,.9,1],'أنا الوزير، أكبر موظفي الدولة بعد الملك. أدير شؤون الأقاليم والضرائب والمخازن.');
+  npc('الكاهن',-60,142,[.97,.97,.95,1],'مرحبًا في معبد الكرنك. المصريون القدماء آمنوا بالحياة بعد الموت وعبدوا آمون رع إله الشمس.');
+  npc('كاتب بابلي',200,-168,[.7,.5,.3,1],'نحن في بلاد الرافدين. نكتب بالخط المسماري على ألواح الطين، وهذه الزقورة معبدنا المدرّج.');
+  npc('تاجر فينيقي',150,-275,[.55,.15,.5,1],'نحن الفينيقيون تجار البحر! اخترعنا الأبجدية وصبغنا الأقمشة بالأرجواني الثمين.');
+  npc('فيلسوف يوناني',-200,-190,[.95,.95,.98,1],'هنا أثينا! في الحضارة اليونانية ولدت الديمقراطية، وهذا هو معبد البارثينون.');
+  npc('حارس المنارة',-250,-260,[.3,.4,.6,1],'هذه منارة الإسكندرية، أسسها البطالمة بعد الإسكندر الأكبر. مكتبة الإسكندرية كانت أشهر مكتبة في العالم القديم.');
+  npc('جندي روماني',-200,188,[.7,.15,.15,1],'هنا روما! الكولوسيوم أشهر ملاعبنا. اهزم الأعداء لتثبت شجاعتك.');
+  npc('مدير المخزن',118,164,[.8,.7,.4,1],'اعتبرت روما مصر سلة غلالها. اجمع أكياس القمح لتشحن إلى روما!');
+  /* enemies */
+  function foe(t,x,z,hp){W.enemies.push({t:t,x:x,z:z,hx:x,hz:z,hp:hp,max:hp,dead:0,cd:0,ph:w5R()*6})}
+  for(i=0;i<6;i++)foe('croc',70+30*Math.sin((-200+i*90)/70)+12*Math.sin((-200+i*90)/28),-200+i*90,5);
+  for(i=0;i<5;i++)foe('bandit',-60+i*30,-20+(i%2)*30,3);
+  /* mission 7 fight: three bandits near farmers; mission 14 gladiators in the Colosseum */
+  W.fightA=[];for(i=0;i<3;i++){var e={t:'bandit',x:90+i*3,z:62+i*2,hx:90,hz:62,hp:3,max:3,dead:0,cd:0,ph:i,quest:7};W.enemies.push(e)}
+  for(i=0;i<3;i++){W.enemies.push({t:'soldier',x:-200+i*2.5,z:200+i*1.5,hx:-200,hz:200,hp:3,max:3,dead:0,cd:0,ph:i,quest:14})}
+  W.missions=[];W.mi=0;
+  var M=function(o){W.missions.push(o)};
+  M({l:0,t:'تحدث مع الكاتب',d:'اذهب إلى الكاتب في قرية الجيزة وتحدث معه (اضغط تفاعل).',type:'talk',npc:'الكاتب'});
+  M({l:1,t:'اجمع آثار الحضارة',d:'اجمع ثلاثة آثار قديمة: حجر رشيد، بردية، ولوحة نارمر.',type:'collect',items:[[-40,-30],[-55,-48],[-30,-62]]});
+  M({l:2,t:'اعبر النيل سباحة',d:'اسبح عبر نهر النيل إلى الضفة الشرقية وتعرّف على سر الحضارة المصرية.',type:'go',tx:100,tz:24,r:6});
+  M({l:3,t:'قابل الملك مينا في منف',d:'اذهب إلى مدينة منف وتحدث مع الملك نارمر موحّد القطرين.',type:'talk',npc:'الملك نارمر (مينا)'});
+  M({l:4,t:'احصد القمح',d:'اجمع خمس حزم من القمح من حقول الضفة الغربية للنيل.',type:'collect',items:[[44,-20],[50,-8],[40,6],[46,18],[38,30]]});
+  M({l:5,t:'سلّم الرسالة للوزير',d:'اجرِ إلى القصر الملكي في الشمال وسلّم الرسالة للوزير.',type:'talk',npc:'الوزير'});
+  M({l:6,t:'احمِ الفلاحين من اللصوص',d:'اهزم ثلاثة لصوص يهاجمون الفلاحين شرق النيل (اضغط هجوم).',type:'fight',quest:7,n:3,tx:90,tz:62});
+  M({l:7,t:'زر معبد الكرنك',d:'اذهب إلى معبد الكرنك وتحدث مع الكاهن.',type:'talk',npc:'الكاهن'});
+  M({l:8,t:'اكتشف الأهرامات',d:'اذهب إلى أهرامات الجيزة وتعلّم عن عصر بناة الأهرام والكتابة الهيروغليفية.',type:'go',tx:-92,tz:-52,r:7});
+  M({l:9,t:'اهرب من اللصوص إلى الزقورة',d:'لصوص يطاردونك! اجرِ (زر ركض) إلى الزقورة في بلاد الرافدين.',type:'escape',tx:200,tz:-166,r:7,chasers:3});
+  M({l:10,t:'ميناء الفينيقيين',d:'اذهب إلى ميناء الفينيقيين على ساحل البحر المتوسط وتحدث مع التاجر.',type:'talk',npc:'تاجر فينيقي'});
+  M({l:11,t:'معبد البارثينون',d:'سافر إلى بلاد اليونان وتحدث مع الفيلسوف عند البارثينون.',type:'talk',npc:'فيلسوف يوناني'});
+  M({l:12,t:'منارة الإسكندرية',d:'اذهب إلى منارة الإسكندرية وتحدث مع الحارس.',type:'talk',npc:'حارس المنارة'});
+  M({l:13,t:'ساحة الكولوسيوم',d:'اهزم ثلاثة جنود رومان في الكولوسيوم.',type:'fight',quest:14,n:3,tx:-200,tz:200});
+  M({l:14,t:'غلال روما',d:'اجمع أربعة أكياس قمح قرب النيل لتُشحن إلى روما، واحذر التماسيح!',type:'collect',items:[[100,150],[110,158],[96,170],[108,180]]});
+  W.counts={collect:0,fight:0};w5Items(W);return W}
+
+function w5Items(W){var m=W.missions[W.mi];W.items=[];if(m&&m.type==='collect'){m.items.forEach(function(p){W.items.push({x:p[0],z:p[1],got:false})})}
+  W.chase=[];if(m&&m.type==='escape'){for(var i=0;i<m.chasers;i++)W.chase.push({t:'bandit',x:W.x+6+i*2,z:W.z+8+i*2,hp:99,max:99,dead:0,cd:0,ph:i,chaser:true,hx:0,hz:0})}
+  W.fightKills=0}
+
+function w5BuildParis(){
+  w5Seed=5;var W={id:'paris',lang:'en',half:110,sky:[.62,.76,.92],objs:[],npcs:[],enemies:[],items:[],solids:[],missions:[],mi:0,stars:0,hp:5,x:0,z:60,y:0,vy:0,yaw:0,walk:0,run:false,swim:false,atk:0,hitDone:false,last:Date.now(),dead:0,fx:[],counts:{}};
+  W.water=function(x,z){var c=-6+6*Math.sin(x/18);if(Math.abs(x)<4+6&&false)return false;return Math.abs(z-c)<7&&!(x>-13&&x<-5)&&!(x>28&&x<36)};
+  W.ground=function(x,z){return z>75?[.45,.6,.25,1]:(z<-60?[.55,.52,.45,1]:[.62,.6,.55,1])};
+  var o=W.objs,i;
+  o.push({k:'cath',x:0,z:-70});W.solids.push({x:0,z:-70,r:8});
+  o.push({k:'louvre',x:-62,z:-34});W.solids.push({x:-62,z:-34,r:12});
+  o.push({k:'press',x:62,z:-34});W.solids.push({x:62,z:-34,r:2});o.push({k:'house',x:70,z:-44,c:[.8,.65,.45,1]});o.push({k:'house',x:54,z:-44,c:[.75,.6,.4,1]});
+  o.push({k:'bank',x:60,z:30});W.solids.push({x:60,z:30,r:4});
+  o.push({k:'house',x:-70,z:32,c:[.85,.78,.6,1]});o.push({k:'house',x:-56,z:34,c:[.8,.7,.55,1]});o.push({k:'house',x:-42,z:30,c:[.82,.7,.5,1]});
+  for(i=0;i<5;i++)o.push({k:'stall',x:-26+i*8,z:22,c:i%2?[.8,.2,.2,1]:[.2,.45,.75,1]});
+  o.push({k:'house',x:-20,z:-30,c:[.78,.72,.6,1]});W.solids.push({x:-20,z:-30,r:2.5});
+  for(i=0;i<22;i++){var tx=(w5R()-.5)*200,tz=(w5R()-.5)*200;if(!W.water(tx,tz)&&Math.hypot(tx,tz)>14)o.push({k:'tree',x:tx,z:tz})}
+  for(i=0;i<8;i++)o.push({k:'house',x:-90+i*3.5*0+(i<4?-100+i*0:0),z:0,c:[0,0,0,0],hide:true});o.pop();
+  function npc(n,x,z,col,say){W.npcs.push({n:n,x:x,z:z,hx:x,hz:z,col:col,say:say,ph:w5R()*6})}
+  npc('Machiavelli',-20,-24,[.35,.1,.15,1],'I am Niccolo Machiavelli, author of The Prince. A ruler must know how to get and keep power. Human nature is selfish, and morality has little to do with politics!');
+  npc('Noble',-62,-24,[.5,.15,.6,1],'We nobles are only 2 to 3 percent of the people, yet we hold the top posts. Only nobles may wear purple silk!');
+  npc('Gutenberg',62,-27,[.2,.25,.35,1],'I am Johannes Gutenberg. In 1455 in Germany I printed the first book, a Bible, using a press adapted from a wine press, metal type, and artists\' ink!');
+  npc('Merchant',-6,26,[.7,.5,.2,1],'Trade brought cash instead of barter, and banks backed cash and checks. Some merchants even buy their way into the nobility!');
+  npc('Banker',60,24,[.2,.4,.3,1],'Patricians gained wealth from trade, industry, and banking, and sit at the top of urban society.');
+  npc('Peasant',-50,88,[.5,.4,.3,1],'Peasants are 85 to 90 percent of the population. By 1500, most Western European peasants were legally free.');
+  npc('Mother',-62,40,[.8,.5,.55,1],'Parents arranged marriages to strengthen business or family ties. The father has absolute authority over the children.');
+  W.missions=[];W.mi=0;var M=function(o){W.missions.push(o)};
+  M({q:[0,1,2,3,4,5],t:'Meet Machiavelli',d:'Find Machiavelli in his study near the Louvre road and talk to him (press Talk).',type:'talk',npc:'Machiavelli'});
+  M({q:[6,7,8,9],t:'The Noble Palace',d:'Visit the nobles at the royal palace in the west and talk to a noble.',type:'talk',npc:'Noble'});
+  M({q:[10,11,12,13,14,15],t:'Build the Printing Press',d:'Collect 3 parts: a wine-press screw, metal type and artists\' ink. Then talk to Gutenberg.',type:'collect',items:[[20,-10],[40,-20],[30,-44]]});
+  M({q:[16,17,18,19,20,21],t:'The Money Economy',d:'Swim across the Seine to the market and talk to the merchant.',type:'talk',npc:'Merchant'});
+  M({q:[22,23,24,25,26],t:'Visit the Banker',d:'Go to the bank in the east and talk to the banker.',type:'talk',npc:'Banker'});
+  M({q:[16,17,18,19,26,27],t:'Everyday Society',d:'Run south to the peasant fields and talk to the peasant, with robbers chasing you!',type:'escape',tx:-50,tz:86,r:6,chasers:2});
+  W.counts={};w5Items(W);return W}
+
+function w5Say(t,ms){W5.say=t;W5.sayUntil=Date.now()+(ms||6500);sas705Msg(t)}
+function w5Start(id){
+  W5=id==='paris'?w5BuildParis():w5BuildEgypt();w5Keys={};egyBanner(false);
+  mode='wld';room='wld';x=W5.x;z=W5.z;screen('game');
+  try{music(id==='paris'?'lesson4':'egypt')}catch(e){}
+  w5HudSet();w5UiOn(true);cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame)}
+function w5HudSet(){var A=W5.lang==='ar';
+  $('hud').innerHTML=(A?'مغامرة مصر القديمة • ':'RENAISSANCE PARIS • ')+'<button data-a="wAtk">'+(A?'⚔ هجوم':'⚔ Attack')+'</button><button data-a="wJump">'+(A?'⤒ قفز':'⤒ Jump')+'</button><button data-a="wRun">'+(A?'🏃 ركض':'🏃 Run')+'</button><button data-a="wTalk">'+(A?'💬 تحدث / تفاعل':'💬 Talk / Use')+'</button><button data-a="wHelp">'+(A?'📜 المهمة':'📜 Mission')+'</button><button data-a="wExit">'+(A?'🏫 العودة للصف':'🏫 Back to class')+'</button><button data-a="quit">'+(A?'الخروج للقائمة':'Quit to Menu')+'</button>'}
+function w5UiOn(on){
+  if(!w5Panel){w5Panel=document.createElement('div');w5Panel.id='w5Panel';w5Panel.style.cssText='position:fixed;top:150px;left:10px;z-index:25;max-width:min(340px,60vw);background:#1b140ae6;color:#fff3cf;border:2px solid #e8c25a;border-radius:12px;padding:8px 12px;font:600 15px Arial,Tahoma,sans-serif;pointer-events:none;display:none;line-height:1.5';document.body.appendChild(w5Panel)}
+  if(!w5Map){w5Map=document.createElement('canvas');w5Map.id='w5Map';w5Map.width=140;w5Map.height=140;w5Map.style.cssText='position:fixed;right:10px;bottom:90px;z-index:25;border:2px solid #e8c25a;border-radius:10px;background:#0008;display:none;pointer-events:none';document.body.appendChild(w5Map)}
+  w5Panel.style.display=on?'block':'none';w5Map.style.display=on?'block':'none';w5Panel.dir=W5&&W5.lang==='ar'?'rtl':'ltr';if(!on){var cu=document.getElementById('w5Cut');if(cu)cu.style.display='none'}}
+function w5Exit(){var id=W5&&W5.id;w5Keys={};w5UiOn(false);var cu=document.getElementById('w5Cut');if(cu)cu.style.display='none';s5Stop();
+  mode='school';W5=null;
+  if(id==='paris'){room='history';historyLesson=4;$('hud').innerHTML=egyPrevHud||'';var ph=$('hud');if(ph)ph.innerHTML='WORLD HISTORY <button data-a="historyLesson2">Lesson 2</button><button data-a="historyLesson3">Lesson 3</button><button data-a="historyLesson4">Lesson 4</button><button data-a="historyPrev">Previous page</button><button data-a="historyNext">Next page</button><button data-a="historyQuestion">Questions</button><button data-a="learnMagic">Learn by Magic</button><button data-a="sasRead">🔊 Read aloud</button><button data-a="sasStopRead">⏹ Stop</button><button data-a="historyHome">Back to school</button><button data-a="quit">Quit to Menu</button>';x=0;z=-2;music('school')}
+  else{room='egy';historyLesson=10;$('hud').innerHTML=egyHud();egyBanner(true);x=0;z=-1;music('egypt')}
+  screen('game');cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame)}
+
+function w5Cutscene(id){
+  var tr=$('historyTransition');tr.textContent=id==='paris'?'✦ MAGIC: PARIS ✦':'✦ سحر التاريخ ✦';tr.className='historyTransition on';effect('win');
+  setTimeout(function(){tr.className='historyTransition';w5Start(id);W5.cut=Date.now();var A=id==='egy',cu=document.getElementById('w5Cut');if(!cu){cu=document.createElement('div');cu.id='w5Cut';cu.style.cssText='position:fixed;left:0;right:0;top:22%;z-index:40;text-align:center;color:#fff;font:800 clamp(24px,5vw,54px) Arial,Tahoma,sans-serif;text-shadow:0 0 18px #000,0 0 6px #000;pointer-events:none;padding:0 20px;transition:opacity .8s;opacity:0';document.body.appendChild(cu)}
+    cu.style.display='block';cu.innerHTML=A?'A Very Very Very Long Time Ago…<br><span dir="rtl" style="font-size:.8em;color:#ffe9a6">منذ زمنٍ بعيدٍ جدًا جدًا جدًا…</span>':'Paris, long ago in the Renaissance…<br><span style="font-size:.75em;color:#ffe9a6">Machiavelli • Nobles • Gutenberg • Trade</span>';
+    setTimeout(function(){cu.style.opacity='1'},300);setTimeout(function(){cu.style.opacity='0'},5600);setTimeout(function(){cu.style.display='none';if(W5)w5Say(A?'مرحبًا بك في مصر القديمة! اتبع المهام لتتعلم من الكتاب. استخدم الأسهم أو WASD للحركة.':'Welcome to Renaissance Paris! Follow the missions and learn the lesson. Move with arrows or WASD.',9000)},6600)},1900)}
+window.SAS705_DEBUG=function(){return W5};window.SAS705_STATE=function(){return[historyLesson,egyLessonIdx,sas704Bank().length,typeof egyBankFor,historyQuizBank&&historyQuizBank.length,historyQuizIndex]};window.sas705StartParis=function(){egyPrevHud=$('hud').innerHTML;s5Stop();w5Cutscene('paris')};
+
+/* ---------- per-frame update ---------- */
+function w5Update(dt,now){
+  var W=W5,sp=W.run?.34:.2,k=w5Keys,dx=0,dz=0,i,e;
+  if(W.cut&&now-W.cut<6200){return}
+  if(W.dead&&now<W.dead)return;
+  if(k.w||k.up)dz-=1;if(k.s||k.down)dz+=1;if(k.a||k.left)dx-=1;if(k.d||k.right)dx+=1;
+  if(W.mdx||W.mdz){dx+=W.mdx||0;dz+=W.mdz||0;if(now>W.mUntil){W.mdx=W.mdz=0}}
+  if(dx||dz){var l=Math.hypot(dx,dz);dx/=l;dz/=l;var sw=W.water(W.x,W.z);W.swim=sw&&W.y<.3;var v=(sw?.11:sp)*dt;W.x+=dx*v;W.z+=dz*v;W.yaw=Math.atan2(dx,-dz);W.walk+=(sw?.18:W.run?.55:.35)*dt}else W.swim=W.water(W.x,W.z)&&W.y<.3;
+  for(i=0;i<W.solids.length;i++){var s=W.solids[i],d=w5Dist(W.x,W.z,s.x,s.z);if(d<s.r+.5&&d>0){W.x=s.x+(W.x-s.x)/d*(s.r+.5);W.z=s.z+(W.z-s.z)/d*(s.r+.5)}}
+  W.x=Math.max(-W.half,Math.min(W.half,W.x));W.z=Math.max(-W.half,Math.min(W.half,W.z));
+  W.vy-=.014*dt;W.y+=W.vy*dt;if(W.y<=0){W.y=0;W.vy=0}
+  x=W.x;z=W.z;
+  /* attack */
+  if(W.atk&&now<W.atk&&!W.hitDone&&now>W.atk-260){W.hitDone=true;var all=W.enemies.concat(W.chase||[]);for(i=0;i<all.length;i++){e=all[i];if(e.dead||e.chaser)continue;if(w5Dist(e.x,e.z,W.x,W.z)<3.2){e.hp--;e.flash=now+200;e.x+=Math.sin(W.yaw)*1.2;e.z-=Math.cos(W.yaw)*1.2;effect('hit');if(e.hp<=0){e.dead=now;if(e.quest!==undefined){var m=W.missions[W.mi];if(m&&m.type==='fight'&&m.quest===e.quest){W.fightKills++}}}}}}
+  /* enemies */
+  var all2=W.enemies.concat(W.chase||[]);
+  for(i=0;i<all2.length;i++){e=all2[i];if(e.dead){if(!e.chaser&&now-e.dead>30000){e.dead=0;e.hp=e.max;e.x=e.hx;e.z=e.hz}continue}
+    var dd=w5Dist(e.x,e.z,W.x,W.z),sees=e.chaser?true:(e.quest!==undefined?dd<16:dd<13),inW=W.water(e.x,e.z);
+    if(e.t==='croc'){if(sees&&W.water(W.x,W.z)&&dd<14){var a=Math.atan2(W.x-e.x,W.z-e.z);var nx=e.x+Math.sin(a)*.09*dt,nz=e.z+Math.cos(a)*.09*dt;if(W.water(nx,nz)){e.x=nx;e.z=nz}}}
+    else if(sees&&dd>1.4){var sp2=(e.chaser?.2:.12)*dt,aa=Math.atan2(W.x-e.x,W.z-e.z);e.x+=Math.sin(aa)*sp2;e.z+=Math.cos(aa)*sp2;e.yaw=aa;e.walk=(e.walk||0)+.3}
+    else if(!sees){e.x+=Math.sin(now/1200+e.ph)*.01;e.z+=Math.cos(now/1500+e.ph)*.01}
+    if(dd<1.7&&now>e.cd&&!(W.y>1.2)){e.cd=now+1100;W.hp--;effect('hit');W.hurt=now+300;if(W.hp<=0){W.dead=now+2200;W.hp=5;W.say='';sas705Msg(W.lang==='ar'?'سقطت! سيتم إنعاشك في القرية…':'You fell! Respawning…');setTimeout(function(){if(W5===W){W.x=W.id==='paris'?0:0;W.z=W.id==='paris'?60:14;W.cut=0;if(W.chase)W.chase.forEach(function(c){c.x=W.x+8;c.z=W.z+8})}},2000)}}}
+  /* NPC wander */
+  for(i=0;i<W.npcs.length;i++){var n=W.npcs[i];n.x=n.hx+Math.sin(now/2400+n.ph)*.8;n.z=n.hz+Math.cos(now/2900+n.ph)*.8}
+  /* items */
+  for(i=0;i<W.items.length;i++){var it=W.items[i];if(!it.got&&w5Dist(it.x,it.z,W.x,W.z)<1.8){it.got=true;effect('found');var m2=W.missions[W.mi];var left=W.items.filter(function(q){return!q.got}).length;w5Say(W.lang==='ar'?'✔ جمعت! المتبقي: '+left:'✔ Collected! Remaining: '+left,3000);if(!left&&m2)w5Complete()}}
+  /* mission goals */
+  var m=W.missions[W.mi];if(m&&!W.asking){
+    if((m.type==='go'||m.type==='escape')&&w5Dist(W.x,W.z,m.tx,m.tz)<m.r)w5Complete();
+    if(m.type==='fight'&&W.fightKills>=m.n)w5Complete()}
+  w5Hud(now)}
+function w5Complete(){var W=W5,m=W.missions[W.mi];if(!m||W.asking)return;W.asking=true;W.hp=Math.min(5,W.hp+1);
+  var bank=W.id==='egy'?egyBankFor(m.l):m.q.map(function(i){return lesson4Bank[i]}).filter(Boolean);
+  var q=bank[Math.floor(Math.random()*bank.length)];if(!q){w5Next();return}
+  w5AskQ(q,W.lang==='ar')}
+function w5Next(){var W=W5;W.asking=false;W.stars++;W.mi++;W.run=false;if(W.mi>=W.missions.length){w5Say(W.lang==='ar'?'🏆 أحسنت! أنهيت جميع مهام الكتاب!':'🏆 Great job! You finished every mission of the lesson!',12000);W.items=[];W.chase=[];return}w5Items(W);var m=W.missions[W.mi];w5Say((W.lang==='ar'?'مهمة جديدة: ':'New mission: ')+m.t,6000);try{effect('win')}catch(e){}}
+function w5AskQ(q,ar){var o=document.getElementById('w5Q');if(!o){o=document.createElement('div');o.id='w5Q';o.className='sas703Overlay';o.style.display='none';document.body.appendChild(o)}
+  o.dir=ar?'rtl':'ltr';o.innerHTML='<div class="sas703QuizCard"><h1>'+(ar?'⭐ سؤال المهمة':'⭐ Mission question')+'</h1><h2></h2><div class="sas703QuizAnswers"></div><p class="w5r"></p></div>';o.querySelector('h2').textContent=q.q;var an=o.querySelector('.sas703QuizAnswers'),done=false;
+  q.a.forEach(function(a,i){var b=document.createElement('button');b.type='button';b.textContent=a;b.onclick=function(){if(done)return;if(i===q.c){done=true;o.querySelector('.w5r').textContent=ar?'✔ إجابة صحيحة! أحسنت.':'✔ Correct! Well done.';b.className='sas703Correct';effect('win');setTimeout(function(){o.style.display='none';w5Next()},S5.autoNext?900:1400)}else{o.querySelector('.w5r').textContent=ar?'✘ حاول مرة أخرى.':'✘ Try again.';b.className='sas703Wrong';b.disabled=true;effect('hit')}};an.appendChild(b)});
+  o.style.display='flex'}
+
+/* ---------- HUD text + minimap ---------- */
+function w5Hud(now){var W=W5,m=W.missions[W.mi],A=W.lang==='ar',h='';var hearts=new Array(W.hp+1).join('♥');
+  h+=(A?'❤ الصحة: ':'❤ Health: ')+hearts+'<br>'+(A?'⭐ النجوم: ':'⭐ Stars: ')+W.stars+' / '+W.missions.length;
+  if(m){var tg=w5Target(m),dist=tg?Math.round(w5Dist(W.x,W.z,tg[0],tg[1])):0;h+='<br><b>'+(A?'المهمة '+(W.mi+1)+': ':'Mission '+(W.mi+1)+': ')+m.t+'</b><br>'+m.d;
+    if(m.type==='collect')h+='<br>'+(A?'المتبقي: ':'Left: ')+W.items.filter(function(q){return!q.got}).length;if(m.type==='fight')h+='<br>'+(A?'هزمت: ':'Defeated: ')+W.fightKills+' / '+m.n;if(tg){var ang=Math.atan2(tg[0]-W.x,-(tg[1]-W.z)),arrows=['↑','↗','→','↘','↓','↙','←','↖'],ai=Math.round(((ang+6.283)%6.283)/.7854)%8;h+='<br>'+arrows[ai]+' '+dist+(A?' م':' m')}}
+  else h+='<br><b>'+(A?'🏆 أنهيت كل المهام!':'🏆 All missions done!')+'</b>';
+  if(W.swim)h+='<br>'+(A?'🏊 تسبح… احذر التماسيح!':'🏊 Swimming…');if(W.run)h+='<br>'+(A?'🏃 تركض':'🏃 Running');
+  if(w5Panel&&w5Panel._h!==h){w5Panel.innerHTML=h;w5Panel._h=h}
+  if(w5Map){var c=w5Map.getContext('2d'),S=140,k=S/(W.half*2);c.clearRect(0,0,S,S);c.fillStyle='#d9c48a';c.fillRect(0,0,S,S);
+    for(var gx=0;gx<35;gx++)for(var gz=0;gz<35;gz++){var wx=(gx/35-.5)*W.half*2+W.half/35,wz=(gz/35-.5)*W.half*2+W.half/35;if(W.water(wx,wz)){c.fillStyle='#3a8fd0';c.fillRect(gx*4,gz*4,4,4)}}
+    var tg2=m&&w5Target(m);if(tg2){c.fillStyle='#ffd400';c.beginPath();c.arc((tg2[0]+W.half)*k,(tg2[1]+W.half)*k,4,0,6.28);c.fill()}
+    c.fillStyle='#e03030';c.beginPath();c.arc((W.x+W.half)*k,(W.z+W.half)*k,3.5,0,6.28);c.fill();c.strokeStyle='#fff';c.lineWidth=1;c.strokeRect(.5,.5,S-1,S-1)}}
+function w5Target(m){var W=W5;if(m.type==='go'||m.type==='escape'||m.type==='fight')return[m.tx,m.tz];if(m.type==='talk'){for(var i=0;i<W.npcs.length;i++)if(W.npcs[i].n===m.npc)return[W.npcs[i].x,W.npcs[i].z]}if(m.type==='collect'){for(var j=0;j<W.items.length;j++)if(!W.items[j].got)return[W.items[j].x,W.items[j].z]}return null}
+
+/* ---------- drawing the world ---------- */
+function w5Frame(){
+  if(!gl)return;resize();var W=W5,now=Date.now(),dt=Math.min(3,(now-w5Last)/16.67||1);w5Last=now;
+  try{w5Update(dt,now)}catch(er){W5.err=String(er)}
+  var cw=$('world').width,ch=$('world').height;gl.disable(gl.SCISSOR_TEST);gl.viewport(0,0,cw,ch);proj=persp(Math.PI/3,cw/ch,.1,170);
+  gl.clearColor(W.sky[0],W.sky[1],W.sky[2],1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(program);
+  var px0=W.x,pz0=W.z,py0=W.y,eye=[px0,py0+3.6,pz0+7.5],tar=[px0,py0+.8,pz0-3];
+  if(W.cut){var t=(now-W.cut)/1000;if(t<6.2){var u=Math.max(0,Math.min(1,(t-1.2)/5)),e=u*u*(3-2*u);eye=[px0+(1-e)*12,py0+3.6+(1-e)*70,pz0+7.5+(1-e)*38];tar=[px0,py0+.8+(1-e)*58,pz0-3-(1-e)*70]}}
+  viewM=look(eye,tar);
+  w5DrawWorld(now);
+  if(W.cut&&now-W.cut<6200){}
+  raf=requestAnimationFrame(drawFrame)}
+function w5DrawWorld(now){
+  var W=W5,px0=W.x,pz0=W.z,i,R=100;
+  box(px0,-.22,pz0,95,.2,95,[.87,.76,.5,1]);if(W.id==='paris')box(px0,-.2,pz0,95,.2,95,W.ground(px0,pz0));
+  /* ground tiles */
+  var T=10,gx0=Math.floor((px0-55)/T)*T,gz0=Math.floor((pz0-55)/T)*T,gx,gz;
+  for(gx=gx0;gx<=px0+55;gx+=T)for(gz=gz0;gz<=pz0+55;gz+=T){var cx=gx+T/2,cz=gz+T/2;if(Math.abs(cx)>W.half+T||Math.abs(cz)>W.half+T)continue;
+    var col=W.ground(cx,cz);if(W.id==='egy'){if(col[0]!==.87)box(cx,-.03,cz,T/2,.03,T/2,col)}else box(cx,-.03,cz,T/2,.03,T/2,col);
+    if(W.water(cx,cz))box(cx,.02+Math.sin(now/600+gx*.1)*.01,cz,T/2,.03,T/2,W.id==='paris'?[.25,.45,.68,1]:[.18,.5,.78,1])}
+  /* sea outside the egypt world / world border markers */
+  if(W.id==='egy'&&pz0<-240)box(px0,.02,-330,200,.03,40,[.12,.4,.7,1]);
+  /* static objects */
+  for(i=0;i<W.objs.length;i++){var ob=W.objs[i];if(ob.hide)continue;if(Math.abs(ob.x-px0)>115||Math.abs(ob.z-pz0)>115)continue;
+    switch(ob.k){case'pyr':w5Pyr(ob.x,ob.z,ob.s,ob.c);break;case'sphinx':w5Sphinx(ob.x,ob.z);break;case'hut':w5Hut(ob.x,ob.z,ob.c);break;case'palm':w5Palm(ob.x,ob.z);break;case'memphis':w5Memphis(ob.x,ob.z);break;case'palace':w5Palace(ob.x,ob.z);break;case'temple':w5Temple(ob.x,ob.z,ob.c);break;case'zig':w5Zig(ob.x,ob.z,ob.c);break;case'ship':w5Ship(ob.x,ob.z,ob.r);break;case'parth':w5Parth(ob.x,ob.z);break;case'light':w5Light(ob.x,ob.z);break;case'colos':w5Colos(ob.x,ob.z);break;case'rock':ball3(ob.x,.3*ob.s,ob.z,ob.s,[.6,.52,.4,1]);break;
+      case'cath':w5Cathedral(ob.x,ob.z);break;case'louvre':w5Louvre(ob.x,ob.z);break;case'press':w5Press(ob.x,ob.z);break;case'stall':w5Stall(ob.x,ob.z,ob.c);break;case'house':w5House(ob.x,ob.z,ob.c);break;case'tree':w5Tree(ob.x,ob.z);break;case'bank':w5Bank(ob.x,ob.z)}}
+  /* paris bridges */
+  if(W.id==='paris'){[-9,32].forEach(function(bx){box(bx,.25,-6+6*Math.sin(bx/18),3.2,.25,9,[.55,.4,.25,1])})}
+  /* clouds high up (visible during the opening) */
+  if(W.cut){for(i=0;i<26;i++){var ang=i*2.4,cr=40+(i%5)*22,cx2=W.x+Math.cos(ang)*cr,cz2=W.z+Math.sin(ang)*cr-30;draw(buf.sphere,modelAt(cx2,60+(i%4)*4,cz2,9+(i%3)*3,3.4,6,0),[1,1,1,1]);draw(buf.sphere,modelAt(cx2+7,61+(i%4)*4,cz2+2,6,3,5,0),[.97,.98,1,1])}}
+  /* items */
+  for(i=0;i<W.items.length;i++){var it=W.items[i];if(it.got)continue;var by=.8+Math.sin(now/300+i)*.25;ball3(it.x,by,it.z,.38,W.id==='egy'?[.95,.8,.25,1]:[.4,.8,.95,1]);box(it.x,6,it.z,.06,6,.06,[1,.9,.3,.7])}
+  /* mission marker */
+  var m=W.missions[W.mi];if(m){var tg=w5Target(m);if(tg){box(tg[0],7,tg[1],.12,7,.12,[1,.85,.1,1]);ball3(tg[0],14.4+Math.sin(now/400)*.4,tg[1],.5,[1,.85,.1,1])}}
+  /* NPCs */
+  for(i=0;i<W.npcs.length;i++){var n=W.npcs[i];if(w5Dist(n.x,n.z,px0,pz0)>90)continue;person3(n.x,n.z,n.col,Math.sin(now/700+n.ph)*.15,[.8,.6,.45,1],0,Math.sin(now/3000+n.ph)*.6);if(m&&m.type==='talk'&&m.npc===n.n)ball3(n.x,2.4+Math.sin(now/300)*.15,n.z,.18,[1,.85,.1,1])}
+  /* enemies */
+  var all=W.enemies.concat(W.chase||[]);
+  for(i=0;i<all.length;i++){var e=all[i];if(e.dead)continue;if(w5Dist(e.x,e.z,px0,pz0)>90)continue;var fl=e.flash&&now<e.flash;
+    if(e.t==='croc'){var g=fl?[1,.4,.4,1]:[.25,.42,.2,1];box(e.x,.08,e.z,.55,.22,1.9,g,e.yaw||0);ball3(e.x,.2,e.z-1.9,.4,g);ball3(e.x-.2,.42,e.z-1.9,.07,[1,.9,0,1]);ball3(e.x+.2,.42,e.z-1.9,.07,[1,.9,0,1]);box(e.x,.05,e.z+2.2,.2,.1,.9,g)}
+    else{var sh=e.t==='soldier'?[.7,.12,.12,1]:[.2,.15,.1,1];person3(e.x,e.z,fl?[1,.5,.5,1]:sh,e.walk||0,[.7,.5,.38,1],0,e.yaw||0);box(e.x+.45,1.2,e.z,.05,.55,.05,[.8,.8,.85,1]);
+      if(e.max<90){box(e.x,2.3,e.z,.5*(e.hp/e.max)+.01,.05,.03,[.9,.2,.2,1])}}}
+  /* player */
+  var pl=playerColor(1),sw=W.swim,lift=(W.y)+(sw?-.62:0),walkPh=sw?now/110:W.walk;
+  if(!(W.dead&&now<W.dead)){person3(W.x,W.z,pl,walkPh,undefined,lift,W.yaw);
+    if(W.atk&&now<W.atk){var f=(W.atk-now)/420,sw2=Math.sin(f*3.14)*1.1;box(W.x+Math.sin(W.yaw)*(.5+sw2*.3)+Math.cos(W.yaw)*.4,1.15+W.y,W.z-Math.cos(W.yaw)*(.5+sw2*.3)+Math.sin(W.yaw)*.4,.05,.55,.05,[.85,.85,.9,1],-W.yaw+sw2)}
+    if(W.hurt&&now<W.hurt)ball3(W.x,1.6+W.y,W.z,.5,[1,.2,.2,.4]);
+    if(sw){for(var r=0;r<2;r++)box(W.x,.05,W.z,.7+((now/500+r*.5)%1)*.9,.01,.7+((now/500+r*.5)%1)*.9,[.8,.92,1,1])}}
+  /* border wall hint */
+  if(Math.abs(W.x)>W.half-3||Math.abs(W.z)>W.half-3)draw3DText(W.lang==='ar'?'END':'END',W.x,2,W.z-3,.12,[1,.3,.2,1])}
+
+/* ---------- controls ---------- */
+var s5OldMoveW=move;
+move=function(d){if(mode==='wld'&&W5){var q=String(d).replace(/2$/,'');W5.mdx=0;W5.mdz=0;if(q==='left')W5.mdx=-1;if(q==='right')W5.mdx=1;if(q==='forward')W5.mdz=-1;if(q==='back')W5.mdz=1;W5.mUntil=Date.now()+120;return}return s5OldMoveW(d)};
+window.addEventListener('keydown',function(e){if(mode!=='wld'||!W5)return;var k=String(e.key).toLowerCase(),map={w:'w',a:'a',s:'s',d:'d',arrowup:'up',arrowleft:'left',arrowdown:'down',arrowright:'right'};if(map[k]){w5Keys[map[k]]=true;e.preventDefault()}
+  if(k===' '||k==='j'){w5Jump();e.preventDefault()}if(k==='f'||k==='enter'){w5Attack()}if(k==='e'){w5Talk()}if(k==='shift'||k==='r'){W5.run=!W5.run}},true);
+window.addEventListener('keyup',function(e){var k=String(e.key).toLowerCase(),map={w:'w',a:'a',s:'s',d:'d',arrowup:'up',arrowleft:'left',arrowdown:'down',arrowright:'right'};if(map[k])w5Keys[map[k]]=false});
+function w5Jump(){var W=W5;if(!W||W.y>.01||W.swim)return;W.vy=.27;effect('jump')}
+function w5Attack(){var W=W5;if(!W||Date.now()<W.atk)return;W.atk=Date.now()+420;W.hitDone=false;effect('click')}
+function w5Talk(){var W=W5;if(!W)return;var best=null,bd=4.5,i;for(i=0;i<W.npcs.length;i++){var d=w5Dist(W.npcs[i].x,W.npcs[i].z,W.x,W.z);if(d<bd){bd=d;best=W.npcs[i]}}
+  if(!best){w5Say(W.lang==='ar'?'لا يوجد أحد قريب. اقترب من شخص ثم اضغط تحدث.':'Nobody is close. Walk next to someone and press Talk.',3500);return}
+  w5Say(best.n+': '+best.say,11000);if(W.lang==='ar'||true){s5Speak(best.say,W.lang==='ar'?'ar-EG':'en-US')}
+  var m=W.missions[W.mi];if(m&&m.type==='talk'&&m.npc===best.n&&!W.asking)setTimeout(function(){if(W5===W&&!W.asking&&W.missions[W.mi]===m)w5Complete()},2500)}
+var s5OldActionW=action;
+action=function(a){
+  if(a==='egyClass'||a==='egy1'){egyEnter(1);return}if(a==='egy2'){egyEnter(2);return}
+  if(a==='egyPrev'||a==='egyNext'){var c=egyPageCount();historyPage=(historyPage+(a==='egyNext'?1:-1)+c)%c;lessonPage=historyPage;egyBannerText();s5Stop();setTimeout(s5ReadNow,150);return}
+  if(a==='egyRead'){S5.systemVoice=true;s5ReadNow();return}if(a==='egyStop'){s5Stop();return}
+  if(a==='egyPick'){egyPickUI(true);return}
+  if(a==='egyQuestion'){historyLesson=10;egyQuiz=true;historyQuestion();return}
+  if(a==='egyBack'){egyLeave();return}
+  if(a==='egyMagic'){s5Stop();egyBanner(false);w5Cutscene('egy');return}
+  if(a==='wAtk'){w5Attack();return}if(a==='wJump'){w5Jump();return}if(a==='wRun'){if(W5)W5.run=!W5.run;return}if(a==='wTalk'){w5Talk();return}
+  if(a==='wHelp'){if(W5){var m=W5.missions[W5.mi];w5Say(m?m.t+' — '+m.d:'🏆',8000)}return}
+  if(a==='wExit'){w5Exit();return}
+  if(a==='backHistory'&&egyQuiz){egyQuiz=false;screen('game');cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame);$('hud').innerHTML=egyHud();egyBanner(true);sas705Msg('رجعت إلى حصة تاريخ مصر.');return}
+  return s5OldActionW(a)};
+var egyQuiz=false;
+/* quiz screen shown in Arabic for the Egypt class */
+var s5OldShowQ=showHistoryQuestion;
+showHistoryQuestion=function(){s5OldShowQ();var ar=historyLesson===10;if(ar)egyBanner(false);var pn=document.querySelector('#historyQuiz .panel');if(pn)pn.dir=ar?'rtl':'ltr';
+  var qt=$('historyQuestionText');if(qt&&ar)qt.textContent=qt.textContent.replace(/^Question (\d+) of (\d+):/,'السؤال $1 من $2:');
+  var h1=document.querySelector('#historyQuiz h1');if(h1)h1.textContent=ar?'اختبر نفسك — تاريخ مصر':'Lesson Check';
+  var btn=document.querySelector('#historyQuiz [data-a="nextHistoryQuestion"]');if(btn)btn.textContent=ar?'◀ السؤال التالي':'Next question ▶';
+  var bk=document.querySelector('#historyQuiz [data-a="backHistory"]');if(bk)bk.textContent=ar?'رجوع':'Back to lesson';
+  var rs=$('historyQuizResult');if(rs&&ar)rs.textContent='اختر إجابة ثم اضغط السؤال التالي.';
+  var ti=document.querySelector('#historyQuiz [data-a="typedCheck"]');if(ti)ti.style.display='none';var hn=document.querySelector('#historyQuiz [data-a="hint"]');if(hn)hn.style.display='none';var ty=$('typedAnswer');if(ty)ty.style.display='none';
+  if(historyQuizIndex>=historyQuizBank.length&&ar){$('historyFinalScore').textContent='نتيجتك: '+historyQuizScore+' / '+historyQuizBank.length;$('historyFinalMessage').textContent=historyQuizScore===historyQuizBank.length?'ممتاز! أجبت على كل الأسئلة بشكل صحيح.':'جهد جميل! راجع الدرس وحاول مرة أخرى.'}};
+document.addEventListener('click',function(e){var n=e.target;if(historyLesson!==10)return;while(n&&n!==document){if(n.getAttribute&&n.hasAttribute('data-hanswer')){setTimeout(function(){var rs=$('historyQuizResult');if(rs){rs.textContent=n.getAttribute('data-hanswer')==='right'?'✔ إجابة صحيحة! اضغط السؤال التالي.':'✘ ليست صحيحة. الإجابة الصحيحة مظللة. اضغط السؤال التالي.'}},0);return}n=n.parentNode}});
+
+/* ---------- frame hook + buttons in school HUD ---------- */
+var s5OldFrame=drawFrame;
+drawFrame=function(){
+  if(mode==='wld'&&W5){try{w5Frame()}catch(er){W5.err=String(er);raf=requestAnimationFrame(drawFrame)}return}
+  try{var hd=$('hud');if(hd){
+    if(mode==='school'&&(room==='yard'||room==='class'||room==='hall')&&!hd.querySelector('[data-a="egyClass"]'))hd.insertAdjacentHTML('beforeend',' <button data-a="egyClass">📜 تاريخ مصر</button>');
+    if(mode==='two'&&hd.querySelector('[data-a="hall1"]')&&!hd.querySelector('[data-a="egy1"]'))hd.insertAdjacentHTML('beforeend',' <button data-a="egy1">P1 📜 تاريخ مصر</button><button data-a="egy2">P2 📜 تاريخ مصر</button>');
+    if(mode==='school'&&room==='egy'){x=Math.max(-9,Math.min(9,x));z=Math.max(-8,Math.min(4,z));var eb=document.getElementById('egyBanner');if(eb&&eb.style.display==='none'&&!$('w5Q'))egyBanner(true)}
+    if(mode==='two'){if(p1Room==='egy'){x=Math.max(-9,Math.min(9,x));z=Math.max(-8,Math.min(4,z))}if(p2Room==='egy'){px=Math.max(-9,Math.min(9,px));pz=Math.max(-8,Math.min(4,pz))}}
+    if(!egyRoomActive()){var b2=document.getElementById('egyBanner');if(b2&&b2.style.display!=='none')b2.style.display='none'}
+  }}catch(e){}
+  s5OldFrame()};
+var s5OldQuit=safeQuitToMenu;safeQuitToMenu=function(){try{w5Keys={};w5UiOn(false);egyBanner(false);egyPickUI(false);s5Stop();W5=null}catch(e){}if(historyLesson>=9)historyLesson=2;s5OldQuit()};
+var s5OldHome=home;home=function(){try{w5Keys={};w5UiOn(false);egyBanner(false);egyPickUI(false);s5Stop();if(mode==='wld')W5=null}catch(e){}if(historyLesson>=9)historyLesson=2;s5OldHome()};
+
+
+/* menu music fix: start it when the intro ends, and retry on any tap/key until the browser allows it */
+(function(){function kick(){try{if(musicAudio&&musicAudio.paused){var r=musicAudio.play();if(r&&r.catch)r.catch(function(){})}else if(!musicAudio&&!window.__s5Menu0&&mode==='menu'){music(musicTrack||'menu')}}catch(e){}}
+['pointerdown','mousedown','touchstart','keydown','click'].forEach(function(ev){window.addEventListener(ev,function(){setTimeout(kick,0)},true)});
+setInterval(function(){try{if(window.__s5IntroDone&&!musicAudio&&(mode==='menu'||!mode)&&document.getElementById('home').className.indexOf('on')>=0){musicTrack='';music('menu')}}catch(e){}},2500)})();
 window.SAS7_GAME={debugState:function(){return{mode:String(mode||'menu'),room:String(room||''),x:Number(x)||0,z:Number(z)||0,players:data.players.length,webgl:!!gl}},profile:function(){var p=player();if(!p)return null;var sx=Number(x)||0,sz=Number(z)||0,onlineScene=mode==='two'?(['school','sky','fall','helicopter'].indexOf(p1Scene)>=0?p1Scene:'school'):(mode==='school'?'school':String(mode||'school')),onlineRoom=mode==='two'?p1Room:room;if(mode==='soccer'&&miniPlayers&&miniPlayers.length){var mp=miniPlayers[activeMiniPlayer||0]||miniPlayers[0];sx=Number(mp.x)||0;sz=Number(mp.z)||0}return{id:String(p.id||''),name:String(p.name||'Student').slice(0,24),className:String(p.className||'10A'),gender:p.gender==='girl'?'girl':'boy',shirtColor:/^#[0-9a-f]{6}$/i.test(p.shirtColor||'')?p.shirtColor:(p.gender==='girl'?'#e936b2':'#17191d'),x:sx,z:sz,room:String(onlineRoom||'class'),scene:onlineScene,walk:Number(walk)||0,moving:Date.now()<sas7MovingUntil,facing:sas7Facing,lift:onlineScene==='sky'?(mode==='two'?Number(altitude1)||2:Number(altitude)||2):onlineScene==='fall'?3:mode==='run'&&jumpFrames>0?.7:0,action:Date.now()<sas7ActionUntil?sas7Action:'',actionUntil:sas7ActionUntil,actionSeq:sas7ActionSeq}},applyProfile:function(v){var p=player();if(!p||!v)return;p.name=String(v.name||p.name).trim().slice(0,24)||p.name;p.gender=v.gender==='girl'?'girl':'boy';if(/^#[0-9a-f]{6}$/i.test(v.shirtColor||''))p.shirtColor=v.shirtColor;if(/^10[ABCDEF]$/.test(v.className||''))p.className=v.className;save();},createOnlineProfile:function(v){if(player())return;v=v||{};var c=/^10[ABCDEF]$/.test(v.className||'')?v.className:'10A',p={id:String(Date.now())+String(Math.random()).slice(2),name:String(v.name||'Student').trim().slice(0,24)||'Student',gender:v.gender==='girl'?'girl':'boy',shirtColor:/^#[0-9a-f]{6}$/i.test(v.shirtColor||'')?v.shirtColor:(v.gender==='girl'?'#e936b2':'#17191d'),className:c,x:0,z:3};data.players.push(p);data.active=p.id;save();},noteAction:function(a){var safe=['attack','p1Attack','p2Attack','leaderAttack','p1LeaderAttack','p2LeaderAttack','leaderKick','spear','p1Spear','p2Spear','spearAttack','learnMagic','eatFood','kick','kick2','shot','jump','helicopterJump','skydive1','skydive2','land','land1','land2','forage','foricte'];if(sas7OnlineActive&&safe.indexOf(a)>=0){sas7Action=a;sas7ActionUntil=Date.now()+850;sas7ActionSeq++}},setOnline:function(v){sas7OnlineActive=!!v;if(!v){sas7RemotePlayers=[];var w=$('sasOnlineTags');if(w)w.innerHTML='';sas7TagNodes=Object.create(null)}},setPeers:function(list){sas7RemotePlayers=Array.isArray(list)?list.slice(0,40):[];var h=$('sasOnlinePeerHud');if(!h){h=document.createElement('div');h.id='sasOnlinePeerHud';h.className='sasOnlinePeerHud';$('game').appendChild(h)}h.textContent=sas7RemotePlayers.length?'ONLINE • '+(sas7RemotePlayers.length+1)+' players':'';h.style.display=sas7OnlineActive&&sas7RemotePlayers.length?'block':'none'},preview:function(){if(!player())return false;try{if(!gl)init3d();mode='school';room='class';screen('game');$('hud').innerHTML='ONLINE PLAYER PREVIEW';$('pad1').className='pad hide';$('pad2').className='pad right hide';$('message').textContent='Your student is shown in the live 3D classroom preview.';stopMusic();cancelAnimationFrame(raf);raf=requestAnimationFrame(drawFrame);return true}catch(e){$('errorText').textContent=e.message||String(e);$('error').className='error on';return false}},startGame:function(){startNormal();setTimeout(function(){var h=$('hud');if(h&&!$('sasOnlineDisconnectButton')){var b=document.createElement('button');b.id='sasOnlineDisconnectButton';b.type='button';b.textContent='Disconnect Online';b.onclick=function(){if(window.SAS7_onlineClose)window.SAS7_onlineClose();if(b.parentNode)b.parentNode.removeChild(b)};h.appendChild(b)}},0)},returnHome:function(){try{cancelAnimationFrame(raf);raf=0}catch(e){}home()},newGame:function(){newGame()}};
 
 })();
